@@ -399,6 +399,9 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " change cursor in different mode
 if has('nvim')
+  " make the ^[ sign with:
+  " (INSERT MODE) <C-v><ESC>
+  " make sure it shows different color than the rest
   set t_SI=[5\ q
   set t_SR=[4\ q
   set t_EI=[1\ q
@@ -410,6 +413,9 @@ else
       let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[1 q\<Esc>\\"
       autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
   else
+      " make the ^[ sign with:
+      " (INSERT MODE) <C-v><ESC>
+      " make sure it shows different color than the rest
       set t_SI=[5\ q
       set t_SR=[4\ q
       set t_EI=[1\ q
