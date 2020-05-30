@@ -2,8 +2,8 @@
 #                     EXPORTS
 ########################################################################
 
-export EDITOR='nvim'
-export SHELL='zsh'
+export EDITOR=nvim
+export SHELL=zsh
 export LANG=en_US.UTF-8
 export TERM=xterm-256color
 
@@ -90,7 +90,7 @@ n ()
     # stty lwrap undef
     # stty lnext undef
 
-    nnn -e "$@"
+    nnn -deo "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
@@ -263,22 +263,22 @@ precmd () {
   echo -n -e "\a"
 }
 
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
+# # Change cursor shape for different vi modes.
+# function zle-keymap-select {
+#   if [[ ${KEYMAP} == vicmd ]] ||
+#      [[ $1 = 'block' ]]; then
+#     echo -ne '\e[1 q'
 
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
-}
+#   elif [[ ${KEYMAP} == main ]] ||
+#        [[ ${KEYMAP} == viins ]] ||
+#        [[ ${KEYMAP} = '' ]] ||
+#        [[ $1 = 'beam' ]]; then
+#     echo -ne '\e[5 q'
+#   fi
+# }
 zle -N zle-keymap-select
-_fix_cursor() {
-   echo -ne '\e[5 q'
-}
-precmd_functions+=(_fix_cursor)
+# _fix_cursor() {
+#    echo -ne '\e[5 q'
+# }
+# precmd_functions+=(_fix_cursor)
 alias config=$CONFTREE

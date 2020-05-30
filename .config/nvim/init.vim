@@ -441,3 +441,4 @@ hi htmlStrike gui=strikethrough cterm=strikethrough guibg=Black ctermbg=Black
 hi Todo guibg=White ctermbg=White guifg=Black ctermfg=Black gui=bold,italic cterm=bold,italic
 hi NonText guifg=#4a4a59 ctermfg=Gray
 hi SpecialKey guifg=#4a4a59 ctermfg=Gray
+hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
