@@ -32,7 +32,7 @@
   "^m"   = ( "toggleMuteState:", "archive:" ); // FIXME: Should be 'markAsMuted:'
   "s"    = "toggleFlag:";
   "!"    = "moveToJunk:";
-  "r"    = "reply:";
+  "r"    = "replySender:";
   "a"    = "replyAll:";
   "f"    = "forwardMessage:";
   "^s"   = "saveDocument:";

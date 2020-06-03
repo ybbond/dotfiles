@@ -21,6 +21,8 @@ export PATH=$PATH:$KUMPATH/yowez-cli/bin
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 export PATH=/Users/yohanesbandung/.nimble/bin:$PATH
+export PATH="/Applications/Emacs.app/Contents/MacOS:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 # export INITVIM=$HOME/.config/nvim/init.vim
 # export PATH=$HOME/bin:$PATH
 
