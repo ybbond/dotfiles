@@ -238,6 +238,9 @@ map <leader>c "+y<cr>
 map <leader>v :r !pbpaste<cr><cr>
 map <leader>ac :%w !pbcopy<cr><cr>
 
+" Toggle wrap
+map <leader>w :set wrap!<cr>
+
 " Unhighlight search
 nnoremap <silent> <LEADER><SPACE> :nohlsearch<CR>
 
