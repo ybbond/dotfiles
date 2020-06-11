@@ -121,6 +121,7 @@ call plug#begin(s:plugin_location)
     let g:vim_markdown_frontmatter = 1  " for YAML format
     let g:vim_markdown_toml_frontmatter = 1  " for TOML format
     let g:vim_markdown_json_frontmatter = 1  " for JSON format
+  Plug 'itspriddle/vim-marked'
   Plug 'godlygeek/tabular'
 
   Plug 'cespare/vim-toml'
@@ -138,7 +139,7 @@ call plug#begin(s:plugin_location)
 
   " Reason
   Plug 'reasonml-editor/vim-reason-plus'
-    autocmd BufNewFile,BufRead *.re nnoremap <leader>w :!refmt --in-place %<CR>
+    autocmd BufNewFile,BufRead *.re nnoremap <leader>w :!refmt --in-place %<cr>
 
   " vlang
   Plug 'cheap-glitch/vim-v'
@@ -242,10 +243,13 @@ map <leader>ac :%w !pbcopy<cr><cr>
 map <leader>w :set wrap!<cr>
 
 " Unhighlight search
-nnoremap <silent> <LEADER><SPACE> :nohlsearch<CR>
+nnoremap <silent> <LEADER><SPACE> :nohlsearch<cr>
 
 " Toggle check spelling
-nnoremap <leader>s :set spell! spelllang=en_us<CR>
+nnoremap <leader>s :set spell! spelllang=en_us<cr>
+
+" Marked toggle
+nnoremap <leader>m :MarkedToggle!<cr>
 
 map <silent> <A-h> <C-w><
 map <silent> <A-k> <C-W>-
@@ -309,10 +313,10 @@ nnoremap gB :bprevious<cr>
   " nnoremap <C-i> :Files<cr>
 
 " |vim-clap|
-  nnoremap <C-i> :Clap grep ++opt=--hidden ++opt=-g=!.git<CR>
-  nnoremap <C-p> :Clap files --hidden<CR>
-  nnoremap <leader>* :Clap grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<CR>
-  nnoremap <C-b> :Clap buffers<CR>
+  nnoremap <C-i> :Clap grep ++opt=--hidden ++opt=-g=!.git<cr>
+  nnoremap <C-p> :Clap files --hidden<cr>
+  nnoremap <leader>* :Clap grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
+  nnoremap <C-b> :Clap buffers<cr>
 
 " |nerdtree|
   map <leader>e :NERDTreeToggle<cr>
