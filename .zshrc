@@ -17,10 +17,11 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=/.config/yarn/global/node_modules/.bin:$PATH./node_modules/.bin:$HOME/.yarn/bin:$HOME
 export PATH=/usr/local/opt/openssl/bin:$PATH
 export PATH=$HOME/Library/Frameworks/Python.framework/Versions/3.6/bin:$PATH
+export PATH=$HOME/Library/Python/3.7/bin:$PATH
 export PATH=$PATH:$KUMPATH/yowez-cli/bin
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
-export PATH=/Users/yohanesbandung/.nimble/bin:$PATH
+export PATH=$HOME/.nimble/bin:$PATH
 export PATH="/Applications/Emacs.app/Contents/MacOS:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 # export INITVIM=$HOME/.config/nvim/init.vim
@@ -31,6 +32,8 @@ export ANDROID_HOME=${HOME}/Library/Android/sdk
 export PATH=${PATH}:${ANDROID_HOME}/emulator
 export PATH=${PATH}:${ANDROID_HOME}/tool
 export PATH="${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+
+export NVIM_HOME="$YBPATH/notes"
 
 ########################################################################
 #                     FUNCTIONS
