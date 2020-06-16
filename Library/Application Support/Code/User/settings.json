@@ -1,0 +1,244 @@
+{
+  "flow.useNPMPackagedFlow": true,
+  "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
+  // BEGIN NOTE: since update vscode on 19/Dec/2018, this should be added.
+  "flow.useLSP": false,
+  // END NOTE:
+  "flow.coverageSeverity": "error",
+  "javascript.validate.enable": false,
+  "diffEditor.renderSideBySide": true,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.dragAndDrop": false,
+  // "editor.fontFamily": "Liga Cartograph Mono CF",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.highlightActiveIndentGuide": false,
+  "editor.lineNumbers": "relative",
+  "editor.matchBrackets": "always",
+  "editor.renderIndentGuides": false,
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  // "editor.formatOnSave": true,
+  "eslint.alwaysShowStatus": true,
+  // "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.suggestSelection": "first",
+  "bracket-pair-colorizer-2.colors": [
+    "white"
+  ],
+  "bracket-pair-colorizer-2.highlightActiveScope": true,
+  "bracket-pair-colorizer-2.showBracketsInGutter": true,
+  "bracket-pair-colorizer-2.scopeLineCSS": [
+    "borderStyle : solid",
+    "borderWidth : 1px",
+    "borderColor : white",
+    "opacity: 0.4"
+  ],
+  "search.quickOpen.includeSymbols": true,
+  "search.showLineNumbers": true,
+  "workbench.colorTheme": "Gruvbox Dark (Medium)",
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.list.automaticKeyboardNavigation": false,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "punctuation.definition.tag.jsx",
+        "settings": {
+          "foreground": "#00fff2"
+        }
+      }
+    ]
+  },
+  "vim.cursorStylePerMode.insert": "line",
+  "vim.easymotionMarkerBackgroundColor": "white",
+  "vim.easymotionMarkerFontFamily": "arial",
+  "vim.easymotionMarkerForegroundColorOneChar": "black",
+  "vim.easymotionMarkerForegroundColorTwoChar": "black",
+  "vim.easymotionMarkerHeight": 20,
+  "vim.easymotionMarkerWidthPerChar": 12,
+  "vim.easymotionMarkerFontWeight": "bold",
+  "vim.easymotionKeys": "hkyuopnmwezxcvbasdgf",
+  "vim.easymotionMarkerYOffset": -4,
+  "vim.enableNeovim": true,
+  "vim.highlightedyank.enable": true,
+  "vim.replaceWithRegister": true,
+  "vim.hlsearch": true,
+  "vim.incsearch": true,
+  "vim.neovimPath": "/usr/local/bin/nvim",
+  "vim.searchHighlightColor": "rgba(150, 150, 255, 0.3)",
+  "vim.visualstar": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "k"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "&"
+      ],
+      "after": [
+        "#"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "c"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.editor.nextChange",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "c"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.editor.previousChange",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "C"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.compareEditor.previousChange",
+          "args": []
+        },
+        {
+          "command": "editor.action.dirtydiff.previous",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "C"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.compareEditor.nextChange",
+          "args": []
+        },
+        {
+          "command": "editor.action.dirtydiff.next",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": [
+        "u"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "undo",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": [
+        "<C-r>"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "redo",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "<space>"
+      ],
+      "commands": [
+        ":nohl"
+      ]
+    },
+    {
+      "before": [
+        "Q"
+      ],
+      "after": [
+        "<leader>",
+        "<leader>",
+        "<leader>",
+        "j"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "p"
+      ],
+      "after": [
+        "p",
+        "g",
+        "v",
+        "y"
+      ]
+    }
+  ],
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#333333",
+    "statusBar.noFolderBackground": "#333333",
+    "statusBar.debuggingBackground": "#333333",
+    "editor.selectionBackground": "#333333",
+    "editor.selectionBorder": "#ffffffbb",
+    "editor.selectionHighlightBackground": "#4f4e4e",
+    "editor.selectionHighlightBorder": "#ffffffbb"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "gitlens.views.repositories.location": "scm",
+  "gitlens.views.fileHistory.location": "scm",
+  "gitlens.views.lineHistory.location": "scm",
+  "gitlens.views.search.location": "scm",
+  "gitlens.views.compare.location": "scm",
+  "editor.fontFamily": "IBM Plex Mono, Hermit, Victor Mono, Liga Cartograph Mono CF, Menlo, Monaco, 'Courier New', monospace",
+  "editor.minimap.showSlider": "always",
+  "editor.minimap.maxColumn": 100,
+  "editor.renderWhitespace": "selection",
+  "editor.renderLineHighlight": "all",
+  "editor.renderFinalNewline": false,
+  "editor.cursorSurroundingLines": 5,
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "editor.codeLens": false,
+  "window.zoomLevel": -1,
+  "window.titleBarStyle": "native",
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": true
+  },
+  "editor.minimap.enabled": true,
+  "workbench.sideBar.location": "right",
+  "vim.cursorStylePerMode.replace": "underline"
+}
