@@ -8,15 +8,12 @@
   "javascript.validate.enable": false,
   "diffEditor.renderSideBySide": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "editor.acceptSuggestionOnEnter": "off",
   "editor.dragAndDrop": false,
   // "editor.fontFamily": "Liga Cartograph Mono CF",
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
-  "editor.highlightActiveIndentGuide": false,
   "editor.lineNumbers": "relative",
-  "editor.matchBrackets": "always",
-  "editor.renderIndentGuides": false,
+  "editor.matchBrackets": "near",
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
   // "editor.formatOnSave": true,
@@ -53,15 +50,6 @@
     ]
   },
   "vim.cursorStylePerMode.insert": "line",
-  "vim.easymotionMarkerBackgroundColor": "white",
-  "vim.easymotionMarkerFontFamily": "arial",
-  "vim.easymotionMarkerForegroundColorOneChar": "black",
-  "vim.easymotionMarkerForegroundColorTwoChar": "black",
-  "vim.easymotionMarkerHeight": 20,
-  "vim.easymotionMarkerWidthPerChar": 12,
-  "vim.easymotionMarkerFontWeight": "bold",
-  "vim.easymotionKeys": "hkyuopnmwezxcvbasdgf",
-  "vim.easymotionMarkerYOffset": -4,
   "vim.enableNeovim": true,
   "vim.highlightedyank.enable": true,
   "vim.replaceWithRegister": true,
@@ -212,7 +200,7 @@
     "statusBar.background": "#333333",
     "statusBar.noFolderBackground": "#333333",
     "statusBar.debuggingBackground": "#333333",
-    "editor.selectionBackground": "#333333",
+    "editor.selectionBackground": "#ff0000",
     "editor.selectionBorder": "#ffffffbb",
     "editor.selectionHighlightBackground": "#4f4e4e",
     "editor.selectionHighlightBorder": "#ffffffbb"
@@ -238,7 +226,14 @@
     "editor.wordWrap": "on",
     "editor.quickSuggestions": true
   },
-  "editor.minimap.enabled": true,
+  "editor.minimap.enabled": false,
   "workbench.sideBar.location": "right",
-  "vim.cursorStylePerMode.replace": "underline"
+  "vim.cursorStylePerMode.replace": "underline",
+  "terminal.integrated.macOptionIsMeta": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.copyWithSyntaxHighlighting": false,
+  "files.simpleDialog.enable": true,
+  "editor.cursorSmoothCaretAnimation": true
 }
