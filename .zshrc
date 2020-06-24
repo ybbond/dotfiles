@@ -34,6 +34,7 @@ export PATH=${PATH}:${ANDROID_HOME}/tool
 export PATH="${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 
 export NVIM_HOME="$YBPATH/notes"
+export SCRIPT=~/Library/Mobile\ Documents/com\~apple\~ScriptEditor2/Documents
 
 ########################################################################
 #                     FUNCTIONS

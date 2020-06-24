@@ -16,16 +16,23 @@
   "prettier.eslintIntegration": true,
   "prettier.tslintIntegration": true,
   "prettier.ignorePath": ".prettierignore",
+  "tsserver.npm": "/usr/local/bin/npm",
   "languageserver": {
     "ccls": {
       "command": "ccls",
       "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
       "initializationOptions": {
-         "cache": {
-           "directory": "/tmp/ccls"
-         },
-         "clang": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        },
+        "clang": {
           "resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0",
           "extraArgs": [
             "-isystem",
@@ -50,7 +57,7 @@
             "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
           ]
         }
-       }
+      }
     },
     "golang": {
       "command": "gopls",
