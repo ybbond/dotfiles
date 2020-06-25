@@ -33,3 +33,10 @@
 ;; Disable clipboard altogether.
 ;; Use clipboard register to copy-paste with system clipboard!
 (setq select-enable-clipboard nil)
+
+;; (after! dired
+;;   ;; (setq dired-listing-switches "-aBhl --group-directories-first"
+;;   (setq dired-listing-switches "-aBhl"
+;;         dired-dwim-target t
+;;         dired-recursive-copies (quote always)
+;;         dired-recursive-deletes (quote top)))
