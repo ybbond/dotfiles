@@ -14,15 +14,10 @@
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 (setq user-full-name "Yohanes Bandung Bondowoso"
-      user-mail-address "hi@ybbond.dev"
+      user-mail-address "hi@ybbond.dev")
 
-      display-line-numbers-type 'relative
-      select-enable-clipboard nil
-      doom-theme 'doom-one)
-
-(setq org-directory "~/org/"
-      org-ellipsis " ▼ ")
-
+(load! "+ui")
+(load! "+org")
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -40,3 +35,5 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+(map! :iv "s-v" (lambda! (evil-paste-from-register ?+)))
