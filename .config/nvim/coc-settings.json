@@ -9,9 +9,6 @@
     "reasonreact"
   ],
   "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
-  "html.validate.styles": true,
-  "scss.validate": true,
-  "html.validate.scripts": true,
   "javascript.validate.enable": false,
   "prettier.eslintIntegration": true,
   "prettier.tslintIntegration": true,

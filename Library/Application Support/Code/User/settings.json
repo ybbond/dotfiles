@@ -220,7 +220,7 @@
   "editor.cursorSurroundingLines": 5,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "editor.codeLens": false,
-  "window.zoomLevel": 1,
+  "window.zoomLevel": -1,
   "window.titleBarStyle": "native",
   "[markdown]": {
     "editor.wordWrap": "on",
