@@ -30,13 +30,41 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-;; Disable clipboard altogether.
-;; Use clipboard register to copy-paste with system clipboard!
+;; Emacs Configurations
 (setq select-enable-clipboard nil)
 
-;; (after! dired
-;;   ;; (setq dired-listing-switches "-aBhl --group-directories-first"
-;;   (setq dired-listing-switches "-aBhl"
-;;         dired-dwim-target t
-;;         dired-recursive-copies (quote always)
-;;         dired-recursive-deletes (quote top)))
+;; remove hook for clipboard configurations from emacs to command mode
+(remove-hook 'tty-setup-hook 'doom-init-clipboard-in-tty-emacs-h)
+
+;; enable ⌘+c and ⌘+v for clipboard handling
+(defun rc-clipboard-yank ()
+  "Copies the active region to the system clipboard."
+  (interactive)
+  (when (region-active-p)
+    (gui-set-selection 'CLIPBOARD
+                       (buffer-substring (region-beginning) (region-end)))))
+(defun rc-clipboard-paste ()
+  "Pastes text from the system clipboard."
+  (interactive)
+  (let ((text (gui-get-selection 'CLIPBOARD)))
+    (when text (insert-for-yank text))))
+(map! :v "s-c" #'rc-clipboard-yank
+      :nvi "s-v" #'rc-clipboard-paste)
+(define-key! :keymaps '(evil-ex-completion-map) "s-v" #'rc-clipboard-paste)
+(define-key! :keymaps +default-minibuffer-maps "s-v" #'rc-clipboard-paste)
+
+;; Snipe
+(after! evil-snipe
+  (setq evil-snipe-smart-case t)
+  (setq evil-snipe-scope 'whole-buffer)
+  (setq evil-snipe-auto-scroll t)
+  (setq evil-snipe-repeat-keys t)
+  (setq evil-snipe-repeat-scope 'whole-buffer))
+
+;; Dired
+(after! dired
+  ;; (setq dired-listing-switches "-aBhl --group-directories-first"
+  (setq dired-listing-switches "-aBhl"
+        dired-dwim-target t
+        dired-recursive-copies (quote always)
+        dired-recursive-deletes (quote top)))

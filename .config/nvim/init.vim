@@ -268,15 +268,15 @@ nnoremap gB :bprevious<cr>
   map F <Plug>Sneak_F
   map t <Plug>Sneak_t
   map T <Plug>Sneak_T
-  " 2-character Sneak (default)
-  nmap Q <Plug>Sneak_s
-  nmap <leader>Q <Plug>Sneak_S
-  " visual-mode
-  xmap Q <Plug>Sneak_s
-  xmap <leader>Q <Plug>Sneak_S
-  " operator-pending-mode
-  omap Q <Plug>Sneak_s
-  omap <leader>Q <Plug>Sneak_S
+  " " 2-character Sneak (default)
+  " nmap Q <Plug>Sneak_s
+  " nmap <leader>Q <Plug>Sneak_S
+  " " visual-mode
+  " xmap Q <Plug>Sneak_s
+  " xmap <leader>Q <Plug>Sneak_S
+  " " operator-pending-mode
+  " omap Q <Plug>Sneak_s
+  " omap <leader>Q <Plug>Sneak_S
 
 " |vim-fugitive|
   map <leader>kp :Gdiff!<cr>

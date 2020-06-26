@@ -2,12 +2,12 @@
 
 ;; source https://github.com/theianjones/dotfiles/blob/master/.doom.d/+org.el
 
-;; (setq org_notes "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes"
-(setq org_notes "~/Notes"
+(setq org_notes "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes"
+; (setq org_notes "~/Notes"
       org-directory org_notes
       deft-directory org_notes
       org-roam-directory org_notes
-      org-roam-db-location "~/Notes/org-roam.db"
+      org-roam-db-location "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/org-roam.db"
       org-id-link-to-org-use-id t
       org-ellipsis " ▼ ")
 
@@ -30,12 +30,19 @@
 
 (after! org-roam
   (add-hook 'after-init-hook 'org-roam-mode)
+  :config
   (setq org-roam-graph-viewer "/usr/bin/open")
   (setq org-roam-capture-ref-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "websites/${slug}"
-           :head "#+title: ${title}\n#+author: ${author}\n#+roam_key: ${ref}\n#+roam_tags: websites\n- source :: ${ref}"
+           :head "#+title: ${title}
+#+author: ${author}
+#+roam_key: ${ref}
+#+roam_tags: web_references
+- tags :: [[file:../tags/20200626210745-t_web_references.org|t:web_references]]
+- saved :: ${savedDate}
+- source :: ${ref}\n\n* Highlights\n"
            :unnarrowed t))))
 
   (setq org-roam-dailies-capture-templates
@@ -57,15 +64,26 @@
            :file-name "tags/%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}\n#+roam_tags: tags"
            :unnarrowed t)
+          ("c" "companies" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "companies/%<%Y%m%d%H%M%S>-${slug}"
+           :head "#+title: ${title}
+#+roam_tags: companies
+- tags :: [[file:../tags/20200626210315-t_companies.org|t:companies]]\n"
+           :unnarrowed t)
           ("p" "products" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "products/%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+title: ${title}\n#+roam_tags: products\n"
+           :head "#+title: ${title}
+#+roam_tags: products
+- tags :: [[file:../tags/20200626205545-t_products.org|t:products]]\n"
            :unnarrowed t)
           ("i" "people" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "people/%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+title: ${title}\n#+roam_tags: people\n"
+           :head "#+title: ${title}
+#+roam_tags: people
+- tags :: [[file:../tags/20200626210651-t_people.org|t:people]]\n"
            :unnarrowed t)))
 
 (use-package! deft
@@ -83,7 +101,7 @@
   :bind
   ("C-c n j" . org-journal-new-entry)
   :config
-  (setq org-journal-dir "~/Notes/journals/")
+  (setq org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/")
   (setq org-journal-date-prefix "#+title: ")
   (setq org-journal-file-format "%Y-%m-%d.org")
   (setq org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n"))
@@ -94,7 +112,7 @@
         :n "M-j" #'org-metadown
         :n "M-k" #'orge-metaup))
 
-;; (use-package org-roam-server
+;; (use-package! org-roam-server
 ;;     :ensure t)
 
 ;; (add-hook 'org-roam-server-mode (lambda () (browse-url-chrome "http://localhost:3001")))
@@ -102,18 +120,18 @@
 ;; Refile a heading to another buffer
 ;; Allows you to refile into different files - specifically to
 ;; create new 'parent' headings
-;; (setq org-refile-use-outline-path 'file)
+(setq org-refile-use-outline-path 'file)
 ;; makes org-refile outline working with helm/ivy
-;; (setq org-outline-path-complete-in-steps nil)
-;; (setq org-refile-allow-creating-parent-nodes 'confirm)
-;; (defun +org/opened-buffer-files ()
+(setq org-outline-path-complete-in-steps nil)
+(setq org-refile-allow-creating-parent-nodes 'confirm)
+(defun +org/opened-buffer-files ()
 ;;   "Return the list of files currently opened in emacs"
-;;   (delq nil
-;;         (mapcar (lambda (x)
-;;                   (if (and (buffer-file-name x)
-;;                            (string-match "\\.org$"
-;;                                          (buffer-file-name x)))
-;;                       (buffer-file-name x)))
-;;                 (buffer-list))))
+  (delq nil
+        (mapcar (lambda (x)
+                  (if (and (buffer-file-name x)
+                           (string-match "\\.org$"
+                                         (buffer-file-name x)))
+                      (buffer-file-name x)))
+                (buffer-list))))
 
-;; (setq org-refile-targets '((+org/opened-buffer-files :maxlevel . 9)))
+(setq org-refile-targets '((+org/opened-buffer-files :maxlevel . 9)))
