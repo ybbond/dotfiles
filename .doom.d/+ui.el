@@ -30,19 +30,21 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-;; Emacs Configurations
+
+;;
+;; Better Copy-Paste and Clipboard Handling
+;;
+;; Disable Emacs' integration of killring with clipboard
 (setq select-enable-clipboard nil)
-
-;; remove hook for clipboard configurations from emacs to command mode
+;; Remove hook for clipboard configurations from Emacs to command mode
 (remove-hook 'tty-setup-hook 'doom-init-clipboard-in-tty-emacs-h)
-
-;; enable ⌘+c and ⌘+v for clipboard handling
+;; Enable ⌘+c and ⌘+v for clipboard handling
 (defun rc-clipboard-yank ()
   "Copies the active region to the system clipboard."
   (interactive)
   (when (region-active-p)
     (gui-set-selection 'CLIPBOARD
-                       (buffer-substring (region-beginning) (region-end)))))
+      (buffer-substring (region-beginning) (region-end)))))
 (defun rc-clipboard-paste ()
   "Pastes text from the system clipboard."
   (interactive)
@@ -68,3 +70,9 @@
         dired-dwim-target t
         dired-recursive-copies (quote always)
         dired-recursive-deletes (quote top)))
+
+;; Better visual line
+(use-package evil-better-visual-line
+  :ensure t
+  :config
+  (evil-better-visual-line-on))

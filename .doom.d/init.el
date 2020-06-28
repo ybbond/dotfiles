@@ -179,7 +179,7 @@
        (default +bindings +smartparens))
 
 ;; Evil Configurations
-(setq evil-respect-visual-line-mode t)
+;; (setq evil-respect-visual-line-mode t)
 (setq evil-move-cursor-back nil)
 (setq evil-esc-delay 1)
 (setq evil-kill-on-visual-paste nil)

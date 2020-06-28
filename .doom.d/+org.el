@@ -40,9 +40,10 @@
 #+author: ${author}
 #+roam_key: ${ref}
 #+roam_tags: web_references
-- tags :: [[file:../tags/20200626210745-t_web_references.org|t:web_references]]
 - saved :: ${savedDate}
-- source :: ${ref}\n\n* Highlights\n"
+- source :: ${ref}
+
+* Highlights\n"
            :unnarrowed t))))
 
   (setq org-roam-dailies-capture-templates
@@ -50,7 +51,8 @@
       "%?"
       :immediate-finish t
       :file-name "journals/%<%Y-%m-%d>"
-      :head "#+title: %<%A>, %<%d> %<%B> %<%Y>\n#+roam_tags: journals\n"
+      :head "#+title: %<%A>, %<%d> %<%B> %<%Y>
+#+roam_tags: journals\n"
       :unnarrowed t)))
 
   (setq org-roam-capture-templates
@@ -59,31 +61,23 @@
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}\n"
            :unnarrowed t)
-          ("t" "tags" plain (function org-roam-capture--get-point)
-           "%?"
-           :file-name "tags/%<%Y%m%d%H%M%S>-${slug}"
-           :head "#+title: ${title}\n#+roam_tags: tags"
-           :unnarrowed t)
           ("c" "companies" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "companies/%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}
-#+roam_tags: companies
-- tags :: [[file:../tags/20200626210315-t_companies.org|t:companies]]\n"
+#+roam_tags: companies\n"
            :unnarrowed t)
           ("p" "products" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "products/%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}
-#+roam_tags: products
-- tags :: [[file:../tags/20200626205545-t_products.org|t:products]]\n"
+#+roam_tags: products\n"
            :unnarrowed t)
           ("i" "people" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "people/%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}
-#+roam_tags: people
-- tags :: [[file:../tags/20200626210651-t_people.org|t:people]]\n"
+#+roam_tags: people\n"
            :unnarrowed t)))
 
 (use-package! deft
@@ -112,8 +106,18 @@
         :n "M-j" #'org-metadown
         :n "M-k" #'orge-metaup))
 
-;; (use-package! org-roam-server
-;;     :ensure t)
+(use-package! org-roam-server
+  :ensure t
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 3001
+        org-roam-server-export-inline-images t
+        org-roam-server-authenticate nil
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
 
 ;; (add-hook 'org-roam-server-mode (lambda () (browse-url-chrome "http://localhost:3001")))
 
