@@ -22,7 +22,7 @@
        (company +childframe)           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       (ivy +fuzzy)               ; a search engine for love and life
 
        :ui
        deft              ; notational velocity for Emacs
@@ -184,3 +184,6 @@
 (setq evil-esc-delay 1)
 (setq evil-kill-on-visual-paste nil)
 ;; (setq evil-want-minibuffer t)
+
+
+(setq savehist-mode -1)

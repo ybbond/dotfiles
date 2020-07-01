@@ -49,11 +49,7 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
+(package! evil-better-visual-line)
 (package! org-journal)
-;; (package! org-roam-server
-;;   :recipe (:host github :repo "org-roam/org-roam-server"))
-;; (use-package! easy-hugo
-;;   :init
-;;   (setq easy-hugo-basedir "~/projects/bandung/ybbond/")
-;;   (setq easy-hugo-url "https://ybbond.dev")
-;;   :bind ("C-c C-e" . easy-hugo))
+(package! org-roam-server
+  :recipe (:host github :repo "org-roam/org-roam-server"))

@@ -11,19 +11,6 @@
       org-id-link-to-org-use-id t
       org-ellipsis " ▼ ")
 
-;; I use C-c c to start capture mode
-(global-set-key (kbd "C-c c") 'org-capture)
-
-(setq org-todo-state-tags-triggers
-      (quote (("CANCELLED" ("CANCELLED" . t))
-              ("WAITING" ("WAITING" . t))
-              ("HOLD" ("WAITING") ("HOLD" . t))
-              (done ("WAITING") ("HOLD"))
-              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
-
-
 (use-package! org-roam
   :hook
   (after-init . org-roam-mode))
@@ -44,13 +31,16 @@
 - source :: ${ref}
 
 * Highlights\n"
-           :unnarrowed t))))
+           :immediate-finish t
+           :unnarrowed t
+           :config
+           (add-hook! 'after-init-hook 'org-roam-db-build-cache)))))
 
   (setq org-roam-dailies-capture-templates
     '(("d" "daily" plain (function org-roam-capture--get-point)
       "%?"
-      :immediate-finish t
       :file-name "journals/%<%Y-%m-%d>"
+      :immediate-finish t
       :head "#+title: %<%A>, %<%d> %<%B> %<%Y>
 #+roam_tags: journals\n"
       :unnarrowed t)))
@@ -60,24 +50,36 @@
            "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}\n"
+           :immediate-finish t
+           :unnarrowed t)
+          ("k" "kumparan" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "kumparan/%<%Y%m%d%H%M%S>-${slug}"
+           :head "#+title: ${title}
+#+roam_tags: kumparan
+- backlinks :: [[file:../20200630143644-kumparan.org][kumparan]]"
+           :immediate-finish t
            :unnarrowed t)
           ("c" "companies" plain (function org-roam-capture--get-point)
            "%?"
-           :file-name "companies/%<%Y%m%d%H%M%S>-${slug}"
+           :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}
 #+roam_tags: companies\n"
+           :immediate-finish t
            :unnarrowed t)
           ("p" "products" plain (function org-roam-capture--get-point)
            "%?"
-           :file-name "products/%<%Y%m%d%H%M%S>-${slug}"
+           :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}
 #+roam_tags: products\n"
+           :immediate-finish t
            :unnarrowed t)
           ("i" "people" plain (function org-roam-capture--get-point)
            "%?"
-           :file-name "people/%<%Y%m%d%H%M%S>-${slug}"
+           :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}
 #+roam_tags: people\n"
+           :immediate-finish t
            :unnarrowed t)))
 
 (use-package! deft
@@ -95,16 +97,21 @@
   :bind
   ("C-c n j" . org-journal-new-entry)
   :config
-  (setq org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/")
-  (setq org-journal-date-prefix "#+title: ")
-  (setq org-journal-file-format "%Y-%m-%d.org")
-  (setq org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n"))
-(setq org-journal-enable-agenda-integration t)
+  (setq org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/"
+        org-journal-date-prefix "#+title: "
+        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n"
+        org-journal-enable-agenda-integration t
+        org-journal-carryover-delete-empty-journal nil))
 
 (after! org
   (map! :map org-mode-map
         :n "M-j" #'org-metadown
-        :n "M-k" #'orge-metaup))
+        :n "M-k" #'orge-metaup)
+  :config
+  (setq org-id-link-to-org-use-id nil
+        org-pretty-entities t
+        org-hide-emphasis-markers t))
 
 (use-package! org-roam-server
   :ensure t
