@@ -13,7 +13,6 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.cargo/bin
 # export PATH=$PATH:/usr/local/bin
-# export PATH=/usr/local/opt/node@8/bin:$PATH
 export PATH=/.config/yarn/global/node_modules/.bin:$PATH./node_modules/.bin:$HOME/.yarn/bin:$HOME
 export PATH=/usr/local/opt/openssl/bin:$PATH
 export PATH=$HOME/Library/Frameworks/Python.framework/Versions/3.6/bin:$PATH
@@ -33,8 +32,10 @@ export PATH=${PATH}:${ANDROID_HOME}/emulator
 export PATH=${PATH}:${ANDROID_HOME}/tool
 export PATH="${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 
-export NVIM_HOME="$YBPATH/notes"
 export SCRIPT=~/Library/Mobile\ Documents/com\~apple\~ScriptEditor2/Documents
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 ########################################################################
 #                     FUNCTIONS
@@ -129,6 +130,7 @@ alias ybreason="cd ${YBPATH}/ybbond-reason"
 alias ftex="cd ${YBPATH}/latex"
 alias todo="nvim ~/todo.md"
 alias mine="nvim ~/Library/Mobile\ Documents/27N4MQEA55~pro~writer/Documents"
+alias fetchwm="WEBMENTIONS_TOKEN=${WMTOKEN} node ${YBPATH}/ybbond/webmentions.js"
 
 # settings
 alias zshrc="nvim ~/.zshrc"
@@ -240,7 +242,10 @@ zplugin light zdharma/fast-syntax-highlighting
 
 zplugin light denysdovhan/spaceship-prompt
 
-export NVM_LAZY_LOAD=true
+export NVM_DIR="$HOME/.nvm"
+# export NVM_COMPLETION=true
+# export NVM_LAZY_LOAD=true
+# export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim')
 zplugin light lukechilds/zsh-nvm
 
 zplugin load zdharma/history-search-multi-word
@@ -288,3 +293,6 @@ zle -N zle-keymap-select
 # }
 # precmd_functions+=(_fix_cursor)
 alias config=$CONFTREE
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi

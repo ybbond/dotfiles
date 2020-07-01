@@ -71,6 +71,14 @@
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
     {
+        "before": ["j"],
+        "after": ["g", "j"]
+    },
+    {
+        "before": ["k"],
+        "after": ["g", "k"]
+    },
+    {
       "before": [
         "&"
       ],
@@ -200,7 +208,7 @@
     "statusBar.background": "#333333",
     "statusBar.noFolderBackground": "#333333",
     "statusBar.debuggingBackground": "#333333",
-    "editor.selectionBackground": "#ff0000",
+    "editor.selectionBackground": "#4f4e4f",
     "editor.selectionBorder": "#ffffffbb",
     "editor.selectionHighlightBackground": "#4f4e4e",
     "editor.selectionHighlightBorder": "#ffffffbb"
@@ -227,7 +235,6 @@
     "editor.quickSuggestions": true
   },
   "editor.minimap.enabled": false,
-  "workbench.sideBar.location": "right",
   "vim.cursorStylePerMode.replace": "underline",
   "terminal.integrated.macOptionIsMeta": true,
   "[javascript]": {
@@ -235,5 +242,6 @@
   },
   "editor.copyWithSyntaxHighlighting": false,
   "files.simpleDialog.enable": true,
-  "editor.cursorSmoothCaretAnimation": true
+  "editor.cursorSmoothCaretAnimation": true,
+  "workbench.sideBar.location": "right"
 }

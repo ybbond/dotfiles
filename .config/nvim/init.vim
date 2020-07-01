@@ -144,9 +144,9 @@ call plug#begin(s:plugin_location)
   " vlang
   Plug 'cheap-glitch/vim-v'
     let g:v_warnings=1
-    au BufNewFile,BufRead *.v setlocal tabstop=4
-    au BufNewFile,BufRead *.v setlocal shiftwidth=4
-    au BufNewFile,BufRead *.v setlocal set noexpandtab
+    au BufNewFile,BufRead *.(v|py) setlocal tabstop=4
+    au BufNewFile,BufRead *.(v|py) setlocal shiftwidth=4
+    au BufNewFile,BufRead *.(v|py) setlocal set noexpandtab
 
   " LaTex
   Plug 'lervag/vimtex'
