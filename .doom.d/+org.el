@@ -96,6 +96,8 @@
 (use-package! org-journal
   :bind
   ("C-c n j" . org-journal-new-entry)
+  ("C-c b" . org-journal-previous-entry)
+  ("C-c f" . org-journal-next-entry)
   :config
   (setq org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/"
         org-journal-date-prefix "#+title: "

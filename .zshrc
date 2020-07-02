@@ -242,7 +242,7 @@ zplugin light zdharma/fast-syntax-highlighting
 
 zplugin light denysdovhan/spaceship-prompt
 
-export NVM_DIR="$HOME/.nvm"
+# export NVM_DIR="$HOME/.nvm"
 # export NVM_COMPLETION=true
 # export NVM_LAZY_LOAD=true
 # export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim')
