@@ -113,7 +113,17 @@
   :config
   (setq org-id-link-to-org-use-id nil
         org-pretty-entities t
-        org-hide-emphasis-markers t))
+        org-hide-emphasis-markers t)
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "PRGS(p)" "TEST(i)" "FDBK(f)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)")
+          (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")))
+  (setq org-todo-keyword-faces
+        '(("[-]" . +org-todo-active)
+          ("PRGS" . +org-todo-active)
+          ("[?]" . +org-todo-onhold)
+          ("FDBK" . +org-todo-onhold)
+          ("TEST" . +org-todo-onhold)
+          ("HOLD" . +org-todo-project))))
 
 (use-package! org-roam-server
   :ensure t
