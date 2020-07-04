@@ -9,8 +9,8 @@ endif
 
 " PlugIns
 call plug#begin(s:plugin_location)
-  Plug 'sainnhe/gruvbox-material'
-    let g:gruvbox_material_enable_italic = 1
+  Plug 'morhetz/gruvbox'
+    let g:gruvbox_italic = 1
 
   " *fzf.vim*
   Plug '/usr/local/opt/fzf'
@@ -57,7 +57,7 @@ call plug#begin(s:plugin_location)
     let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
     let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
     let g:airline#extensions#vimtex#enabled = 0
-    let g:airline_theme = 'gruvbox_material'
+    let g:airline_theme = 'gruvbox'
 
   " *tmux*
   Plug 'tmux-plugins/vim-tmux'
@@ -156,8 +156,8 @@ call plug#begin(s:plugin_location)
 
 call plug#end()
 
-colorscheme gruvbox-material
-set background=dark
+colorscheme gruvbox
+" set background=dark
 set termguicolors
 
 syntax enable
@@ -313,9 +313,14 @@ nnoremap gB :bprevious<cr>
   " nnoremap <C-i> :Files<cr>
 
 " |vim-clap|
-  nnoremap <C-i> :Clap grep ++opt=--hidden ++opt=-g=!.git<cr>
-  nnoremap <C-p> :Clap files --hidden<cr>
-  nnoremap <leader>* :Clap grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
+  nnoremap <C-i> :Clap!! grep ++opt=--hidden ++opt=-g=!.git<cr>
+  nnoremap <leader><C-i> :Clap grep ++opt=--hidden ++opt=-g=!.git<cr>
+  nnoremap <C-p> :Clap!! files --hidden<cr>
+  nnoremap <leader><C-p> :Clap files --hidden<cr>
+  nnoremap <leader>* :Clap!! grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
+  nnoremap <leader><leader>* :Clap grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
+  vnoremap <leader>* :Clap!! grep ++query=@visual ++opt=--hidden ++opt=-g=!.git<cr>
+  vnoremap <leader><leader>* :Clap grep ++query=@visual ++opt=--hidden ++opt=-g=!.git<cr>
   nnoremap <C-b> :Clap buffers<cr>
 
 " |nerdtree|
@@ -443,7 +448,7 @@ set diffopt+=vertical
 
 " Change comment color
 " hi Comment guifg=LightBlue
-hi Comment gui=bold cterm=bold
+hi Comment gui=italic cterm=italic
 hi htmlStrike gui=strikethrough cterm=strikethrough guibg=Black ctermbg=Black
 hi Todo guibg=White ctermbg=White guifg=Black ctermfg=Black gui=bold,italic cterm=bold,italic
 hi NonText guifg=#4a4a59 ctermfg=Gray
