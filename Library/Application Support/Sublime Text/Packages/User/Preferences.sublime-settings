@@ -1,0 +1,48 @@
+{
+  "always_show_minimap_viewport": true,
+  "auto_complete_cycle": true,
+  "binary_file_patterns":
+  [
+    ".svn/",
+    ".git/",
+    "node_modules/",
+    "bower_components/"
+  ],
+  "bold_folder_labels": true,
+  "create_window_at_startup": false,
+  "default_line_ending": "unix",
+  "drag_text": false,
+  "draw_white_space": "all",
+  "highlight_line": true,
+  "highlight_modified_tabs": true,
+  "hot_exit": false,
+  "ignored_packages":
+  [
+    "JavaScript",
+    "Six",
+    "Vintage",
+    "Vintageous",
+  ],
+  "indent_guide_options":
+  [
+    "draw_active"
+  ],
+  "index_skip_unknown_extensions": false,
+  "match_brackets_angle": true,
+  "relative_line_numbers": true,
+  "shift_tab_unindent": true,
+  "show_indentation": false,
+  "tab_size": 2,
+  "theme": "Adaptive.sublime-theme",
+  "translate_tabs_to_spaces": true,
+
+  "lsp_format_on_save": true,
+  "neovintageous_build_version": 11100,
+  "neovintageous_search_inc_style": "fill",
+  "neovintageous_search_occ_style": "outline",
+  "vintage_start_in_command_mode": true,
+  "vintageous_i_escape_jk": true,
+  "vintageous_use_ctrl_keys": true,
+  "vintageous_use_super_keys": null,
+	"font_size": 12,
+}

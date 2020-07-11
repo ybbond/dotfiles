@@ -1,0 +1,64 @@
+[
+  {
+    "keys": ["ctrl+f"],
+    "command": "right_delete",
+    "args": {"mode": "mode_insert"},
+    "context": [{"key": "vi_insert_mode_aware"}]
+  },
+  {
+    "keys": ["\\", "e"],
+    "command": "toggle_side_bar",
+    "args": {"mode": "mode_command"},
+    "context": [{"key": "vi_command_mode_aware"}]
+  },
+  {
+    "keys": ["\\", "r"],
+    "command": "reveal_in_side_bar",
+    "args": {"mode": "mode_command"},
+    "context": [{"key": "vi_command_mode_aware"}]
+  },
+  {
+    "keys": ["g", "d"],
+    "command": "lsp_symbol_definition",
+    "context": [{"key": "setting.lsp_active"}]
+  },
+  {
+    "keys": ["g", "s"],
+    "command": "lsp_document_symbols",
+    "context": [{"key": "setting.lsp_active"}]
+  },
+  {
+    "keys": ["g", "h"],
+    "command": "lsp_hover",
+    "context": [{"key": "setting.lsp_active"}]
+  },
+  {
+    "keys": ["]", "C"],
+    "command": "sublime_linter_goto_error",
+    "args": {
+      "direction": "next",
+      "wrap": true
+    }
+  },
+  {
+    "keys": ["ctrl+super+r"],
+    "command": "sublime_linter_line_report"
+  },
+  {
+    "keys": ["[", "C"],
+    "command": "sublime_linter_goto_error",
+    "args": {
+      "direction": "previous",
+      "wrap": true
+    }
+  },
+  {
+    "keys": ["super+j"],
+    "command": "open_dir",
+    "args": { "dir": "$packages/User/"}
+  },
+  {
+    "keys": ["f2"],
+    "command": "side_bar_rename"
+  }
+]
