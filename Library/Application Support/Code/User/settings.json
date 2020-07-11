@@ -242,6 +242,5 @@
   },
   "editor.copyWithSyntaxHighlighting": false,
   "files.simpleDialog.enable": true,
-  "editor.cursorSmoothCaretAnimation": true,
   "workbench.sideBar.location": "right"
 }

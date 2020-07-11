@@ -171,7 +171,7 @@ set pastetoggle=<F2>
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-set scrolloff=3
+set scrolloff=2
 set expandtab
 set nowrap
 set linebreak

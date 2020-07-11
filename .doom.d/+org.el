@@ -2,22 +2,17 @@
 
 ;; source https://github.com/theianjones/dotfiles/blob/master/.doom.d/+org.el
 
-(setq org_notes "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes"
-; (setq org_notes "~/Notes"
-      org-directory org_notes
-      deft-directory org_notes
-      org-roam-directory org_notes
-      org-roam-db-location "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/org-roam.db"
-      org-id-link-to-org-use-id t
-      org-ellipsis " ▼ ")
-
 (use-package! org-roam
   :hook
   (after-init . org-roam-mode))
+(setq org_notes "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes")
+; (setq org_notes "~/Notes")
 
 (after! org-roam
   (add-hook 'after-init-hook 'org-roam-mode)
   :config
+  (setq org-roam-directory org_notes)
+  (setq org-roam-db-location "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/org-roam.db")
   (setq org-roam-graph-viewer "/usr/bin/open")
   (setq org-roam-capture-ref-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -67,6 +62,13 @@
 #+roam_tags: companies\n"
            :immediate-finish t
            :unnarrowed t)
+          ("m" "medias" plain (function org-roam-capture--get-point)
+           "%?"
+           :file-name "%<%Y%m%d%H%M%S>-${slug}"
+           :head "#+title: ${title}
+#+roam_tags: medias\n"
+           :immediate-finish t
+           :unnarrowed t)
           ("p" "products" plain (function org-roam-capture--get-point)
            "%?"
            :file-name "%<%Y%m%d%H%M%S>-${slug}"
@@ -89,6 +91,7 @@
   (setq deft-use-filter-string-for-filename t)
   (setq deft-default-extension "org")
   (setq deft-incremental-search t)
+  (setq deft-directory org_notes)
   (add-hook 'after-init-hook 'org-roam-db-build-cache)
   :bind
   ("C-c n d" . deft))
@@ -111,7 +114,10 @@
         :n "M-j" #'org-metadown
         :n "M-k" #'orge-metaup)
   :config
-  (setq org-id-link-to-org-use-id nil
+  (setq org-directory org_notes
+        org-id-link-to-org-use-id t
+        org-ellipsis " ▼ "
+        org-id-link-to-org-use-id nil
         org-pretty-entities t
         org-hide-emphasis-markers t)
   (setq org-todo-keywords
