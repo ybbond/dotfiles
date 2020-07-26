@@ -40,6 +40,8 @@ call plug#begin(s:plugin_location)
 
   " *vim-easymotion*
   " Plug 'easymotion/vim-easymotion'
+
+  " *vim-sneak*
   Plug 'justinmk/vim-sneak'
 
   " *vim-airline*

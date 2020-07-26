@@ -14,6 +14,7 @@
   "prettier.tslintIntegration": true,
   "prettier.ignorePath": ".prettierignore",
   "tsserver.npm": "/usr/local/bin/npm",
+  "tsserver.locale": "/usr/local/bin/tsserver",
   "languageserver": {
     "ccls": {
       "command": "ccls",

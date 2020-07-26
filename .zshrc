@@ -26,8 +26,8 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 # export INITVIM=$HOME/.config/nvim/init.vim
 # export PATH=$HOME/bin:$PATH
 
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
 export ANDROID_HOME=${HOME}/Library/Android/sdk
+export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
 export PATH=${PATH}:${ANDROID_HOME}/emulator
 export PATH=${PATH}:${ANDROID_HOME}/tool
 export PATH="${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
@@ -147,7 +147,7 @@ alias lg="lazygit"
 # misc
 alias ld="lazydocker"
 alias r="ranger"
-alias nexus5x="~/Library/Android/sdk/emulator/emulator -avd Nexus_5X_API_28 -netdelay none -netspeed full"
+alias pixel3a="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_29 -netdelay none -netspeed full"
 
 alias cdb="cd .."
 alias konak="kantal 10 yarn add"

@@ -1,0 +1,32 @@
+[alias]
+  s = status -s
+  b = branch --sort=-committerdate
+  rv = remote -v
+  co = checkout
+  cb = checkout -B
+  cm = checkout master
+  cane = commit --amend --no-edit
+  pumr = pull upstream master --rebase
+  pomr = pull origin master --rebase
+  pum = pull upstream master
+  pom = pull origin master
+  histi = "--no-pager log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short --max-count=20"
+  ; histi = "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=20"
+  hist = "--no-pager log --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) | %C(reset)%s %C(bold)[%an]%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=20"
+[user]
+  name = Yohanes Bandung Bondowoso
+  email = hi@ybbond.dev
+  signingkey = 56DAADB152461C806792DBAB84773B93988681A0
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+[gpg]
+  program = /usr/local/bin/gpg
+[core]
+  excludesfile = /Users/yohanesbandung/.gitignore_global
+[commit]
+  template = /Users/yohanesbandung/.stCommitMsg
+[fetch]
+  prune = false

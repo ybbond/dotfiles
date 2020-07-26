@@ -17,21 +17,47 @@
     "args": {"mode": "mode_command"},
     "context": [{"key": "vi_command_mode_aware"}]
   },
-  {
-    "keys": ["g", "d"],
-    "command": "lsp_symbol_definition",
-    "context": [{"key": "setting.lsp_active"}]
-  },
-  {
-    "keys": ["g", "s"],
-    "command": "lsp_document_symbols",
-    "context": [{"key": "setting.lsp_active"}]
-  },
-  {
-    "keys": ["g", "h"],
-    "command": "lsp_hover",
-    "context": [{"key": "setting.lsp_active"}]
-  },
+  // {
+  //   "keys": ["g", "d"],
+  //   "command": "lsp_symbol_definition",
+  //   "context": [
+  //     {"key": "vi_command_mode_aware"},
+  //     {
+  //       "key": "lsp.session_with_capability",
+  //       "operator": "equal",
+  //       "operand": "definitionProvider"
+  //     },
+  //     {
+  //       "key": "auto_complete_visible",
+  //       "operator": "equal",
+  //       "operand": false
+  //     }
+  //   ]
+  // },
+  // {
+  //   "keys": ["g", "s"],
+  //   "command": "lsp_document_symbols",
+  //   "context": [
+  //     {"key": "vi_command_mode_aware"},
+  //     {
+  //       "key": "lsp.session_with_capability",
+  //       "operator": "equal",
+  //       "operand": "documentSymbolProvider"
+  //     }
+  //   ]
+  // },
+  // {
+  //   "keys": ["g", "h"],
+  //   "command": "lsp_hover",
+  //   "context": [
+  //     {"key": "vi_command_mode_aware"},
+  //     {
+  //       "key": "lsp.session_with_capability",
+  //       "operator": "equal",
+  //       "operand": "hoverProvider"
+  //     }
+  //   ]
+  // },
   {
     "keys": ["]", "C"],
     "command": "sublime_linter_goto_error",
@@ -40,6 +66,8 @@
       "wrap": true
     }
   },
+  { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+  { "keys": ["ctrl+tab"], "command": "next_view" },
   {
     "keys": ["ctrl+super+r"],
     "command": "sublime_linter_line_report"

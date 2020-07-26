@@ -5,14 +5,15 @@
 (use-package! org-roam
   :hook
   (after-init . org-roam-mode))
-(setq org_notes "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes")
-; (setq org_notes "~/Notes")
+; (setq org_notes "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes")
+  (setq org_notes "~/org/Notes")
 
 (after! org-roam
   (add-hook 'after-init-hook 'org-roam-mode)
   :config
   (setq org-roam-directory org_notes)
-  (setq org-roam-db-location "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/org-roam.db")
+  ; (setq org-roam-db-location "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/org-roam.db")
+  (setq org-roam-db-location "~/org/org-roam.db")
   (setq org-roam-graph-viewer "/usr/bin/open")
   (setq org-roam-capture-ref-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -102,7 +103,8 @@
   ("C-c b" . org-journal-previous-entry)
   ("C-c f" . org-journal-next-entry)
   :config
-  (setq org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/"
+  ; (setq org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/"
+  (setq org-journal-dir "~/org/Notes/journals/"
         org-journal-date-prefix "#+title: "
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n"
