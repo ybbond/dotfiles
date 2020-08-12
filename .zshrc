@@ -9,6 +9,7 @@ export TERM=xterm-256color
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
+# export PATH=$HOME/.local/bin:$PATH
 
 export PATH=$PATH:$HOME/go/bin
 export PATH=$PATH:$HOME/.cargo/bin
@@ -33,9 +34,6 @@ export PATH=${PATH}:${ANDROID_HOME}/tool
 export PATH="${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 
 export SCRIPT=~/Library/Mobile\ Documents/com\~apple\~ScriptEditor2/Documents
-
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
 
 ########################################################################
 #                     FUNCTIONS
@@ -129,6 +127,8 @@ alias ybbold="cd ${YBPATH}/old-ybbond"
 alias ybreason="cd ${YBPATH}/ybbond-reason"
 alias ftex="cd ${YBPATH}/latex"
 alias todo="nvim ~/todo.md"
+alias tempbin="nvim ~/tempbin.md"
+alias personal="nvim ~/personal.md"
 alias mine="nvim ~/Library/Mobile\ Documents/27N4MQEA55~pro~writer/Documents"
 alias fetchwm="WEBMENTIONS_TOKEN=${WMTOKEN} node ${YBPATH}/ybbond/webmentions.js"
 
@@ -293,6 +293,3 @@ zle -N zle-keymap-select
 # }
 # precmd_functions+=(_fix_cursor)
 alias config=$CONFTREE
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi

@@ -16,6 +16,10 @@
   "tsserver.npm": "/usr/local/bin/npm",
   "tsserver.locale": "/usr/local/bin/tsserver",
   "languageserver": {
+    "reason": {
+      "command": "~/bin/reason-language-server",
+      "filetypes": ["reason", "ocaml"]
+    },
     "ccls": {
       "command": "ccls",
       "filetypes": ["c", "cpp", "objc", "objcpp"],

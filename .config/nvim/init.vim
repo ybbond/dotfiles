@@ -16,6 +16,10 @@ call plug#begin(s:plugin_location)
   Plug '/usr/local/opt/fzf'
   Plug 'ybbond/fzf.vim'
 
+  " *wiki*
+  Plug 'vimwiki/vimwiki'
+  Plug 'michal-h21/vim-zettel'
+
   " *bufkill*
   Plug 'qpkorr/vim-bufkill'
 
@@ -58,7 +62,6 @@ call plug#begin(s:plugin_location)
     " use error & warning count of diagnostics form coc.nvim
     let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
     let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-    let g:airline#extensions#vimtex#enabled = 0
     let g:airline_theme = 'gruvbox'
 
   " *tmux*
@@ -118,7 +121,6 @@ call plug#begin(s:plugin_location)
     let g:vim_markdown_folding_disabled = 1
     let g:vim_markdown_conceal = 0
     let g:vim_markdown_strikethrough = 1
-    let g:tex_conceal = ""
     let g:vim_markdown_math = 1
     let g:vim_markdown_frontmatter = 1  " for YAML format
     let g:vim_markdown_toml_frontmatter = 1  " for TOML format
@@ -149,12 +151,6 @@ call plug#begin(s:plugin_location)
     au BufNewFile,BufRead *.(v|py) setlocal tabstop=4
     au BufNewFile,BufRead *.(v|py) setlocal shiftwidth=4
     au BufNewFile,BufRead *.(v|py) setlocal set noexpandtab
-
-  " LaTex
-  Plug 'lervag/vimtex'
-    let g:vimtex_compiler_progname = 'nvr'
-    let g:vimtex_view_method = 'skim'
-    let g:vimtex_texcount_custom_arg = 'macro \cmt [state1]'
 
 call plug#end()
 
@@ -198,6 +194,11 @@ set hlsearch
 if has('nvim')
   set inccommand=split
 endif
+
+let g:nv_search_paths = ['~/notes']
+let g:vimwiki_list = [{'path': '~/notes/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
 
 " Let's save undo info!
 if has('nvim')
