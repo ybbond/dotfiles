@@ -6,7 +6,8 @@
   :hook
   (after-init . org-roam-mode))
 ; (setq org_notes "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes")
-  (setq org_notes "~/org/Notes")
+  ;; (setq org_notes "~/org/Notes")
+  (setq org_notes "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/")
 
 (after! org-roam
   (add-hook 'after-init-hook 'org-roam-mode)
@@ -14,6 +15,7 @@
   (setq org-roam-directory org_notes)
   ; (setq org-roam-db-location "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/org-roam.db")
   (setq org-roam-db-location "~/org/org-roam.db")
+  (setq org-roam-link-title-format "[[%s]]")
   (setq org-roam-graph-viewer "/usr/bin/open")
   (setq org-roam-capture-ref-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
@@ -95,7 +97,7 @@
   (setq deft-directory org_notes)
   (add-hook 'after-init-hook 'org-roam-db-build-cache)
   :bind
-  ("C-c n d" . deft))
+  ("s-d" . deft))
 
 (use-package! org-journal
   :bind
@@ -103,13 +105,13 @@
   ("C-c b" . org-journal-previous-entry)
   ("C-c f" . org-journal-next-entry)
   :config
-  ; (setq org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/"
-  (setq org-journal-dir "~/org/Notes/journals/"
+  (setq org-journal-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/journals/"
+        ; org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/"
+        ; org-journal-dir "~/org/Notes/journals/"
         org-journal-date-prefix "#+title: "
         org-journal-file-format "%Y-%m-%d.org"
         org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n"
-        org-journal-enable-agenda-integration t
-        org-journal-carryover-delete-empty-journal nil))
+        org-journal-enable-agenda-integration t))
 
 (after! org
   (map! :map org-mode-map
@@ -121,6 +123,7 @@
         org-ellipsis " ▼ "
         org-id-link-to-org-use-id nil
         org-pretty-entities t
+        org-src-fontify-natively t
         org-hide-emphasis-markers t)
   (setq org-todo-keywords
         '((sequence "TODO(t)" "PRGS(p)" "TEST(i)" "FDBK(f)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)")
@@ -134,7 +137,6 @@
           ("HOLD" . +org-todo-project))))
 
 (use-package! org-roam-server
-  :ensure t
   :config
   (setq org-roam-server-host "127.0.0.1"
         org-roam-server-port 3001

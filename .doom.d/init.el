@@ -92,7 +92,7 @@
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        ;;lsp
-       macos             ; MacOS-specific commands
+       ;; macos             ; MacOS-specific commands
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -155,7 +155,7 @@
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
-       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ;; sh               ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
@@ -177,13 +177,3 @@
        :config
        ;;literate
        (default +bindings +smartparens))
-
-;; Evil Configurations
-;; (setq evil-respect-visual-line-mode t)
-(setq evil-move-cursor-back nil)
-(setq evil-esc-delay 1)
-(setq evil-kill-on-visual-paste nil)
-;; (setq evil-want-minibuffer t)
-
-
-(setq savehist-mode -1)

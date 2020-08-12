@@ -45,13 +45,15 @@
 
 (setq whitespace-action '(auto-cleanup))
 
+(setq savehist-mode -1)
+
 ;; (define-key! evil-normal-state-map (kbd "M-S-l") 'enlarge-window-horizontally)
 ;; (define-key! evil-normal-state-map (kbd "M-S-h") 'shrink-window-horizontally)
 (global-set-key (kbd "s-l") 'org-roam-find-file)
 (global-set-key (kbd "s-b") 'ivy-switch-buffer)
 (global-set-key (kbd "s-K") 'kill-buffer)
 
-(load! "+ui")
+(load! "+plugins")
 (load! "+org")
 
 ;; Here are some additional functions/macros that could help you configure Doom:

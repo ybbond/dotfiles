@@ -3,11 +3,45 @@
 ;; source https://github.com/theianjones/dotfiles/blob/master/.doom.d/+ui.el
 
 
+;; General Configurations
+(use-package! general
+  :config
+  (general-evil-setup))
+
+;; Evil Configurations
+(use-package! evil
+  :init
+  (general-setq evil-disable-insert-state-bindings t)
+  :general
+  ([remap evil-emacs-state] 'evil-normal-state)
+  :config
+  (setq evil-move-cursor-back nil)
+  (setq evil-esc-delay 1)
+  (setq evil-kill-on-visual-paste nil))
+;; replaced by evil-better-visual-line
+;; (setq evil-respect-visual-line-mode t)
+;; (setq evil-want-minibuffer t)
+
 ;; Better visual line
-(use-package evil-better-visual-line
-  :ensure t
+(use-package! evil-better-visual-line
   :config
   (evil-better-visual-line-on))
+
+;; Snipe
+(after! evil-snipe
+  (setq evil-snipe-smart-case t)
+  (setq evil-snipe-scope 'whole-buffer)
+  (setq evil-snipe-auto-scroll t)
+  (setq evil-snipe-repeat-keys t)
+  (setq evil-snipe-repeat-scope 'whole-buffer))
+
+;; Dired
+(after! dired
+  ;; (setq dired-listing-switches "-aBhl --group-directories-first"
+  (setq dired-listing-switches "-aBhl"
+        dired-dwim-target t
+        dired-recursive-copies (quote always)
+        dired-recursive-deletes (quote top)))
 
 ;; Better Copy-Paste and Clipboard Handling
 ;; Disable Emacs' integration of killring with clipboard
@@ -30,19 +64,3 @@
       :nvi "s-v" #'rc-clipboard-paste)
 (define-key! :keymaps '(evil-ex-completion-map) "s-v" #'rc-clipboard-paste)
 (define-key! :keymaps +default-minibuffer-maps "s-v" #'rc-clipboard-paste)
-
-;; Snipe
-(after! evil-snipe
-  (setq evil-snipe-smart-case t)
-  (setq evil-snipe-scope 'whole-buffer)
-  (setq evil-snipe-auto-scroll t)
-  (setq evil-snipe-repeat-keys t)
-  (setq evil-snipe-repeat-scope 'whole-buffer))
-
-;; Dired
-(after! dired
-  ;; (setq dired-listing-switches "-aBhl --group-directories-first"
-  (setq dired-listing-switches "-aBhl"
-        dired-dwim-target t
-        dired-recursive-copies (quote always)
-        dired-recursive-deletes (quote top)))
