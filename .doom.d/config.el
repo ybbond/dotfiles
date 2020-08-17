@@ -37,8 +37,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; light theme: white
-(setq doom-theme 'doom-gruvbox)
 
+(setq doom-theme 'doom-gruvbox)
 (setq doom-incremental-load-immediately nil)
 
 (setq display-line-numbers-type 'relative)

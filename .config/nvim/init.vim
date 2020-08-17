@@ -16,10 +16,6 @@ call plug#begin(s:plugin_location)
   Plug '/usr/local/opt/fzf'
   Plug 'ybbond/fzf.vim'
 
-  " *wiki*
-  Plug 'vimwiki/vimwiki'
-  Plug 'michal-h21/vim-zettel'
-
   " *bufkill*
   Plug 'qpkorr/vim-bufkill'
 
@@ -194,11 +190,6 @@ set hlsearch
 if has('nvim')
   set inccommand=split
 endif
-
-let g:nv_search_paths = ['~/notes']
-let g:vimwiki_list = [{'path': '~/notes/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
 
 " Let's save undo info!
 if has('nvim')

@@ -27,6 +27,12 @@
   :config
   (evil-better-visual-line-on))
 
+;; Ivy
+(map! :after ivy
+  :map ivy-minibuffer-map
+  "S-SPC" nil
+  "C-SPC" 'ivy-restrict-to-matches)
+
 ;; Snipe
 (after! evil-snipe
   (setq evil-snipe-smart-case t)
