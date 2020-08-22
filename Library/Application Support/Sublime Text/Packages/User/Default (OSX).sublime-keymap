@@ -46,18 +46,18 @@
   //     }
   //   ]
   // },
-  // {
-  //   "keys": ["g", "h"],
-  //   "command": "lsp_hover",
-  //   "context": [
-  //     {"key": "vi_command_mode_aware"},
-  //     {
-  //       "key": "lsp.session_with_capability",
-  //       "operator": "equal",
-  //       "operand": "hoverProvider"
-  //     }
-  //   ]
-  // },
+  {
+    "keys": ["g", "h"],
+    "command": "lsp_hover",
+    "context": [
+      {"key": "vi_command_mode_aware"},
+      {
+        "key": "lsp.session_with_capability",
+        "operator": "equal",
+        "operand": "hoverProvider"
+      }
+    ]
+  },
   {
     "keys": ["]", "C"],
     "command": "sublime_linter_goto_error",
