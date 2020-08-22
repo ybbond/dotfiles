@@ -177,3 +177,8 @@
        :config
        ;;literate
        (default +bindings +smartparens))
+
+  (setq evil-move-cursor-back nil)
+  (setq evil-esc-delay 1)
+  (setq evil-respect-visual-line-mode t)
+  (setq evil-kill-on-visual-paste nil)

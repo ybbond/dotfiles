@@ -47,15 +47,6 @@
 
 (setq savehist-mode -1)
 
-;; (define-key! evil-normal-state-map (kbd "M-S-l") 'enlarge-window-horizontally)
-;; (define-key! evil-normal-state-map (kbd "M-S-h") 'shrink-window-horizontally)
-(global-set-key (kbd "s-l") 'org-roam-find-file)
-(global-set-key (kbd "s-b") 'ivy-switch-buffer)
-(global-set-key (kbd "s-K") 'kill-buffer)
-
-(load! "+plugins")
-(load! "+org")
-
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -73,15 +64,11 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (org-roam-server evil-better-visual-line))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; (define-key! evil-normal-state-map (kbd "M-S-l") 'enlarge-window-horizontally)
+;; (define-key! evil-normal-state-map (kbd "M-S-h") 'shrink-window-horizontally)
+(global-set-key (kbd "s-l") 'org-roam-find-file)
+(global-set-key (kbd "s-b") 'ivy-switch-buffer)
+(global-set-key (kbd "s-K") 'kill-buffer)
+
+(load! "+plugins")
+(load! "+org")

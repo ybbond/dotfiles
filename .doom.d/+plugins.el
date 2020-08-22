@@ -14,24 +14,14 @@
   (general-setq evil-disable-insert-state-bindings t)
   :general
   ([remap evil-emacs-state] 'evil-normal-state)
-  :config
-  (setq evil-move-cursor-back nil)
-  (setq evil-esc-delay 1)
-  (setq evil-kill-on-visual-paste nil))
+  (general-imap "C-f" 'delete-forward-char))
 ;; replaced by evil-better-visual-line
-;; (setq evil-respect-visual-line-mode t)
 ;; (setq evil-want-minibuffer t)
 
 ;; Better visual line
-(use-package! evil-better-visual-line
-  :config
-  (evil-better-visual-line-on))
-
-;; Ivy
-(map! :after ivy
-  :map ivy-minibuffer-map
-  "S-SPC" nil
-  "C-SPC" 'ivy-restrict-to-matches)
+;; (use-package! evil-better-visual-line
+;;   :config
+;;   (evil-better-visual-line-on))
 
 ;; Snipe
 (after! evil-snipe
@@ -40,6 +30,12 @@
   (setq evil-snipe-auto-scroll t)
   (setq evil-snipe-repeat-keys t)
   (setq evil-snipe-repeat-scope 'whole-buffer))
+
+;; Ivy
+(map! :after ivy
+  :map ivy-minibuffer-map
+  "S-SPC" nil
+  "C-SPC" 'ivy-restrict-to-matches)
 
 ;; Dired
 (after! dired

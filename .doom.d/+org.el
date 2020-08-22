@@ -119,7 +119,6 @@
         :n "M-k" #'orge-metaup)
   :config
   (setq org-directory org_notes
-        org-id-link-to-org-use-id t
         org-ellipsis " ▼ "
         org-id-link-to-org-use-id nil
         org-pretty-entities t
