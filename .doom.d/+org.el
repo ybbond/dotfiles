@@ -107,12 +107,12 @@
   (setq org-journal-dir org_notes
         org-journal-date-prefix "#+title: "
         org-journal-file-format "%Y-%m-%d.org"
-        org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n\n* %A, %d %B %Y\n"))
+        org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n"))
 
 (after! org
   :init
   (require 'find-lisp)
-  (setq org-agenda-files (find-lisp-find-files org_notes "\.org$"))
+  (setq org-agenda-files (find-lisp-find-files org_notes "tasks\.org$"))
   (setq org-agenda-start-with-log-mode '(state))
   (setq org-agenda-start-day "-9d")
   (map! :map org-mode-map
