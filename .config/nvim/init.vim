@@ -41,6 +41,10 @@ call plug#begin(s:plugin_location)
   " *vim-easymotion*
   " Plug 'easymotion/vim-easymotion'
 
+  " *vim-searchindex*
+  " Plug 'google/vim-searchindex'
+  "   let g:searchindex_line_limit=10000000
+
   " *vim-sneak*
   Plug 'justinmk/vim-sneak'
 

@@ -16,8 +16,6 @@ export PATH=$PATH:$HOME/.cargo/bin
 # export PATH=$PATH:/usr/local/bin
 export PATH=/.config/yarn/global/node_modules/.bin:$PATH./node_modules/.bin:$HOME/.yarn/bin:$HOME
 export PATH=/usr/local/opt/openssl/bin:$PATH
-export PATH=$HOME/Library/Frameworks/Python.framework/Versions/3.6/bin:$PATH
-export PATH=$HOME/Library/Python/3.7/bin:$PATH
 export PATH=$PATH:$KUMPATH/yowez-cli/bin
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
@@ -69,6 +67,10 @@ function test_kantal {
   local first="$1"; shift
   echo "now your first argument $1"
   echo "now your @ argument $@"
+}
+
+function tempjson {
+  nvim ~/tempjson$1.json
 }
 
 function commit {
@@ -129,7 +131,6 @@ alias ybreason="cd ${YBPATH}/ybbond-reason"
 alias ftex="cd ${YBPATH}/latex"
 alias todo="nvim ~/todo.md"
 alias tempbin="nvim ~/tempbin.md"
-alias tempjson="nvim ~/tempjson.json"
 alias personal="nvim ~/personal.md"
 alias mine="nvim ~/Library/Mobile\ Documents/27N4MQEA55~pro~writer/Documents"
 alias fetchwm="WEBMENTIONS_TOKEN=${WMTOKEN} node ${YBPATH}/ybbond/webmentions.js"

@@ -5,22 +5,19 @@
 (use-package! org-roam
   :hook
   (after-init . org-roam-mode))
-; (setq org_notes "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes")
-  ;; (setq org_notes "~/org/Notes")
   (setq org_notes "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/")
 
 (after! org-roam
   (add-hook 'after-init-hook 'org-roam-mode)
   :config
   (setq org-roam-directory org_notes)
-  ; (setq org-roam-db-location "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/org-roam.db")
   (setq org-roam-db-location "~/org/org-roam.db")
   (setq org-roam-link-title-format "[[%s]]")
   (setq org-roam-graph-viewer "/usr/bin/open")
   (setq org-roam-capture-ref-templates
         '(("r" "ref" plain (function org-roam-capture--get-point)
            "%?"
-           :file-name "websites/${slug}"
+           :file-name "${slug}"
            :head "#+title: ${title}
 #+author: ${author}
 #+roam_key: ${ref}
@@ -37,10 +34,12 @@
   (setq org-roam-dailies-capture-templates
     '(("d" "daily" plain (function org-roam-capture--get-point)
       "%?"
-      :file-name "journals/%<%Y-%m-%d>"
+      :file-name "%<%Y-%m-%d>"
       :immediate-finish t
       :head "#+title: %<%A>, %<%d> %<%B> %<%Y>
-#+roam_tags: journals\n"
+#+roam_tags: journals\n
+\n
+* %<%A>, %<%d> %<%B> %<%Y>"
       :unnarrowed t)))
 
   (setq org-roam-capture-templates
@@ -52,10 +51,10 @@
            :unnarrowed t)
           ("k" "kumparan" plain (function org-roam-capture--get-point)
            "%?"
-           :file-name "kumparan/%<%Y%m%d%H%M%S>-${slug}"
+           :file-name "%<%Y%m%d%H%M%S>-${slug}"
            :head "#+title: ${title}
 #+roam_tags: kumparan
-- backlinks :: [[file:../20200630143644-kumparan.org][kumparan]]"
+- backlinks :: [[file:20200630143644-kumparan.org][kumparan]]"
            :immediate-finish t
            :unnarrowed t)
           ("c" "companies" plain (function org-roam-capture--get-point)
@@ -105,15 +104,17 @@
   ("C-c b" . org-journal-previous-entry)
   ("C-c f" . org-journal-next-entry)
   :config
-  (setq org-journal-dir "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/journals/"
-        ; org-journal-dir "~/Library/Mobile Documents/com\~apple\~CloudDocs/Notes/journals/"
-        ; org-journal-dir "~/org/Notes/journals/"
+  (setq org-journal-dir org_notes
         org-journal-date-prefix "#+title: "
         org-journal-file-format "%Y-%m-%d.org"
-        org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n"
-        org-journal-enable-agenda-integration t))
+        org-journal-date-format "%A, %d %B %Y\n#+roam_tags: journals\n\n* %A, %d %B %Y\n"))
 
 (after! org
+  :init
+  (require 'find-lisp)
+  (setq org-agenda-files (find-lisp-find-files org_notes "\.org$"))
+  (setq org-agenda-start-with-log-mode '(state))
+  (setq org-agenda-start-day "-9d")
   (map! :map org-mode-map
         :n "M-j" #'org-metadown
         :n "M-k" #'orge-metaup)
@@ -122,18 +123,25 @@
         org-ellipsis " ▼ "
         org-id-link-to-org-use-id nil
         org-pretty-entities t
+        org-log-done 'note
+        org-log-into-drawer t
+        org-log-refile t
         org-src-fontify-natively t
         org-hide-emphasis-markers t)
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "PRGS(p)" "TEST(i)" "FDBK(f)" "HOLD(h)" "|" "DONE(d)" "CANCELED(c)")
+        '((sequence "TODO(t!)" "INPROGRESS(p!)" "INTEST(i!)" "FEEDBACK(f!)" "HOLD(h!)" "|" "MERGED(m!)" "DONE(d@/!)" "CANCELLED(c!)")
           (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")))
   (setq org-todo-keyword-faces
-        '(("[-]" . +org-todo-active)
-          ("PRGS" . +org-todo-active)
-          ("[?]" . +org-todo-onhold)
-          ("FDBK" . +org-todo-onhold)
-          ("TEST" . +org-todo-onhold)
-          ("HOLD" . +org-todo-project))))
+        '(("TODO" :foreground "ffff00" :weight normal :underline t)
+          ("INPROGRESS" :foreground "#e39ff6" :weight normal :underline t)
+          ("INTEST" :foreground "#0098dd" :weight normal :underline t)
+          ("FEEDBACK" :foreground "#0098ee" :weight normal :underline t)
+          ("HOLD" :foreground "#9f7efe" :weight normal :underline t)
+          ("MERGED" :foreground "#50a14f" :weight normal :underline t)
+          ("DONE" :foreground "#50a14f" :weight bold :underline t)
+          ("CANCELLED" :foreground "#ff6480" :weight normal :underline t)
+          ("[-]" :foreground "#e39ff6" :weight bold)
+          ("[?]" :foreground "#9f7efe" :weight bold))))
 
 (use-package! org-roam-server
   :config
