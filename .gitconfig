@@ -6,27 +6,46 @@
   cb = checkout -B
   cm = checkout master
   cane = commit --amend --no-edit
-  pumr = pull upstream master --rebase
-  pomr = pull origin master --rebase
-  pum = pull upstream master
-  pom = pull origin master
+  ; pomr = pull origin master --rebase --stat
+  pom = pull origin master --stat
   histi = "--no-pager log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short --max-count=20"
+  histi40 = "--no-pager log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short --max-count=40"
   ; histi = "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=20"
   hist = "--no-pager log --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) | %C(reset)%s %C(bold)[%an]%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=20"
+  hist40 = "--no-pager log --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) | %C(reset)%s %C(bold)[%an]%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=40"
+
 [user]
   name = Yohanes Bandung Bondowoso
   email = hi@ybbond.dev
   signingkey = 56DAADB152461C806792DBAB84773B93988681A0
+
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+
 [gpg]
   program = /usr/local/bin/gpg
+
 [core]
   excludesfile = /Users/yohanesbandung/.gitignore_global
+  pager = delta --light
+
 [commit]
   template = /Users/yohanesbandung/.stCommitMsg
+
 [fetch]
   prune = false
+
+[interactive]
+  diffFilter = delta --color-only --light
+
+[delta]
+  features = side-by-side line-numbers decorations
+  whitespace-error-style = 22 reverse
+
+[delta "decorations"]
+  commit-decoration-style = bold yellow box ul
+  file-style = bold yellow ul
+  file-decoration-style = none

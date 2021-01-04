@@ -5,7 +5,7 @@
 export EDITOR=nvim
 export SHELL=zsh
 export LANG=en_US.UTF-8
-export TERM=xterm-256color
+export TERM=screen-256color
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
@@ -24,6 +24,8 @@ export PATH="/Applications/Emacs.app/Contents/MacOS:$PATH"
 export PATH="$HOME/.emacs.d/bin:$PATH"
 # export INITVIM=$HOME/.config/nvim/init.vim
 # export PATH=$HOME/bin:$PATH
+
+export BAT_THEME="gruvbox-light"
 
 export ANDROID_HOME=${HOME}/Library/Android/sdk
 export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
@@ -151,6 +153,7 @@ alias lg="lazygit"
 alias ld="lazydocker"
 alias r="ranger"
 alias pixel3a="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_29 -netdelay none -netspeed full"
+alias pixelxl="~/Library/Android/sdk/emulator/emulator -avd Pixel_XL_API_30 -netdelay none -netspeed full"
 
 alias cdb="cd .."
 alias konak="kantal 10 yarn add"
@@ -158,7 +161,7 @@ alias konak="kantal 10 yarn add"
 # better cli
 alias ls='exa'
 alias top='htop'
-alias cat='bat'
+alias cat='alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"'
 alias find='fd'
 alias du='ncdu --color dark -rr'
 
@@ -205,6 +208,7 @@ SPACESHIP_TIME_SHOW=true
 SPACESHIP_TIME_PREFIX='['
 SPACESHIP_TIME_SUFFIX=']'
 SPACESHIP_VI_MODE_PREFIX=''
+SPACESHIP_VI_MODE_COLOR='gray'
 
 ########################################################################
 #                     ZINIT
@@ -236,6 +240,7 @@ zinit light-mode for \
 
 zplugin light zsh-users/zsh-autosuggestions
   bindkey -M viins '^F' autosuggest-accept
+  ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#d6d6d6"
 
 zplugin light zsh-users/zsh-history-substring-search
   bindkey -M viins '^P' history-substring-search-up
@@ -290,9 +295,20 @@ precmd () {
 #     echo -ne '\e[5 q'
 #   fi
 # }
-zle -N zle-keymap-select
+# zle -N zle-keymap-select
 # _fix_cursor() {
 #    echo -ne '\e[5 q'
 # }
 # precmd_functions+=(_fix_cursor)
+
+
+#   * To start using RVM you need to run `source /Users/yohanesbandung/.rvm/scripts/rvm`
+#     in all your open shell windows, in rare cases you need to reopen all shell windows.
+#   * To start using rails you need to run `rails new <project_dir>`.
+
+
+
 alias config=$CONFTREE
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

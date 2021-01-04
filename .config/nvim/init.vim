@@ -11,28 +11,38 @@ endif
 call plug#begin(s:plugin_location)
   Plug 'morhetz/gruvbox'
     let g:gruvbox_italic = 1
+  Plug 'arzg/vim-colors-xcode'
+    let g:xcodelighthc_match_paren_style = 1
 
   " *fzf.vim*
   Plug '/usr/local/opt/fzf'
-  Plug 'ybbond/fzf.vim'
+  Plug 'junegunn/fzf.vim'
+    let g:fzf_preview_window = ['down:50%', 'ctrl-/']
+  source ~/.vim/scripts/fzf_js_import.vim
 
   " *bufkill*
   Plug 'qpkorr/vim-bufkill'
 
-  Plug 'junegunn/goyo.vim'
-  Plug 'junegunn/limelight.vim'
-    let g:limelight_conceal_ctermfg = 'gray'
-    let g:limelight_conceal_ctermfg = 240
+  " Plug 'junegunn/goyo.vim'
+  " Plug 'junegunn/limelight.vim'
+  "   let g:limelight_conceal_ctermfg = 'gray'
+  "   let g:limelight_conceal_ctermfg = 240
 
   " *vim-fugitive*
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
-  Plug 'mhinz/vim-signify'
-    let g:signify_realtime = 1
-    let g:signify_cursorhold_normal = 0
-    let g:signify_cursorhold_insert = 0
+  " Plug 'mhinz/vim-signify'
+  "   let g:signify_realtime = 1
+  "   let g:signify_cursorhold_normal = 0
+  "   let g:signify_cursorhold_insert = 0
+  "   let g:signify_sign_add    = '█'
+  "   let g:signify_sign_change = '█'
+  "   let g:signify_sign_delete = '▂'
+  "   let g:signify_sign_show_count = 0
+  "   let g:signify_line_highlight = 0
   Plug 'shumphrey/fugitive-gitlab.vim'
     let g:fugitive_gitlab_domains = ['https://gitlab.kumparan.com']
+
   " *git-messenger*
   Plug 'rhysd/git-messenger.vim'
     let g:git_messenger_git_command = 'hub'
@@ -55,6 +65,13 @@ call plug#begin(s:plugin_location)
     let g:airline#extensions#tabline#buffer_nr_show = 1
     let g:airline#extensions#tabline#formatter = 'jsformatter'
 
+    " to enable these, set git.addGBlameToBufferVar true on CocConfig
+    " function! s:update_git_blame()
+    "   let g:airline_section_x = "%{get(b:,'coc_git_blame','')}"
+    " endfunction
+    " let g:airline_section_x = "%{get(b:,'coc_git_blame','')}"
+    " autocmd User CocGitStatusChange call s:update_git_blame()
+
     let g:airline_section_x = []
     let g:airline_section_y = []
 
@@ -62,7 +79,7 @@ call plug#begin(s:plugin_location)
     " use error & warning count of diagnostics form coc.nvim
     let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
     let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-    let g:airline_theme = 'gruvbox'
+    let g:airline_theme = 'xcodelighthc'
 
   " *tmux*
   Plug 'tmux-plugins/vim-tmux'
@@ -90,15 +107,15 @@ call plug#begin(s:plugin_location)
         call CocAction('doHover')
       endif
     endfunction
-    au BufNewFile,BufRead *.c setlocal tabstop=4
-    au BufNewFile,BufRead *.c setlocal shiftwidth=4
-    au BufNewFile,BufRead *.c setlocal set noexpandtab
+    au BufNewFile,BufRead *.(c|v|py) setlocal tabstop=4
+    au BufNewFile,BufRead *.(c|v|py) setlocal shiftwidth=4
+    au BufNewFile,BufRead *.(c|v|py) setlocal set noexpandtab
 
   " *vim-clap*
-  Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-    let g:clap_provider_grep_delay = 100
-    let g:clap_disable_run_rooter = v:true
-    let g:clap_layout = { 'relative': 'editor' }
+  " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+  "   let g:clap_provider_grep_delay = 100
+  "   let g:clap_disable_run_rooter = v:true
+  "   let g:clap_layout = { 'relative': 'editor' }
 
   " JavaScript
   Plug 'pangloss/vim-javascript'
@@ -117,16 +134,16 @@ call plug#begin(s:plugin_location)
   Plug 'HerringtonDarkholme/yats.vim'
 
   " Markdown
-  Plug 'ybbond/vim-markdown'
-    let g:vim_markdown_folding_disabled = 1
-    let g:vim_markdown_conceal = 0
-    let g:vim_markdown_strikethrough = 1
-    let g:vim_markdown_math = 1
-    let g:vim_markdown_frontmatter = 1  " for YAML format
-    let g:vim_markdown_toml_frontmatter = 1  " for TOML format
-    let g:vim_markdown_json_frontmatter = 1  " for JSON format
-  Plug 'itspriddle/vim-marked'
-  Plug 'godlygeek/tabular'
+  " Plug 'ybbond/vim-markdown'
+  "   let g:vim_markdown_folding_disabled = 1
+  "   let g:vim_markdown_conceal = 0
+  "   let g:vim_markdown_strikethrough = 1
+  "   let g:vim_markdown_math = 1
+  "   let g:vim_markdown_frontmatter = 1  " for YAML format
+  "   let g:vim_markdown_toml_frontmatter = 1  " for TOML format
+  "   let g:vim_markdown_json_frontmatter = 1  " for JSON format
+  " " Plug 'itspriddle/vim-marked'
+  " Plug 'godlygeek/tabular'
 
   Plug 'cespare/vim-toml'
   Plug 'stephpy/vim-yaml'
@@ -138,24 +155,20 @@ call plug#begin(s:plugin_location)
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
   " Rust
-  Plug 'rust-lang/rust.vim'
-    let g:rustfmt_autosave = 1
+  " Plug 'rust-lang/rust.vim'
+  "   let g:rustfmt_autosave = 1
 
   " Reason
   Plug 'reasonml-editor/vim-reason-plus'
     autocmd BufNewFile,BufRead *.re nnoremap <leader>w :!refmt --in-place %<cr>
 
-  " vlang
-  Plug 'cheap-glitch/vim-v'
-    let g:v_warnings=1
-    au BufNewFile,BufRead *.(v|py) setlocal tabstop=4
-    au BufNewFile,BufRead *.(v|py) setlocal shiftwidth=4
-    au BufNewFile,BufRead *.(v|py) setlocal set noexpandtab
+  " " vlang
+  Plug 'ollykel/v-vim'
 
 call plug#end()
 
-colorscheme gruvbox
-" set background=dark
+colorscheme xcodelighthc
+set background=light
 set termguicolors
 
 syntax enable
@@ -246,8 +259,8 @@ nnoremap <silent> <LEADER><SPACE> :nohlsearch<cr>
 " Toggle check spelling
 nnoremap <leader>s :set spell! spelllang=en_us<cr>
 
-" Marked toggle
-nnoremap <leader>m :MarkedToggle!<cr>
+" " Marked toggle
+" nnoremap <leader>m :MarkedToggle!<cr>
 
 map <silent> <A-h> <C-w><
 map <silent> <A-k> <C-W>-
@@ -286,11 +299,17 @@ nnoremap gB :bprevious<cr>
   nmap gh :call <SID>show_documentation()<cr>
   nmap <2-LeftMouse> :call <SID>show_documentation()<cr>
   nmap <leader>gd <Plug>(coc-diagnostics-info)
+  nmap [c <Plug>(coc-git-prevchunk)
+  nmap ]c <Plug>(coc-git-nextchunk)
+  nmap <C-w>g <Plug>(coc-git-chunkinfo)
+  nmap <C-w><C-g> <Plug>(coc-git-chunkinfo)
   nmap ]C <Plug>(coc-diagnostic-next)
   nmap [C <Plug>(coc-diagnostic-prev)
   nmap gi <Plug>(coc-implementation)
   nmap gr <Plug>(coc-references)
   nmap <leader>. :call CocAction("codeAction")<cr>
+
+  command! GC CocList gstatus
 
 " |git-messenger|
   nmap <C-w>m <Plug>(git-messenger)
@@ -304,22 +323,47 @@ nnoremap gB :bprevious<cr>
     \ rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"
     \ -g "*.{css,js,jsx,ts,tsx,json,re,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
     \ -g "!{.git,node_modules,coverage,vendor,build}/*" '
-  " :F for Ripgrep
-  command! -bang -nargs=* Strings call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
-  " nnoremap <C-p> <C-o>
+  " command! -bang -nargs=* Strings call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+  command! -bang -nargs=* StringsAll
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --no-ignore --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--preview-window=down:50% --layout=reverse --delimiter : --nth 4..'}), <bang>0)
+  command! -bang -nargs=* Strings
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --glob "!{.git,node_modules,flow-typed,operation-types.flow.js,generatedTypes}" --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--preview-window=down:50% --layout=reverse --delimiter : --nth 4..'}), <bang>0)
+  command! -bang -nargs=* StringsAndFile
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --glob "!{.git,node_modules,flow-typed,operation-types.flow.js,generatedTypes}" --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '--preview-window=down:50% --layout=reverse'}), <bang>0)
+  " the {'options': '--delimiter : --nth 4..'} option limit the string search
+  " only for file content
+
+  command! -bang -nargs=? -complete=dir FilesAll
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--preview-window=down:50%', '--layout=reverse', '--info=inline']}), <bang>0)
+  command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({'options': ['--preview-window=down:50%', '--layout=reverse', '--info=inline']}), <bang>0)
+
   " nnoremap <C-o> :Strings<cr>
   " nnoremap <C-i> :Files<cr>
+  noremap <C-i> :Strings<cr>
+  noremap <C-s> :StringsAndFile<cr>
+  noremap <leader><C-i> :StringsAll<cr>
+  noremap <C-p> :Files --cached --others --exclude-standard<cr>
+  noremap <leader><C-p> :FilesAll<cr>
+  noremap <C-b> :Buffers<CR>
+  noremap <C-g> :GC<CR>
 
 " |vim-clap|
-  nnoremap <C-i> :Clap!! grep ++opt=--hidden ++opt=-g=!.git<cr>
-  nnoremap <leader><C-i> :Clap grep ++opt=--hidden ++opt=-g=!.git<cr>
-  nnoremap <C-p> :Clap!! files --hidden<cr>
-  nnoremap <leader><C-p> :Clap files --hidden<cr>
-  nnoremap <leader>* :Clap!! grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
-  nnoremap <leader><leader>* :Clap grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
-  vnoremap <leader>* :Clap!! grep ++query=@visual ++opt=--hidden ++opt=-g=!.git<cr>
-  vnoremap <leader><leader>* :Clap grep ++query=@visual ++opt=--hidden ++opt=-g=!.git<cr>
-  nnoremap <C-b> :Clap buffers<cr>
+  " nnoremap <C-i> :Clap!! grep ++opt=--hidden ++opt=-g=!.git<cr>
+  " nnoremap <leader><C-i> :Clap grep ++opt=--hidden ++opt=-g=!.git<cr>
+  " nnoremap <C-p> :Clap!! files --hidden<cr>
+  " nnoremap <leader><C-p> :Clap files --hidden<cr>
+  " nnoremap <leader>* :Clap!! grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
+  " nnoremap <leader><leader>* :Clap grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
+  " vnoremap <leader>* :Clap!! grep ++query=@visual ++opt=--hidden ++opt=-g=!.git<cr>
+  " vnoremap <leader><leader>* :Clap grep ++query=@visual ++opt=--hidden ++opt=-g=!.git<cr>
+  " nnoremap <C-b> :Clap buffers<cr>
 
 " |nerdtree|
   map <leader>e :NERDTreeToggle<cr>
@@ -330,8 +374,8 @@ nnoremap gB :bprevious<cr>
 "                      INSERT MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Remap <c-f> to delete
-inoremap <C-f> <Del>
+" Remap <c-d> to delete
+inoremap <C-d> <Del>
 
 " Remap <c-b> to delete within word
 inoremap <C-b> <ESC>lcw
@@ -339,10 +383,6 @@ inoremap <C-b> <ESC>lcw
 " Remap escape to j + k
 inoremap jk <ESC>
 inoremap <C-c> <ESC>
-
-" |fzf.vim|
-  inoremap <expr> <C-x><C-h> fzf#vim#complete#path_relative('rg --files')
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                      APPEARANCE
@@ -374,38 +414,38 @@ function ToggleNumberToggle(numberVar)
   endif
 endfunction
 
-function! s:goyo_enter()
-  if executable('tmux') && strlen($TMUX)
-    silent !tmux set status off
-    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  endif
-  set noshowcmd
-  set wrap
-  set nonumber
-  set norelativenumber
-  set eventignore=FocusGained,BufEnter
-  set nocursorline
-  Limelight
-  :call ToggleNumberToggle(0)
-endfunction
+" function! s:goyo_enter()
+"   if executable('tmux') && strlen($TMUX)
+"     silent !tmux set status off
+"     silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+"   endif
+"   set noshowcmd
+"   set wrap
+"   set nonumber
+"   set norelativenumber
+"   set eventignore=FocusGained,BufEnter
+"   set nocursorline
+"   Limelight
+"   :call ToggleNumberToggle(0)
+" endfunction
 
-function! s:goyo_leave()
-  if executable('tmux') && strlen($TMUX)
-    silent !tmux set status on
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  endif
-  set showcmd
-  set nowrap
-  set number
-  set relativenumber
-  set eventignore=
-  set cursorline
-  Limelight!
-  :call ToggleNumberToggle(1)
-endfunction
+" function! s:goyo_leave()
+"   if executable('tmux') && strlen($TMUX)
+"     silent !tmux set status on
+"     silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+"   endif
+"   set showcmd
+"   set nowrap
+"   set number
+"   set relativenumber
+"   set eventignore=
+"   set cursorline
+"   Limelight!
+"   :call ToggleNumberToggle(1)
+" endfunction
 
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
+" autocmd! User GoyoEnter nested call <SID>goyo_enter()
+" autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " change cursor in different mode
 if has('nvim')
@@ -447,8 +487,8 @@ set diffopt+=vertical
 " Change comment color
 " hi Comment guifg=LightBlue
 hi Comment gui=italic cterm=italic
-hi htmlStrike gui=strikethrough cterm=strikethrough guibg=Black ctermbg=Black
-hi Todo guibg=White ctermbg=White guifg=Black ctermfg=Black gui=bold,italic cterm=bold,italic
-hi NonText guifg=#4a4a59 ctermfg=Gray
-hi SpecialKey guifg=#4a4a59 ctermfg=Gray
-hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+" hi htmlStrike gui=strikethrough cterm=strikethrough guibg=Black ctermbg=Black
+hi Todo guibg=Black ctermbg=Black guifg=White ctermfg=White gui=bold,italic cterm=bold,italic
+" hi NonText guifg=#4a4a59 ctermfg=Gray
+" hi SpecialKey guifg=#4a4a59 ctermfg=Gray
+" hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE

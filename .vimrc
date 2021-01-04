@@ -2,6 +2,7 @@ syntax enable
 syntax on
 filetype plugin indent on
 
+set background=dark
 set number
 set relativenumber
 
@@ -9,6 +10,8 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+
+set laststatus=2
 
 set ruler
 
@@ -19,7 +22,12 @@ set smartcase
 set hlsearch
 
 nnoremap <LEADER><SPACE> :nohlsearch<CR>
+nnoremap <LEADER>% :source %<CR>
 inoremap jk <ESC>
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 
 if !isdirectory($HOME."/.vim")
   call mkdir($HOME."/.vim", "", 0770)

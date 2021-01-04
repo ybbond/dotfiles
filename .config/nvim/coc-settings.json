@@ -1,4 +1,5 @@
 {
+  "coc.preferences.bracketEnterImprove": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "javascriptreact",
@@ -8,13 +9,38 @@
     "reason",
     "reasonreact"
   ],
+
+  "diagnostic.errorSign": "█",
+  "diagnostic.hintSign": "█",
+  "diagnostic.infoSign": "█",
+  "diagnostic.warningSign": "█",
+
   "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
+
+  "git.command": "hub",
+  "git.gitlab.hosts": ["gitlab.kumparan.com", "gitlab.com"],
+  // "git.addGBlameToBufferVar": true,
+  // "git.addGBlameToVirtualText": true,
+  "git.addedSign.text": "█",
+  "git.changedSign.text": "█",
+  "git.removedSign.text": "▂",
+  "git.topRemovedSign.text": "▀",
+  "git.changeRemovedSign.text": "█",
+  "git.addedSign.hlGroup": "Signify",
+  "git.changedSign.hlGroup": "Signify",
+  "git.removedSign.hlGroup": "Signify",
+  "git.topRemovedSign.hlGroup": "Signify",
+  "git.changeRemovedSign.hlGroup": "Signify",
+
   "javascript.validate.enable": false,
+
   "prettier.eslintIntegration": true,
   "prettier.tslintIntegration": true,
   "prettier.ignorePath": ".prettierignore",
+
   "tsserver.npm": "/usr/local/bin/npm",
   "tsserver.locale": "/usr/local/bin/tsserver",
+
   "languageserver": {
     "reason": {
       "command": "~/bin/reason-language-server",
