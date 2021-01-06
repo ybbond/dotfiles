@@ -310,6 +310,7 @@ nnoremap gB :bprevious<cr>
   nmap <leader>. :call CocAction("codeAction")<cr>
 
   command! GC CocList gstatus
+  command! W noa w
 
 " |git-messenger|
   nmap <C-w>m <Plug>(git-messenger)
