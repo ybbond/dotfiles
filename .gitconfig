@@ -16,7 +16,7 @@
 
 [user]
   name = Yohanes Bandung Bondowoso
-  email = hi@ybbond.dev
+  email = hi@ybbond.id
   signingkey = 56DAADB152461C806792DBAB84773B93988681A0
 
 [filter "lfs"]
