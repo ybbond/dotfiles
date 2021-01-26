@@ -151,7 +151,6 @@ alias lg="lazygit"
 
 # misc
 alias ld="lazydocker"
-alias r="ranger"
 alias pixel3a="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_29 -netdelay none -netspeed full"
 alias pixelxl="~/Library/Android/sdk/emulator/emulator -avd Pixel_XL_API_30 -netdelay none -netspeed full"
 
