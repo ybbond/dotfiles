@@ -1,10 +1,12 @@
 [
-  {
-    "keys": ["ctrl+f"],
-    "command": "right_delete",
-    "args": {"mode": "mode_insert"},
-    "context": [{"key": "vi_insert_mode_aware"}]
-  },
+
+  // {
+  //   "keys": ["ctrl+f"],
+  //   "command": "right_delete",
+  //   "args": {"mode": "mode_insert"},
+  //   "context": [{"key": "vi_insert_mode_aware"}]
+  // },
+
   {
     "keys": ["\\", "e"],
     "command": "toggle_side_bar",
@@ -17,6 +19,43 @@
     "args": {"mode": "mode_command"},
     "context": [{"key": "vi_command_mode_aware"}]
   },
+  {
+    "keys": ["super+shift+j"],
+    "command": "open_dir",
+    "args": {"dir": "$file_path",
+    "file": "$file_name"}
+  },
+
+  { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+  { "keys": ["ctrl+tab"], "command": "next_view" },
+
+  {
+    "keys": ["super+j"],
+    "command": "open_dir",
+    "args": { "dir": "$packages/User/"}
+  },
+  {
+    "keys": ["f2"],
+    "command": "side_bar_rename"
+  },
+
+  {
+    "keys": ["]", "c"],
+    "command": "git_gutter_next_change"
+  },
+  {
+    "keys": ["[", "c"],
+    "command": "git_gutter_prev_change"
+  },
+  {
+    "keys": ["ctrl+w", "g"],
+    "command": "git_gutter_diff_popup"
+  },
+  {
+    "keys": ["ctrl+w", "ctrl+g"],
+    "command": "git_gutter_diff_popup"
+  },
+
   // {
   //   "keys": ["g", "d"],
   //   "command": "lsp_symbol_definition",
@@ -34,6 +73,7 @@
   //     }
   //   ]
   // },
+
   // {
   //   "keys": ["g", "s"],
   //   "command": "lsp_document_symbols",
@@ -46,47 +86,58 @@
   //     }
   //   ]
   // },
-  {
-    "keys": ["g", "h"],
-    "command": "lsp_hover",
-    "context": [
-      {"key": "vi_command_mode_aware"},
-      {
-        "key": "lsp.session_with_capability",
-        "operator": "equal",
-        "operand": "hoverProvider"
-      }
-    ]
-  },
-  {
-    "keys": ["]", "C"],
-    "command": "sublime_linter_goto_error",
-    "args": {
-      "direction": "next",
-      "wrap": true
-    }
-  },
-  { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
-  { "keys": ["ctrl+tab"], "command": "next_view" },
-  {
-    "keys": ["ctrl+super+r"],
-    "command": "sublime_linter_line_report"
-  },
-  {
-    "keys": ["[", "C"],
-    "command": "sublime_linter_goto_error",
-    "args": {
-      "direction": "previous",
-      "wrap": true
-    }
-  },
-  {
-    "keys": ["super+j"],
-    "command": "open_dir",
-    "args": { "dir": "$packages/User/"}
-  },
-  {
-    "keys": ["f2"],
-    "command": "side_bar_rename"
-  }
+
+  // {
+  //   "keys": ["g", "h"],
+  //   "command": "lsp_hover",
+  //   "context": [
+  //     {"key": "vi_command_mode_aware"},
+  //     {
+  //       "key": "lsp.session_with_capability",
+  //       "operator": "equal",
+  //       "operand": "hoverProvider"
+  //     }
+  //   ]
+  // },
+
+  // {
+  //   "keys": ["g", "d"],
+  //   "command": "lsp_symbol_definition",
+  //   "context": [
+  //     {"key": "vi_command_mode_aware"},
+  //     {
+  //       "key": "lsp.session_with_capability",
+  //       "operator": "equal",
+  //       "operand": "definitionProvider"
+  //     },
+  //     // {
+  //     //   "key": "auto_complete_visible",
+  //     //   "operator": "equal",
+  //     //   "operand": false
+  //     // }
+  //   ]
+  // },
+
+  // {
+  //   "keys": ["]", "shift+c"],
+  //   "command": "sublime_linter_goto_error",
+  //   "args": {
+  //     "direction": "next",
+  //     "wrap": true
+  //   }
+  // },
+  // {
+  //   "keys": ["ctrl+super+r"],
+  //   "command": "sublime_linter_line_report"
+  // },
+
+  // {
+  //   "keys": ["[", "shift+c"],
+  //   "command": "sublime_linter_goto_error",
+  //   "args": {
+  //     "direction": "previous",
+  //     "wrap": true
+  //   }
+  // },
+
 ]

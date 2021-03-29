@@ -9,10 +9,15 @@ endif
 
 " PlugIns
 call plug#begin(s:plugin_location)
-  Plug 'morhetz/gruvbox'
-    let g:gruvbox_italic = 1
+  " Plug 'morhetz/gruvbox'
+  "   let g:gruvbox_italic = 1
   Plug 'arzg/vim-colors-xcode'
     let g:xcodelighthc_match_paren_style = 1
+  Plug 'nanotech/jellybeans.vim'
+    let g:jellybeans_use_term_italics = 1
+    let g:jellybeans_overrides = {
+    \    'background': { 'guibg': '000000' },
+    \}
 
   " *fzf.vim*
   Plug '/usr/local/opt/fzf'
@@ -22,11 +27,6 @@ call plug#begin(s:plugin_location)
 
   " *bufkill*
   Plug 'qpkorr/vim-bufkill'
-
-  " Plug 'junegunn/goyo.vim'
-  " Plug 'junegunn/limelight.vim'
-  "   let g:limelight_conceal_ctermfg = 'gray'
-  "   let g:limelight_conceal_ctermfg = 240
 
   " *vim-fugitive*
   Plug 'tpope/vim-fugitive'
@@ -57,6 +57,7 @@ call plug#begin(s:plugin_location)
 
   " *vim-sneak*
   Plug 'justinmk/vim-sneak'
+    let g:sneak#absolute_dir = 1
 
   " *vim-airline*
   Plug 'vim-airline/vim-airline'
@@ -64,6 +65,7 @@ call plug#begin(s:plugin_location)
     let g:airline#extensions#tabline#show_tabs = 0
     let g:airline#extensions#tabline#buffer_nr_show = 1
     let g:airline#extensions#tabline#formatter = 'jsformatter'
+  Plug 'vim-airline/vim-airline-themes'
 
     " to enable these, set git.addGBlameToBufferVar true on CocConfig
     " function! s:update_git_blame()
@@ -72,14 +74,18 @@ call plug#begin(s:plugin_location)
     " let g:airline_section_x = "%{get(b:,'coc_git_blame','')}"
     " autocmd User CocGitStatusChange call s:update_git_blame()
 
-    let g:airline_section_x = []
-    let g:airline_section_y = []
+      let g:airline#extensions#default#layout = [
+      \ [ 'a', 'b', 'c'],
+      \ [ 'z', 'error', 'warning' ]
+      \ ]
+    " let g:airline_section_x = []
+    " let g:airline_section_y = []
 
     let g:airline#extensions#coc#enabled = 1
     " use error & warning count of diagnostics form coc.nvim
     let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
     let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-    let g:airline_theme = 'xcodelighthc'
+    " let g:airline_theme = 'xcodelighthc'
 
   " *tmux*
   Plug 'tmux-plugins/vim-tmux'
@@ -88,11 +94,12 @@ call plug#begin(s:plugin_location)
   " *nerdtree*
   Plug 'scrooloose/nerdtree'
     Plug 'Xuyuanp/nerdtree-git-plugin'
+    let g:NERDTreeWinPos = "right"
 
   Plug 'junegunn/vim-peekaboo'
   Plug 'machakann/vim-highlightedyank'
-  Plug 'jiangmiao/auto-pairs'
-    let g:AutoPairsMultilineClose = 0
+  " Plug 'jiangmiao/auto-pairs'
+  "   let g:AutoPairsMultilineClose = 0
 
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
@@ -107,15 +114,19 @@ call plug#begin(s:plugin_location)
         call CocAction('doHover')
       endif
     endfunction
-    au BufNewFile,BufRead *.(c|v|py) setlocal tabstop=4
-    au BufNewFile,BufRead *.(c|v|py) setlocal shiftwidth=4
-    au BufNewFile,BufRead *.(c|v|py) setlocal set noexpandtab
+    au BufNewFile,BufRead *.(c|v|vv|py) setlocal tabstop=4
+    au BufNewFile,BufRead *.(c|v|vv|py) setlocal shiftwidth=4
+    au BufNewFile,BufRead *.(c|v|vv|py) setlocal set noexpandtab
 
   " *vim-clap*
   " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
   "   let g:clap_provider_grep_delay = 100
   "   let g:clap_disable_run_rooter = v:true
   "   let g:clap_layout = { 'relative': 'editor' }
+
+  " LaTeX
+  Plug 'lervag/vimtex'
+    let g:vimtex_view_method='zathura'
 
   " JavaScript
   Plug 'pangloss/vim-javascript'
@@ -142,8 +153,6 @@ call plug#begin(s:plugin_location)
   "   let g:vim_markdown_frontmatter = 1  " for YAML format
   "   let g:vim_markdown_toml_frontmatter = 1  " for TOML format
   "   let g:vim_markdown_json_frontmatter = 1  " for JSON format
-  " " Plug 'itspriddle/vim-marked'
-  " Plug 'godlygeek/tabular'
 
   Plug 'cespare/vim-toml'
   Plug 'stephpy/vim-yaml'
@@ -161,6 +170,9 @@ call plug#begin(s:plugin_location)
   " Reason
   Plug 'reasonml-editor/vim-reason-plus'
     autocmd BufNewFile,BufRead *.re nnoremap <leader>w :!refmt --in-place %<cr>
+    let g:LanguageClient_serverCommands = {
+      \ 'reason': ['/Users/yohanesbandung/bin/reason-language-server']
+      \ }
 
   " " vlang
   Plug 'ollykel/v-vim'
@@ -169,6 +181,8 @@ call plug#end()
 
 colorscheme xcodelighthc
 set background=light
+" colorscheme jellybeans
+" set background=dark
 set termguicolors
 
 syntax enable
@@ -198,6 +212,10 @@ set relativenumber
 set ruler
 set showmatch
 set cursorline
+
+" highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=87 guifg=NONE guibg=#EEF6FF
+" autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=87 guifg=NONE guibg=#EEF6FF
+" autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=87 guifg=NONE guibg=#EEF6FF
 
 set ignorecase
 set smartcase
@@ -246,7 +264,7 @@ nnoremap <expr> 0 &wrap == 1 ? 'g0' : '0'
 nnoremap <leader>br :bufdo e<cr>
 
 " Copy, Paste and Copy Whole File to clipboard
-map <leader>c "+y<cr>
+map <leader>c "+yy
 map <leader>v :r !pbpaste<cr><cr>
 map <leader>ac :%w !pbcopy<cr><cr>
 
@@ -259,16 +277,13 @@ nnoremap <silent> <LEADER><SPACE> :nohlsearch<cr>
 " Toggle check spelling
 nnoremap <leader>s :set spell! spelllang=en_us<cr>
 
-" " Marked toggle
-" nnoremap <leader>m :MarkedToggle!<cr>
-
 map <silent> <A-h> <C-w><
 map <silent> <A-k> <C-W>-
 map <silent> <A-j> <C-W>+
 map <silent> <A-l> <C-w>>
 
 " Remap leader-% to source %
-nnoremap <leader>% :source %<cr>
+nnoremap <leader>% :source ~/.config/nvim/init.vim<cr>
 
 " navigating buffers
 nnoremap gb :bnext<cr>
@@ -291,7 +306,7 @@ nnoremap gB :bprevious<cr>
 
 " |vim-fugitive|
   map <leader>kp :Gdiff!<cr>
-  map <leader>kb :Gblame<cr>
+  map <leader>kb :Git blame<cr>
 
 " |coc.nvim|
   nmap gd <Plug>(coc-definition)
@@ -309,7 +324,8 @@ nnoremap gB :bprevious<cr>
   nmap gr <Plug>(coc-references)
   nmap <leader>. :call CocAction("codeAction")<cr>
 
-  command! GC CocList gstatus
+  command! CocGstatus CocList gstatus
+  command! CocBuffers CocList buffers
   command! W noa w
 
 " |git-messenger|
@@ -352,8 +368,9 @@ nnoremap gB :bprevious<cr>
   noremap <leader><C-i> :StringsAll<cr>
   noremap <C-p> :Files --cached --others --exclude-standard<cr>
   noremap <leader><C-p> :FilesAll<cr>
-  noremap <C-b> :Buffers<CR>
-  noremap <C-g> :GC<CR>
+  " noremap <C-b> :Buffers<CR>
+  noremap <C-g> :CocGstatus<CR>
+  noremap <C-b> :CocBuffers<CR>
 
 " |vim-clap|
   " nnoremap <C-i> :Clap!! grep ++opt=--hidden ++opt=-g=!.git<cr>
@@ -377,9 +394,6 @@ nnoremap gB :bprevious<cr>
 
 " Remap <c-d> to delete
 inoremap <C-d> <Del>
-
-" Remap <c-b> to delete within word
-inoremap <C-b> <ESC>lcw
 
 " Remap escape to j + k
 inoremap jk <ESC>
@@ -414,39 +428,6 @@ function ToggleNumberToggle(numberVar)
     augroup end
   endif
 endfunction
-
-" function! s:goyo_enter()
-"   if executable('tmux') && strlen($TMUX)
-"     silent !tmux set status off
-"     silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-"   endif
-"   set noshowcmd
-"   set wrap
-"   set nonumber
-"   set norelativenumber
-"   set eventignore=FocusGained,BufEnter
-"   set nocursorline
-"   Limelight
-"   :call ToggleNumberToggle(0)
-" endfunction
-
-" function! s:goyo_leave()
-"   if executable('tmux') && strlen($TMUX)
-"     silent !tmux set status on
-"     silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-"   endif
-"   set showcmd
-"   set nowrap
-"   set number
-"   set relativenumber
-"   set eventignore=
-"   set cursorline
-"   Limelight!
-"   :call ToggleNumberToggle(1)
-" endfunction
-
-" autocmd! User GoyoEnter nested call <SID>goyo_enter()
-" autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " change cursor in different mode
 if has('nvim')
@@ -489,7 +470,7 @@ set diffopt+=vertical
 " hi Comment guifg=LightBlue
 hi Comment gui=italic cterm=italic
 " hi htmlStrike gui=strikethrough cterm=strikethrough guibg=Black ctermbg=Black
-hi Todo guibg=Black ctermbg=Black guifg=White ctermfg=White gui=bold,italic cterm=bold,italic
+" hi Todo guibg=Black ctermbg=Black guifg=White ctermfg=White gui=bold,italic cterm=bold,italic
 " hi NonText guifg=#4a4a59 ctermfg=Gray
 " hi SpecialKey guifg=#4a4a59 ctermfg=Gray
-" hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE

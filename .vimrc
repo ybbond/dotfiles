@@ -2,7 +2,7 @@ syntax enable
 syntax on
 filetype plugin indent on
 
-set background=dark
+set background=light
 set number
 set relativenumber
 
@@ -56,3 +56,5 @@ else
   set t_SR=[4\ q
   set t_EI=[1\ q
 endif
+
+set rtp+=/usr/local/opt/fzf
