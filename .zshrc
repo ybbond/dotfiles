@@ -118,7 +118,7 @@ SPACESHIP_TIME_SUFFIX=']'
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm yarn zsh-autosuggestions zsh-syntax-highlighting history-substring-search vi-mode)
+plugins=(git npm yarn zsh-autosuggestions zsh-syntax-highlighting history-substring-search zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -261,7 +261,7 @@ export NNN_TRASH=1
 #                     START OF BANDUNG's ALIASES
 ########################################################################
 
-# eval "$(hub alias -s)"
+eval "$(hub alias -s)"
 
 # projects
 alias kapp="cd ${KUMPATH}/app"
@@ -284,9 +284,6 @@ alias rehead="git reset HEAD~"
 alias lg="lazygit"
 
 # misc
-# alias pixelxl="~/Library/Android/sdk/emulator/emulator -avd Pixel_XL_API_29 -netdelay none -netspeed full"
-# alias pixel4="~/Library/Android/sdk/emulator/emulator -avd Pixel_4_API_29 -netdelay none -netspeed full"
-# alias pixel3a="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_28 -netdelay none -netspeed full"
 alias nexus5x="~/Library/Android/sdk/emulator/emulator -avd Nexus_5X_API_25 -netdelay none -netspeed full"
 alias konak="kantal 10 yarn add"
 
@@ -315,33 +312,10 @@ source <(lab completion zsh)
 # vim mode config
 # ---------------
 
-# Activate vim mode.
-bindkey -v
-bindkey -M viins 'jk' vi-cmd-mode
-
 # Remove mode switching delay.
 KEYTIMEOUT=10
 
-# Change cursor shape for different vi modes.
-# function zle-keymap-select {
-#   if [[ ${KEYMAP} == vicmd ]] ||
-#      [[ $1 = 'block' ]]; then
-#     echo -ne '\e[1 q'
-
-#   elif [[ ${KEYMAP} == main ]] ||
-#        [[ ${KEYMAP} == viins ]] ||
-#        [[ ${KEYMAP} = '' ]] ||
-#        [[ $1 = 'beam' ]]; then
-#     echo -ne '\e[5 q'
-#   fi
-# }
-# zle -N zle-keymap-select
-
-# _fix_cursor() {
-#    echo -ne '\e[5 q'
-# }
-
-# precmd_functions+=(_fix_cursor)
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 
 eval spaceship_vi_mode_enable
 
