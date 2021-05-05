@@ -8,10 +8,10 @@
   "javascript.validate.enable": false,
   "diffEditor.renderSideBySide": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.fontSize": 16,
   "editor.dragAndDrop": false,
   // "editor.fontFamily": "Liga Cartograph Mono CF",
   "editor.fontLigatures": true,
-  "editor.fontSize": 14,
   "editor.lineNumbers": "relative",
   "editor.matchBrackets": "near",
   "editor.tabCompletion": "on",
@@ -23,32 +23,21 @@
     "source.fixAll.eslint": true
   },
   "editor.suggestSelection": "first",
-  "bracket-pair-colorizer-2.colors": [
-    "white"
-  ],
-  "bracket-pair-colorizer-2.highlightActiveScope": true,
-  "bracket-pair-colorizer-2.showBracketsInGutter": true,
-  "bracket-pair-colorizer-2.scopeLineCSS": [
-    "borderStyle : solid",
-    "borderWidth : 1px",
-    "borderColor : white",
-    "opacity: 0.4"
-  ],
   "search.quickOpen.includeSymbols": true,
   "search.showLineNumbers": true,
-  "workbench.colorTheme": "Gruvbox Dark (Medium)",
+  "workbench.colorTheme": "Xcode 10 Default Light",
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "workbench.list.automaticKeyboardNavigation": false,
-  "editor.tokenColorCustomizations": {
-    "textMateRules": [
-      {
-        "scope": "punctuation.definition.tag.jsx",
-        "settings": {
-          "foreground": "#00fff2"
-        }
-      }
-    ]
-  },
+  // "editor.tokenColorCustomizations": {
+  //   "textMateRules": [
+  //     {
+  //       "scope": "punctuation.definition.tag.jsx",
+  //       "settings": {
+  //         "foreground": "#00fff2"
+  //       }
+  //     }
+  //   ]
+  // },
   "vim.cursorStylePerMode.insert": "line",
   "vim.enableNeovim": true,
   "vim.highlightedyank.enable": true,
@@ -56,17 +45,12 @@
   "vim.hlsearch": true,
   "vim.incsearch": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
-  "vim.searchHighlightColor": "rgba(150, 150, 255, 0.3)",
+  // "vim.searchHighlightColor": "rgba(150, 150, 255, 0.3)",
   "vim.visualstar": true,
   "vim.insertModeKeyBindings": [
     {
-      "before": [
-        "j",
-        "k"
-      ],
-      "after": [
-        "<Esc>"
-      ]
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
@@ -79,117 +63,60 @@
         "after": ["g", "k"]
     },
     {
-      "before": [
-        "&"
-      ],
-      "after": [
-        "#"
-      ]
-    },
-    {
-      "before": [
-        "]",
-        "c"
-      ],
+      "before": ["u"],
       "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.editor.nextChange",
-          "args": []
-        }
-      ]
+      "commands": ["undo"]
     },
     {
-      "before": [
-        "[",
-        "c"
-      ],
+      "before": ["ctrl+r"],
       "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.editor.previousChange",
-          "args": []
-        }
-      ]
+      "commands": ["redo"]
     },
     {
-      "before": [
-        "[",
-        "C"
-      ],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.compareEditor.previousChange",
-          "args": []
-        },
-        {
-          "command": "editor.action.dirtydiff.previous",
-          "args": []
-        }
-      ]
+      "before": ["<leader>", "<space>"],
+      "commands": [":nohl"]
     },
     {
-      "before": [
-        "]",
-        "C"
-      ],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.compareEditor.nextChange",
-          "args": []
-        },
-        {
-          "command": "editor.action.dirtydiff.next",
-          "args": []
-        }
-      ]
+      "before": ["ctrl+w", "ctrl+g"],
+      "commands": ["editor.action.dirtydiff.next"]
     },
     {
-      "before": [
-        "u"
-      ],
-      "after": [],
-      "commands": [
-        {
-          "command": "undo",
-          "args": []
-        }
-      ]
+      "before": ["&"],
+      "after": ["#"]
     },
     {
-      "before": [
-        "<C-r>"
-      ],
-      "after": [],
-      "commands": [
-        {
-          "command": "redo",
-          "args": []
-        }
-      ]
+      "before": ["g", "b"],
+      "commands": ["workbench.action.nextEditorInGroup"]
     },
     {
-      "before": [
-        "<leader>",
-        "<space>"
-      ],
-      "commands": [
-        ":nohl"
-      ]
+      "before": ["g", "B"],
+      "commands": ["workbench.action.previousEditorInGroup"]
     },
     {
-      "before": [
-        "Q"
-      ],
-      "after": [
-        "<leader>",
-        "<leader>",
-        "<leader>",
-        "j"
-      ]
-    }
+      "before": ["]", "c"],
+      "commands": ["workbench.action.editor.nextChange"]
+    },
+    {
+      "before": ["[", "c"],
+      "commands": ["workbench.action.editor.previousChange"]
+    },
+    {
+      "before": ["]", "C"],
+      "commands": ["editor.action.marker.next"]
+    },
+    {
+      "before": ["[", "C"],
+      "commands": ["editor.action.marker.prev"]
+    },
+    // {
+    //   "before": ["Q"],
+    //   "after": [
+    //     "<leader>",
+    //     "<leader>",
+    //     "<leader>",
+    //     "j"
+    //   ]
+    // }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
@@ -204,32 +131,17 @@
       ]
     }
   ],
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#333333",
-    "statusBar.noFolderBackground": "#333333",
-    "statusBar.debuggingBackground": "#333333",
-    "editor.selectionBackground": "#4f4e4f",
-    "editor.selectionBorder": "#ffffffbb",
-    "editor.selectionHighlightBackground": "#4f4e4e",
-    "editor.selectionHighlightBorder": "#ffffffbb"
-  },
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "gitlens.views.repositories.location": "scm",
-  "gitlens.views.fileHistory.location": "scm",
-  "gitlens.views.lineHistory.location": "scm",
-  "gitlens.views.search.location": "scm",
-  "gitlens.views.compare.location": "scm",
   "editor.fontFamily": "IBM Plex Mono, Hermit, Victor Mono, Liga Cartograph Mono CF, Menlo, Monaco, 'Courier New', monospace",
   "editor.minimap.showSlider": "always",
   "editor.minimap.maxColumn": 100,
-  "editor.renderWhitespace": "selection",
+  "editor.renderWhitespace": "all",
   "editor.renderLineHighlight": "all",
   "editor.renderFinalNewline": false,
   "editor.cursorSurroundingLines": 5,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "editor.codeLens": false,
-  "window.zoomLevel": 0,
-  "window.titleBarStyle": "native",
+  "window.zoomLevel": -1,
   "[markdown]": {
     "editor.wordWrap": "on",
     "editor.quickSuggestions": true
@@ -240,7 +152,16 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "editor.copyWithSyntaxHighlighting": false,
   "files.simpleDialog.enable": true,
-  "workbench.sideBar.location": "right"
+  "workbench.sideBar.location": "right",
+  "vim.smartRelativeLine": true,
+  "vim.sneak": true,
+  "vim.sneakReplacesF": true,
+  "gitlens.views.lineHistory.enabled": true,
+  "workbench.editor.decorations.colors": true,
+  "workbench.editor.decorations.badges": true,
 }

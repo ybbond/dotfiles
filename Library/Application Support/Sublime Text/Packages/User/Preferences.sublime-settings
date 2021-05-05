@@ -1,23 +1,24 @@
 {
   "always_show_minimap_viewport": true,
   "auto_complete_cycle": true,
-    "binary_file_patterns":
-  [
-    ".svn/",
-    ".git/",
-    "node_modules/",
-    "bower_components/"
-  ],
   "bold_folder_labels": true,
 
-  "color_scheme": "auto",
-  "light_color_scheme": "Packages/Color Scheme - Default/Sixteen.sublime-color-scheme",
-  "dark_color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+  "color_scheme": "Packages/Color Scheme - Default/Sixteen.sublime-color-scheme",
+  // "light_color_scheme": "Packages/Color Scheme - Default/Sixteen.sublime-color-scheme",
+  // "dark_color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+
+  // "binary_file_patterns": ["*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.zip",
+  //   "node_modules/",
+  //   "esm/",
+  //   "cjs/",
+  //   "dev/"
+  // ],
 
   "create_window_at_startup": false,
   "default_line_ending": "unix",
+  "detect_indentation": false,
   "drag_text": false,
-  "draw_white_space": ["trailing", "selection", "mixed_tabs"],
+  "draw_white_space": ["trailing", "selection"],
   "font_face": "IBM Plex Mono",
   "font_size": 14,
   "highlight_line": true,
@@ -38,7 +39,6 @@
   "match_brackets_angle": true,
   "mini_diff": "auto",
   "relative_line_numbers": true,
-  "detect_indentation": false,
   "remember_workspace": false,
   "shift_tab_unindent": true,
   "show_indentation": false,
@@ -58,4 +58,6 @@
   "vintageous_use_ctrl_keys": true,
   "vintageous_use_super_keys": null,
   "close_windows_when_empty": true,
+
+  // "enable_language_service_for_javascript": false,
 }
