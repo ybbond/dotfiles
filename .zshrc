@@ -25,9 +25,10 @@ SPACESHIP_PROMPT_ORDER=(
     exec_time
     jobs
     exit_code
-    # vi_mode
+    vi_mode
     char
   )
+
 SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
 SPACESHIP_PROMPT_SEPARATE_LINE=false
 SPACESHIP_BATTERY_SHOW=always
@@ -41,6 +42,7 @@ SPACESHIP_GIT_SUFFIX=']'
 SPACESHIP_GIT_BRANCH_PREFIX='•'
 SPACESHIP_GIT_BRANCH_SUFFIX='•'
 # SPACESHIP_GIT_STATUS_COLOR='#da2c20'
+SPACESHIP_VI_MODE_COLOR=grey
 SPACESHIP_GIT_STATUS_PREFIX='<'
 SPACESHIP_GIT_STATUS_SUFFIX='>'
 SPACESHIP_DIR_PREFIX='['
@@ -175,6 +177,9 @@ bindkey -M viins '^F' autosuggest-accept
 bindkey -M viins '^P' history-substring-search-up
 bindkey -M viins '^N' history-substring-search-down
 
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 ########################################################################
 #                     END OF BANDUNG's EXPORTS
@@ -214,14 +219,6 @@ function test_kantal {
   local first="$1"; shift
   echo "now your first argument $1"
   echo "now your @ argument $@"
-}
-
-function tempjson {
-  nvim ~/tempjson$1.json
-}
-
-function commit {
-  git add . && git commit -m "$1"
 }
 
 nn ()
@@ -264,7 +261,7 @@ export NNN_TRASH=1
 #                     START OF BANDUNG's ALIASES
 ########################################################################
 
-eval "$(hub alias -s)"
+# eval "$(hub alias -s)"
 
 # projects
 alias kapp="cd ${KUMPATH}/app"
@@ -326,25 +323,27 @@ bindkey -M viins 'jk' vi-cmd-mode
 KEYTIMEOUT=10
 
 # Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
+# function zle-keymap-select {
+#   if [[ ${KEYMAP} == vicmd ]] ||
+#      [[ $1 = 'block' ]]; then
+#     echo -ne '\e[1 q'
 
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
-}
-zle -N zle-keymap-select
+#   elif [[ ${KEYMAP} == main ]] ||
+#        [[ ${KEYMAP} == viins ]] ||
+#        [[ ${KEYMAP} = '' ]] ||
+#        [[ $1 = 'beam' ]]; then
+#     echo -ne '\e[5 q'
+#   fi
+# }
+# zle -N zle-keymap-select
 
-_fix_cursor() {
-   echo -ne '\e[5 q'
-}
+# _fix_cursor() {
+#    echo -ne '\e[5 q'
+# }
 
-precmd_functions+=(_fix_cursor)
+# precmd_functions+=(_fix_cursor)
+
+eval spaceship_vi_mode_enable
 
 precmd () {
   echo -n -e "\a"

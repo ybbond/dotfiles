@@ -259,6 +259,9 @@ nnoremap <expr> 0 &wrap == 1 ? 'g0' : '0'
 "                      NORMAL MODE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" keep asterisk and pound to be case sensitive
+nnoremap <leader>* :let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n
+nnoremap <leader># :let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n
 
 " reload all opened buffer
 nnoremap <leader>br :bufdo e<cr>
@@ -340,21 +343,28 @@ nnoremap gB :bprevious<cr>
     \ rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"
     \ -g "*.{css,js,jsx,ts,tsx,json,re,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
     \ -g "!{.git,node_modules,coverage,vendor,build}/*" '
-  " command! -bang -nargs=* Strings call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
+  " NOTES
+  " the {'options': '-e'} limits to only search literal text https://github.com/BurntSushi/ripgrep/issues/1119
+  " the {'options': '--delimiter : --nth 4..'} option limit the string search only for file content
   command! -bang -nargs=* StringsAll
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --no-ignore --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--preview-window=down:50% --layout=reverse --delimiter : --nth 4..'}), <bang>0)
+  " OLD
+  " command! -bang -nargs=* Strings call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
   command! -bang -nargs=* Strings
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --glob "!{.git,node_modules,flow-typed,operation-types.flow.js,generatedTypes}" --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview({'options': '--preview-window=down:50% --layout=reverse --delimiter : --nth 4..'}), <bang>0)
-  command! -bang -nargs=* StringsAndFile
+  command! -bang -nargs=* StringsWhole
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --glob "!{.git,node_modules,flow-typed,operation-types.flow.js,generatedTypes}" --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '--preview-window=down:50% --layout=reverse'}), <bang>0)
-  " the {'options': '--delimiter : --nth 4..'} option limit the string search
-  " only for file content
+  \   fzf#vim#with_preview({'options': '-e --preview-window=down:50% --layout=reverse --delimiter : --nth 4..'}), <bang>0)
+  command! -bang -nargs=* StringsAndFileWhole
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --glob "!{.git,node_modules,flow-typed,operation-types.flow.js,generatedTypes}" --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'options': '-e --preview-window=down:50% --layout=reverse'}), <bang>0)
 
   command! -bang -nargs=? -complete=dir FilesAll
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--preview-window=down:50%', '--layout=reverse', '--info=inline']}), <bang>0)
@@ -364,7 +374,8 @@ nnoremap gB :bprevious<cr>
   " nnoremap <C-o> :Strings<cr>
   " nnoremap <C-i> :Files<cr>
   noremap <C-i> :Strings<cr>
-  noremap <C-s> :StringsAndFile<cr>
+  noremap <C-s> :StringsWhole<cr>
+  noremap <leader><C-s> :StringsAndFileWhole<cr>
   noremap <leader><C-i> :StringsAll<cr>
   noremap <C-p> :Files --cached --others --exclude-standard<cr>
   noremap <leader><C-p> :FilesAll<cr>
