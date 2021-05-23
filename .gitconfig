@@ -13,6 +13,8 @@
   ; histi = "log --pretty=format:'%C(yellow)[%ad]%C(reset) %C(green)[%h]%C(reset) | %C(red)%s %C(bold red){{%an}}%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=20"
   hist = "--no-pager log --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) | %C(reset)%s %C(bold)[%an]%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=20"
   hist40 = "--no-pager log --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) | %C(reset)%s %C(bold)[%an]%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=40"
+  lab = "!lab"
+  hub = "!hub"
 
 [user]
 	name = Yohanes Bandung Bondowoso
@@ -30,7 +32,8 @@
 
 [core]
   excludesfile = /Users/yohanesbandung/.gitignore_global
-  pager = delta --light
+  pager = cat
+  ; pager = delta --light
 
 [commit]
   template = /Users/yohanesbandung/.stCommitMsg
@@ -38,14 +41,14 @@
 [fetch]
   prune = false
 
-[interactive]
-  diffFilter = delta --color-only --light
+; [interactive]
+;   diffFilter = delta --color-only --light
 
-[delta]
-  features = side-by-side line-numbers decorations
-  whitespace-error-style = 22 reverse
+; [delta]
+;   features = side-by-side line-numbers decorations
+;   whitespace-error-style = 22 reverse
 
-[delta "decorations"]
-  commit-decoration-style = bold yellow box ul
-  file-style = bold yellow ul
-  file-decoration-style = none
+; [delta "decorations"]
+;   commit-decoration-style = bold yellow box ul
+;   file-style = bold yellow ul
+;   file-decoration-style = none

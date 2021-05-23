@@ -87,7 +87,7 @@ SPACESHIP_TIME_SUFFIX=']'
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -118,7 +118,9 @@ SPACESHIP_TIME_SUFFIX=']'
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm yarn zsh-autosuggestions zsh-syntax-highlighting history-substring-search zsh-vi-mode)
+plugins=(git npm yarn zsh-autosuggestions zsh-syntax-highlighting history-substring-search vi-mode)
+
+bindkey -M viins 'jk' vi-cmd-mode
 
 source $ZSH/oh-my-zsh.sh
 
@@ -152,7 +154,8 @@ export PATH="$HOME/.emacs.d/bin:$PATH"
 # export PATH=$HOME/bin:$PATH
 
 # export BAT_THEME="Monokai Extended Bright"
-export BAT_THEME="GitHub"
+# export BAT_THEME="GitHub"
+export BAT_THEME="Coldark-Dark"
 
 export ANDROID_HOME=${HOME}/Library/Android/sdk
 export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
@@ -284,19 +287,19 @@ alias rehead="git reset HEAD~"
 alias lg="lazygit"
 
 # misc
-alias nexus5x="~/Library/Android/sdk/emulator/emulator -avd Nexus_5X_API_25 -netdelay none -netspeed full"
+alias nexus5x="~/Library/Android/sdk/emulator/emulator -avd Nexus_5X_API_29 -netdelay none -netspeed full"
 alias konak="kantal 10 yarn add"
 
 alias cdb="cd .."
 
 # better cli
 alias ls='exa'
-# alias top='btm --color=default-light'
-# alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
-alias top='btm'
 alias cat="bat"
 alias find='fd'
 alias du='ncdu --color dark -rr'
+
+alias set_dark="cp ~/.tmux-dark.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-dark.conf ~/.config/kitty/kitty.conf"
+alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-light.conf ~/.config/kitty/kitty.conf"
 
 source <(lab completion zsh)
 
