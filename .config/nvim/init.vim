@@ -9,15 +9,9 @@ endif
 
 " PlugIns
 call plug#begin(s:plugin_location)
-  " Plug 'morhetz/gruvbox'
-  "   let g:gruvbox_italic = 1
   Plug 'arzg/vim-colors-xcode'
     let g:xcodelighthc_match_paren_style = 1
-  Plug 'nanotech/jellybeans.vim'
-    let g:jellybeans_use_term_italics = 1
-    let g:jellybeans_overrides = {
-    \    'background': { 'guibg': '000000' },
-    \}
+  Plug 'mhartington/oceanic-next'
 
   " *fzf.vim*
   Plug '/usr/local/opt/fzf'
@@ -179,10 +173,12 @@ call plug#begin(s:plugin_location)
 
 call plug#end()
 
-colorscheme xcodelighthc
-set background=light
-" colorscheme jellybeans
-" set background=dark
+colorscheme OceanicNext
+set background=dark
+
+" colorscheme xcodelighthc
+" set background=light
+
 set termguicolors
 
 syntax enable
