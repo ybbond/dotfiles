@@ -1,3 +1,39 @@
+[user]
+	name = Yohanes Bandung Bondowoso
+	email = hi@ybbond.id
+	signingkey = 56DAADB152461C806792DBAB84773B93988681A0
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[core]
+  excludesfile = /Users/yohanesbandung/.gitignore_global
+  pager = cat
+  ; pager = delta --light
+
+[commit]
+  gpgSign = true
+
+[fetch]
+  prune = false
+
+; [interactive]
+;   diffFilter = delta --color-only --light
+
+; [delta]
+;   features = side-by-side line-numbers decorations
+;   whitespace-error-style = 22 reverse
+
+; [delta "decorations"]
+;   commit-decoration-style = bold yellow box ul
+;   file-style = bold yellow ul
+;   file-decoration-style = none
+[credential]
+	helper = cache --timeout=600
+
 [alias]
   s = status -s
   b = branch --sort=-committerdate
@@ -15,40 +51,6 @@
   hist40 = "--no-pager log --pretty=format:'%C(yellow)%h%C(reset) %C(green)%ad%C(reset) | %C(reset)%s %C(bold)[%an]%C(reset) %C(blue)%d%C(reset)' --graph --date=short --max-count=40"
   lab = "!lab"
   hub = "!hub"
-
-[user]
-	name = Yohanes Bandung Bondowoso
-	email = hi@ybbond.id
-	signingkey = 56DAADB152461C806792DBAB84773B93988681A0
-
-[filter "lfs"]
-  clean = git-lfs clean -- %f
-  smudge = git-lfs smudge -- %f
-  process = git-lfs filter-process
-  required = true
-
+  sublp = "!f() {\nSUBL=/usr/local/bin/subl\nowd=$(pwd)\nwd=$owd\nargs=($@)\nif [ -d \"${args: -1}\" ]; then\nwd=$(realpath \"${args: -1}\")\nelif [ -s \"${args: -1}\" ]; then\n$SUBL $@\nreturn\nfi\npushd $wd >/dev/null 2>&1\nsetopt +o nomatch\nif [ -f *.sublime-project ]; then\n$SUBL ${args[@]:0:${#args[0]}-1} $(ls -1d *.sublime-project | head -n1)\nelse\n$SUBL $@\nfi\nsetopt -o nomatch\nif [ \"$owd\" != \"$(pwd)\" ]; then\npopd >/dev/null 2>&1\nfi\n}; f"
 [gpg]
-  program = /usr/local/bin/gpg
-
-[core]
-  excludesfile = /Users/yohanesbandung/.gitignore_global
-  pager = cat
-  ; pager = delta --light
-
-[commit]
-  template = /Users/yohanesbandung/.stCommitMsg
-
-[fetch]
-  prune = false
-
-; [interactive]
-;   diffFilter = delta --color-only --light
-
-; [delta]
-;   features = side-by-side line-numbers decorations
-;   whitespace-error-style = 22 reverse
-
-; [delta "decorations"]
-;   commit-decoration-style = bold yellow box ul
-;   file-style = bold yellow ul
-;   file-decoration-style = none
+	program = gpg2

@@ -14,7 +14,7 @@ call plug#begin(s:plugin_location)
   Plug 'mhartington/oceanic-next'
 
   " *fzf.vim*
-  Plug '/usr/local/opt/fzf'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
     let g:fzf_preview_window = ['down:50%', 'ctrl-/']
   source ~/.vim/scripts/fzf_js_import.vim
