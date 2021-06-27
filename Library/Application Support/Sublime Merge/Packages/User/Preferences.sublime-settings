@@ -1,0 +1,18 @@
+{
+	"theme": "auto",
+	"side_bar_layout": "tabs",
+	"ignored_packages": [
+		"LSP",
+		"LSP-eslint",
+		"LSP-flow",
+		"LSP-json",
+		"SublimeLinter",
+		"SublimeLinter-eslint",
+		"SublimeLinter-flow",
+	],
+	"expand_merge_commits_by_default": false,
+	"always_show_command_status": true,
+	"expand_merge_commits_by_defaults": true,
+	"default_dir": "/Users/yohanesbandung/"
+	/*"ssh_path": "/usr/bin/ssh",*/
+}
