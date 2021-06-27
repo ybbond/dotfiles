@@ -23,6 +23,7 @@ set hlsearch
 
 nnoremap <LEADER><SPACE> :nohlsearch<CR>
 nnoremap <LEADER>% :source %<CR>
+
 nnoremap j gj
 nnoremap k gk
 
@@ -30,8 +31,8 @@ inoremap jk <ESC>
 inoremap <C-D> <DEL>
 
 " navigating buffers
-nnoremap gb :bnext<cr>
-nnoremap gB :bprevious<cr>
+nnoremap gb :bnext<CR>
+nnoremap gB :bprevious<CR>
 
 augroup numbertoggle
   if &number == 1
@@ -42,12 +43,12 @@ augroup numbertoggle
 augroup end
 
 function ToggleNumberToggle(numberVar)
-  " Reset group
+  " reset group
   augroup numbertoggle
     autocmd!
   augroup end
 
-  " Enable if toggled on
+  " enable if toggled on
   if a:numberVar
     augroup numbertoggle
       if &number == 1
@@ -58,18 +59,3 @@ function ToggleNumberToggle(numberVar)
     augroup end
   endif
 endfunction
-
-if !isdirectory($HOME."/.vim")
-  call mkdir($HOME."/.vim", "", 0770)
-endif
-if !isdirectory($HOME."/.vim/undo-dir")
-  call mkdir($HOME."/.vim/undo-dir", "", 0770)
-endif
-set undodir=~/.vim/undo-dir
-if has ('persistent_undo')
-  set undofile
-  set undolevels=250
-  set undoreload=500
-endif
-
-set rtp+=/usr/local/opt/fzf
