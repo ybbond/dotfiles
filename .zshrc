@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/yohanesbandung/.oh-my-zsh"
@@ -9,7 +9,6 @@ export ZSH="/Users/yohanesbandung/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="spaceship"
-# ZSH_THEME="robbyrussell"
 
 ########################################################################
 #                     START OF SPACESHIP
@@ -118,61 +117,15 @@ DISABLE_AUTO_TITLE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git npm yarn zsh-autosuggestions zsh-syntax-highlighting history-substring-search vi-mode)
-
-bindkey -M viins 'jk' vi-cmd-mode
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting history-substring-search vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 ########################################################################
-#                     START OF BANDUNG's EXPORTS
+##                     START OF BANDUNG's VI MODE CURSOR
 ########################################################################
-
-export EDITOR=nvim
-export SHELL=zsh
-export LANG=en_US.UTF-8
-export TERM=screen-256color
-
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="/usr/local/sbin:$PATH"
-# export PATH=$HOME/.local/bin:$PATH
-
-export PATH=$PATH:$HOME/go/bin
-export PATH=$PATH:$HOME/.cargo/bin
-# export PATH=$PATH:/usr/local/bin
-export PATH=/.config/yarn/global/node_modules/.bin:$PATH./node_modules/.bin:$HOME/.yarn/bin:$HOME
-export PATH=/usr/local/opt/openssl/bin:$PATH
-export PATH=$PATH:$KUMPATH/yowez-cli/bin
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$PATH
-export PATH=$HOME/.nimble/bin:$PATH
-export PATH="/Applications/Emacs.app/Contents/MacOS:$PATH"
-export PATH="$HOME/.emacs.d/bin:$PATH"
-# export INITVIM=$HOME/.config/nvim/init.vim
-# export PATH=$HOME/bin:$PATH
-
-# export BAT_THEME="Monokai Extended Bright"
-# export BAT_THEME="GitHub"
-export BAT_THEME="Coldark-Dark"
-
-export ANDROID_HOME=${HOME}/Library/Android/sdk
-export JAVA_HOME=/Applications/Android\ Studio.app/Contents/jre/jdk/Contents/Home
-export PATH=${PATH}:${ANDROID_HOME}/emulator
-export PATH=${PATH}:${ANDROID_HOME}/tool
-export PATH="${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-
-export SCRIPT=~/Library/Mobile\ Documents/com\~apple\~ScriptEditor2/Documents
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source /Users/yohanesbandung/Library/Preferences/org.dystroy.broot/launcher/bash/br
 
 # PLUGIN OPTIONS
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#A4A4A4"
@@ -180,137 +133,7 @@ bindkey -M viins '^F' autosuggest-accept
 bindkey -M viins '^P' history-substring-search-up
 bindkey -M viins '^N' history-substring-search-down
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-########################################################################
-#                     END OF BANDUNG's EXPORTS
-########################################################################
-
-########################################################################
-#                     START OF BANDUNG's FUNCTIONS
-########################################################################
-
-# retry command after n times
-function gagal {
-  echo $1 >&2
-  exit 1
-}
-function kantal {
-  local n=1
-  local max="$1"; shift
-  local delay=3
-  while true; do
-    "$@" && break || {
-      if [[ $n -lt $max ]]; then
-        ((n++))
-        echo "Gagal nih. OTW percobaan ke $n/$max:"
-        sleep $delay;
-      else
-        gagal "Gagal muluk abis $n kali coba."
-      fi
-    }
-  done
-}
-
-# test
-function test_kantal {
-  echo "your first argument $1"
-  echo "your @ argument $@"
-  echo "your 0 argument $0"
-  local first="$1"; shift
-  echo "now your first argument $1"
-  echo "now your @ argument $@"
-}
-
-nn ()
-{
-    # Block nesting of nnn in subshells
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-        echo "nnn is already running"
-        return
-    fi
-
-    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
-    # To cd on quit only on ^G, remove the "export" as in:
-    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-    # NOTE: NNN_TMPFILE is fixed, should not be modified
-    NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-
-    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
-    # stty start undef
-    # stty stop undef
-    # stty lwrap undef
-    # stty lnext undef
-
-    nnn -deo "$@"
-
-    if [ -f "$NNN_TMPFILE" ]; then
-            . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
-    fi
-}
-
-export NNN_USE_EDITOR=1
-export NNN_TRASH=1
-[ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
-
-########################################################################
-#                     END OF BANDUNG's FUNCTIONS
-########################################################################
-
-########################################################################
-#                     START OF BANDUNG's ALIASES
-########################################################################
-
-eval "$(hub alias -s)"
-
-# projects
-alias kapp="cd ${KUMPATH}/app"
-alias kweb="cd ${KUMPATH}/web"
-alias kmag="cd ${KUMPATH}/dashboard"
-alias uikit="cd ${KUMPATH}/js/packages/kumparan-uikit"
-
-alias ybbond="cd ${YBPATH}/ybbond"
-
-# settings
-alias zshrc="nvim ~/.zshrc"
-alias vimrc="vim ~/.vimrc"
-alias bashpro="nvim ~/.bash_profile"
-alias bashrc="nvim ~/.bashrc"
-alias neorc="nvim ~/.config/nvim/init.vim"
-
-# git
-alias wip="git add . && git commit -m 'wip'"
-alias rehead="git reset HEAD~"
-alias lg="lazygit"
-
-# misc
-alias nexus5x="~/Library/Android/sdk/emulator/emulator -avd Nexus_5X_API_29 -netdelay none -netspeed full"
-alias konak="kantal 10 yarn add"
-
-alias cdb="cd .."
-
-# better cli
-alias ls='exa'
-alias cat="bat"
-alias find='fd'
-alias du='ncdu --color dark -rr'
-
-alias set_dark="cp ~/.tmux-dark.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-dark.conf ~/.config/kitty/kitty.conf"
-alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-light.conf ~/.config/kitty/kitty.conf"
-
-source <(lab completion zsh)
-
-########################################################################
-#                     END OF BANDUNG's ALIASES
-########################################################################
-
-
-########################################################################
-#                     START OF BANDUNG's VI MODE CURSOR
-########################################################################
+bindkey -M viins 'jk' vi-cmd-mode
 
 # vim mode config
 # ---------------
@@ -327,31 +150,107 @@ precmd () {
 }
 
 ########################################################################
-#                     END OF BANDUNG's VI MODE CURSOR
+##                     END OF BANDUNG's VI MODE CURSOR
 ########################################################################
 
-alias config=$CONFTREE
 
-# export MANPATH="/usr/local/man:$MANPATH"
+########################################################################
+#                     START OF BANDUNG's ALIASES
+########################################################################
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# # git
+# alias wip="git add . && git commit -m 'wip'"
+# alias rehead="git reset HEAD~"
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# alias cdb="cd .."
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# # better cli
+# alias lg="lazygit"
+# alias ls='exa'
+# alias cat="bat"
+# alias find='fd'
+# alias du='ncdu --color dark -rr'
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias set_dark="cp ~/.tmux-dark.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-dark.conf ~/.config/kitty/kitty.conf"
+alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-light.conf ~/.config/kitty/kitty.conf"
+
+########################################################################
+#                     END OF BANDUNG's ALIASES
+########################################################################
+
+
+########################################################################
+#                     START OF BANDUNG's eval and sources
+########################################################################
+
+eval "$(hub alias -s)"
+
+# see alternative below
+# eval "$(pyenv init -)"
+
+# alternative, from old .zshrc
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+source <(lab completion zsh)
+
+# pip zsh completion start
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] 2>/dev/null ))
+}
+compctl -K _pip_completion pip
+# pip zsh completion end
+
+# pip3 zsh completion start
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] 2>/dev/null ))
+}
+compctl -K _pip_completion pip3
+# pip3 zsh completion end
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
+fpath=(~/.tool_binaries/completions $fpath)
+autoload -U compinit && compinit
+
+########################################################################
+#                     START OF BANDUNG's eval and sources
+########################################################################
+
+
+########################################################################
+##                     START OF BANDUNG's EXPORTS
+#########################################################################
+
+export EDITOR=nvim
+export SHELL=zsh
+export LANG=en_US.UTF-8
+export TERM=screen-256color
+
+# for pyenv to work correctly, I need to use brew version of OpenSSL
+export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
+
+# # export BAT_THEME="Monokai Extended Bright"
+# # export BAT_THEME="GitHub"
+# export BAT_THEME="Coldark-Dark"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+
+########################################################################
+##                     END OF BANDUNG's EXPORTS
+#########################################################################
+
