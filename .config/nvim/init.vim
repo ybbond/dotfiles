@@ -9,8 +9,8 @@ endif
 
 " PlugIns
 call plug#begin(s:plugin_location)
-  Plug 'arzg/vim-colors-xcode'
-    let g:xcodelighthc_match_paren_style = 1
+  " Plug 'arzg/vim-colors-xcode'
+  "   let g:xcodelighthc_match_paren_style = 1
   Plug 'mhartington/oceanic-next'
 
   " *fzf.vim*
@@ -119,8 +119,8 @@ call plug#begin(s:plugin_location)
   "   let g:clap_layout = { 'relative': 'editor' }
 
   " LaTeX
-  Plug 'lervag/vimtex'
-    let g:vimtex_view_method='zathura'
+  " Plug 'lervag/vimtex'
+  "   let g:vimtex_view_method='zathura'
 
   " JavaScript
   Plug 'pangloss/vim-javascript'
@@ -154,22 +154,22 @@ call plug#begin(s:plugin_location)
   " GRAPHQL
   Plug 'jparise/vim-graphql'
 
-  " Go
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  " " Go
+  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
   " Rust
   " Plug 'rust-lang/rust.vim'
   "   let g:rustfmt_autosave = 1
 
   " Reason
-  Plug 'reasonml-editor/vim-reason-plus'
-    autocmd BufNewFile,BufRead *.re nnoremap <leader>w :!refmt --in-place %<cr>
-    let g:LanguageClient_serverCommands = {
-      \ 'reason': ['/Users/yohanesbandung/bin/reason-language-server']
-      \ }
+  " Plug 'reasonml-editor/vim-reason-plus'
+  "   autocmd BufNewFile,BufRead *.re nnoremap <leader>w :!refmt --in-place %<cr>
+  "   let g:LanguageClient_serverCommands = {
+  "     \ 'reason': ['/Users/yohanesbandung/bin/reason-language-server']
+  "     \ }
 
   " " vlang
-  Plug 'ollykel/v-vim'
+  " Plug 'ollykel/v-vim'
 
 call plug#end()
 
@@ -222,28 +222,28 @@ if has('nvim')
   set inccommand=split
 endif
 
-" Let's save undo info!
-if has('nvim')
-  if has('persistent_undo')
-    set undofile
-    set undolevels=250
-    set undoreload=500
-  endif
-else
-  if !isdirectory($HOME."/.vim")
-    call mkdir($HOME."/.vim", "", 0770)
-  endif
-  if !isdirectory($HOME."/.vim/undo-dir")
-    call mkdir($HOME."/.vim/undo-dir", "", 0700)
-  endif
-  set undodir=~/.vim/undo-dir
-  " Then set persistent undo!
-  if has('persistent_undo')
-    set undofile
-    set undolevels=250
-    set undoreload=500
-  endif
-endif
+" " Let's save undo info!
+" if has('nvim')
+"   if has('persistent_undo')
+"     set undofile
+"     set undolevels=250
+"     set undoreload=500
+"   endif
+" else
+"   if !isdirectory($HOME."/.vim")
+"     call mkdir($HOME."/.vim", "", 0770)
+"   endif
+"   if !isdirectory($HOME."/.vim/undo-dir")
+"     call mkdir($HOME."/.vim/undo-dir", "", 0700)
+"   endif
+"   set undodir=~/.vim/undo-dir
+"   " Then set persistent undo!
+"   if has('persistent_undo')
+"     set undofile
+"     set undolevels=250
+"     set undoreload=500
+"   endif
+" endif
 
 nnoremap <expr> j &wrap == 1 ? 'gj' : 'j'
 nnoremap <expr> k &wrap == 1 ? 'gk' : 'k'

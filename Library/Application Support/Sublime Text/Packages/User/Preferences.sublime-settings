@@ -1,9 +1,7 @@
-// Settings in here override those in "Default/Preferences.sublime-settings",
-// and are overridden in turn by syntax-specific settings.
 {
   "color_scheme": "auto",
-  "light_color_scheme": "Sixteen.sublime-color-scheme",
-  "dark_color_scheme": "Mariana.sublime-color-scheme",
+  "dark_color_scheme": "Packages/Color Scheme - Default/Mariana.sublime-color-scheme",
+  "light_color_scheme": "Packages/Color Scheme - Default/Sixteen.sublime-color-scheme",
   "mini_diff": "auto",
   "translate_tabs_to_spaces": true,
   "tab_size": 2,
@@ -13,22 +11,23 @@
   "auto_complete_cycle": false,
   "drag_text": false,
 
+  "default_dir": "/Users/yohanesbandung",
+
   "theme": "Adaptive.sublime-theme",
   "bold_folder_labels": true,
   "show_encoding": true,
   "show_indentation": false,
   "hot_exit": "disabled",
   "remember_workspace": false,
-  "relative_line_numbers":true,
+  "relative_line_numbers": true,
   "indent_guide_options": [
     "draw_normal",
-    "draw_active_single"
+    "draw_active_single",
   ],
   "draw_white_space": ["selection_all", "trailing_all", "leading_mixed"],
 
   "ignored_packages":
   [
-    "RelativeFilePath",
     "Six",
     "Vintage",
     "Vintageous",
@@ -39,7 +38,5 @@
   "vintageous_sneak_use_ic_scs": 1,
   "vintageous_enable_abolish": false,
   "vintageous_enable_sneak": true,
-
-  "default_dir": "/Users/yohanesbandung/projects",
-  "font_size": 15,
+  "font_size": 14,
 }

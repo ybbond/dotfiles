@@ -1,0 +1,10 @@
+[
+  {"caption": "-", "id": "end" },
+  {
+    "caption": "List Containing Branches",
+    "command": "git",
+    "args": {
+      "argv": ["branch", "-a", "--contains", "$commit"]
+    }
+  },
+]

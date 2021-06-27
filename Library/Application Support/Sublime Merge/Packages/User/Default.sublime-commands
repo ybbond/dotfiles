@@ -1,0 +1,41 @@
+[
+  {
+    "caption": "Fetch Prune with Tags",
+    "command": "git",
+    "args": {"argv": ["fetch", "--prune", "$select_remote", "'refs/tags/*:refs/tags/*'", "'+refs/heads/*:refs/remotes/origin/*'"]}
+  },
+  // {
+  //   "caption": "Sync Master",
+  //   "command": "git",
+  //   "args": {"argv": ["pull", "$select_remote", "$select_remote_branch"], "local_refs": false, "remote_refs": true},
+  // },
+
+  {
+    "caption": "Open GitHub Repository",
+    "command": "git",
+    "args": {"argv": ["hub", "browse"]}
+  },
+
+  {
+    "caption": "Open GitLab MR",
+    "command": "git",
+    "args": {"argv": ["lab", "mr", "browse"]}
+  },
+  {
+    "caption": "Open GitLab Repository",
+    "command": "git",
+    "args": {"argv": ["lab", "repo", "browse"]}
+  },
+
+  {
+    "caption": "Reset to HEAD~",
+    "command": "git",
+    "args": {"argv": ["reset", "HEAD~"]}
+  },
+
+  {
+    "caption": "Open Project in Sublime Text",
+    "command": "git",
+    "args": {"argv": ["sublp"]}
+  }
+]
