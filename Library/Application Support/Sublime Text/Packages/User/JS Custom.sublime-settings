@@ -1,0 +1,38 @@
+{
+  "configurations": {
+    "React": {
+      "name": "React JSCustom",
+      "file_extensions": [ "js", "jsx" ],
+      "flow_types": true,
+      "jsx": true,
+    },
+    "TypeScript": {
+      "name": "TypeScript JSCustom",
+      "scope": "source.ts",
+      "file_extensions": [ "ts" ],
+      "typescript": true,
+    },
+    "TypeScript (JSX)": {
+      "name": "TypeScriptX JSCustom",
+      "scope": "source.tsx",
+      "file_extensions": [ "tsx" ],
+      "typescript": true,
+      "jsx": true,
+    },
+  },
+  "defaults": {
+    "custom_template_tags": false,
+    "eslint_directives": true,
+    "flow_types": false,
+    "jsx": false,
+    "string_object_keys": true,
+    "custom_templates": {
+      "styled_components": true,
+      "tags": {
+        "css": "scope:source.js.css",
+        "createGlobalStyle": "scope:source.css",
+        "gql": "scope:source.graphql"
+      }
+    }
+  }
+}

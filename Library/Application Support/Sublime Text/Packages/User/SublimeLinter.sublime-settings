@@ -1,0 +1,13 @@
+// SublimeLinter Settings - User
+{
+  "linters": {
+    "eslint": {
+      "disable": true,
+    },
+    "flow": {
+      "disable": true,
+    },
+  },
+  "no_column_highlights_line": true,
+  "statusbar.messages_template": "{type}",
+}

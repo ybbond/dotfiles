@@ -1,0 +1,24 @@
+// Do NOT edit anything in the left-hand pane.
+// Copy the whole tree from there to here.
+{
+  "formatters": {
+    "eslint": {
+      "disable": false,
+      "format_on_save": false,
+      "syntaxes": ["js", "ts"],
+      "executable_path": "${project_path}/node_modules/.bin/eslint",
+      "config_path": {
+        "default": "${project_path}/eslintrc.json",
+      },
+    },
+    "prettier": {
+      "disable": false,
+      "format_on_save": false,
+      "syntaxes": ["css", "scss", "less", "js", "jsx", "json", "html", "graphql", "markdown", "tsx", "vue", "yaml"],
+      "executable_path": "${project_path}/node_modules/.bin/prettier",
+      "config_path": {
+        "default": "${project_path}/.prettierrc"
+      },
+    }
+  }
+}

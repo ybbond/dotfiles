@@ -1,0 +1,26 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"install_prereleases": ["NeoVintageous", "JSCustom"],
+	"installed_packages":
+	[
+		"BetterFindBuffer",
+		"Formatter",
+		"GitGutter",
+		"JSCustom",
+		"LSP",
+		"LSP-Deno",
+		"LSP-eslint",
+		"LSP-flow",
+		"LSP-json",
+		"NeoVintageous",
+		"Origami",
+		"Package Control",
+		"SublimeLinter",
+		"SublimeLinter-eslint",
+		"SublimeLinter-flow",
+		"Terminus",
+	],
+}
