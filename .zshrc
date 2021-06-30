@@ -244,9 +244,9 @@ export TERM=screen-256color
 export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
 
-# # export BAT_THEME="Monokai Extended Bright"
-# # export BAT_THEME="GitHub"
-# export BAT_THEME="Coldark-Dark"
+# export BAT_THEME="Monokai Extended Bright"
+# export BAT_THEME="GitHub"
+export BAT_THEME="Coldark-Dark"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
