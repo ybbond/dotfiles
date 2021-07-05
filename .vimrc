@@ -34,6 +34,33 @@ inoremap <C-D> <DEL>
 nnoremap gb :bnext<CR>
 nnoremap gB :bprevious<CR>
 
+" au VimEnter * if &diff | execute 'windo set wrap' | execute 'windo set nofoldenable' | endif
+
+if &diff
+  set wrap
+  set nofoldenable
+  nnoremap gr :diffupdate<CR>
+  " hi DiffAdd    ctermfg=233 ctermbg=LightGreen guifg=#003300 guibg=#DDFFDD gui=none cterm=none
+  " hi DiffChange ctermbg=white  guibg=#ececec gui=none   cterm=none
+  " hi DiffText   ctermfg=233  ctermbg=yellow  guifg=#000033 guibg=#DDDDFF gui=none cterm=none
+  hi DiffAdd    ctermbg=22
+  hi DiffChange ctermbg=94
+  hi DiffDelete ctermbg=88
+  hi DiffText   ctermfg=233  ctermbg=yellow  guifg=#000033 guibg=#DDDDFF gui=none cterm=none
+endif
+
+if &diff
+  map gs :call IwhiteToggle()<CR>
+  function! IwhiteToggle()
+    if &diffopt =~ 'iwhite'
+      set diffopt-=iwhite
+    else
+      set diffopt-=internal
+      set diffopt+=iwhite
+    endif
+  endfunction
+endif
+
 augroup numbertoggle
   if &number == 1
     autocmd!
