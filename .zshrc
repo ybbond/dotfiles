@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/yohanesbandung/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -174,6 +174,9 @@ precmd () {
 alias set_dark="cp ~/.tmux-dark.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-dark.conf ~/.config/kitty/kitty.conf"
 alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-light.conf ~/.config/kitty/kitty.conf"
 
+alias opsimulator="open -a Simulator"
+alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30_arm64-v8a -netdelay none -netspeed full"
+
 ########################################################################
 #                     END OF BANDUNG's ALIASES
 ########################################################################
@@ -219,6 +222,49 @@ function _pip_completion {
 compctl -K _pip_completion pip3
 # pip3 zsh completion end
 
+###-begin-flutter-completion-###
+if type complete &>/dev/null; then
+  __flutter_completion() {
+    local si="$IFS"
+    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           flutter completion -- "${COMP_WORDS[@]}" \
+                           2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  complete -F __flutter_completion flutter
+elif type compdef &>/dev/null; then
+  __flutter_completion() {
+    si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 flutter completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef __flutter_completion flutter
+elif type compctl &>/dev/null; then
+  __flutter_completion() {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       flutter completion -- "${words[@]}" \
+                       2>/dev/null)) || return $?
+    IFS="$si"
+  }
+  compctl -K __flutter_completion flutter
+fi
+###-end-flutter-completion-###
+
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
@@ -248,9 +294,18 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
 # export BAT_THEME="GitHub"
 export BAT_THEME="Coldark-Dark"
 
+export PATH="$HOME/.tool_binaries/zulu16.30.19-ca-jdk16.0.1-macosx_aarch64/zulu-16.jdk/Contents/Home/bin:$PATH"
+export PATH="$PATH:$HOME/.tool_binaries/flutter/bin"
+
+export JAVA_HOME="$HOME/.tool_binaries/zulu16.30.19-ca-jdk16.0.1-macosx_aarch64/zulu-16.jdk/Contents/Home"
+
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
 ########################################################################
 ##                     END OF BANDUNG's EXPORTS
 #########################################################################
 
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

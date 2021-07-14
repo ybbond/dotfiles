@@ -34,11 +34,9 @@ inoremap <C-D> <DEL>
 nnoremap gb :bnext<CR>
 nnoremap gB :bprevious<CR>
 
-" au VimEnter * if &diff | execute 'windo set wrap' | execute 'windo set nofoldenable' | endif
+au VimEnter * if &diff | execute 'windo set wrap' | execute 'windo set nofoldenable' | endif
 
 if &diff
-  set wrap
-  set nofoldenable
   nnoremap gr :diffupdate<CR>
   " hi DiffAdd    ctermfg=233 ctermbg=LightGreen guifg=#003300 guibg=#DDFFDD gui=none cterm=none
   " hi DiffChange ctermbg=white  guibg=#ececec gui=none   cterm=none

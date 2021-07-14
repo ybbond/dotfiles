@@ -122,9 +122,12 @@ call plug#begin(s:plugin_location)
   " Plug 'lervag/vimtex'
   "   let g:vimtex_view_method='zathura'
 
+  " Dart
+  Plug 'dart-lang/dart-vim-plugin'
+
   " JavaScript
   Plug 'pangloss/vim-javascript'
-    let g:javascript_plugin_flow = 1
+    " let g:javascript_plugin_flow = 1
     let g:javascript_plugin_jsdoc = 1
   Plug 'othree/yajs.vim'
   Plug 'maxmellon/vim-jsx-pretty'
@@ -501,6 +504,11 @@ endif
 " FIXME highlight
 " XXX highlight
 
+" Identify syntax highlighting below cursor
+map <LEADER>h :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " Change comment color
 " hi Comment guifg=LightBlue
 hi Comment gui=italic cterm=italic
@@ -509,3 +517,6 @@ hi Comment gui=italic cterm=italic
 " hi NonText guifg=#4a4a59 ctermfg=Gray
 " hi SpecialKey guifg=#4a4a59 ctermfg=Gray
 hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+
+hi DiffAdded ctermbg=22 guibg=#006c00
+hi DiffRemoved ctermbg=94 guibg=#990006
