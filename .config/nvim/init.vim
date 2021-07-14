@@ -124,6 +124,7 @@ call plug#begin(s:plugin_location)
 
   " Dart
   Plug 'dart-lang/dart-vim-plugin'
+    let g:dart_format_on_save = 1
 
   " JavaScript
   Plug 'pangloss/vim-javascript'

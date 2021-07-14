@@ -5,8 +5,12 @@
     "javascriptreact",
     "typescript",
     "typescriptreact",
-    "json"
+    "json",
+    "dart"
   ],
+
+  "dart.enableSdkFormatter": true,
+  "flutter.provider.hot-reload": true,
 
   "diagnostic.errorSign": "█",
   "diagnostic.hintSign": "█",
