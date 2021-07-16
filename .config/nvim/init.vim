@@ -267,9 +267,9 @@ nnoremap <leader># :let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchfor
 nnoremap <leader>br :bufdo e<cr>
 
 " Copy, Paste and Copy Whole File to clipboard
-map <leader>c "+yy
+map <leader>c "+y
 map <leader>v :r !pbpaste<cr><cr>
-map <leader>ac :%w !pbcopy<cr><cr>
+map <leader>x :%w !pbcopy<cr><cr>
 
 " Toggle wrap
 map <leader>w :set wrap!<cr>
@@ -325,7 +325,9 @@ nnoremap gB :bprevious<cr>
   nmap [C <Plug>(coc-diagnostic-prev)
   nmap gi <Plug>(coc-implementation)
   nmap gr <Plug>(coc-references)
-  nmap <leader>. :call CocAction("codeAction")<cr>
+  nmap ga :call CocAction("codeAction")<cr>
+  xmap gs  <Plug>(coc-codeaction-selected)
+  nmap gs  <Plug>(coc-codeaction-selected)
 
   command! CocGstatus CocList gstatus
   command! CocBuffers CocList buffers
@@ -509,6 +511,8 @@ endif
 map <LEADER>h :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+noremap <leader>a ga
 
 " Change comment color
 " hi Comment guifg=LightBlue
