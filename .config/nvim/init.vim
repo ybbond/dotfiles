@@ -9,91 +9,54 @@ endif
 
 " PlugIns
 call plug#begin(s:plugin_location)
-  " Plug 'arzg/vim-colors-xcode'
-  "   let g:xcodelighthc_match_paren_style = 1
   Plug 'mhartington/oceanic-next'
 
-  " *fzf.vim*
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-  Plug 'junegunn/fzf.vim'
-    let g:fzf_preview_window = ['down:50%', 'ctrl-/']
-  source ~/.vim/scripts/fzf_js_import.vim
+  " *nvim-web-devicons*
+  Plug 'kyazdani42/nvim-web-devicons'
 
-  " *bufkill*
-  Plug 'qpkorr/vim-bufkill'
+  " *telescope.nvim*
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+
+  " *barbar.nvim*
+  Plug 'romgrk/barbar.nvim'
+    let bufferline = get(g:, 'bufferline', {})
+    " let bufferline.icons = 'numbers'
+
+  " *galaxyline.nvim*
+  Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+
+  " *nvim-tree*
+  Plug 'kyazdani42/nvim-tree.lua'
+    let g:nvim_tree_side = 'right'
+    let g:nvim_tree_width = 40
+
+  " *nvim-treesitter*
+  " https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
+  " :TSInstall {language}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
   " *vim-fugitive*
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
-  " Plug 'mhinz/vim-signify'
-  "   let g:signify_realtime = 1
-  "   let g:signify_cursorhold_normal = 0
-  "   let g:signify_cursorhold_insert = 0
-  "   let g:signify_sign_add    = '█'
-  "   let g:signify_sign_change = '█'
-  "   let g:signify_sign_delete = '▂'
-  "   let g:signify_sign_show_count = 0
-  "   let g:signify_line_highlight = 0
   Plug 'shumphrey/fugitive-gitlab.vim'
-    let g:fugitive_gitlab_domains = ['https://gitlab.kumparan.com']
 
   " *git-messenger*
   Plug 'rhysd/git-messenger.vim'
     let g:git_messenger_git_command = 'hub'
     let g:git_messenger_no_default_mappings = v:true
 
-  " *vim-easymotion*
-  " Plug 'easymotion/vim-easymotion'
-
-  " *vim-searchindex*
-  " Plug 'google/vim-searchindex'
-  "   let g:searchindex_line_limit=10000000
-
   " *vim-sneak*
   Plug 'justinmk/vim-sneak'
     let g:sneak#absolute_dir = 1
-
-  " *vim-airline*
-  Plug 'vim-airline/vim-airline'
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#show_tabs = 0
-    let g:airline#extensions#tabline#buffer_nr_show = 1
-    let g:airline#extensions#tabline#formatter = 'jsformatter'
-  Plug 'vim-airline/vim-airline-themes'
-
-    " to enable these, set git.addGBlameToBufferVar true on CocConfig
-    " function! s:update_git_blame()
-    "   let g:airline_section_x = "%{get(b:,'coc_git_blame','')}"
-    " endfunction
-    " let g:airline_section_x = "%{get(b:,'coc_git_blame','')}"
-    " autocmd User CocGitStatusChange call s:update_git_blame()
-
-      let g:airline#extensions#default#layout = [
-      \ [ 'a', 'b', 'c'],
-      \ [ 'z', 'error', 'warning' ]
-      \ ]
-    " let g:airline_section_x = []
-    " let g:airline_section_y = []
-
-    let g:airline#extensions#coc#enabled = 1
-    " use error & warning count of diagnostics form coc.nvim
-    let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-    let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
-    " let g:airline_theme = 'xcodelighthc'
 
   " *tmux*
   Plug 'tmux-plugins/vim-tmux'
   Plug 'tmux-plugins/vim-tmux-focus-events'
 
-  " *nerdtree*
-  Plug 'scrooloose/nerdtree'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    let g:NERDTreeWinPos = "right"
-
   Plug 'junegunn/vim-peekaboo'
   Plug 'machakann/vim-highlightedyank'
-  " Plug 'jiangmiao/auto-pairs'
-  "   let g:AutoPairsMultilineClose = 0
 
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
@@ -111,16 +74,6 @@ call plug#begin(s:plugin_location)
     au BufNewFile,BufRead *.(c|v|vv|py) setlocal tabstop=4
     au BufNewFile,BufRead *.(c|v|vv|py) setlocal shiftwidth=4
     au BufNewFile,BufRead *.(c|v|vv|py) setlocal set noexpandtab
-
-  " *vim-clap*
-  " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-  "   let g:clap_provider_grep_delay = 100
-  "   let g:clap_disable_run_rooter = v:true
-  "   let g:clap_layout = { 'relative': 'editor' }
-
-  " LaTeX
-  " Plug 'lervag/vimtex'
-  "   let g:vimtex_view_method='zathura'
 
   " Dart
   Plug 'dart-lang/dart-vim-plugin'
@@ -142,38 +95,11 @@ call plug#begin(s:plugin_location)
   Plug 'leafgarland/typescript-vim'
   Plug 'HerringtonDarkholme/yats.vim'
 
-  " Markdown
-  " Plug 'ybbond/vim-markdown'
-  "   let g:vim_markdown_folding_disabled = 1
-  "   let g:vim_markdown_conceal = 0
-  "   let g:vim_markdown_strikethrough = 1
-  "   let g:vim_markdown_math = 1
-  "   let g:vim_markdown_frontmatter = 1  " for YAML format
-  "   let g:vim_markdown_toml_frontmatter = 1  " for TOML format
-  "   let g:vim_markdown_json_frontmatter = 1  " for JSON format
-
   Plug 'cespare/vim-toml'
   Plug 'stephpy/vim-yaml'
 
   " GRAPHQL
   Plug 'jparise/vim-graphql'
-
-  " " Go
-  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-  " Rust
-  " Plug 'rust-lang/rust.vim'
-  "   let g:rustfmt_autosave = 1
-
-  " Reason
-  " Plug 'reasonml-editor/vim-reason-plus'
-  "   autocmd BufNewFile,BufRead *.re nnoremap <leader>w :!refmt --in-place %<cr>
-  "   let g:LanguageClient_serverCommands = {
-  "     \ 'reason': ['/Users/yohanesbandung/bin/reason-language-server']
-  "     \ }
-
-  " " vlang
-  " Plug 'ollykel/v-vim'
 
 call plug#end()
 
@@ -213,10 +139,6 @@ set ruler
 set showmatch
 set cursorline
 
-" highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=87 guifg=NONE guibg=#EEF6FF
-" autocmd InsertEnter * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=87 guifg=NONE guibg=#EEF6FF
-" autocmd InsertLeave * highlight CursorLine cterm=NONE ctermfg=NONE ctermbg=87 guifg=NONE guibg=#EEF6FF
-
 set ignorecase
 set smartcase
 set incsearch
@@ -225,29 +147,6 @@ set hlsearch
 if has('nvim')
   set inccommand=split
 endif
-
-" " Let's save undo info!
-" if has('nvim')
-"   if has('persistent_undo')
-"     set undofile
-"     set undolevels=250
-"     set undoreload=500
-"   endif
-" else
-"   if !isdirectory($HOME."/.vim")
-"     call mkdir($HOME."/.vim", "", 0770)
-"   endif
-"   if !isdirectory($HOME."/.vim/undo-dir")
-"     call mkdir($HOME."/.vim/undo-dir", "", 0700)
-"   endif
-"   set undodir=~/.vim/undo-dir
-"   " Then set persistent undo!
-"   if has('persistent_undo')
-"     set undofile
-"     set undolevels=250
-"     set undoreload=500
-"   endif
-" endif
 
 nnoremap <expr> j &wrap == 1 ? 'gj' : 'j'
 nnoremap <expr> k &wrap == 1 ? 'gk' : 'k'
@@ -264,21 +163,21 @@ nnoremap <leader>* :let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchfor
 nnoremap <leader># :let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n
 
 " reload all opened buffer
-nnoremap <leader>br :bufdo e<cr>
+nnoremap <leader>br :bufdo e<CR>
 
 " Copy, Paste and Copy Whole File to clipboard
 map <leader>c "+y
-map <leader>v :r !pbpaste<cr><cr>
-map <leader>x :%w !pbcopy<cr><cr>
+map <leader>v :r !pbpaste<CR><CR>
+map <leader>x :%w !pbcopy<CR><CR>
 
 " Toggle wrap
-map <leader>w :set wrap!<cr>
+map <leader>w :set wrap!<CR>
 
 " Unhighlight search
-nnoremap <silent> <LEADER><SPACE> :nohlsearch<cr>
+nnoremap <silent> <LEADER><SPACE> :nohlsearch<CR>
 
 " Toggle check spelling
-nnoremap <leader>s :set spell! spelllang=en_us<cr>
+nnoremap <leader>s :set spell! spelllang=en_us<CR>
 
 map <silent> <A-h> <C-w><
 map <silent> <A-k> <C-W>-
@@ -286,36 +185,23 @@ map <silent> <A-j> <C-W>+
 map <silent> <A-l> <C-w>>
 
 " Remap leader-% to source %
-nnoremap <leader>% :source ~/.config/nvim/init.vim<cr>
-
-" navigating buffers
-nnoremap gb :bnext<cr>
-nnoremap gB :bprevious<cr>
+nnoremap <leader>% :source ~/.config/nvim/init.vim<CR>
 
 " |vim-sneak|
   map f <Plug>Sneak_f
   map F <Plug>Sneak_F
   map t <Plug>Sneak_t
   map T <Plug>Sneak_T
-  " " 2-character Sneak (default)
-  " nmap Q <Plug>Sneak_s
-  " nmap <leader>Q <Plug>Sneak_S
-  " " visual-mode
-  " xmap Q <Plug>Sneak_s
-  " xmap <leader>Q <Plug>Sneak_S
-  " " operator-pending-mode
-  " omap Q <Plug>Sneak_s
-  " omap <leader>Q <Plug>Sneak_S
 
 " |vim-fugitive|
-  map <leader>kp :Gdiff!<cr>
-  map <leader>kb :Git blame<cr>
+  map <leader>kp :Gdiff!<CR>
+  map <leader>kb :Git blame<CR>
 
 " |coc.nvim|
   nmap gd <Plug>(coc-definition)
   nmap <2-LeftMouse> <Plug>(coc-definition)
-  nmap gh :call <SID>show_documentation()<cr>
-  nmap <2-LeftMouse> :call <SID>show_documentation()<cr>
+  nmap gh :call <SID>show_documentation()<CR>
+  nmap <2-LeftMouse> :call <SID>show_documentation()<CR>
   nmap <leader>gd <Plug>(coc-diagnostics-info)
   nmap [c <Plug>(coc-git-prevchunk)
   nmap ]c <Plug>(coc-git-nextchunk)
@@ -325,7 +211,7 @@ nnoremap gB :bprevious<cr>
   nmap [C <Plug>(coc-diagnostic-prev)
   nmap gi <Plug>(coc-implementation)
   nmap gr <Plug>(coc-references)
-  nmap ga :call CocAction("codeAction")<cr>
+  nmap ga :call CocAction("codeAction")<CR>
   xmap gs  <Plug>(coc-codeaction-selected)
   nmap gs  <Plug>(coc-codeaction-selected)
 
@@ -337,68 +223,43 @@ nnoremap gB :bprevious<cr>
   nmap <C-w>m <Plug>(git-messenger)
   nmap <C-w><C-m> <Plug>(git-messenger)
 
-" |bufkill|
-  nnoremap gx :BD<cr>
+" |telescope.nvim|
+  nnoremap <C-p> <CMD>Telescope find_files<CR>
+  nnoremap <C-i> <CMD>Telescope live_grep<CR>
+  nnoremap <C-s> <CMD>Telescope grep_string<CR>
+  nnoremap <C-g> <CMD>Telescope git_status<CR>
+  nnoremap <C-t> <CMD>Telescope treesitter<CR>
 
-" |fzf.vim|
-  let g:rg_command = '
-    \ rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"
-    \ -g "*.{css,js,jsx,ts,tsx,json,re,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-    \ -g "!{.git,node_modules,coverage,vendor,build}/*" '
+" |barbar.nvim|
+  " Move to previous/next
+  nnoremap    gB    :BufferPrevious<CR>
+  nnoremap    gb    :BufferNext<CR>
+  " Re-order to previous/next
+  nnoremap    <A-<> :BufferMovePrevious<CR>
+  nnoremap    <A->> :BufferMoveNext<CR>
+  " Goto buffer in position...
+  nnoremap    <A-1> :BufferGoto 1<CR>
+  nnoremap    <A-2> :BufferGoto 2<CR>
+  nnoremap    <A-3> :BufferGoto 3<CR>
+  nnoremap    <A-4> :BufferGoto 4<CR>
+  nnoremap    <A-5> :BufferGoto 5<CR>
+  nnoremap    <A-6> :BufferGoto 6<CR>
+  nnoremap    <A-7> :BufferGoto 7<CR>
+  nnoremap    <A-8> :BufferGoto 8<CR>
+  nnoremap    <A-9> :BufferLast<CR>
+  " Close buffer
+  nnoremap    gx    :BufferClose<CR>
+  " Wipeout buffer
+  "                 :BufferWipeout<CR>
+  " Close commands
+  "                 :BufferCloseAllButCurrent<CR>
+  "                 :BufferCloseBuffersLeft<CR>
+  "                 :BufferCloseBuffersRight<CR>
+  " Magic buffer-picking mode
+  nnoremap    <A-s> :BufferPick<CR>
 
-  " NOTES
-  " the {'options': '-e'} limits to only search literal text https://github.com/BurntSushi/ripgrep/issues/1119
-  " the {'options': '--delimiter : --nth 4..'} option limit the string search only for file content
-  command! -bang -nargs=* StringsAll
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --no-ignore --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '--preview-window=down:50% --layout=reverse --delimiter : --nth 4..'}), <bang>0)
-  " OLD
-  " command! -bang -nargs=* Strings call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
-  command! -bang -nargs=* Strings
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --glob "!{.git,node_modules,flow-typed,operation-types.flow.js,generatedTypes}" --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '--preview-window=down:50% --layout=reverse --delimiter : --nth 4..'}), <bang>0)
-  command! -bang -nargs=* StringsWhole
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --glob "!{.git,node_modules,flow-typed,operation-types.flow.js,generatedTypes}" --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '-e --preview-window=down:50% --layout=reverse --delimiter : --nth 4..'}), <bang>0)
-  command! -bang -nargs=* StringsAndFileWhole
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --glob "!{.git,node_modules,flow-typed,operation-types.flow.js,generatedTypes}" --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '-e --preview-window=down:50% --layout=reverse'}), <bang>0)
-
-  command! -bang -nargs=? -complete=dir FilesAll
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--preview-window=down:50%', '--layout=reverse', '--info=inline']}), <bang>0)
-  command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({'options': ['--preview-window=down:50%', '--layout=reverse', '--info=inline']}), <bang>0)
-
-  " nnoremap <C-o> :Strings<cr>
-  " nnoremap <C-i> :Files<cr>
-  noremap <C-i> :Strings<cr>
-  noremap <C-s> :StringsWhole<cr>
-  noremap <leader><C-s> :StringsAndFileWhole<cr>
-  noremap <leader><C-i> :StringsAll<cr>
-  noremap <C-p> :Files --cached --others --exclude-standard<cr>
-  noremap <leader><C-p> :FilesAll<cr>
-  " noremap <C-b> :Buffers<CR>
-  noremap <C-g> :CocGstatus<CR>
-  noremap <C-b> :CocBuffers<CR>
-
-" |vim-clap|
-  " nnoremap <C-i> :Clap!! grep ++opt=--hidden ++opt=-g=!.git<cr>
-  " nnoremap <leader><C-i> :Clap grep ++opt=--hidden ++opt=-g=!.git<cr>
-  " nnoremap <C-p> :Clap!! files --hidden<cr>
-  " nnoremap <leader><C-p> :Clap files --hidden<cr>
-  " nnoremap <leader>* :Clap!! grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
-  " nnoremap <leader><leader>* :Clap grep ++query=<cword> ++opt=--hidden ++opt=-g=!.git<cr>
-  " vnoremap <leader>* :Clap!! grep ++query=@visual ++opt=--hidden ++opt=-g=!.git<cr>
-  " vnoremap <leader><leader>* :Clap grep ++query=@visual ++opt=--hidden ++opt=-g=!.git<cr>
-  " nnoremap <C-b> :Clap buffers<cr>
-
-" |nerdtree|
-  map <leader>e :NERDTreeToggle<cr>
-  map <leader>r :NERDTreeFind<cr>
+" |nvim-tree|
+  nnoremap <LEADER>e :NvimTreeToggle<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""

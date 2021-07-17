@@ -11,6 +11,7 @@
 
   "dart.enableSdkFormatter": true,
   "flutter.provider.hot-reload": true,
+  "flutter.runDevToolsAtStartup": true,
 
   "diagnostic.errorSign": "█",
   "diagnostic.hintSign": "█",
