@@ -1,3 +1,8 @@
+vim.api.nvim_set_var('netrw_bufsettings', 'noma nomod nonu nowrap ro buflisted')
+vim.api.nvim_set_var('bufferline', {
+  icons = 'both',
+})
+
 local tree ={}
 tree.open = function ()
    require'bufferline.state'.set_offset(31, 'FileTree')
@@ -9,4 +14,4 @@ tree.close = function ()
    require'nvim-tree'.close()
 end
 
-return tree 
+return tree
