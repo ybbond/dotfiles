@@ -28,6 +28,8 @@ vim.cmd('filetype plugin indent on')
 vim.o.paste = false
 vim.o.pastetoggle = '<F2>'
 
+vim.o.hidden = true
+
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
