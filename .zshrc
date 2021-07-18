@@ -177,6 +177,8 @@ alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-
 alias opsimulator="open -a Simulator"
 alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30_arm64-v8a -netdelay none -netspeed full"
 
+alias neorc="cd ~/.config/nvim && nvim . && cd -"
+
 ########################################################################
 #                     END OF BANDUNG's ALIASES
 ########################################################################

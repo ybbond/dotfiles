@@ -1,3 +1,5 @@
+-- https://github.com/glepnir/galaxyline.nvim/issues/12#issuecomment-734843968
+
 local gl = require('galaxyline')
 local gls = gl.section
 local extension = require('galaxyline.provider_extensions')

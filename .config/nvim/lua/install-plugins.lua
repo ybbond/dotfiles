@@ -28,6 +28,7 @@ plug(tostring(os.getenv("HOME")) .. '/.local/share/nvim/plugged', {
   'nvim-lua/popup.nvim',
   'nvim-lua/plenary.nvim',
   'nvim-telescope/telescope.nvim',
+  'fannheyward/telescope-coc.nvim',
 
   'romgrk/barbar.nvim',
 

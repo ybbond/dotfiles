@@ -94,7 +94,8 @@ Keybind.g({
     { 'n', '<C-g>', '<CMD>Telescope git_status<CR>', { noremap = true } },
     -- { 'n', '<C-b>', '<CMD>Telescope' buffers<CR>, { noremap = true } },
     -- { 'n', '<C-t>', '<CMD>Telescope' help_tags<CR>, { noremap = true } },
-    { 'n', '<C-t>', '<CMD>Telescope treesitter<CR>', { noremap = true } },
+    -- { 'n', '<C-t>', '<CMD>Telescope treesitter<CR>', { noremap = true } },
+    { 'n', '<C-t>', '<CMD>Telescope coc document_symbols<CR>', { noremap = true } },
 
   -- |barbar.nvim|
     -- Move to previous/next
@@ -126,5 +127,5 @@ Keybind.g({
 
   -- |nvim-tree|
     { 'n', '<LEADER>e', ':NvimTreeToggle<CR>', { noremap = true } },
-    { 'n', '<LEADER>r', ':NvimTreeToggle<CR>', { noremap = true } },
+    { 'n', '<LEADER>r', ':NvimTreeFindFile<CR>', { noremap = true } },
 })

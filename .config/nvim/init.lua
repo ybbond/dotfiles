@@ -5,12 +5,10 @@ require('utils')
 
 -- vim-plug settings & plugins
 require('install-plugins')
+require('plugins')
 
 -- functions
 require('functions')
-
--- commands
-require('commands')
 
 -- keybindings
 require('keybindings')
@@ -29,6 +27,17 @@ Command.cmd({
   'syntax on',
   'filetype plugin on',
   'filetype plugin indent on',
+
+  'au BufNewFile,BufRead *.(c|v|vv|py) setlocal tabstop=4',
+  'au BufNewFile,BufRead *.(c|v|vv|py) setlocal shiftwidth=4',
+  'au BufNewFile,BufRead *.(c|v|vv|py) setlocal set noexpandtab',
+})
+
+Augroup.cmds({
+    -- highlight on yank!!!
+    highlight_yank = {
+        {"TextYankPost", "* silent! lua require'vim.highlight'.on_yank({timeout = 400})"},
+    },
 })
 
 Option.g({
@@ -72,16 +81,25 @@ Option.g({
 -- PLUGINS
 
   Variable.g({
+    netrw_bufsettings = 'noma nomod nonu nowrap ro buflisted',
+
     -- |nvim-tree|
     nvim_tree_side = 'right',
     nvim_tree_width = 40,
+    nvim_tree_auto_open = 1,
+    nvim_tree_git_hl = 1,
+    nvim_tree_hijack_netrw = 0,
 
     -- |git-messenger|
     git_messenger_git_command = 'hub',
     git_messenger_no_default_mappings = true,
+
+    bufferline = {
+      icons = 'both',
+    },
   })
 
-  -- *vim-sneak*
+  -- |vim-sneak|
   vim.g["sneak#absolute_dir"] = 1
 
   Variable.g({
