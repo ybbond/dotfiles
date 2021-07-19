@@ -11,6 +11,7 @@ require('telescope').setup{
     },
     sorting_strategy = "ascending",
     layout_strategy = "vertical",
+    scroll_strategy = "cycle",
     layout_config = {
       horizontal = {
         mirror = false,
@@ -22,4 +23,4 @@ require('telescope').setup{
   }
 }
 --require('telescope').load_extension('coc')
-
+require('telescope').load_extension('flutter')

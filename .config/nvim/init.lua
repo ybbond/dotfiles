@@ -30,6 +30,9 @@ vim.o.pastetoggle = '<F2>'
 
 vim.o.hidden = true
 
+-- vim.o.foldmethod = 'expr'
+-- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
@@ -57,7 +60,7 @@ vim.o.hlsearch = true
 
 vim.o.inccommand = 'split'
 
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menuone,noinsert,noselect"
 
 
 ------------------------------------------------------------
@@ -116,11 +119,20 @@ vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>', {noremap = true})
 ------------------------------------------------------------
 
 -- barbar
-vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferNext<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferPrevious<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferMoveNext<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferMovePrevious<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'gx', '<CMD>BufferClose<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'gb',    '<CMD>BufferNext<CR>',         {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'gB',    '<CMD>BufferPrevious<CR>',     {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'g>',    '<CMD>BufferMoveNext<CR>',     {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'g<',    '<CMD>BufferMovePrevious<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', 'gx',    '<CMD>BufferClose<CR>',        {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-1>', ':BufferGoto 1<CR>',           {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-2>', ':BufferGoto 2<CR>',           {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-3>', ':BufferGoto 3<CR>',           {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-4>', ':BufferGoto 4<CR>',           {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-5>', ':BufferGoto 5<CR>',           {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-6>', ':BufferGoto 6<CR>',           {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-7>', ':BufferGoto 7<CR>',           {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-8>', ':BufferGoto 8<CR>',           {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<A-9>', ':BufferLast<CR>',             {noremap = true, silent = true})
 
 -- nvim-tree
 vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>', {noremap = true})
@@ -142,6 +154,11 @@ vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
 vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
 vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
 vim.api.nvim_set_keymap('', 'T', '<Plug>Sneak_T', {})
+
+-- nvim-compe
+vim.api.nvim_set_keymap('i', '<C-Space>', [[compe#complete()]], {noremap = true, expr = true, silent = true})
+vim.api.nvim_set_keymap('i', '<TAB>',      [[compe#confirm('<CR>')]], {noremap = true, expr = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-e>',     [[compe#close('<C-e>')]], {noremap = true, expr = true, silent = true})
 
 
 ------------------------------------------------------------
@@ -238,13 +255,6 @@ fun! YbbondOtherSetups()
     set wrap
     set nofoldenable
     nnoremap gr :diffupdate<CR>
-    " hi DiffAdd    ctermfg=233 ctermbg=LightGreen guifg=#003300 guibg=#DDFFDD gui=none cterm=none
-    " hi DiffChange ctermbg=white  guibg=#ececec gui=none   cterm=none
-    " hi DiffText   ctermfg=233  ctermbg=yellow  guifg=#000033 guibg=#DDDDFF gui=none cterm=none
-    hi DiffAdd    ctermbg=22
-    hi DiffChange ctermbg=94
-    hi DiffDelete ctermbg=88
-    hi DiffText   ctermfg=233  ctermbg=yellow  guifg=#000033 guibg=#DDDDFF gui=none cterm=none
   endif
 
   if &diff
@@ -276,6 +286,22 @@ fun! YbbondOtherColors()
 
   hi DiffAdded ctermbg=22 guibg=#006c00
   hi DiffRemoved ctermbg=94 guibg=#990006
+
+  " |vimdiff|
+  " hi DiffAdd    ctermfg=233 ctermbg=LightGreen guifg=#003300 guibg=#DDFFDD gui=none cterm=none
+  " hi DiffChange ctermbg=white  guibg=#ececec gui=none   cterm=none
+  " hi DiffText   ctermfg=233  ctermbg=yellow  guifg=#000033 guibg=#DDDDFF gui=none cterm=none
+  hi DiffAdd    ctermbg=22
+  hi DiffChange ctermbg=94
+  hi DiffDelete ctermbg=88
+  hi DiffText   ctermfg=233  ctermbg=yellow  guifg=#000033 guibg=#DDDDFF gui=none cterm=none
+
+  " |neogit|
+  hi def NeogitDiffAddHighlight guibg=#006c00
+  hi def NeogitDiffDeleteHighlight guibg=#990006
+  hi def NeogitDiffContextHighlight guibg=#3a4650
+  hi def NeogitHunkHeader guifg=#cccccc
+  hi def NeogitHunkHeaderHighlight guifg=#cccccc
 endfun
 call YbbondOtherColors()
 ]], true)

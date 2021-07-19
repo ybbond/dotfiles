@@ -1,6 +1,7 @@
 require('plenary.reload').reload_module('configs/barbar')
 require('plenary.reload').reload_module('configs/flutter-tools')
 require('plenary.reload').reload_module('configs/galaxyline-theme-evilline')
+require('plenary.reload').reload_module('configs/nvim-compe')
 require('plenary.reload').reload_module('configs/nvim-lspconfig')
 require('plenary.reload').reload_module('configs/nvim-tree')
 require('plenary.reload').reload_module('configs/telescope')
