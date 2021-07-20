@@ -12,7 +12,8 @@ local ybbond_flutter_lsp_on_attach = function(client, bufnr)
   -- Mappings.
   local opts = { noremap=true, silent=true }
 
-  buf_set_keymap('n', 'gA', '<cmd>lua require("telescope").extensions.flutter.commands()<CR>', opts)
+  buf_set_keymap('n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', opts)
+  buf_set_keymap('n', '<LEADER>f', '<CMD>DartFmt<CR>', opts)
 end
 
 require("flutter-tools").setup {

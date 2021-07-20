@@ -1,14 +1,14 @@
 require('telescope').setup{
   defaults = {
-    vimgrep_arguments = {
-      'rg',
-      -- '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case'
-    },
+    -- vimgrep_arguments = {
+    --   'rg',
+    --   -- '--color=never',
+    --   '--no-heading',
+    --   '--with-filename',
+    --   '--line-number',
+    --   '--column',
+    --   '--smart-case'
+    -- },
     sorting_strategy = "ascending",
     layout_strategy = "vertical",
     scroll_strategy = "cycle",

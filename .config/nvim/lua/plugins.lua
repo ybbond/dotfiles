@@ -1,7 +1,7 @@
 -- this file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[packadd packer.nvim]]
 -- only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
 -- vim._update_package_paths()
 
@@ -15,7 +15,13 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- sublime dark theme
-  use 'mhartington/oceanic-next'
+  use {
+    'mhartington/oceanic-next',
+    config = function()
+               vim.api.nvim_set_var('oceanic_next_terminal_bold', 1)
+               vim.api.nvim_set_var('oceanic_next_terminal_italic', 1)
+             end
+  }
 
   -- tabline improvements with barbar
   use {
@@ -24,18 +30,12 @@ return require('packer').startup(function()
     config = function() require'configs/barbar' end
   }
 
-  -- statusline improvements with lualine
+  -- statusline improvements with galaxyline
   use {
-    'hoob3rt/lualine.nvim',
-    requires = {{'kyazdani42/nvim-web-devicons', opt = true}, 'nvim-lua/lsp-status.nvim'},
-    config = function() require('lualine').setup{
-      options = {
-        theme = 'oceanicnext',
-        section_separators = '',
-        component_separators = '',
-      },
-      sections = {lualine_c = {"os.data('%a')", 'data', require'lsp-status'.status}}
-    } end
+    'glepnir/galaxyline.nvim',
+      branch = 'main',
+      config = function() require'configs/evilline' end,
+      requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
 
   -- file manager using nvim-tree
@@ -62,7 +62,21 @@ return require('packer').startup(function()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    config = function() require'nvim-treesitter.configs'.setup {highlight = {enable = true}} end
+    config = function()
+               require'nvim-treesitter.configs'.setup {
+                 highlight = {enable = true},
+                 -- |JoosepAlviste/nvim-ts-context-commentstring|
+                 context_commentstring = {
+                   enable = true
+                 }
+               }
+             end
+  }
+
+  -- vim-commentary extension with treesitter
+  use {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
   }
 
   -- trying to use neogit
@@ -110,10 +124,7 @@ return require('packer').startup(function()
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
 
-  use {
-    'dart-lang/dart-vim-plugin',
-    config = function() vim.api.nvim_set_var('dart_format_on_save', 1) end
-  }
+  use 'dart-lang/dart-vim-plugin'
   use {
     'akinsho/flutter-tools.nvim',
     requires = 'nvim-lua/plenary.nvim',
@@ -129,25 +140,6 @@ return require('packer').startup(function()
     },
     config = function() require'configs/lsp-ts-utils' end
   }
-
-  -- use {
-  --   'pangloss/vim-javascript',
-  --   config = function() vim.api.nvim_set_var('javascript_plugin_jsdoc', 1) end
-  -- }
-  -- use 'othree/yajs.vim'
-  -- use {
-  --   'maxmellon/vim-jsx-pretty',
-  --   config = function()
-  --              vim.api.nvim_set_var('vim_jsx_pretty_colorful_config', 1)
-  --              vim.api.nvim_set_var('jsx_ext_required', 0)
-  --            end
-  -- }
-  -- use {
-  --   'styled-components/vim-styled-components',
-  --   branch = 'main',
-  -- }
-  -- use 'leafgarland/typescript-vim'
-  -- use 'HerringtonDarkholme/yats.vim'
 
 end)
 

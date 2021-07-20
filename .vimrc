@@ -21,6 +21,8 @@ set ignorecase
 set smartcase
 set hlsearch
 
+set hidden
+
 nnoremap <LEADER><SPACE> :nohlsearch<CR>
 nnoremap <LEADER>% :source %<CR>
 

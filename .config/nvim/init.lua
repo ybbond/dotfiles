@@ -67,6 +67,15 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 --                   DEFAULT KEYBINDINGS
 ------------------------------------------------------------
 
+-- https://oroques.dev/notes/neovim-init/#mappings
+-- local function map(mode, lhs, rhs, opts)
+--   local options = {noremap = true}
+--   if opts then options = vim.tbl_extend('force', options, opts) end
+--   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+-- end
+--
+-- map('', '<leader>c', '"+y') 
+
 local function t(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
 
 function _G.smart_wrap_nav_bindings(ifTrue,ifFalse) return vim.o.wrap == true and t(ifTrue) or t(ifFalse) end
@@ -113,6 +122,14 @@ vim.api.nvim_set_keymap('i', '<C-d>', '<DEL>', {noremap = true})
 vim.api.nvim_set_keymap('l', 'jk', '<ESC>', {noremap = true})
 vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>', {noremap = true})
 
+-- make emacs navigation available on EX-mode
+
+-- vim.api.nvim_set_keymap('c', '<C-a>', '<Home>', {noremap = true})
+-- vim.api.nvim_set_keymap('c', '<C-e>', '<End>', {noremap = true})
+-- vim.api.nvim_set_keymap('c', '<C-b>', '<Left>', {noremap = true})
+-- vim.api.nvim_set_keymap('c', '<C-f>', '<Right>', {noremap = true})
+-- vim.api.nvim_set_keymap('c', '<C-M-b>', '<S-Left>', {noremap = true})
+-- vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
 
 ------------------------------------------------------------
 --                   PLUGINS KEYBINDINGS
@@ -139,15 +156,16 @@ vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>', {noremap = 
 vim.api.nvim_set_keymap('n', '<LEADER>r', '<CMD>NvimTreeFindFile<CR>', {noremap = true})
 
 -- telescope
-vim.api.nvim_set_keymap('n', '<C-p>', '<CMD>Telescope find_files<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-i>', '<CMD>Telescope live_grep<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-s>', '<CMD>Telescope grep_string<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-g>', '<CMD>Telescope git_status<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', '<C-b>', '<CMD>Telescope buffers<CR>', { noremap = true })
--- vim.api.nvim_set_keymap('n', '<C-t>', '<CMD>Telescope help_tags<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-t>', '<CMD>Telescope treesitter<CR>', { noremap = true })
--- vim.api.nvim_set_keymap('n', '<C-a>', '<CMD>Telescope lsp_code_actions<CR>', { noremap = true })
--- vim.api.nvim_set_keymap('n', '<C-t>', '<CMD>Telescope coc document_symbols<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-p>',         [[<CMD>Telescope find_files hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER><C-p>', [[<CMD>Telescope find_files find_command=fd,--no-ignore hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-i>',         [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER><C-i>', [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-s>',         [[<CMD>Telescope grep_string<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-g>',         [[<CMD>Telescope git_status<CR>]], {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<C-b>',         '<CMD>Telescope buffers<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-f>',         '<CMD>Telescope help_tags<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-t>',         [[<CMD>Telescope treesitter<CR>]], { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<C-a>',         '<CMD>Telescope lsp_code_actions<CR>', { noremap = true })
 
 -- sneak
 vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
@@ -157,8 +175,8 @@ vim.api.nvim_set_keymap('', 'T', '<Plug>Sneak_T', {})
 
 -- nvim-compe
 vim.api.nvim_set_keymap('i', '<C-Space>', [[compe#complete()]], {noremap = true, expr = true, silent = true})
-vim.api.nvim_set_keymap('i', '<TAB>',      [[compe#confirm('<CR>')]], {noremap = true, expr = true, silent = true})
-vim.api.nvim_set_keymap('i', '<C-e>',     [[compe#close('<C-e>')]], {noremap = true, expr = true, silent = true})
+vim.api.nvim_set_keymap('i', '<TAB>',      [[compe#confirm('<TAB>')]], {noremap = true, expr = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-g>',     [[compe#close('<C-g>')]], {noremap = true, expr = true, silent = true})
 
 
 ------------------------------------------------------------
@@ -302,6 +320,9 @@ fun! YbbondOtherColors()
   hi def NeogitDiffContextHighlight guibg=#3a4650
   hi def NeogitHunkHeader guifg=#cccccc
   hi def NeogitHunkHeaderHighlight guifg=#cccccc
+
+  " |indent-blankline|
+  hi IndentBlanklineContextChar guifg=#a7adba
 endfun
 call YbbondOtherColors()
 ]], true)
