@@ -14,7 +14,7 @@ return require('packer').startup(function()
   -- packer can manage itself
   use 'wbthomason/packer.nvim'
 
-  -- sublime dark theme
+  -- sublime dark theme with oceanic-next
   use {
     'mhartington/oceanic-next',
     config = function()
@@ -23,14 +23,14 @@ return require('packer').startup(function()
              end
   }
 
-  -- tabline improvements with barbar
+  -- tabline improvements with barbar.nvim
   use {
     'romgrk/barbar.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/barbar' end
   }
 
-  -- statusline improvements with galaxyline
+  -- statusline improvements with galaxyline.nvim
   use {
     'glepnir/galaxyline.nvim',
       branch = 'main',
@@ -38,34 +38,34 @@ return require('packer').startup(function()
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
 
-  -- file manager using nvim-tree
+  -- file manager using nvim-tree.lua
   use {
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/nvim-tree' end
   }
 
-  -- colorize colors
+  -- colorize colors with nvim-colorizer.lua
   use {
     'norcalli/nvim-colorizer.lua',
     config = function() require'colorizer'.setup() end
   }
 
-  -- telescope for fuzzy findings and cool stuffs
+  -- telescope.nvim for fuzzy findings and cool stuffs
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function() require'configs/telescope' end
   }
 
-  -- leveraging neovim 0.5.0 treesitter
+  -- leveraging neovim 0.5.0 nvim-treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
                require'nvim-treesitter.configs'.setup {
                  highlight = {enable = true},
-                 -- |JoosepAlviste/nvim-ts-context-commentstring|
+                 -- nvim-ts-context-commentstring
                  context_commentstring = {
                    enable = true
                  }
@@ -73,7 +73,7 @@ return require('packer').startup(function()
              end
   }
 
-  -- vim-commentary extension with treesitter
+  -- vim-commentary extension with treesitter nvim-ts-context-commentstring
   use {
     'JoosepAlviste/nvim-ts-context-commentstring',
     requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
@@ -85,6 +85,7 @@ return require('packer').startup(function()
     requires = {
       'nvim-lua/plenary.nvim',
       {
+        -- diffview.nvim
         'sindrets/diffview.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
         config = function() require'configs/diffview' end
@@ -93,20 +94,20 @@ return require('packer').startup(function()
     config = function() require'configs/neogit' end
   }
 
-  -- using built-in lsp from neovim 5
+  -- using built-in lsp with nvim-lspconfig
   use {
     'neovim/nvim-lspconfig',
     requires = {'nvim-lua/lsp-status.nvim', opt = true},
     config = function() require'configs/nvim-lspconfig' end
   }
 
-  -- completion for neovim
+  -- completion for neovim with nvim-compe
   use {
     'hrsh7th/nvim-compe',
     config = function() require'configs/nvim-compe' end
   }
 
-  -- git on gutter
+  -- gitsigns.nvim on gutter
   use {
     'lewis6991/gitsigns.nvim',
     requires = 'nvim-lua/plenary.nvim',
@@ -115,15 +116,18 @@ return require('packer').startup(function()
 
   ------------------ END OPTIMIZED FOR NEOVIM ------------------
 
+  -- vim-sneak
   use {
     'justinmk/vim-sneak',
     config = function() vim.api.nvim_set_var('sneak#absolute_dir', 1) end
   }
 
+  -- vim-commentary vim-surround and vim-repeat
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
 
+  -- Flutter development, with dart-vim-plugin and flutter-tools.nvim
   use 'dart-lang/dart-vim-plugin'
   use {
     'akinsho/flutter-tools.nvim',
@@ -131,6 +135,7 @@ return require('packer').startup(function()
     config = function() require'configs/flutter-tools' end
   }
 
+  -- TypeScript, JavaScript and ReactJS utilities with nvim-lsp-ts-utils
   use {
     'jose-elias-alvarez/nvim-lsp-ts-utils',
     requires = {

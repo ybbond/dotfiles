@@ -124,50 +124,52 @@ vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>', {noremap = true})
 
 -- make emacs navigation available on EX-mode
 
--- vim.api.nvim_set_keymap('c', '<C-a>', '<Home>', {noremap = true})
--- vim.api.nvim_set_keymap('c', '<C-e>', '<End>', {noremap = true})
--- vim.api.nvim_set_keymap('c', '<C-b>', '<Left>', {noremap = true})
--- vim.api.nvim_set_keymap('c', '<C-f>', '<Right>', {noremap = true})
--- vim.api.nvim_set_keymap('c', '<C-M-b>', '<S-Left>', {noremap = true})
--- vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
+vim.api.nvim_set_keymap('c', '<C-a>', '<Home>', {noremap = true})
+vim.api.nvim_set_keymap('c', '<C-e>', '<End>', {noremap = true})
+vim.api.nvim_set_keymap('c', '<C-b>', '<Left>', {noremap = true})
+vim.api.nvim_set_keymap('c', '<C-f>', '<Right>', {noremap = true})
+vim.api.nvim_set_keymap('c', '<C-M-b>', '<S-Left>', {noremap = true})
+vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
 
 ------------------------------------------------------------
 --                   PLUGINS KEYBINDINGS
 ------------------------------------------------------------
 
--- barbar
-vim.api.nvim_set_keymap('n', 'gb',    '<CMD>BufferNext<CR>',         {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'gB',    '<CMD>BufferPrevious<CR>',     {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'g>',    '<CMD>BufferMoveNext<CR>',     {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'g<',    '<CMD>BufferMovePrevious<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', 'gx',    '<CMD>BufferClose<CR>',        {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-1>', ':BufferGoto 1<CR>',           {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-2>', ':BufferGoto 2<CR>',           {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-3>', ':BufferGoto 3<CR>',           {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-4>', ':BufferGoto 4<CR>',           {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-5>', ':BufferGoto 5<CR>',           {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-6>', ':BufferGoto 6<CR>',           {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-7>', ':BufferGoto 7<CR>',           {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-8>', ':BufferGoto 8<CR>',           {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<A-9>', ':BufferLast<CR>',             {noremap = true, silent = true})
+-- barbar.nvim
+vim.api.nvim_set_keymap('n', 'gb',    '<CMD>BufferNext<CR>',         {noremap = true})
+vim.api.nvim_set_keymap('n', 'gB',    '<CMD>BufferPrevious<CR>',     {noremap = true})
+vim.api.nvim_set_keymap('n', 'g>',    '<CMD>BufferMoveNext<CR>',     {noremap = true})
+vim.api.nvim_set_keymap('n', 'g<',    '<CMD>BufferMovePrevious<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'gx',    '<CMD>BufferClose<CR>',        {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-1>', '<CMD>BufferGoto 1<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-2>', '<CMD>BufferGoto 2<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-3>', '<CMD>BufferGoto 3<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-4>', '<CMD>BufferGoto 4<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-5>', '<CMD>BufferGoto 5<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-6>', '<CMD>BufferGoto 6<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-7>', '<CMD>BufferGoto 7<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-8>', '<CMD>BufferGoto 8<CR>',       {noremap = true})
+vim.api.nvim_set_keymap('n', '<A-9>', '<CMD>BufferLast<CR>',         {noremap = true})
 
--- nvim-tree
+-- nvim-tree.lua
 vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<LEADER>r', '<CMD>NvimTreeFindFile<CR>', {noremap = true})
 
--- telescope
-vim.api.nvim_set_keymap('n', '<C-p>',         [[<CMD>Telescope find_files hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER><C-p>', [[<CMD>Telescope find_files find_command=fd,--no-ignore hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-i>',         [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER><C-i>', [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-s>',         [[<CMD>Telescope grep_string<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-g>',         [[<CMD>Telescope git_status<CR>]], {noremap = true})
--- vim.api.nvim_set_keymap('n', '<C-b>',         '<CMD>Telescope buffers<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-f>',         '<CMD>Telescope help_tags<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-t>',         [[<CMD>Telescope treesitter<CR>]], { noremap = true })
--- vim.api.nvim_set_keymap('n', '<C-a>',         '<CMD>Telescope lsp_code_actions<CR>', { noremap = true })
+-- telescope.nvim
+vim.api.nvim_set_keymap('n', '<C-p>',         [[:Telescope find_files hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER><C-p>', [[:Telescope find_files find_command=fd,--no-ignore hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-n>',         [[:Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER><C-n>', [[:Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-s>',         [[:Telescope grep_string<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-g>',         [[:Telescope git_status<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-f>',         [[:Telescope registers<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-b>',         [[:Telescope buffers<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-h>',         [[:Telescope help_tags<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-m>',         [[:Telescope marks<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>',         [[:Telescope treesitter<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-a>',         [[:Telescope commands<CR>]], {noremap = true})
 
--- sneak
+-- vim-sneak
 vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
 vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
 vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
