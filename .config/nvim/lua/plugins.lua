@@ -5,7 +5,7 @@
 -- only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
 -- vim._update_package_paths()
 
-vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
+vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile profile=true]])
 
 return require('packer').startup(function()
 
@@ -23,11 +23,32 @@ return require('packer').startup(function()
              end
   }
 
+  -- use {
+  --   'ray-x/material_plus.nvim',
+  --   config = function()
+  --              vim.g.material_italic_comments = true
+  --              vim.g.material_italic_string = false
+  --              vim.g.material_italic_keywords = false
+  --              vim.g.material_italic_functions = false
+  --              vim.g.material_italic_variables = false
+  --              vim.g.material_contrast = true
+  --              vim.g.material_borders = false
+  --              vim.g.material_disable_background = false
+  --              vim.g.material_style = 'mariana'
+  --              vim.g.material_style_fix = true
+  --            end
+  -- }
+
   -- tabline improvements with barbar.nvim
   use {
     'romgrk/barbar.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'configs/barbar' end
+    config = function()
+               vim.api.nvim_set_var('netrw_bufsettings', 'noma nomod nonu nowrap ro buflisted')
+               vim.api.nvim_set_var('bufferline', {
+                 icons = 'both',
+               })
+             end
   }
 
   -- statusline improvements with galaxyline.nvim
@@ -35,7 +56,7 @@ return require('packer').startup(function()
     'glepnir/galaxyline.nvim',
       branch = 'main',
       config = function() require'configs/evilline' end,
-      requires = {'kyazdani42/nvim-web-devicons', opt = true}
+      requires = 'kyazdani42/nvim-web-devicons'
   }
 
   -- file manager using nvim-tree.lua
@@ -62,15 +83,7 @@ return require('packer').startup(function()
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    config = function()
-               require'nvim-treesitter.configs'.setup {
-                 highlight = {enable = true},
-                 -- nvim-ts-context-commentstring
-                 context_commentstring = {
-                   enable = true
-                 }
-               }
-             end
+    config = function() require'configs/nvim-treesitter' end
   }
 
   -- vim-commentary extension with treesitter nvim-ts-context-commentstring
@@ -87,7 +100,7 @@ return require('packer').startup(function()
       {
         -- diffview.nvim
         'sindrets/diffview.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        requires = 'kyazdani42/nvim-web-devicons',
         config = function() require'configs/diffview' end
       }
     },
@@ -97,7 +110,7 @@ return require('packer').startup(function()
   -- using built-in lsp with nvim-lspconfig
   use {
     'neovim/nvim-lspconfig',
-    requires = {'nvim-lua/lsp-status.nvim', opt = true},
+    requires = 'nvim-lua/lsp-status.nvim',
     config = function() require'configs/nvim-lspconfig' end
   }
 

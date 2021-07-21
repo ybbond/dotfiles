@@ -2,12 +2,14 @@
 --                      RESOURCES
 ------------------------------------------------------------
 
-require('plugins')
 
 require('plenary.reload').reload_module('plugins')
 require('plenary.reload').reload_module('configs')
 require('plenary.reload').reload_module'%'
 
+require('plugins')
+require('configs')
+-- require'%'
 
 ------------------------------------------------------------
 --                    CUSTOMIZATIONS
@@ -20,8 +22,9 @@ vim.o.termguicolors = true
 vim.o.background = 'dark'
 
 vim.cmd('colorscheme OceanicNext')
-vim.cmd('syntax enable')
-vim.cmd('syntax on')
+-- vim.cmd('colorscheme material')
+-- vim.cmd('syntax enable')
+-- vim.cmd('syntax on')
 vim.cmd('filetype plugin on')
 vim.cmd('filetype plugin indent on')
 
@@ -104,6 +107,9 @@ vim.api.nvim_set_keymap('', '<A-l>', '<C-w>>', {silent = true})
 vim.api.nvim_set_keymap('n', '<LEADER>*', [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]], {noremap = true})
 vim.api.nvim_set_keymap('n', '<LEADER>#', [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]], {noremap = true})
 
+-- why does vim's Y behavior different?
+vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
+
 -- copy, paste and copy whole file to clipboard
 vim.api.nvim_set_keymap('', '<LEADER>c', '"+y', {})
 vim.api.nvim_set_keymap('', '<LEADER>v', ':r !pbpaste<CR><CR>', {})
@@ -166,8 +172,9 @@ vim.api.nvim_set_keymap('n', '<C-f>',         [[:Telescope registers<CR>]], {nor
 vim.api.nvim_set_keymap('n', '<C-b>',         [[:Telescope buffers<CR>]], {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-h>',         [[:Telescope help_tags<CR>]], {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-m>',         [[:Telescope marks<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>',         [[:Telescope treesitter<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-a>',         [[:Telescope commands<CR>]], {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<C-t>',         [[:Telescope treesitter<CR>]], {noremap = true})
+-- vim.api.nvim_set_keymap('n', '<C-a>',         [[:Telescope commands<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>',         [[:Telescope commands<CR>]], {noremap = true})
 
 -- vim-sneak
 vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
