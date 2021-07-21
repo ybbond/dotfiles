@@ -909,21 +909,23 @@ key_bindings:
   #- { key: F,              mods: Command|Control,            action: ToggleFullscreen      }
   #- { key: F,              mods: Command, mode: ~Search,     action: SearchForward         }
   #- { key: B,              mods: Command, mode: ~Search,     action: SearchBackward        }
-  - { key: T,              mods: Command,                    chars: "\x00c"               }
-  - { key: Key1,           mods: Command,                    chars: "\x001"               }
-  - { key: Key2,           mods: Command,                    chars: "\x002"               }
-  - { key: Key3,           mods: Command,                    chars: "\x003"               }
-  - { key: Key4,           mods: Command,                    chars: "\x004"               }
-  - { key: Key5,           mods: Command,                    chars: "\x005"               }
-  - { key: Key6,           mods: Command,                    chars: "\x006"               }
-  - { key: Key7,           mods: Command,                    chars: "\x007"               }
-  - { key: Key8,           mods: Command,                    chars: "\x008"               }
-  - { key: Key9,           mods: Command,                    chars: "\x009"               }
-  - { key: Tab,            mods: Control|Shift,              chars: "\x00p"               }
-  - { key: Tab,            mods: Control,                    chars: "\x00n"               }
-  - { key: LBracket,       mods: Command|Shift,              chars: "\x00_"               }
-  - { key: RBracket,       mods: Command|Shift,              chars: "\x00+"               }
-  - { key: C,            mods: Control|Command,              chars: "\x00["               }
+  - { key: W,              mods: Command,                    chars: "\x1b\x4f\x52x"       }
+  - { key: R,              mods: Command,                    chars: "\x1b\x4f\x52,"       }
+  - { key: T,              mods: Command,                    chars: "\x1b\x4f\x52c"       }
+  - { key: Key1,           mods: Command,                    chars: "\x1b\x4f\x521"       }
+  - { key: Key2,           mods: Command,                    chars: "\x1b\x4f\x522"       }
+  - { key: Key3,           mods: Command,                    chars: "\x1b\x4f\x523"       }
+  - { key: Key4,           mods: Command,                    chars: "\x1b\x4f\x524"       }
+  - { key: Key5,           mods: Command,                    chars: "\x1b\x4f\x525"       }
+  - { key: Key6,           mods: Command,                    chars: "\x1b\x4f\x526"       }
+  - { key: Key7,           mods: Command,                    chars: "\x1b\x4f\x527"       }
+  - { key: Key8,           mods: Command,                    chars: "\x1b\x4f\x528"       }
+  - { key: Key9,           mods: Command,                    chars: "\x1b\x4f\x529"       }
+  - { key: Tab,            mods: Control|Shift,              chars: "\x1b\x4f\x52p"       }
+  - { key: Tab,            mods: Control,                    chars: "\x1b\x4f\x52n"       }
+  - { key: LBracket,       mods: Command|Shift,              chars: "\x1b\x4f\x52_"       }
+  - { key: RBracket,       mods: Command|Shift,              chars: "\x1b\x4f\x52+"       }
+  - { key: C,            mods: Control|Command,              chars: "\x1b\x4f\x52["       }
 
 #debug:
   # Display the time it takes to redraw each frame.
