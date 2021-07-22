@@ -162,19 +162,19 @@ vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>', {noremap = 
 vim.api.nvim_set_keymap('n', '<LEADER>r', '<CMD>NvimTreeFindFile<CR>', {noremap = true})
 
 -- telescope.nvim
-vim.api.nvim_set_keymap('n', '<C-p>',         [[:Telescope find_files hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER><C-p>', [[:Telescope find_files find_command=fd,--no-ignore hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-n>',         [[:Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER><C-n>', [[:Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-s>',         [[:Telescope grep_string<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-g>',         [[:Telescope git_status<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-f>',         [[:Telescope registers<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-b>',         [[:Telescope buffers<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-h>',         [[:Telescope help_tags<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-m>',         [[:Telescope marks<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-p>',         [[<CMD>lua require("telescope.builtin").find_files{ find_command= { "fd", "-E=.git", "--hidden" }} hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER><C-p>', [[<CMD>lua require("telescope.builtin").find_files{ find_command= { "fd", "-E=.git", "--hidden", "--no-ignore" }} hidden=true prompt_prefix=🔍<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-n>',         [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER><C-n>', [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore<CR> prompt_prefix=🔍]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-s>',         [[<CMD>Telescope grep_string<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-g>',         [[<CMD>Telescope git_status<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-f>',         [[<CMD>Telescope registers<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-b>',         [[<CMD>Telescope buffers<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-h>',         [[<CMD>Telescope help_tags<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-m>',         [[<CMD>Telescope marks<CR>]], {noremap = true})
 -- vim.api.nvim_set_keymap('n', '<C-t>',         [[:Telescope treesitter<CR>]], {noremap = true})
 -- vim.api.nvim_set_keymap('n', '<C-a>',         [[:Telescope commands<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>',         [[:Telescope commands<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>',         [[<CMD>Telescope commands<CR>]], {noremap = true})
 
 -- vim-sneak
 vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
@@ -311,8 +311,10 @@ fun! YbbondOtherColors()
   " hi SpecialKey guifg=#4a4a59 ctermfg=Gray
   hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 
-  hi DiffAdded ctermbg=22 guibg=#006c00
-  hi DiffRemoved ctermbg=94 guibg=#990006
+  hi DiffAdded ctermbg=LightGreen guibg=#006c00 ctermfg=Black guifg=#F0F2F5 gui=NONE cterm=NONE
+  hi DiffRemoved ctermbg=LightRed guibg=#990006 ctermfg=Black guifg=#F0F2F5 gui=NONE cterm=NONE
+  hi diffAdded ctermbg=LightGreen guibg=#006c00 ctermfg=Black guifg=#F0F2F5 gui=NONE cterm=NONE
+  hi diffRemoved ctermbg=LightRed guibg=#990006 ctermfg=Black guifg=#F0F2F5 gui=NONE cterm=NONE
 
   " |vimdiff|
   " hi DiffAdd    ctermfg=233 ctermbg=LightGreen guifg=#003300 guibg=#DDFFDD gui=none cterm=none

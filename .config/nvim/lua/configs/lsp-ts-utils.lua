@@ -37,8 +37,8 @@ nvim_lsp.tsserver.setup {
 
       -- formatting
       enable_formatting = true,
-      formatter = "prettier",
-      formatter_config_fallback = nil,
+      formatter = "eslint",
+      formatter_config_fallback = "/Users/yohanesbandung/.config/nvim/lua/assets/.prettierrc",
 
       -- update imports on file move
       update_imports_on_move = false,
