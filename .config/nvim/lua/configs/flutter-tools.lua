@@ -22,6 +22,7 @@ require("flutter-tools").setup {
   },
   flutter_path = "/Users/yohanesbandung/.tool_binaries/flutter/bin/flutter",
   -- flutter_lookup_cmd = "/Users/yohanesbandung/.tool_binaries/flutter/bin",
+
 }
 
 require('telescope').load_extension('flutter')

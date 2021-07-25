@@ -102,19 +102,17 @@ return require('packer').startup(function()
   -- tabline improvements with nvim-bufferline
   use {
     'akinsho/nvim-bufferline.lua',
-    requires = {'kyazdani42/nvim-web-devicons', 'ojroques/nvim-bufdel' },
-    config = function()
-               require('bufferline').setup({
-                 close_command = "BufDel %d",
-                 right_mouse_command = nil,
-                 left_mouse_command = "BufDel %d",
-                 diagnostics = "nvim_lsp",
-                 sort_by = function(buffer_a, buffer_b)
-                   return buffer_a.modified > buffer_b.modified
-                 end
-               })
-               require('bufdel').setup{next = 'alternate'}
-             end
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function() require'configs/bufferline' end
+  }
+  use {
+    'ojroques/nvim-bufdel',
+    config = function() require('bufdel').setup{ next = 'alternate' } end
+  }
+
+  use {
+    "folke/which-key.nvim",
+    config = function() require'configs/which-key' end
   }
 
   ------------------ END OPTIMIZED FOR NEOVIM ------------------

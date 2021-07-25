@@ -1,17 +1,4 @@
 ------------------------------------------------------------
---                      RESOURCES
-------------------------------------------------------------
-
-
-require('plenary.reload').reload_module('plugins')
-require('plenary.reload').reload_module('configs')
-require('plenary.reload').reload_module'%'
-
-require('plugins')
-require('configs')
--- require'%'
-
-------------------------------------------------------------
 --                    CUSTOMIZATIONS
 ------------------------------------------------------------
 
@@ -32,8 +19,7 @@ vim.o.pastetoggle = '<F2>'
 
 vim.o.hidden = true
 
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.o.timeoutlen = 100
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
@@ -71,6 +57,7 @@ vim.o.diffopt = vim.o.diffopt .. ',vertical'
 ------------------------------------------------------------
 --                   DEFAULT KEYBINDINGS
 ------------------------------------------------------------
+
 
 -- https://oroques.dev/notes/neovim-init/#mappings
 -- local function map(mode, lhs, rhs, opts)
@@ -123,11 +110,14 @@ vim.api.nvim_set_keymap('', '<LEADER>h', [[:echo "hi<" . synIDattr(synID(line(".
 -- rebind vim's ga to be <LEADER>a
 vim.api.nvim_set_keymap('', '<LEADER>a', 'ga', {noremap = true})
 
+-- rebind vim's gx to be gX
+vim.api.nvim_set_keymap('n', 'gX', 'gx', {noremap = true})
+
 -- remap <C-d> to Delete
 vim.api.nvim_set_keymap('i', '<C-d>', '<DEL>', {noremap = true})
 
 -- remap jk and <C-c> to escape
-vim.api.nvim_set_keymap('l', 'jk', '<ESC>', {noremap = true})
+vim.api.nvim_set_keymap('i', 'jk', '<ESC>', {noremap = true})
 vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>', {noremap = true})
 
 -- make emacs navigation available on EX-mode
@@ -139,56 +129,11 @@ vim.api.nvim_set_keymap('c', '<C-f>', '<Right>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<C-M-b>', '<S-Left>', {noremap = true})
 vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
 
-------------------------------------------------------------
---                   PLUGINS KEYBINDINGS
-------------------------------------------------------------
-
--- nvim-bufferline
-vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferLineCycleNext<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferLineCyclePrev<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferLineMoveNext<CR>',  {noremap = true})
-vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferLineMovePrev<CR>',  {noremap = true})
--- bufdelete.nvim
-vim.api.nvim_set_keymap('n', 'gx', '<CMD>BufDel<CR>',              {noremap = true})
-
--- nvim-tree.lua
-vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER>r', '<CMD>NvimTreeFindFile<CR>', {noremap = true})
-
--- telescope.nvim
-vim.api.nvim_set_keymap('n', '<C-p>',         [[<CMD>lua require("telescope.builtin").find_files{ find_command= { "fd", "-E=.git", "--hidden" }} hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER><C-p>', [[<CMD>lua require("telescope.builtin").find_files{ find_command= { "fd", "-E=.git", "--hidden", "--no-ignore" }} hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-n>',         [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER><C-n>', [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-s>',         [[<CMD>Telescope grep_string<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-g><C-g>',    [[<CMD>Telescope git_status<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-g>g',        [[<CMD>Telescope git_status<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-f>',         [[<CMD>Telescope registers<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-b>',         [[<CMD>Telescope buffers<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-h>',         [[<CMD>Telescope help_tags<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-m>',         [[<CMD>Telescope marks<CR>]], {noremap = true})
--- vim.api.nvim_set_keymap('n', '<C-t>',         [[:Telescope treesitter<CR>]], {noremap = true})
--- vim.api.nvim_set_keymap('n', '<C-a>',         [[:Telescope commands<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>a',    [[<CMD>Telescope commands<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-a>',    [[<CMD>Telescope commands<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>t',    [[<CMD>Telescope treesitter<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-t>',    [[<CMD>Telescope treesitter<CR>]], {noremap = true})
-
--- vim-sneak
-vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
-vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
-vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
-vim.api.nvim_set_keymap('', 'T', '<Plug>Sneak_T', {})
-
--- nvim-compe
-vim.api.nvim_set_keymap('i', '<C-Space>', [[compe#complete()]], {noremap = true, expr = true, silent = true})
-vim.api.nvim_set_keymap('i', '<TAB>',      [[compe#confirm('<TAB>')]], {noremap = true, expr = true, silent = true})
-vim.api.nvim_set_keymap('i', '<C-g>',     [[compe#close('<C-g>')]], {noremap = true, expr = true, silent = true})
-
 
 ------------------------------------------------------------
 --                   COLOR HIGHLIGHTS
 ------------------------------------------------------------
+
 
 vim.cmd('hi Comment gui=italic cterm=italic')
 vim.cmd('hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE')
@@ -213,109 +158,73 @@ vim.cmd('hi def NeogitHunkHeaderHighlight guifg=#cccccc')
 
 
 ------------------------------------------------------------
---                    COMPATIBILITIES
+--                       RESOURCES
 ------------------------------------------------------------
 
-local Augroup = {}
 
-Augroup.cmds = function (definitions)
-  for group_name, definition in pairs(definitions) do
-    vim.cmd('augroup '..group_name)
-    vim.cmd('autocmd!')
-    for _, def in ipairs(definition) do
-      local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
-      vim.cmd(command)
-    end
-    vim.cmd('augroup END')
-  end
-end
+require('plenary.reload').reload_module('configs')
+require'ybbond-compat'
 
-Augroup.cmds({
-  -- highlight on yank!!!
-  highlight_yank = {
-    {"TextYankPost", "* silent! lua require'vim.highlight'.on_yank({timeout = 400})"},
-  },
-  tab_not_spaces = {
-    {"BufNewFile,BufRead", "*.(c|v|vv|py) setlocal tabstop=4"},
-    {"BufNewFile,BufRead", "*.(c|v|vv|py) setlocal shiftwidth=4"},
-    {"BufNewFile,BufRead", "*.(c|v|vv|py) setlocal set noexpandtab"},
-  },
-})
+-- plugins
 
-vim.api.nvim_exec(
-[[
-fun! YbbondOtherSetups()
-  augroup numbertoggle
-    if &number == 1
-      autocmd!
-      autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-      autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-    endif
-  augroup end
+-- require('plenary.reload').reload_module('plugins')
+require('plenary.reload').reload_module('configs')
+-- require('plenary.reload').reload_module'%'
 
-  function! ToggleNumberToggle(numberVar)
-    " Reset group
-    augroup numbertoggle
-      autocmd!
-    augroup end
+require'plugins'
+require'configs'
+-- require'%'
 
-    " Enable if toggled on
-    if a:numberVar
-      augroup numbertoggle
-        if &number == 1
-          autocmd!
-          autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-          autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-        endif
-      augroup end
-    endif
-  endfunction
 
-  " change cursor in different mode
-  if has('nvim')
-    " make the ^[ sign with:
-    " (INSERT MODE) <C-v><ESC>
-    " make sure it shows different color than the rest
-    set t_SI=[5\ q
-    set t_SR=[4\ q
-    set t_EI=[1\ q
-  else
-    if exists('$TMUX')
-        " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
-        let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"
-        let &t_SR .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
-        let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[1 q\<Esc>\\"
-        autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
-    else
-        " make the ^[ sign with:
-        " (INSERT MODE) <C-v><ESC>
-        " make sure it shows different color than the rest
-        set t_SI=[5\ q
-        set t_SR=[4\ q
-        set t_EI=[1\ q
-        autocmd VimLeave * silent !echo -ne "\033[0 q"
-    endif
-  endif
+------------------------------------------------------------
+--                   PLUGINS KEYBINDINGS
+------------------------------------------------------------
 
-  " |vimdiff|
-  " au VimEnter * if &diff | execute 'windo set wrap' | execute 'windo set nofoldenable' | endif
-  if &diff
-    set wrap
-    set nofoldenable
-    nnoremap gr :diffupdate<CR>
-  endif
 
-  if &diff
-    map gs :call IwhiteToggle()<CR>
-    function! IwhiteToggle()
-      if &diffopt =~ 'iwhite'
-        set diffopt-=iwhite
-      else
-        set diffopt-=internal
-        set diffopt+=iwhite
-      endif
-    endfunction
-  endif
-endfun
-call YbbondOtherSetups()
-]], true)
+-- nvim-bufferline
+vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferLineCycleNext<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferLineCyclePrev<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferLineMoveNext<CR>',  {noremap = true})
+vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferLineMovePrev<CR>',  {noremap = true})
+-- bufdelete.nvim
+vim.api.nvim_set_keymap('n', 'gx', '<CMD>BufDel<CR>',              {noremap = true})
+
+-- nvim-tree.lua
+vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>',   {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER>r', '<CMD>NvimTreeFindFile<CR>', {noremap = true})
+
+-- telescope.nvim
+vim.api.nvim_set_keymap('n', '<C-p>',         [[<CMD>lua require("telescope.builtin").find_files{ find_command= { "fd", "-E=.git", "--hidden" }} hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER><C-p>', [[<CMD>lua require("telescope.builtin").find_files{ find_command= { "fd", "-E=.git", "--hidden", "--no-ignore" }} hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-n>',         [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore,--regexp<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER><C-n>', [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore,--regexp<CR>]], {noremap = true})
+
+vim.api.nvim_set_keymap('n', '<C-t>s',        [[<CMD>Telescope grep_string<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-s>',    [[<CMD>Telescope grep_string<CR>]], {noremap = true})
+
+vim.api.nvim_set_keymap('n', '<C-t>f',        [[<CMD>Telescope registers<CR>]],   {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-f>',    [[<CMD>Telescope registers<CR>]],   {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>b',        [[<CMD>Telescope buffers<CR>]],     {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-b>',    [[<CMD>Telescope buffers<CR>]],     {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>h',        [[<CMD>Telescope help_tags<CR>]],   {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-h>',    [[<CMD>Telescope help_tags<CR>]],   {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>m',        [[<CMD>Telescope marks<CR>]],       {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-m>',    [[<CMD>Telescope marks<CR>]],       {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>a',        [[<CMD>Telescope commands<CR>]],    {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-a>',    [[<CMD>Telescope commands<CR>]],    {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>t',        [[<CMD>Telescope treesitter<CR>]],  {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-t>',    [[<CMD>Telescope treesitter<CR>]],  {noremap = true})
+
+vim.api.nvim_set_keymap('n', '<C-g>g',        [[<CMD>Telescope git_status<CR>]],  {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-g><C-g>',    [[<CMD>Telescope git_status<CR>]],  {noremap = true})
+
+-- vim-sneak
+vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
+vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
+vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
+vim.api.nvim_set_keymap('', 'T', '<Plug>Sneak_T', {})
+
+-- nvim-compe
+vim.api.nvim_set_keymap('i', '<C-Space>', [[compe#complete()]],       {noremap = true, expr = true, silent = true})
+vim.api.nvim_set_keymap('i', '<TAB>',     [[compe#confirm('<TAB>')]], {noremap = true, expr = true, silent = true})
+vim.api.nvim_set_keymap('i', '<C-g>',     [[compe#close('<C-g>')]],   {noremap = true, expr = true, silent = true})

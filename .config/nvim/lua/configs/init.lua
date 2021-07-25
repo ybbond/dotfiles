@@ -1,3 +1,6 @@
+-- clear cache
+
+require('plenary.reload').reload_module('configs/bufferline')
 require('plenary.reload').reload_module('configs/diffview')
 require('plenary.reload').reload_module('configs/evilline')
 require('plenary.reload').reload_module('configs/flutter-tools')
@@ -9,7 +12,11 @@ require('plenary.reload').reload_module('configs/nvim-lspconfig')
 require('plenary.reload').reload_module('configs/nvim-tree')
 require('plenary.reload').reload_module('configs/nvim-treesitter')
 require('plenary.reload').reload_module('configs/telescope')
+require('plenary.reload').reload_module('configs/which-key')
 
+-- reload
+
+require('configs/bufferline')
 require('configs/diffview')
 require('configs/evilline')
 require('configs/flutter-tools')
@@ -21,3 +28,4 @@ require('configs/nvim-lspconfig')
 require('configs/nvim-tree')
 require('configs/nvim-treesitter')
 require('configs/telescope')
+require('configs/which-key')
