@@ -5,7 +5,7 @@
 -- only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
 -- vim._update_package_paths()
 
-vim.cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile profile=true]])
+vim.cmd([[autocmd! BufWritePost plugins.lua source <afile> | PackerCompile profile=true]])
 
 return require('packer').startup(function()
 
@@ -22,41 +22,12 @@ return require('packer').startup(function()
                vim.api.nvim_set_var('oceanic_next_terminal_italic', 1)
              end
   }
-
-  -- use {
-  --   'ray-x/material_plus.nvim',
-  --   config = function()
-  --              vim.g.material_italic_comments = true
-  --              vim.g.material_italic_string = false
-  --              vim.g.material_italic_keywords = false
-  --              vim.g.material_italic_functions = false
-  --              vim.g.material_italic_variables = false
-  --              vim.g.material_contrast = true
-  --              vim.g.material_borders = false
-  --              vim.g.material_disable_background = false
-  --              vim.g.material_style = 'mariana'
-  --              vim.g.material_style_fix = true
-  --            end
-  -- }
-
-  -- tabline improvements with barbar.nvim
+  --
+  -- using built-in lsp with nvim-lspconfig
   use {
-    'romgrk/barbar.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-               vim.api.nvim_set_var('netrw_bufsettings', 'noma nomod nonu nowrap ro buflisted')
-               vim.api.nvim_set_var('bufferline', {
-                 icons = 'both',
-               })
-             end
-  }
-
-  -- statusline improvements with galaxyline.nvim
-  use {
-    'glepnir/galaxyline.nvim',
-      branch = 'main',
-      config = function() require'configs/evilline' end,
-      requires = 'kyazdani42/nvim-web-devicons'
+    'neovim/nvim-lspconfig',
+    requires = 'nvim-lua/lsp-status.nvim',
+    config = function() require'configs/nvim-lspconfig' end
   }
 
   -- file manager using nvim-tree.lua
@@ -107,13 +78,6 @@ return require('packer').startup(function()
     config = function() require'configs/neogit' end
   }
 
-  -- using built-in lsp with nvim-lspconfig
-  use {
-    'neovim/nvim-lspconfig',
-    requires = 'nvim-lua/lsp-status.nvim',
-    config = function() require'configs/nvim-lspconfig' end
-  }
-
   -- completion for neovim with nvim-compe
   use {
     'hrsh7th/nvim-compe',
@@ -125,6 +89,32 @@ return require('packer').startup(function()
     'lewis6991/gitsigns.nvim',
     requires = 'nvim-lua/plenary.nvim',
     config = function() require'configs/gitsigns-nvim' end
+  }
+
+  -- statusline improvements with galaxyline.nvim
+  use {
+    'glepnir/galaxyline.nvim',
+      branch = 'main',
+      config = function() require'configs/evilline' end,
+      requires = 'kyazdani42/nvim-web-devicons'
+  }
+
+  -- tabline improvements with nvim-bufferline
+  use {
+    'akinsho/nvim-bufferline.lua',
+    requires = {'kyazdani42/nvim-web-devicons', 'ojroques/nvim-bufdel' },
+    config = function()
+               require('bufferline').setup({
+                 close_command = "BufDel %d",
+                 right_mouse_command = nil,
+                 left_mouse_command = "BufDel %d",
+                 diagnostics = "nvim_lsp",
+                 sort_by = function(buffer_a, buffer_b)
+                   return buffer_a.modified > buffer_b.modified
+                 end
+               })
+               require('bufdel').setup{next = 'alternate'}
+             end
   }
 
   ------------------ END OPTIMIZED FOR NEOVIM ------------------

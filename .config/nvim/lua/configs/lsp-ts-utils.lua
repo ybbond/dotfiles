@@ -2,7 +2,8 @@ local lsp_on_attach = require('configs/nvim-lspconfig')
 local nvim_lsp = require("lspconfig")
 
 -- enable null-ls integration (optional)
-require("null-ls").setup {}
+require("null-ls").config {}
+require("lspconfig")["null-ls"].setup {}
 
 nvim_lsp.tsserver.setup {
   on_attach = function(client, bufnr)
@@ -31,14 +32,14 @@ nvim_lsp.tsserver.setup {
       -- eslint
       eslint_enable_code_actions = true,
       eslint_enable_disable_comments = true,
-      eslint_bin = "eslint",
+      eslint_bin = "eslint_d",
       eslint_config_fallback = nil,
-      eslint_enable_diagnostics = false,
+      eslint_enable_diagnostics = true,
 
       -- formatting
       enable_formatting = true,
-      formatter = "eslint",
-      formatter_config_fallback = "/Users/yohanesbandung/.config/nvim/lua/assets/.prettierrc",
+      formatter = "eslint_d",
+      formatter_config_fallback = nil,
 
       -- update imports on file move
       update_imports_on_move = false,
@@ -49,7 +50,7 @@ nvim_lsp.tsserver.setup {
     -- required to fix code action ranges
     ts_utils.setup_client(client)
 
-    vim.cmd("command -buffer FormatTS lua vim.lsp.buf.formatting()")
+    vim.cmd("command! -buffer FormatTS lua vim.lsp.buf.formatting()")
 
     lsp_on_attach(client, bufnr);
 
