@@ -3,6 +3,7 @@ syntax on
 filetype plugin indent on
 
 set background=dark
+
 set number
 set relativenumber
 
@@ -11,8 +12,9 @@ set softtabstop=2
 set shiftwidth=2
 set expandtab
 
-set laststatus=2
+set cursorline
 
+set laststatus=2
 set ruler
 
 set incsearch

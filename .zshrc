@@ -198,8 +198,6 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
-source <(lab completion zsh)
-
 # pip zsh completion start
 function _pip_completion {
   local words cword
@@ -286,7 +284,7 @@ autoload -U compinit && compinit
 export EDITOR=nvim
 export SHELL=zsh
 export LANG=en_US.UTF-8
-export TERM=screen-256color
+export TERM=xterm-256color
 
 # for pyenv to work correctly, I need to use brew version of OpenSSL
 export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
@@ -297,9 +295,11 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
 export BAT_THEME="Coldark-Dark"
 
 export PATH="$HOME/.tool_binaries/zulu16.30.19-ca-jdk16.0.1-macosx_aarch64/zulu-16.jdk/Contents/Home/bin:$PATH"
-export PATH="$PATH:$HOME/.tool_binaries/flutter/bin"
+export PATH="$PATH:$HOME/fvm/default/bin"
+export PATH="$PATH:$HOME/.pub-cache/bin"
 
 export JAVA_HOME="$HOME/.tool_binaries/zulu16.30.19-ca-jdk16.0.1-macosx_aarch64/zulu-16.jdk/Contents/Home"
+# export ANDROID_SDK_ROOT="~/Library/Android/sdk"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
