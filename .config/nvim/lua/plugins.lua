@@ -7,7 +7,7 @@
 
 vim.cmd([[autocmd! BufWritePost plugins.lua source <afile> | PackerCompile profile=true]])
 
-return require('packer').startup(function()
+return require('packer').startup(function(use)
 
   ----------------- START OPTIMIZED FOR NEOVIM -----------------
 
@@ -15,14 +15,11 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   -- sublime dark theme with oceanic-next
-  use {
-    'mhartington/oceanic-next',
-    config = function()
-               vim.api.nvim_set_var('oceanic_next_terminal_bold', 1)
-               vim.api.nvim_set_var('oceanic_next_terminal_italic', 1)
-             end
-  }
-  --
+  use 'mhartington/oceanic-next'
+
+  -- try lush local theme
+  use '~/pbond/mariana'
+
   -- using built-in lsp with nvim-lspconfig
   use {
     'neovim/nvim-lspconfig',
@@ -38,10 +35,13 @@ return require('packer').startup(function()
   }
 
   -- colorize colors with nvim-colorizer.lua
-  use {
-    'norcalli/nvim-colorizer.lua',
-    config = function() require'colorizer'.setup() end
-  }
+  -- use {
+  --   'norcalli/nvim-colorizer.lua',
+  --   config = function() require'colorizer'.setup() end
+  -- }
+
+  -- lush
+  use 'rktjmp/lush.nvim'
 
   -- telescope.nvim for fuzzy findings and cool stuffs
   use {
@@ -53,6 +53,7 @@ return require('packer').startup(function()
   -- leveraging neovim 0.5.0 nvim-treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
+    branch = '0.5-compat',
     run = ':TSUpdate',
     config = function() require'configs/nvim-treesitter' end
   }
@@ -63,20 +64,35 @@ return require('packer').startup(function()
     requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
   }
 
-  -- trying to use neogit
   use {
-    'TimUntersberger/neogit',
-    requires = {
-      'nvim-lua/plenary.nvim',
-      {
-        -- diffview.nvim
-        'sindrets/diffview.nvim',
-        requires = 'kyazdani42/nvim-web-devicons',
-        config = function() require'configs/diffview' end
-      }
-    },
-    config = function() require'configs/neogit' end
+    'stevearc/qf_helper.nvim',
+    config = function()
+               require'qf_helper'.setup({
+                 prefer_loclist = false
+               })
+             end
   }
+
+  -- use {
+  --   'tanvirtin/vgit.nvim',
+  --   requires = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
+  --   config = function() require'configs/vgit' end
+  -- }
+
+  -- trying to use neogit
+  -- use {
+  --   'TimUntersberger/neogit',
+  --   requires = {
+  --     'nvim-lua/plenary.nvim',
+  --     {
+  --       -- diffview.nvim
+  --       'sindrets/diffview.nvim',
+  --       requires = 'kyazdani42/nvim-web-devicons',
+  --       config = function() require'configs/diffview' end
+  --     }
+  --   },
+  --   config = function() require'configs/neogit' end
+  -- }
 
   -- completion for neovim with nvim-compe
   use {
@@ -127,6 +143,17 @@ return require('packer').startup(function()
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
+
+  -- vim-fugitive vim-rhubarb and fugitive-gitlab
+  use 'tpope/vim-fugitive'
+  use 'tpope/vim-rhubarb'
+  use 'shumphrey/fugitive-gitlab.vim'
+
+  -- lua development with lua-dev
+  use {
+    'folke/lua-dev.nvim',
+    config = function() require'configs/lua-dev-nvim' end
+  }
 
   -- Flutter development, with dart-vim-plugin and flutter-tools.nvim
   use 'dart-lang/dart-vim-plugin'

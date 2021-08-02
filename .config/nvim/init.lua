@@ -5,10 +5,11 @@
 vim.o.compatible = false
 vim.o.encoding = 'UTF-8'
 
-vim.o.termguicolors = true
+vim.opt.termguicolors = true
 vim.o.background = 'dark'
 
-vim.cmd('colorscheme OceanicNext')
+-- vim.cmd('colorscheme OceanicNext')
+vim.cmd('colorscheme mariana')
 -- vim.cmd('syntax enable')
 -- vim.cmd('syntax on')
 vim.cmd('filetype plugin on')
@@ -102,16 +103,16 @@ vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
 -- copy, paste and copy whole file to clipboard
 vim.api.nvim_set_keymap('', '<LEADER>c', '"+y', {})
 vim.api.nvim_set_keymap('', '<LEADER>v', ':r !pbpaste<CR><CR>', {})
-vim.api.nvim_set_keymap('', '<LEADER>x', ':%w !pbcopy<CR><CR>', {})
+vim.api.nvim_set_keymap('', '<LEADER>f', ':%w !pbcopy<CR><CR>', {})
 
 -- identify syntax below cursor with <LEADER>h
 vim.api.nvim_set_keymap('', '<LEADER>h', [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]], {})
 
 -- rebind vim's ga to be <LEADER>a
-vim.api.nvim_set_keymap('', '<LEADER>a', 'ga', {noremap = true})
+vim.api.nvim_set_keymap('n', '<LEADER>a', 'ga', {noremap = true})
 
--- rebind vim's gx to be gX
-vim.api.nvim_set_keymap('n', 'gX', 'gx', {noremap = true})
+-- rebind vim's gx to be <LEADER>x
+-- vim.api.nvim_set_keymap('n', '<LEADER>x', 'gx', {noremap = true})
 
 -- remap <C-d> to Delete
 vim.api.nvim_set_keymap('i', '<C-d>', '<DEL>', {noremap = true})
@@ -131,49 +132,72 @@ vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
 
 
 ------------------------------------------------------------
---                   COLOR HIGHLIGHTS
-------------------------------------------------------------
-
-
-vim.cmd('hi Comment gui=italic cterm=italic')
-vim.cmd('hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE')
-
-vim.cmd('hi DiffAdded ctermbg=LightGreen guibg=#006c00 ctermfg=Black guifg=#F0F2F5 gui=NONE cterm=NONE')
-vim.cmd('hi DiffRemoved ctermbg=LightRed guibg=#990006 ctermfg=Black guifg=#F0F2F5 gui=NONE cterm=NONE')
-vim.cmd('hi diffAdded ctermbg=LightGreen guibg=#006c00 ctermfg=Black guifg=#F0F2F5 gui=NONE cterm=NONE')
-vim.cmd('hi diffRemoved ctermbg=LightRed guibg=#990006 ctermfg=Black guifg=#F0F2F5 gui=NONE cterm=NONE')
-
--- |vimdiff|
-vim.cmd('hi DiffAdd    ctermbg=22')
-vim.cmd('hi DiffChange ctermbg=94')
-vim.cmd('hi DiffDelete ctermbg=88')
-vim.cmd('hi DiffText   ctermfg=233  ctermbg=yellow  guifg=#000033 guibg=#DDDDFF gui=none cterm=none')
-
--- |neogit|
-vim.cmd('hi def NeogitDiffAddHighlight guibg=#006c00')
-vim.cmd('hi def NeogitDiffDeleteHighlight guibg=#990006')
-vim.cmd('hi def NeogitDiffContextHighlight guibg=#3a4650')
-vim.cmd('hi def NeogitHunkHeader guifg=#cccccc')
-vim.cmd('hi def NeogitHunkHeaderHighlight guifg=#cccccc')
-
-
-------------------------------------------------------------
 --                       RESOURCES
 ------------------------------------------------------------
 
 
 require('plenary.reload').reload_module('configs')
-require'ybbond-compat'
-
--- plugins
-
--- require('plenary.reload').reload_module('plugins')
-require('plenary.reload').reload_module('configs')
--- require('plenary.reload').reload_module'%'
+require('plenary.reload').reload_module('ybbond-compat')
 
 require'plugins'
 require'configs'
--- require'%'
+require'ybbond-compat'
+
+
+------------------------------------------------------------
+--                       COLOR SCHEME
+------------------------------------------------------------
+
+
+-- -- hi CursorLine cterm=underline guibg=Grey10
+--
+-- vim.highlight.create('Comment',     {gui=italic, cterm=italic}, false)
+-- 
+-- vim.highlight.create('Normal',      {guibg=NONE, ctermbg=NONE}, false)
+-- vim.highlight.create('LineNr',      {guibg=NONE, ctermbg=NONE}, false)
+-- vim.highlight.create('SignColumn',  {guibg=NONE, ctermbg=NONE}, false)
+-- vim.highlight.create('EndOfBuffer', {guibg=NONE, ctermbg=NONE}, false)
+-- 
+-- vim.highlight.create('Pmenu',       {guibg=Grey10}, false)
+-- vim.highlight.create('PmenuSel',    {guibg=Grey20}, false)
+-- vim.highlight.create('PmenuSbar',   {guibg=Grey40}, false)
+-- vim.highlight.create('PmenuThumb',  {guibg=Grey60}, false)
+-- 
+-- vim.highlight.create('Folded',      {guibg=Grey20, guifg=Cyan},                       false)
+-- vim.highlight.create('FoldColumn',  {guibg=Grey40, guifg=Cyan},                       false)
+-- vim.highlight.create('SignColumn',  {ctermbg=NONE, cterm=NONE, guibg=NONE, gui=NONE}, false)
+-- 
+-- vim.highlight.create('DiffAdded',   {ctermbg=LightGreen, guibg=#006C00, ctermfg=Black, guifg=#F0F2F5, gui=NONE, cterm=NONE}, false)
+-- vim.highlight.create('DiffRemoved', {ctermbg=LightRed, guibg=#990006, ctermfg=Black, guifg=#F0F2F5, gui=NONE, cterm=NONE}, false)
+-- vim.highlight.create('diffAdded',   {ctermbg=LightGreen, guibg=#006C00, ctermfg=Black, guifg=#F0F2F5, gui=NONE, cterm=NONE}, false)
+-- vim.highlight.create('diffRemoved', {ctermbg=LightRed, guibg=#990006, ctermfg=Black, guifg=#F0F2F5, gui=NONE, cterm=NONE}, false)
+-- 
+-- -- |vimdiff|
+-- vim.highlight.create('DiffAdd',     {ctermbg=22}, false)
+-- vim.highlight.create('DiffChange',  {ctermbg=94}, false)
+-- vim.highlight.create('DiffDelete',  {ctermbg=88}, false)
+-- vim.highlight.create('DiffText',    {ctermbg=233, ctermbg=yellow, guifg=#000033, guibg=#DDDDFF, gui=NONE, cterm=NONE}, false)
+-- 
+-- -- |neogit|
+-- vim.highlight.create('NeogitDiffAddHighlight',      {guibg=#006c00},                         false)
+-- vim.highlight.create('NeogitDiffDeleteHighlight',   {guibg=#990006},                         false)
+-- vim.highlight.create('NeogitDiffContextHighlight',  {guibg=#3a4650},                         false)
+-- vim.highlight.create('NeogitHunkHeader',            {guibg=#cccccc},                         false)
+-- vim.highlight.create('NeogitHunkHeaderHighlight',   {guibg=#cccccc},                         false)
+-- 
+-- -- |telescope.nvim|
+-- vim.highlight.create('TelescopeSelection',          {guifg=#D79921, guibg=Grey10, gui=bold}, false) -- Selected item
+-- vim.highlight.create('TelescopeSelectionCaret',     {guifg=#CC241D, guibg=Grey10},           false) -- Selection caret
+-- vim.highlight.create('TelescopeMultiSelection',     {guifg=#928374, guibg=Grey10},           false) -- Multisections
+-- vim.highlight.create('TelescopeNormal',             {guibg=#000000},                         false) -- Floating windows created by telescope
+-- vim.highlight.create('TelescopeMatching',           {guifg=#CC241D},                         false) -- Highlight characters your input matches
+-- vim.highlight.create('TelescopePromptPrefix',       {guifg=#CC241D},                         false) -- Color the prompt prefix
+-- -- Border highlight groups
+-- vim.highlight.create('TelescopeBorder',             {guifg=#ffffff},                         false) -- Selected item
+-- vim.highlight.create('TelescopePromptBorder',       {guifg=#ffffff},                         false) -- Selected item
+-- vim.highlight.create('TelescopeResultsBorder',      {guifg=#ffffff},                         false) -- Selected item
+-- vim.highlight.create('TelescopePreviewBorder',      {guifg=#ffffff},                         false) -- Selected item
+
 
 
 ------------------------------------------------------------
@@ -194,28 +218,21 @@ vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>',   {noremap 
 vim.api.nvim_set_keymap('n', '<LEADER>r', '<CMD>NvimTreeFindFile<CR>', {noremap = true})
 
 -- telescope.nvim
-vim.api.nvim_set_keymap('n', '<C-p>',         [[<CMD>lua require("telescope.builtin").find_files{ find_command= { "fd", "-E=.git", "--hidden" }} hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER><C-p>', [[<CMD>lua require("telescope.builtin").find_files{ find_command= { "fd", "-E=.git", "--hidden", "--no-ignore" }} hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-n>',         [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore,--regexp<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER><C-n>', [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore,--regexp<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-p>',        [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f"}} hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-p>',  [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f","--no-ignore"}} hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-i>',        [[<CMD>Telescope live_grep hidden=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-i>',  [[<CMD>Telescope live_grep hidden=true find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore,--regexp<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-n>',        [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore,--regexp<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-n>',  [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore,--regexp<CR>]], {noremap = true})
 
-vim.api.nvim_set_keymap('n', '<C-t>s',        [[<CMD>Telescope grep_string<CR>]], {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-s>',    [[<CMD>Telescope grep_string<CR>]], {noremap = true})
-
-vim.api.nvim_set_keymap('n', '<C-t>f',        [[<CMD>Telescope registers<CR>]],   {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-f>',    [[<CMD>Telescope registers<CR>]],   {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>b',        [[<CMD>Telescope buffers<CR>]],     {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-r>',    [[<CMD>Telescope registers<CR>]],   {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-b>',    [[<CMD>Telescope buffers<CR>]],     {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>h',        [[<CMD>Telescope help_tags<CR>]],   {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-h>',    [[<CMD>Telescope help_tags<CR>]],   {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>m',        [[<CMD>Telescope marks<CR>]],       {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-m>',    [[<CMD>Telescope marks<CR>]],       {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>a',        [[<CMD>Telescope commands<CR>]],    {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-a>',    [[<CMD>Telescope commands<CR>]],    {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t>t',        [[<CMD>Telescope treesitter<CR>]],  {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-t>',    [[<CMD>Telescope treesitter<CR>]],  {noremap = true})
 
-vim.api.nvim_set_keymap('n', '<C-g>g',        [[<CMD>Telescope git_status<CR>]],  {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-g><C-g>',    [[<CMD>Telescope git_status<CR>]],  {noremap = true})
 
 -- vim-sneak

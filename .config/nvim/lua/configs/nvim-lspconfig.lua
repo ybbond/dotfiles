@@ -15,11 +15,11 @@ local ybbond_lsp_on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gD', '<CMD>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'g<C-d>', '<CMD>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', 'g<M-d>', '<CMD>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', 'gh', '<CMD>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gH', '<CMD>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', 'gi', '<CMD>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<CMD>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gs', '<CMD>lua vim.lsp.buf.signature_help()<CR>', opts)
   buf_set_keymap('n', 'ga', '<CMD>lua vim.lsp.buf.code_action()<CR>', opts)
   -- gA will be received to language specific actions
   buf_set_keymap('n', 'gr', '<CMD>lua vim.lsp.buf.references()<CR>', opts)
@@ -38,14 +38,24 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 -- local servers = { "pyright", "rust_analyzer", "tsserver" }
-local servers = {}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = ybbond_lsp_on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
-end
+-- local servers = {}
+-- for _, lsp in ipairs(servers) do
+--   nvim_lsp[lsp].setup {
+--     on_attach = ybbond_lsp_on_attach,
+--     flags = {
+--       debounce_text_changes = 150,
+--     }
+--   }
+-- end
+
+require'lspconfig'.sourcekit.setup{
+  cmd = { "xcrun", "sourcekit-lsp" },
+  on_attach = ybbond_lsp_on_attach,
+  filetypes = { "swift", "c", "cpp", "objc", "objcpp", "objective-c", "objective-cpp" },
+  -- root_dir = root_pattern("Package.swift", ".git"),
+  -- settings = {
+
+  -- },
+}
 
 return ybbond_lsp_on_attach

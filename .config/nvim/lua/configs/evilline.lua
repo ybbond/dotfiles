@@ -10,10 +10,10 @@ gls.left[1] = {
     highlight = {'#62B3B2','#343D46', 'bold'}
   },
 }
+
 gls.left[2] = {
   ViMode = {
     provider = function()
-      -- auto change color according the vim mode
       local mode_color = {n = colors.red, i = colors.green,v=colors.blue,
                           [''] = colors.blue,V=colors.blue,
                           c = colors.magenta,no = colors.red,s = colors.orange,
@@ -23,11 +23,38 @@ gls.left[2] = {
                           rm = colors.cyan, ['r?'] = colors.cyan,
                           ['!']  = colors.red,t = colors.red}
       vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
-      return '  '
+      local alias = {n = 'NORMAL',i = 'INSERT',v= 'VISUAL',
+                     [''] = 'VISUAL BLOCK',V= 'VISUAL LINE',
+                     c= 'COMMAND',no= 'O-PENDING CHAR',s= 'SELECT',
+                     S= 'SELECT LINE',['']='SELECT BLOCK',
+                     ic= 'ICOMPLETION',R= 'REPLACE',Rv= 'VIRTUAL REPLACE',
+                     cv= 'EX-MODE',ce= 'NORMAL EX-MODE',r= 'HIT-ENTER PROMPT',
+                     rm= '-- MORE --',['r?']= ':CONFIRM QUERY',
+                     ['!']= 'SHELL',t = 'TERMINAL'}
+      return alias[vim.fn.mode()]
     end,
-    highlight = {colors.red,'#343D46','bold'},
+    icon = function() return vim.fn.mode().. ' ' end,
+    separator = '  ',
+    highlight = {colors.darkblue,colors.purple,'bold'},
   },
+  -- ViMode = {
+  --   provider = function()
+  --     -- auto change color according the vim mode
+  --     local mode_color = {n = colors.red, i = colors.green,v=colors.blue,
+  --                         [''] = colors.blue,V=colors.blue,
+  --                         c = colors.magenta,no = colors.red,s = colors.orange,
+  --                         S=colors.orange,[''] = colors.orange,
+  --                         ic = colors.yellow,R = colors.violet,Rv = colors.violet,
+  --                         cv = colors.red,ce=colors.red, r = colors.cyan,
+  --                         rm = colors.cyan, ['r?'] = colors.cyan,
+  --                         ['!']  = colors.red,t = colors.red}
+  --     vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
+  --     return '  '
+  --   end,
+  --   highlight = {colors.red,'#343D46','bold'},
+  -- },
 }
+
 gls.left[3] = {
   FileSize = {
     provider = 'FileSize',
@@ -90,14 +117,16 @@ gls.left[7] = {
 gls.left[8] = {
   DiagnosticError = {
     provider = 'DiagnosticError',
-    icon = '  ',
+    -- icon = '  ',
+    icon = '  ',
     highlight = {colors.red,'#343D46'}
   }
 }
 gls.left[9] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
-    icon = '  ',
+    -- icon = '  ',
+    icon = '  ',
     highlight = {colors.yellow,'#343D46'},
   }
 }
@@ -105,7 +134,8 @@ gls.left[9] = {
 gls.left[10] = {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
-    icon = '  ',
+    -- icon = '  ',
+    icon = '  ',
     highlight = {colors.cyan,'#343D46'},
   }
 }
@@ -113,47 +143,48 @@ gls.left[10] = {
 gls.left[11] = {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
-    icon = '  ',
+    -- icon = '  ',
+    icon = '  ',
     highlight = {colors.blue,'#343D46'},
   }
 }
 
+-- gls.right[1] = {
+--   FileEncode = {
+--     provider = 'FileEncode',
+--     condition = condition.hide_in_width,
+--     separator = ' ',
+--     separator_highlight = {'NONE','#343D46'},
+--     highlight = {colors.green,'#343D46','bold'}
+--   }
+-- }
+
+-- gls.right[2] = {
+--   FileFormat = {
+--     provider = 'FileFormat',
+--     condition = condition.hide_in_width,
+--     separator = ' ',
+--     separator_highlight = {'NONE','#343D46'},
+--     highlight = {colors.green,'#343D46','bold'}
+--   }
+-- }
+
+-- gls.right[3] = {
+--   GitBranch = {
+--     separator = ' ',
+--     separator_highlight = {'NONE','#343D46'},
+--     provider = 'GitBranch',
+--     icon = '  ',
+--     condition = condition.check_git_workspace,
+--     highlight = {colors.violet,'#343D46','bold'},
+--   },
+--   PlainSeparator = {
+--     provider = function() return ' ' end,
+--     highlight = {'NONE','#343D46'}
+--   },
+-- }
+
 gls.right[1] = {
-  FileEncode = {
-    provider = 'FileEncode',
-    condition = condition.hide_in_width,
-    separator = ' ',
-    separator_highlight = {'NONE','#343D46'},
-    highlight = {colors.green,'#343D46','bold'}
-  }
-}
-
-gls.right[2] = {
-  FileFormat = {
-    provider = 'FileFormat',
-    condition = condition.hide_in_width,
-    separator = ' ',
-    separator_highlight = {'NONE','#343D46'},
-    highlight = {colors.green,'#343D46','bold'}
-  }
-}
-
-gls.right[3] = {
-  GitBranch = {
-    separator = ' ',
-    separator_highlight = {'NONE','#343D46'},
-    provider = 'GitBranch',
-    icon = '  ',
-    condition = condition.check_git_workspace,
-    highlight = {colors.violet,'#343D46','bold'},
-  },
-  PlainSeparator = {
-    provider = function() return ' ' end,
-    highlight = {'NONE','#343D46'}
-  },
-}
-
-gls.right[4] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = condition.hide_in_width,
@@ -161,15 +192,15 @@ gls.right[4] = {
     highlight = {colors.green,'#343D46'},
   }
 }
-gls.right[5] = {
+gls.right[2] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = condition.hide_in_width,
     icon = ' 柳',
-    highlight = {colors.orange,'#343D46'},
+    highlight = {colors.blue,'#343D46'},
   }
 }
-gls.right[6] = {
+gls.right[3] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = condition.hide_in_width,
@@ -178,14 +209,31 @@ gls.right[6] = {
   }
 }
 
-gls.right[7] = {
+gls.right[4] = {
   PlainSeparator = {
     provider = function() return ' ' end,
     highlight = {'NONE','#343D46'}
   },
 }
 
-gls.right[8] = {
+gls.right[5] = {
+  PlainSeparator = {
+    provider = function() return ' ' end,
+    highlight = {'NONE','#343D46'}
+  },
+  BufferType = {
+    provider = 'FileTypeName',
+    separator = ' ',
+    separator_highlight = {'NONE','#343D46'},
+    highlight = {colors.blue,'#343D46','bold'}
+  },
+  PlainSeparator = {
+    provider = function() return ' ' end,
+    highlight = {'NONE','#343D46'}
+  },
+}
+
+gls.right[6] = {
   Smiley = {
     separator = ' ',
     separator_highlight = {'#62B3B2','#62B3B2'},
@@ -217,3 +265,4 @@ gls.short_line_right[1] = {
     highlight = {colors.fg,'#343D46'}
   }
 }
+
