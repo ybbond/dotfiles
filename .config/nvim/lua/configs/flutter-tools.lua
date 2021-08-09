@@ -14,15 +14,23 @@ local ybbond_flutter_lsp_on_attach = function(client, bufnr)
 
   buf_set_keymap('n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', opts)
   buf_set_keymap('n', '<LEADER>f', '<CMD>DartFmt<CR>', opts)
+
+  require('flutter-tools.utils').command("FlutterAgentStartStaging", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety')]])
+  require('flutter-tools.utils').command("FlutterAgentStartProduction", [[lua require('flutter-tools.commands').run_command('--flavor=production --no-sound-null-safety')]])
+
 end
 
 require("flutter-tools").setup {
   lsp = {
     on_attach = ybbond_flutter_lsp_on_attach,
   },
-  flutter_path = "/Users/yohanesbandung/.tool_binaries/flutter/bin/flutter",
+  -- flutter_path = "/Users/yohanesbandung/.tool_binaries/flutter/bin/flutter",
+  flutter_path = "/Users/yohanesbandung/fvm/default/bin/flutter",
   -- flutter_lookup_cmd = "/Users/yohanesbandung/.tool_binaries/flutter/bin",
 
+  widget_guides = {
+    enabled = true,
+  },
 }
 
 require('telescope').load_extension('flutter')

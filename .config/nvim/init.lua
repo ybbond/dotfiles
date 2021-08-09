@@ -20,7 +20,8 @@ vim.o.pastetoggle = '<F2>'
 
 vim.o.hidden = true
 
-vim.o.timeoutlen = 100
+-- used by which-key.nvim
+-- vim.o.timeoutlen = 100
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
@@ -66,8 +67,7 @@ vim.o.diffopt = vim.o.diffopt .. ',vertical'
 --   if opts then options = vim.tbl_extend('force', options, opts) end
 --   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 -- end
---
--- map('', '<leader>c', '"+y') 
+
 
 local function replaceTermcodes(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
 
@@ -144,74 +144,19 @@ require'configs'
 require'ybbond-compat'
 
 
-------------------------------------------------------------
---                       COLOR SCHEME
-------------------------------------------------------------
-
-
--- -- hi CursorLine cterm=underline guibg=Grey10
---
--- vim.highlight.create('Comment',     {gui=italic, cterm=italic}, false)
--- 
--- vim.highlight.create('Normal',      {guibg=NONE, ctermbg=NONE}, false)
--- vim.highlight.create('LineNr',      {guibg=NONE, ctermbg=NONE}, false)
--- vim.highlight.create('SignColumn',  {guibg=NONE, ctermbg=NONE}, false)
--- vim.highlight.create('EndOfBuffer', {guibg=NONE, ctermbg=NONE}, false)
--- 
--- vim.highlight.create('Pmenu',       {guibg=Grey10}, false)
--- vim.highlight.create('PmenuSel',    {guibg=Grey20}, false)
--- vim.highlight.create('PmenuSbar',   {guibg=Grey40}, false)
--- vim.highlight.create('PmenuThumb',  {guibg=Grey60}, false)
--- 
--- vim.highlight.create('Folded',      {guibg=Grey20, guifg=Cyan},                       false)
--- vim.highlight.create('FoldColumn',  {guibg=Grey40, guifg=Cyan},                       false)
--- vim.highlight.create('SignColumn',  {ctermbg=NONE, cterm=NONE, guibg=NONE, gui=NONE}, false)
--- 
--- vim.highlight.create('DiffAdded',   {ctermbg=LightGreen, guibg=#006C00, ctermfg=Black, guifg=#F0F2F5, gui=NONE, cterm=NONE}, false)
--- vim.highlight.create('DiffRemoved', {ctermbg=LightRed, guibg=#990006, ctermfg=Black, guifg=#F0F2F5, gui=NONE, cterm=NONE}, false)
--- vim.highlight.create('diffAdded',   {ctermbg=LightGreen, guibg=#006C00, ctermfg=Black, guifg=#F0F2F5, gui=NONE, cterm=NONE}, false)
--- vim.highlight.create('diffRemoved', {ctermbg=LightRed, guibg=#990006, ctermfg=Black, guifg=#F0F2F5, gui=NONE, cterm=NONE}, false)
--- 
--- -- |vimdiff|
--- vim.highlight.create('DiffAdd',     {ctermbg=22}, false)
--- vim.highlight.create('DiffChange',  {ctermbg=94}, false)
--- vim.highlight.create('DiffDelete',  {ctermbg=88}, false)
--- vim.highlight.create('DiffText',    {ctermbg=233, ctermbg=yellow, guifg=#000033, guibg=#DDDDFF, gui=NONE, cterm=NONE}, false)
--- 
--- -- |neogit|
--- vim.highlight.create('NeogitDiffAddHighlight',      {guibg=#006c00},                         false)
--- vim.highlight.create('NeogitDiffDeleteHighlight',   {guibg=#990006},                         false)
--- vim.highlight.create('NeogitDiffContextHighlight',  {guibg=#3a4650},                         false)
--- vim.highlight.create('NeogitHunkHeader',            {guibg=#cccccc},                         false)
--- vim.highlight.create('NeogitHunkHeaderHighlight',   {guibg=#cccccc},                         false)
--- 
--- -- |telescope.nvim|
--- vim.highlight.create('TelescopeSelection',          {guifg=#D79921, guibg=Grey10, gui=bold}, false) -- Selected item
--- vim.highlight.create('TelescopeSelectionCaret',     {guifg=#CC241D, guibg=Grey10},           false) -- Selection caret
--- vim.highlight.create('TelescopeMultiSelection',     {guifg=#928374, guibg=Grey10},           false) -- Multisections
--- vim.highlight.create('TelescopeNormal',             {guibg=#000000},                         false) -- Floating windows created by telescope
--- vim.highlight.create('TelescopeMatching',           {guifg=#CC241D},                         false) -- Highlight characters your input matches
--- vim.highlight.create('TelescopePromptPrefix',       {guifg=#CC241D},                         false) -- Color the prompt prefix
--- -- Border highlight groups
--- vim.highlight.create('TelescopeBorder',             {guifg=#ffffff},                         false) -- Selected item
--- vim.highlight.create('TelescopePromptBorder',       {guifg=#ffffff},                         false) -- Selected item
--- vim.highlight.create('TelescopeResultsBorder',      {guifg=#ffffff},                         false) -- Selected item
--- vim.highlight.create('TelescopePreviewBorder',      {guifg=#ffffff},                         false) -- Selected item
-
-
 
 ------------------------------------------------------------
 --                   PLUGINS KEYBINDINGS
 ------------------------------------------------------------
 
 
--- nvim-bufferline
-vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferLineCycleNext<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferLineCyclePrev<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferLineMoveNext<CR>',  {noremap = true})
-vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferLineMovePrev<CR>',  {noremap = true})
--- bufdelete.nvim
-vim.api.nvim_set_keymap('n', 'gx', '<CMD>BufDel<CR>',              {noremap = true})
+-- barbar.nvim
+vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferNext<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferPrevious<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferMoveNext<CR>',  {noremap = true})
+vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferMovePrevious<CR>',  {noremap = true})
+vim.api.nvim_set_keymap('n', 'gx', '<CMD>BufferClose<CR>',              {noremap = true})
+vim.api.nvim_set_keymap('n', 'gp', '<CMD>BufferPin<CR>',              {noremap = true})
 
 -- nvim-tree.lua
 vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>',   {noremap = true})

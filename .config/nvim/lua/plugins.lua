@@ -64,6 +64,7 @@ return require('packer').startup(function(use)
     requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
   }
 
+  -- qf_helper.nvim for QuickFix and LocList window
   use {
     'stevearc/qf_helper.nvim',
     config = function()
@@ -72,27 +73,6 @@ return require('packer').startup(function(use)
                })
              end
   }
-
-  -- use {
-  --   'tanvirtin/vgit.nvim',
-  --   requires = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter' },
-  --   config = function() require'configs/vgit' end
-  -- }
-
-  -- trying to use neogit
-  -- use {
-  --   'TimUntersberger/neogit',
-  --   requires = {
-  --     'nvim-lua/plenary.nvim',
-  --     {
-  --       -- diffview.nvim
-  --       'sindrets/diffview.nvim',
-  --       requires = 'kyazdani42/nvim-web-devicons',
-  --       config = function() require'configs/diffview' end
-  --     }
-  --   },
-  --   config = function() require'configs/neogit' end
-  -- }
 
   -- completion for neovim with nvim-compe
   use {
@@ -115,20 +95,30 @@ return require('packer').startup(function(use)
       requires = 'kyazdani42/nvim-web-devicons'
   }
 
-  -- tabline improvements with nvim-bufferline
   use {
-    'akinsho/nvim-bufferline.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'configs/bufferline' end
-  }
-  use {
-    'ojroques/nvim-bufdel',
-    config = function() require('bufdel').setup{ next = 'alternate' } end
+    'romgrk/barbar.nvim',
+    config = function()
+               vim.g.bufferline = {
+                 exclude_name = {'__FLUTTER_DEV_LOG__'},
+               }
+             end,
+    requires = {'kyazdani42/nvim-web-devicons'}
   }
 
+  -- use {
+  --   "folke/which-key.nvim",
+  --   config = function() require'configs/which-key' end
+  -- }
+
   use {
-    "folke/which-key.nvim",
-    config = function() require'configs/which-key' end
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+               vim.cmd[[hi IndentBlanklineChar guifg=#39414C]]
+               require("indent_blankline").setup {
+                 char = "⎸",
+                 buftype_exclude = {"terminal"}
+               }
+             end
   }
 
   ------------------ END OPTIMIZED FOR NEOVIM ------------------
