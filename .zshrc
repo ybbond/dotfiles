@@ -175,7 +175,7 @@ alias set_dark="cp ~/.tmux-dark.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-da
 alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-light.conf ~/.config/kitty/kitty.conf"
 
 alias opsimulator="open -a Simulator"
-alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_30_arm64-v8a -netdelay none -netspeed full"
+alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3_API_31 -netdelay none -netspeed full"
 
 alias neorc="cd ~/.config/nvim && nvim . && cd -"
 
@@ -322,20 +322,16 @@ export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
 # export BAT_THEME="GitHub"
 export BAT_THEME="Coldark-Dark"
 
-export PATH="$HOME/.tool_binaries/zulu16.30.19-ca-jdk16.0.1-macosx_aarch64/zulu-16.jdk/Contents/Home/bin:$PATH"
+export PATH="$HOME/.tool_binaries/zulu16.32.15-ca-jdk16.0.2-macosx_aarch64/zulu-16.jdk/Contents/Home:$PATH"
+export JAVA_HOME="$HOME/.tool_binaries/zulu16.32.15-ca-jdk16.0.2-macosx_aarch64/zulu-16.jdk/Contents/Home"
+
 export PATH="$PATH:$HOME/fvm/default/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 
-export JAVA_HOME="$HOME/.tool_binaries/zulu16.30.19-ca-jdk16.0.1-macosx_aarch64/zulu-16.jdk/Contents/Home"
-# export ANDROID_SDK_ROOT="~/Library/Android/sdk"
+export PATH="/opt/homebrew/bin:$PATH"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
 ########################################################################
 ##                     END OF BANDUNG's EXPORTS
 #########################################################################
-
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
