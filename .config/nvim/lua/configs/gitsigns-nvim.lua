@@ -22,10 +22,10 @@ require('gitsigns').setup {
     ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
 
     ['n <C-g><C-s>'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    -- ['v <LEADER><C-s>'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['v <LEADER><C-s>'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <C-g><C-u>'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
     ['n <C-g><C-r><C-h>'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-    -- ['v <LEADER><C-r>'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['v <LEADER><C-r>'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <C-g><C-r><C-b>'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
     ['n <C-g><C-p>'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
     ['n <C-g><C-b>'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
@@ -39,13 +39,14 @@ require('gitsigns').setup {
     interval = 1000,
     follow_files = true
   },
-  current_line_blame = false,
-  current_line_blame_delay = 1000,
-  current_line_blame_position = 'eol',
+  -- current_line_blame_opts.delay = 1000,
+  -- current_line_blame = false,
+  -- current_line_blame_delay = 1000,
+  -- current_line_blame_position = 'eol',
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
-  word_diff = true,
+  -- word_diff = true, -- requires use_internal_diff
   -- use_decoration_api = true, -- deprecated
-  use_internal_diff = true,  -- If luajit is present
+  -- use_internal_diff = true,  -- If luajit is present
 }

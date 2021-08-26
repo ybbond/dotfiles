@@ -9,22 +9,24 @@ vim.cmd([[autocmd! BufWritePost plugins.lua source <afile> | PackerCompile profi
 
 return require('packer').startup(function(use)
 
-  ----------------- START OPTIMIZED FOR NEOVIM -----------------
-
   -- packer can manage itself
   use 'wbthomason/packer.nvim'
 
   -- sublime dark theme with oceanic-next
   use 'mhartington/oceanic-next'
 
+  use {
+    'EdenEast/nightfox.nvim',
+    config = function() require'configs/nightfox-nvim' end,
+  }
   -- try lush local theme
-  use '~/pbond/mariana'
+  -- use '~/pbond/mariana'
 
   -- using built-in lsp with nvim-lspconfig
   use {
     'neovim/nvim-lspconfig',
     requires = 'nvim-lua/lsp-status.nvim',
-    config = function() require'configs/nvim-lspconfig' end
+    config = function() require'configs/nvim-lspconfig' end,
   }
 
   -- file manager using nvim-tree.lua
@@ -35,10 +37,10 @@ return require('packer').startup(function(use)
   }
 
   -- colorize colors with nvim-colorizer.lua
-  -- use {
-  --   'norcalli/nvim-colorizer.lua',
-  --   config = function() require'colorizer'.setup() end
-  -- }
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function() require'colorizer'.setup() end
+  }
 
   -- lush
   use 'rktjmp/lush.nvim'
@@ -53,7 +55,7 @@ return require('packer').startup(function(use)
   -- leveraging neovim 0.5.0 nvim-treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
-    branch = '0.5-compat',
+    -- branch = '0.5-compat',
     run = ':TSUpdate',
     config = function() require'configs/nvim-treesitter' end
   }
@@ -64,20 +66,28 @@ return require('packer').startup(function(use)
     requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
   }
 
-  -- qf_helper.nvim for QuickFix and LocList window
   use {
-    'stevearc/qf_helper.nvim',
-    config = function()
-               require'qf_helper'.setup({
-                 prefer_loclist = false
-               })
-             end
+    'folke/trouble.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function() require'configs/trouble-nvim' end
   }
 
-  -- completion for neovim with nvim-compe
+  -- lsp signature with lsp_signature.nvim
+  -- use {
+  --   'ray-x/lsp_signature.nvim',
+  -- }
+
   use {
-    'hrsh7th/nvim-compe',
-    config = function() require'configs/nvim-compe' end
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-calc',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+      {'andersevenrud/compe-tmux', branch = 'cmp'},
+    },
+    config = function() require'configs/nvim-cmp' end,
   }
 
   -- gitsigns.nvim on gutter
@@ -85,6 +95,27 @@ return require('packer').startup(function(use)
     'lewis6991/gitsigns.nvim',
     requires = 'nvim-lua/plenary.nvim',
     config = function() require'configs/gitsigns-nvim' end
+  }
+
+  -- lua alternative for fugitive, rhubarb and fugitive-gitlab
+  use {
+    'dinhhuy258/git.nvim',
+    config = function() require('git').setup({
+      keymaps = {
+        -- Open blame window
+        blame = "<Leader>gb",
+        -- Close blame window
+        quit_blame = "q",
+        -- Open blame commit
+        blame_commit = "<CR>",
+        -- Open file/folder in git repository
+        browse = "<Leader>go",
+        -- Open pull request of the current branch
+        open_pull_request = "<Leader>gp",
+        -- Create a pull request with the target branch is set in the `target_branch` option
+        create_pull_request = "<Leader>gn",
+      },
+    }) end,
   }
 
   -- statusline improvements with galaxyline.nvim
@@ -95,20 +126,18 @@ return require('packer').startup(function(use)
       requires = 'kyazdani42/nvim-web-devicons'
   }
 
+  -- using packer.nvim
   use {
-    'romgrk/barbar.nvim',
-    config = function()
-               vim.g.bufferline = {
-                 exclude_name = {'__FLUTTER_DEV_LOG__'},
-               }
-             end,
-    requires = {'kyazdani42/nvim-web-devicons'}
+    'akinsho/bufferline.nvim',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function() require'configs/bufferline-nvim' end,
   }
+  use 'famiu/bufdelete.nvim'
 
-  -- use {
-  --   "folke/which-key.nvim",
-  --   config = function() require'configs/which-key' end
-  -- }
+  use {
+    "folke/which-key.nvim",
+    config = function() require'configs/which-key' end
+  }
 
   use {
     "lukas-reineke/indent-blankline.nvim",
@@ -121,23 +150,10 @@ return require('packer').startup(function(use)
              end
   }
 
-  ------------------ END OPTIMIZED FOR NEOVIM ------------------
-
-  -- vim-sneak
   use {
-    'justinmk/vim-sneak',
-    config = function() vim.api.nvim_set_var('sneak#absolute_dir', 1) end
+    'ggandor/lightspeed.nvim',
+    config = function() require'configs/lightspeed-nvim' end,
   }
-
-  -- vim-commentary vim-surround and vim-repeat
-  use 'tpope/vim-commentary'
-  use 'tpope/vim-surround'
-  use 'tpope/vim-repeat'
-
-  -- vim-fugitive vim-rhubarb and fugitive-gitlab
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'shumphrey/fugitive-gitlab.vim'
 
   -- lua development with lua-dev
   use {
@@ -163,6 +179,11 @@ return require('packer').startup(function(use)
     },
     config = function() require'configs/lsp-ts-utils' end
   }
+
+  -- vim-commentary vim-surround and vim-repeat
+  use 'tpope/vim-commentary'
+  use 'tpope/vim-surround'
+  use 'tpope/vim-repeat'
 
 end)
 

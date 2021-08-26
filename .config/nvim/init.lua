@@ -9,7 +9,11 @@ vim.opt.termguicolors = true
 vim.o.background = 'dark'
 
 -- vim.cmd('colorscheme OceanicNext')
-vim.cmd('colorscheme mariana')
+-- vim.cmd('colorscheme mariana')
+
+-- moved to configs/nightfox-nvim.lua
+-- vim.cmd('colorscheme nightfox')
+
 -- vim.cmd('syntax enable')
 -- vim.cmd('syntax on')
 vim.cmd('filetype plugin on')
@@ -21,7 +25,7 @@ vim.o.pastetoggle = '<F2>'
 vim.o.hidden = true
 
 -- used by which-key.nvim
--- vim.o.timeoutlen = 100
+vim.o.timeoutlen = 100
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
@@ -49,8 +53,6 @@ vim.o.incsearch = true
 vim.o.hlsearch = true
 
 vim.o.inccommand = 'split'
-
-vim.o.completeopt = "menuone,noinsert,noselect"
 
 -- originally used by |vim-fugitive|
 vim.o.diffopt = vim.o.diffopt .. ',vertical'
@@ -98,7 +100,8 @@ vim.api.nvim_set_keymap('n', '<LEADER>*', [[:let @/='\C\<' . expand('<cword>') .
 vim.api.nvim_set_keymap('n', '<LEADER>#', [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]], {noremap = true})
 
 -- why does vim's Y behavior different?
-vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
+-- but in neovim HEAD~, it's fixed!
+-- vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
 
 -- copy, paste and copy whole file to clipboard
 vim.api.nvim_set_keymap('', '<LEADER>c', '"+y', {})
@@ -149,14 +152,12 @@ require'ybbond-compat'
 --                   PLUGINS KEYBINDINGS
 ------------------------------------------------------------
 
-
--- barbar.nvim
-vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferNext<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferPrevious<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferMoveNext<CR>',  {noremap = true})
-vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferMovePrevious<CR>',  {noremap = true})
-vim.api.nvim_set_keymap('n', 'gx', '<CMD>BufferClose<CR>',              {noremap = true})
-vim.api.nvim_set_keymap('n', 'gp', '<CMD>BufferPin<CR>',              {noremap = true})
+-- bufferline
+vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferLineCycleNext<CR>',{noremap = true})
+vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferLineCyclePrev<CR>',{noremap = true})
+vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferLineMoveNext<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferLineMovePrev<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', 'gx', '<CMD>Bdelete<CR>',            {noremap = true})
 
 -- nvim-tree.lua
 vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>',   {noremap = true})
@@ -166,9 +167,9 @@ vim.api.nvim_set_keymap('n', '<LEADER>r', '<CMD>NvimTreeFindFile<CR>', {noremap 
 vim.api.nvim_set_keymap('n', '<C-t><C-p>',        [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f"}} hidden=true<CR>]], {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-p>',  [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f","--no-ignore"}} hidden=true<CR>]], {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-i>',        [[<CMD>Telescope live_grep hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-i>',  [[<CMD>Telescope live_grep hidden=true find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore,--regexp<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-n>',        [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--ignore,--regexp<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-n>',  [[<CMD>Telescope live_grep find_command=rg,--no-heading,--hidden,-g='!.git/**',--with-filename,--line-number,--column,--smart-case,--no-ignore,--regexp<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-i>',  [[<CMD>Telescope live_grep hidden=true grep_open_files=true<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-n>',        [[<CMD>lua require("telescope.builtin").live_grep{ find_command={"rg","--no-heading","--hidden","-g='!.git/**'","--with-filename","--line-number","--column","--smart-case","--ignore","--regexp"}}<CR>]], {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-n>',  [[<CMD>lua require("telescope.builtin").live_grep{ find_command={"rg","--no-heading","--hidden","-g='!.git/**'",'--with-filename',"--line-number","--column","--smart-case","--no-ignore","--regexp"}}<CR>]], {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<C-t><C-s>',    [[<CMD>Telescope grep_string<CR>]], {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-t><C-r>',    [[<CMD>Telescope registers<CR>]],   {noremap = true})
@@ -180,13 +181,12 @@ vim.api.nvim_set_keymap('n', '<C-t><C-t>',    [[<CMD>Telescope treesitter<CR>]],
 
 vim.api.nvim_set_keymap('n', '<C-g><C-g>',    [[<CMD>Telescope git_status<CR>]],  {noremap = true})
 
--- vim-sneak
-vim.api.nvim_set_keymap('', 'f', '<Plug>Sneak_f', {})
-vim.api.nvim_set_keymap('', 'F', '<Plug>Sneak_F', {})
-vim.api.nvim_set_keymap('', 't', '<Plug>Sneak_t', {})
-vim.api.nvim_set_keymap('', 'T', '<Plug>Sneak_T', {})
+-- trouble.nvim
+-- Lua
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", {silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", {silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", {silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", {silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true, noremap = true})
 
--- nvim-compe
-vim.api.nvim_set_keymap('i', '<C-Space>', [[compe#complete()]],       {noremap = true, expr = true, silent = true})
-vim.api.nvim_set_keymap('i', '<TAB>',     [[compe#confirm('<TAB>')]], {noremap = true, expr = true, silent = true})
-vim.api.nvim_set_keymap('i', '<C-g>',     [[compe#close('<C-g>')]],   {noremap = true, expr = true, silent = true})

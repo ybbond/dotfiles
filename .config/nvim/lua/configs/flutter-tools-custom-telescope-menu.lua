@@ -100,10 +100,22 @@ function M.commands(opts)
         command = function() require("flutter-tools.commands").run_command('--flavor=staging --no-sound-null-safety') end,
       },
       {
+        id = "flutter-tools-run-agent-staging",
+        label = "Flutter tools: Start RIKU Staging",
+        hint = "Start the Agent App project",
+        command = function() require("flutter-tools.commands").run_command('--flavor=mandiristaging --no-sound-null-safety') end,
+      },
+      {
         id = "flutter-tools-run-agent-production",
         label = "Flutter tools: Start Agent Production",
         hint = "Start the Agent App project in production flavor",
         command = function() require("flutter-tools.commands").run_command('--flavor=production --no-sound-null-safety') end,
+      },
+      {
+        id = "flutter-tools-run-agent-production",
+        label = "Flutter tools: Start RIKU Production",
+        hint = "Start the Agent App project in production flavor",
+        command = function() require("flutter-tools.commands").run_command('--flavor=mandiriproduction --no-sound-null-safety') end,
       },
     }
   end

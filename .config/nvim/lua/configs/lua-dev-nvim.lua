@@ -1,4 +1,4 @@
-local lsp_on_attach = require('configs/nvim-lspconfig')
+local ybbond_lsp_on_attach = require('configs/nvim-lspconfig')
 
 local sumneko_root_path = '/Users/yohanesbandung/poss/lua-language-server'
 local sumneko_binary = sumneko_root_path.."/bin/macOS/lua-language-server"
@@ -19,7 +19,7 @@ local luadev = require('lua-dev').setup({
   -- pass any additional options that will be merged in the final lsp config
   lspconfig = {
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-    on_attach = lsp_on_attach,
+    on_attach = ybbond_lsp_on_attach,
     filetypes = { "lua" },
     settings = {
       Lua = {

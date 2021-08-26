@@ -1,3 +1,5 @@
+local trouble = require("trouble.providers.telescope")
+
 require('telescope').setup{
   defaults = {
     -- vimgrep_arguments = {
@@ -20,6 +22,10 @@ require('telescope').setup{
       vertical = {
         mirror = true,
       },
+    },
+    mappings = {
+      i = { ["<c-q>"] = trouble.open_with_trouble },
+      n = { ["<c-q>"] = trouble.open_with_trouble },
     },
     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
     -- generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,

@@ -1,4 +1,4 @@
-local lsp_on_attach = require('configs/nvim-lspconfig')
+local ybbond_lsp_on_attach = require('configs/nvim-lspconfig')
 local nvim_lsp = require("lspconfig")
 
 -- enable null-ls integration (optional)
@@ -52,7 +52,7 @@ nvim_lsp.tsserver.setup {
 
     vim.cmd("command! -buffer FormatTS lua vim.lsp.buf.formatting()")
 
-    lsp_on_attach(client, bufnr);
+    ybbond_lsp_on_attach(client, bufnr);
 
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end

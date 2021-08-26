@@ -7,7 +7,7 @@ gl.short_line_list = {'NvimTree','vista','dbui','packer'}
 gls.left[1] = {
   BlockSeparator = {
     provider = function() return '▊ ' end,
-    highlight = {'#62B3B2','#343D46', 'bold'}
+    highlight = {'#62B3B2','#2e3440', 'bold'} -- previously, #2e3440 was #343D46
   },
 }
 
@@ -59,14 +59,14 @@ gls.left[3] = {
   FileSize = {
     provider = 'FileSize',
     condition = condition.buffer_not_empty,
-    highlight = {colors.fg,'#343D46'}
+    highlight = {colors.fg,'#2e3440'}
   }
 }
 gls.left[4] ={
   FileIcon = {
     provider = 'FileIcon',
     condition = condition.buffer_not_empty,
-    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,'#343D46'},
+    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,'#2e3440'},
   },
 }
 
@@ -74,7 +74,7 @@ gls.left[5] = {
   FileName = {
     provider = 'FileName',
     condition = condition.buffer_not_empty,
-    highlight = {colors.magenta,'#343D46','bold'}
+    highlight = {colors.magenta,'#2e3440','bold'}
   }
 }
 
@@ -82,8 +82,8 @@ gls.left[6] = {
   LineInfo = {
     provider = 'LineColumn',
     separator = ' ',
-    separator_highlight = {'NONE','#343D46'},
-    highlight = {colors.fg,'#343D46'},
+    separator_highlight = {'NONE','#2e3440'},
+    highlight = {colors.fg,'#2e3440'},
   },
 }
 
@@ -99,7 +99,7 @@ gls.left[6] = {
 gls.left[7] = {
   PlainSeparator = {
     provider = function() return ' ' end,
-    highlight = {'NONE','#343D46'}
+    highlight = {'NONE','#2e3440'}
   },
   ShowLspClient = {
     provider = 'GetLspClient',
@@ -110,7 +110,7 @@ gls.left[7] = {
       end
       return true
     end,
-    highlight = {colors.cyan,'#343D46','bold'}
+    highlight = {colors.cyan,'#2e3440','bold'}
   },
 }
 
@@ -119,7 +119,7 @@ gls.left[8] = {
     provider = 'DiagnosticError',
     -- icon = '  ',
     icon = '  ',
-    highlight = {colors.red,'#343D46'}
+    highlight = {colors.red,'#2e3440'}
   }
 }
 gls.left[9] = {
@@ -127,7 +127,7 @@ gls.left[9] = {
     provider = 'DiagnosticWarn',
     -- icon = '  ',
     icon = '  ',
-    highlight = {colors.yellow,'#343D46'},
+    highlight = {colors.yellow,'#2e3440'},
   }
 }
 
@@ -136,7 +136,7 @@ gls.left[10] = {
     provider = 'DiagnosticHint',
     -- icon = '  ',
     icon = '  ',
-    highlight = {colors.cyan,'#343D46'},
+    highlight = {colors.cyan,'#2e3440'},
   }
 }
 
@@ -145,7 +145,7 @@ gls.left[11] = {
     provider = 'DiagnosticInfo',
     -- icon = '  ',
     icon = '  ',
-    highlight = {colors.blue,'#343D46'},
+    highlight = {colors.blue,'#2e3440'},
   }
 }
 
@@ -189,7 +189,7 @@ gls.right[1] = {
     provider = 'DiffAdd',
     condition = condition.hide_in_width,
     icon = '  ',
-    highlight = {colors.green,'#343D46'},
+    highlight = {colors.green,'#2e3440'},
   }
 }
 gls.right[2] = {
@@ -197,7 +197,7 @@ gls.right[2] = {
     provider = 'DiffModified',
     condition = condition.hide_in_width,
     icon = ' 柳',
-    highlight = {colors.blue,'#343D46'},
+    highlight = {colors.blue,'#2e3440'},
   }
 }
 gls.right[3] = {
@@ -205,31 +205,31 @@ gls.right[3] = {
     provider = 'DiffRemove',
     condition = condition.hide_in_width,
     icon = '  ',
-    highlight = {colors.red,'#343D46'},
+    highlight = {colors.red,'#2e3440'},
   }
 }
 
 gls.right[4] = {
   PlainSeparator = {
     provider = function() return ' ' end,
-    highlight = {'NONE','#343D46'}
+    highlight = {'NONE','#2e3440'}
   },
 }
 
 gls.right[5] = {
-  PlainSeparator = {
+  PlainSeparator1 = {
     provider = function() return ' ' end,
-    highlight = {'NONE','#343D46'}
+    highlight = {'NONE','#2e3440'}
   },
   BufferType = {
     provider = 'FileTypeName',
     separator = ' ',
-    separator_highlight = {'NONE','#343D46'},
-    highlight = {colors.blue,'#343D46','bold'}
+    separator_highlight = {'NONE','#2e3440'},
+    highlight = {colors.blue,'#2e3440','bold'}
   },
-  PlainSeparator = {
+  PlainSeparator2 = {
     provider = function() return ' ' end,
-    highlight = {'NONE','#343D46'}
+    highlight = {'NONE','#2e3440'}
   },
 }
 
@@ -246,8 +246,8 @@ gls.short_line_left[1] = {
   BufferType = {
     provider = 'FileTypeName',
     separator = ' ',
-    separator_highlight = {'NONE','#343D46'},
-    highlight = {colors.blue,'#343D46','bold'}
+    separator_highlight = {'NONE','#2e3440'},
+    highlight = {colors.blue,'#2e3440','bold'}
   }
 }
 
@@ -255,14 +255,14 @@ gls.short_line_left[2] = {
   SFileName = {
     provider =  'SFileName',
     condition = condition.buffer_not_empty,
-    highlight = {colors.fg,'#343D46','bold'}
+    highlight = {colors.fg,'#2e3440','bold'}
   }
 }
 
 gls.short_line_right[1] = {
   BufferIcon = {
     provider= 'BufferIcon',
-    highlight = {colors.fg,'#343D46'}
+    highlight = {colors.fg,'#2e3440'}
   }
 }
 
