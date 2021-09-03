@@ -179,6 +179,8 @@ alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3_API_31 -n
 
 alias neorc="cd ~/.config/nvim && nvim . && cd -"
 
+alias g="\$GOPATH/bin/g"
+
 ########################################################################
 #                     END OF BANDUNG's ALIASES
 ########################################################################
@@ -329,6 +331,8 @@ export PATH="$PATH:$HOME/fvm/default/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 
 export PATH="/opt/homebrew/bin:$PATH"
+
+export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
