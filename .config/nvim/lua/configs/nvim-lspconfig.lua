@@ -3,8 +3,6 @@
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local ybbond_lsp_on_attach = function(client, bufnr)
-  -- require'lsp_signature'.on_attach()
-
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -25,8 +23,8 @@ local ybbond_lsp_on_attach = function(client, bufnr)
   buf_set_keymap('n', 'ga', '<CMD>lua vim.lsp.buf.code_action()<CR>', opts)
   -- gA will be received to language specific actions
   buf_set_keymap('n', 'gr', '<CMD>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '[C', '<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']C', '<CMD>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '[e', '<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']e', '<CMD>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
   -- buf_set_keymap('n', '<space>wa', '<CMD>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   -- buf_set_keymap('n', '<space>wr', '<CMD>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)

@@ -15,6 +15,8 @@ return require('packer').startup(function(use)
   -- sublime dark theme with oceanic-next
   use 'mhartington/oceanic-next'
 
+  use 'dstein64/nvim-scrollview'
+
   use {
     'EdenEast/nightfox.nvim',
     config = function() require'configs/nightfox-nvim' end,
@@ -72,16 +74,6 @@ return require('packer').startup(function(use)
     config = function() require'configs/trouble-nvim' end
   }
 
-  -- lsp signature with lsp_signature.nvim
-  -- use {
-  --   'ray-x/lsp_signature.nvim',
-  -- }
-
-  -- use {
-  --   'hrsh7th/nvim-compe',
-  --   config = function() require'configs/nvim-compe' end,
-  -- }
-
   use { 'L3MON4D3/LuaSnip' }
   use {
     'hrsh7th/nvim-cmp',
@@ -92,7 +84,6 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'saadparwaiz1/cmp_luasnip',
-      -- {'andersevenrud/compe-tmux', branch = 'cmp'},
     },
     config = function() require'configs/nvim-cmp' end,
   }
@@ -104,25 +95,9 @@ return require('packer').startup(function(use)
     config = function() require'configs/gitsigns-nvim' end
   }
 
-  -- lua alternative for fugitive, rhubarb and fugitive-gitlab
   use {
-    'dinhhuy258/git.nvim',
-    config = function() require('git').setup({
-      keymaps = {
-        -- Open blame window
-        blame = "<Leader>gb",
-        -- Close blame window
-        quit_blame = "q",
-        -- Open blame commit
-        blame_commit = "<CR>",
-        -- Open file/folder in git repository
-        browse = "<Leader>go",
-        -- Open pull request of the current branch
-        open_pull_request = "<Leader>gp",
-        -- Create a pull request with the target branch is set in the `target_branch` option
-        create_pull_request = "<Leader>gn",
-      },
-    }) end,
+    'TimUntersberger/neogit',
+    requires = 'nvim-lua/plenary.nvim',
   }
 
   -- statusline improvements with galaxyline.nvim
@@ -132,11 +107,11 @@ return require('packer').startup(function(use)
     config = function() require'configs/evilline' end,
     requires = 'kyazdani42/nvim-web-devicons'
   }
-  -- use {
-  --   'SmiteshP/nvim-gps',
-  --   requires = 'nvim-treesitter/nvim-treesitter',
-  --   config = function() require('nvim-gps').setup() end,
-  -- }
+  use {
+    'SmiteshP/nvim-gps',
+    requires = 'nvim-treesitter/nvim-treesitter',
+    config = function() require('nvim-gps').setup() end,
+  }
 
   -- using packer.nvim
   use {
@@ -154,7 +129,7 @@ return require('packer').startup(function(use)
   use {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-               vim.cmd[[hi IndentBlanklineChar guifg=#39414C]]
+               vim.cmd[[hi IndentBlanklineChar guifg=#3B434E]]
                require("indent_blankline").setup {
                  char = "⎸",
                  buftype_exclude = {"terminal"}
@@ -162,10 +137,10 @@ return require('packer').startup(function(use)
              end
   }
 
-  -- use {
-  --   'ggandor/lightspeed.nvim',
-  --   config = function() require'configs/lightspeed-nvim' end,
-  -- }
+  use {
+    'ggandor/lightspeed.nvim',
+    config = function() require'configs/lightspeed-nvim' end,
+  }
 
   -- lua development with lua-dev
   use {

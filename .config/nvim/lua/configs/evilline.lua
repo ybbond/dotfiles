@@ -185,10 +185,10 @@ gls.left[11] = {
 -- }
 
 gls.right[1] = {
-  -- NvimGPS = {
-  --   provider = function() return require'nvim-gps'.get_location() end,
-  --   condition = function() return require'nvim-gps'.is_available() end,
-  -- },
+  NvimGPS = {
+    provider = function() return require'nvim-gps'.get_location() end,
+    condition = function() return require'nvim-gps'.is_available() end,
+  },
 }
 
 gls.right[2] = {

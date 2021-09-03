@@ -13,7 +13,7 @@ local cmp = require('cmp')
 
 cmp.setup {
   -- reference: https://github.com/timbedard/dotfiles/blob/main/config/nvim/lua/plugins.lua
-  min_length = 0, -- allow for `from package import _` in Python
+  min_length = 1, -- allow for `from package import _` in Python
 
   snippet = {
     -- expand = nil,
@@ -24,7 +24,7 @@ cmp.setup {
 
   completion = {
     completeopt = 'menu,menuone,noinsert,noselect',
-    keyword_length = 0,
+    keyword_length = 1,
   },
 
   mapping = {
@@ -97,4 +97,8 @@ cmp.setup {
       return vim_item
     end,
   },
+
+  -- experimental = {
+  --   ghost_text = true,
+  -- },
 }

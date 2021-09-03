@@ -54,9 +54,6 @@ vim.o.hlsearch = true
 
 vim.o.inccommand = 'split'
 
--- used by nvim-compe and possibly nvim-cmp
--- vim.o.completeopt = 'menu,menuone,noinsert,noselect'
-
 -- originally used by |vim-fugitive|
 vim.o.diffopt = vim.o.diffopt .. ',vertical'
 
@@ -192,8 +189,3 @@ vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostic
 vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", {silent = true, noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true, noremap = true})
 vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", {silent = true, noremap = true})
-
--- nvim-compe
--- vim.api.nvim_set_keymap('i', '<C-Space>', [[compe#complete()]],       {noremap = true, expr = true, silent = true})
--- vim.api.nvim_set_keymap('i', '<TAB>',     [[compe#confirm('<TAB>')]], {noremap = true, expr = true, silent = true})
--- vim.api.nvim_set_keymap('i', '<C-g>',     [[compe#close('<C-g>')]],   {noremap = true, expr = true, silent = true})
