@@ -185,6 +185,13 @@ gls.left[11] = {
 -- }
 
 gls.right[1] = {
+  -- NvimGPS = {
+  --   provider = function() return require'nvim-gps'.get_location() end,
+  --   condition = function() return require'nvim-gps'.is_available() end,
+  -- },
+}
+
+gls.right[2] = {
   DiffAdd = {
     provider = 'DiffAdd',
     condition = condition.hide_in_width,
@@ -192,7 +199,7 @@ gls.right[1] = {
     highlight = {colors.green,'#2e3440'},
   }
 }
-gls.right[2] = {
+gls.right[3] = {
   DiffModified = {
     provider = 'DiffModified',
     condition = condition.hide_in_width,
@@ -200,7 +207,7 @@ gls.right[2] = {
     highlight = {colors.blue,'#2e3440'},
   }
 }
-gls.right[3] = {
+gls.right[4] = {
   DiffRemove = {
     provider = 'DiffRemove',
     condition = condition.hide_in_width,
@@ -209,31 +216,30 @@ gls.right[3] = {
   }
 }
 
-gls.right[4] = {
+gls.right[5] = {
   PlainSeparator = {
     provider = function() return ' ' end,
     highlight = {'NONE','#2e3440'}
   },
 }
 
-gls.right[5] = {
-  PlainSeparator1 = {
-    provider = function() return ' ' end,
-    highlight = {'NONE','#2e3440'}
-  },
+gls.right[6] = {
   BufferType = {
     provider = 'FileTypeName',
     separator = ' ',
     separator_highlight = {'NONE','#2e3440'},
     highlight = {colors.blue,'#2e3440','bold'}
   },
-  PlainSeparator2 = {
+}
+
+gls.right[7] = {
+  PlainSeparator = {
     provider = function() return ' ' end,
     highlight = {'NONE','#2e3440'}
   },
 }
 
-gls.right[6] = {
+gls.right[8] = {
   Smiley = {
     separator = ' ',
     separator_highlight = {'#62B3B2','#62B3B2'},

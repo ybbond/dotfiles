@@ -77,6 +77,12 @@ return require('packer').startup(function(use)
   --   'ray-x/lsp_signature.nvim',
   -- }
 
+  -- use {
+  --   'hrsh7th/nvim-compe',
+  --   config = function() require'configs/nvim-compe' end,
+  -- }
+
+  use { 'L3MON4D3/LuaSnip' }
   use {
     'hrsh7th/nvim-cmp',
     requires = {
@@ -85,7 +91,8 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-calc',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
-      {'andersevenrud/compe-tmux', branch = 'cmp'},
+      'saadparwaiz1/cmp_luasnip',
+      -- {'andersevenrud/compe-tmux', branch = 'cmp'},
     },
     config = function() require'configs/nvim-cmp' end,
   }
@@ -121,10 +128,15 @@ return require('packer').startup(function(use)
   -- statusline improvements with galaxyline.nvim
   use {
     'glepnir/galaxyline.nvim',
-      branch = 'main',
-      config = function() require'configs/evilline' end,
-      requires = 'kyazdani42/nvim-web-devicons'
+    branch = 'main',
+    config = function() require'configs/evilline' end,
+    requires = 'kyazdani42/nvim-web-devicons'
   }
+  -- use {
+  --   'SmiteshP/nvim-gps',
+  --   requires = 'nvim-treesitter/nvim-treesitter',
+  --   config = function() require('nvim-gps').setup() end,
+  -- }
 
   -- using packer.nvim
   use {
@@ -150,10 +162,10 @@ return require('packer').startup(function(use)
              end
   }
 
-  use {
-    'ggandor/lightspeed.nvim',
-    config = function() require'configs/lightspeed-nvim' end,
-  }
+  -- use {
+  --   'ggandor/lightspeed.nvim',
+  --   config = function() require'configs/lightspeed-nvim' end,
+  -- }
 
   -- lua development with lua-dev
   use {

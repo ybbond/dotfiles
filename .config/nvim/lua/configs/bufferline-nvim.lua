@@ -1,7 +1,6 @@
 require("bufferline").setup{
   options = {
-    numbers = 'ordinal',
-    number_style = "",
+    numbers = function(opts) return string.format('[%s]', opts.ordinal) end,
     diagnostics = "nvim_lsp",
     close_command = function(bufnum)
       require('bufdelete').bufdelete(bufnum, true)
