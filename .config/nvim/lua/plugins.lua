@@ -21,8 +21,11 @@ return require('packer').startup(function(use)
     'EdenEast/nightfox.nvim',
     config = function() require'configs/nightfox-nvim' end,
   }
-  -- try lush local theme
-  -- use '~/pbond/mariana'
+
+  -- -- -- lush
+  -- -- use 'rktjmp/lush.nvim'
+  -- -- try lush local theme
+  -- -- use '~/pbond/mariana'
 
   -- using built-in lsp with nvim-lspconfig
   use {
@@ -44,9 +47,6 @@ return require('packer').startup(function(use)
     config = function() require'colorizer'.setup() end
   }
 
-  -- lush
-  use 'rktjmp/lush.nvim'
-
   -- telescope.nvim for fuzzy findings and cool stuffs
   use {
     'nvim-telescope/telescope.nvim',
@@ -54,10 +54,9 @@ return require('packer').startup(function(use)
     config = function() require'configs/telescope' end
   }
 
-  -- leveraging neovim 0.5.0 nvim-treesitter
+  -- leveraging neovim >0.5.0 nvim-treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
-    -- branch = '0.5-compat',
     run = ':TSUpdate',
     config = function() require'configs/nvim-treesitter' end
   }
@@ -157,20 +156,22 @@ return require('packer').startup(function(use)
   }
 
   -- TypeScript, JavaScript and ReactJS utilities with nvim-lsp-ts-utils
-  use {
-    'jose-elias-alvarez/nvim-lsp-ts-utils',
-    requires = {
-      'neovim/nvim-lspconfig',
-      'nvim-lua/plenary.nvim',
-      {'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim'}
-    },
-    config = function() require'configs/lsp-ts-utils' end
-  }
+  -- use {
+  --   'jose-elias-alvarez/nvim-lsp-ts-utils',
+  --   requires = {
+  --     'neovim/nvim-lspconfig',
+  --     'nvim-lua/plenary.nvim',
+  --     {'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim'}
+  --   },
+  --   config = function() require'configs/lsp-ts-utils' end
+  -- }
 
   -- vim-commentary vim-surround and vim-repeat
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
 
-end)
+  -- add delimiters
+  use 'wellle/targets.vim'
 
+end)
