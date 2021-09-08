@@ -1,7 +1,7 @@
 -- clear cache
 
 require('plenary.reload').reload_module('configs/bufferline-nvim')
-require('plenary.reload').reload_module('configs/evilline')
+require('plenary.reload').reload_module('configs/feline')
 require('plenary.reload').reload_module('configs/flutter-tools-custom-telescope-menu')
 require('plenary.reload').reload_module('configs/flutter-tools')
 require('plenary.reload').reload_module('configs/gitsigns-nvim')
@@ -20,6 +20,7 @@ require('plenary.reload').reload_module('configs/which-key')
 -- reload
 
 require('configs/bufferline-nvim')
+require('configs/feline')
 require('configs/flutter-tools-custom-telescope-menu')
 require('configs/flutter-tools')
 require('configs/gitsigns-nvim')

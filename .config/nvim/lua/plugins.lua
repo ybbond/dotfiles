@@ -60,6 +60,10 @@ return require('packer').startup(function(use)
     run = ':TSUpdate',
     config = function() require'configs/nvim-treesitter' end
   }
+  use {
+    'nvim-treesitter/playground',
+    requires = 'nvim-treesitter/nvim-treesitter'
+  }
 
   -- vim-commentary extension with treesitter nvim-ts-context-commentstring
   use {
@@ -99,12 +103,9 @@ return require('packer').startup(function(use)
     requires = 'nvim-lua/plenary.nvim',
   }
 
-  -- statusline improvements with galaxyline.nvim
   use {
-    'glepnir/galaxyline.nvim',
-    branch = 'main',
-    config = function() require'configs/evilline' end,
-    requires = 'kyazdani42/nvim-web-devicons'
+    'famiu/feline.nvim',
+    config = function() require'configs/feline' end,
   }
   use {
     'SmiteshP/nvim-gps',
@@ -156,15 +157,15 @@ return require('packer').startup(function(use)
   }
 
   -- TypeScript, JavaScript and ReactJS utilities with nvim-lsp-ts-utils
-  -- use {
-  --   'jose-elias-alvarez/nvim-lsp-ts-utils',
-  --   requires = {
-  --     'neovim/nvim-lspconfig',
-  --     'nvim-lua/plenary.nvim',
-  --     {'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim'}
-  --   },
-  --   config = function() require'configs/lsp-ts-utils' end
-  -- }
+  use {
+    'jose-elias-alvarez/nvim-lsp-ts-utils',
+    requires = {
+      'neovim/nvim-lspconfig',
+      'nvim-lua/plenary.nvim',
+      {'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim'}
+    },
+    config = function() require'configs/lsp-ts-utils' end
+  }
 
   -- vim-commentary vim-surround and vim-repeat
   use 'tpope/vim-commentary'

@@ -73,7 +73,9 @@ vim.o.diffopt = vim.o.diffopt .. ',vertical'
 
 local function replaceTermcodes(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
 
-function _G.smart_wrap_nav_bindings(ifTrue,ifFalse) return vim.o.wrap == true and replaceTermcodes(ifTrue) or replaceTermcodes(ifFalse) end
+function _G.smart_wrap_nav_bindings(ifTrue,ifFalse)
+  return vim.o.wrap == true and replaceTermcodes(ifTrue) or replaceTermcodes(ifFalse)
+end
 
 vim.api.nvim_set_keymap('n', 'j', [[v:lua.smart_wrap_nav_bindings("gj","j")]], {expr = true, noremap = true})
 vim.api.nvim_set_keymap('n', 'k', [[v:lua.smart_wrap_nav_bindings("gk","k")]], {expr = true, noremap = true})
@@ -109,7 +111,8 @@ vim.api.nvim_set_keymap('', '<LEADER>v', ':r !pbpaste<CR><CR>', {})
 vim.api.nvim_set_keymap('', '<LEADER>ca', ':%w !pbcopy<CR><CR>', {})
 
 -- identify syntax below cursor with <LEADER>h
-vim.api.nvim_set_keymap('', '<LEADER>h', [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]], {})
+-- replaced by nvim-treesitter one below
+-- vim.api.nvim_set_keymap('', '<LEADER>h', [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]], {})
 
 -- rebind vim's ga to be <LEADER>a
 vim.api.nvim_set_keymap('n', '<LEADER>a', 'ga', {noremap = true})
@@ -139,11 +142,11 @@ vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
 ------------------------------------------------------------
 
 
-require('plenary.reload').reload_module('configs')
+-- require('plenary.reload').reload_module('configs')
 require('plenary.reload').reload_module('ybbond-compat')
 
 require'plugins'
-require'configs'
+-- require'configs'
 require'ybbond-compat'
 
 
@@ -180,6 +183,9 @@ vim.api.nvim_set_keymap('n', '<C-t><C-a>',    [[<CMD>Telescope commands<CR>]],  
 vim.api.nvim_set_keymap('n', '<C-t><C-t>',    [[<CMD>Telescope treesitter<CR>]],  {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<C-g><C-g>',    [[<CMD>Telescope git_status<CR>]],  {noremap = true})
+
+-- nvim-treesitter
+vim.api.nvim_set_keymap('', '<LEADER>h', '<CMD>TSHighlightCapturesUnderCursor<CR>', {noremap = true})
 
 -- trouble.nvim
 vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", {silent = true, noremap = true})
