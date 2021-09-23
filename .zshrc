@@ -331,6 +331,11 @@ export PATH="$PATH:$HOME/fvm/default/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
 
 export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 

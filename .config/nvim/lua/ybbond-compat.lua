@@ -26,6 +26,9 @@ Augroup.cmds({
     {"BufNewFile,BufRead", "*.(c|v|vv|py) setlocal shiftwidth=4"},
     {"BufNewFile,BufRead", "*.(c|v|vv|py) setlocal set noexpandtab"},
   },
+  DartDollar = {
+    {"BufNewFile,BufRead", "*.dart setlocal iskeyword+=$"},
+  },
   WrapForWritingMode = {
     {"BufNewFile,BufRead", "*.(md|mmd|txt|markdown) setlocal set wrap!"},
   }

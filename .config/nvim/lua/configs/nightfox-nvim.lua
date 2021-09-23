@@ -15,10 +15,10 @@ require('nightfox').setup({
     GitSignsAddNr = { bg = '#266d6a', fg = '#2e3440', style = 'bold' },
     GitSignsChangeNr = { bg= '#536c9e', fg = '#2e3440', style = 'bold'  },
     GitSignsDeleteNr = { bg='#b2555b', fg = '#2e3440', style = 'bold' },
-    LspDiagnosticsSignError = { bg = '#ec5f67', fg = '#2e3440', style = 'bold'},
-    LspDiagnosticsSignWarning = { bg = '#f99157', fg = '#2e3440', style = 'bold'},
-    LspDiagnosticsSignInformation = { bg = '#6699cc', fg = '#2e3440', style = 'bold'},
-    LspDiagnosticsSignHint = { bg = '#ffffff', fg = '#2e3440', style = 'bold'},
+    -- LspDiagnosticsSignError = { bg = '#ec5f67', fg = '#2e3440', style = 'bold'},
+    -- LspDiagnosticsSignWarning = { bg = '#f99157', fg = '#2e3440', style = 'bold'},
+    -- LspDiagnosticsSignInformation = { bg = '#6699cc', fg = '#2e3440', style = 'bold'},
+    -- LspDiagnosticsSignHint = { bg = '#ffffff', fg = '#2e3440', style = 'bold'},
 },
 })
 

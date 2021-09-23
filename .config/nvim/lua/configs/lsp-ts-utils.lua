@@ -1,14 +1,14 @@
 local ybbond_lsp_on_attach = require('configs/nvim-lspconfig')
 local nvim_lsp = require("lspconfig")
 
--- enable null-ls integration (optional)
-require("null-ls").config {}
-require("lspconfig")["null-ls"].setup {}
-
 nvim_lsp.tsserver.setup {
   on_attach = function(client, bufnr)
     -- disable tsserver formatting if you plan on formatting via null-ls
     client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+
+    require('null-ls').config{}
+    nvim_lsp['null-ls'].setup{}
 
     local ts_utils = require("nvim-lsp-ts-utils")
 
@@ -45,12 +45,17 @@ nvim_lsp.tsserver.setup {
       update_imports_on_move = false,
       require_confirmation_on_move = false,
       watch_dir = nil,
+
+      -- filter diagnostics
+      filter_out_diagnostics_by_severity = {},
+      filter_out_diagnostics_by_code = {},
     }
 
     -- required to fix code action ranges
     ts_utils.setup_client(client)
 
-    vim.cmd("command! -buffer FormatTS lua vim.lsp.buf.formatting()")
+    -- uncomment for autoformat on save
+    -- vim.cmd("command! -buffer FormatTS lua vim.lsp.buf.formatting()")
 
     ybbond_lsp_on_attach(client, bufnr);
 

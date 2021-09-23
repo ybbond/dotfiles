@@ -12,14 +12,18 @@ require('gitsigns').setup {
     changedelete = {hl = 'Ignore', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
   },
   numhl = true,
-  linehl = false,
+  linehl = true,
   keymaps = {
     -- Default keymap options
     noremap = true,
     buffer = true,
 
+    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
     ['n ]g'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
     ['n [g'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
+    ['n <C-g><C-]>'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
+    ['n <C-g><C-[>'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
 
     ['n <C-g><C-s>'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
     ['v <LEADER><C-s>'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
@@ -46,6 +50,8 @@ require('gitsigns').setup {
   update_debounce = 100,
   status_formatter = nil, -- Use default
   -- word_diff = true, -- requires use_internal_diff
-  -- use_decoration_api = true, -- deprecated
-  use_internal_diff = false,  -- If luajit is present
+  diff_opts = {
+    -- algorithm = 'minimal',
+    internal = false,
+  },
 }

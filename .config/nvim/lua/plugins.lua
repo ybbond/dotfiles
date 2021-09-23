@@ -33,6 +33,10 @@ return require('packer').startup(function(use)
     requires = 'nvim-lua/lsp-status.nvim',
     config = function() require'configs/nvim-lspconfig' end,
   }
+  use {
+    'nvim-lua/lsp_extensions.nvim',
+    requires = 'neovim/nvim-lspconfig',
+  }
 
   -- file manager using nvim-tree.lua
   use {
@@ -98,10 +102,10 @@ return require('packer').startup(function(use)
     config = function() require'configs/gitsigns-nvim' end
   }
 
-  use {
-    'TimUntersberger/neogit',
-    requires = 'nvim-lua/plenary.nvim',
-  }
+  -- use {
+  --   'TimUntersberger/neogit',
+  --   requires = 'nvim-lua/plenary.nvim',
+  -- }
 
   use {
     'famiu/feline.nvim',
@@ -137,11 +141,6 @@ return require('packer').startup(function(use)
              end
   }
 
-  use {
-    'ggandor/lightspeed.nvim',
-    config = function() require'configs/lightspeed-nvim' end,
-  }
-
   -- lua development with lua-dev
   use {
     'folke/lua-dev.nvim',
@@ -166,6 +165,13 @@ return require('packer').startup(function(use)
     },
     config = function() require'configs/lsp-ts-utils' end
   }
+
+  use 'justinmk/vim-sneak'
+
+  -- vim-fugitive vim-rhubarb and fugitive-gitlab
+  use 'tpope/vim-fugitive'
+  use 'tpope/vim-rhubarb'
+  use 'shumphrey/fugitive-gitlab.vim'
 
   -- vim-commentary vim-surround and vim-repeat
   use 'tpope/vim-commentary'

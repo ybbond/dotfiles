@@ -184,8 +184,25 @@ vim.api.nvim_set_keymap('n', '<C-t><C-t>',    [[<CMD>Telescope treesitter<CR>]],
 
 vim.api.nvim_set_keymap('n', '<C-g><C-g>',    [[<CMD>Telescope git_status<CR>]],  {noremap = true})
 
+-- local ts_utils = require("nvim-treesitter.ts_utils")
+
+-- function Test()
+--   local curr_node = ts_utils.get_node_at_cursor(0)
+--   -- local prev_node = ts_utils.get_previous_node(curr_node, true, false)
+
+--   print(ts_utils.get_node_text(curr_node, 0)[1])
+--   -- print(ts_utils.get_node_text(prev_node, 0)[1])
+-- end
+
 -- nvim-treesitter
+-- vim.api.nvim_set_keymap('', '<LEADER>f', '<CMD>lua Test()<CR>', {noremap = true})
 vim.api.nvim_set_keymap('', '<LEADER>h', '<CMD>TSHighlightCapturesUnderCursor<CR>', {noremap = true})
+
+-- vim-sneak
+vim.api.nvim_set_keymap('n', 'f', '<Plug>Sneak_f', {})
+vim.api.nvim_set_keymap('n', 'F', '<Plug>Sneak_F', {})
+vim.api.nvim_set_keymap('n', 't', '<Plug>Sneak_t', {})
+vim.api.nvim_set_keymap('n', 'T', '<Plug>Sneak_T', {})
 
 -- trouble.nvim
 vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", {silent = true, noremap = true})

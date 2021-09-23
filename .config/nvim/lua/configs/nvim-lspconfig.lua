@@ -1,4 +1,12 @@
--- local nvim_lsp = require('lspconfig')
+local nvim_lsp = require('lspconfig')
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  require('lsp_extensions.workspace.diagnostic').handler, {
+    -- signs = {
+    --   severity_limit = "Error",
+    -- }
+  }
+)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -38,7 +46,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 -- local servers = { "pyright", "rust_analyzer", "tsserver" }
--- local servers = {}
+-- local servers = { 'sourcekit' }
 -- for _, lsp in ipairs(servers) do
 --   nvim_lsp[lsp].setup {
 --     on_attach = ybbond_lsp_on_attach,
@@ -48,14 +56,17 @@ end
 --   }
 -- end
 
-require'lspconfig'.sourcekit.setup{
-  cmd = { "xcrun", "sourcekit-lsp" },
-  on_attach = ybbond_lsp_on_attach,
-  filetypes = { "swift", "c", "cpp", "objc", "objcpp", "objective-c", "objective-cpp" },
-  -- root_dir = root_pattern("Package.swift", ".git"),
-  -- settings = {
+-- require'lspconfig'.sourcekit.setup({
+--   -- cmd = { "xcrun", "sourcekit-lsp" },
+--   on_attach = ybbond_lsp_on_attach,
+--   filetypes = { "swift", "c", "cpp", "objc", "objcpp", "objective-c", "objective-cpp" },
+--   -- root_dir = root_pattern("Package.swift", ".git"),
+--   -- settings = {
 
-  -- },
+--   -- },
+-- })
+require'lspconfig'.clangd.setup{
+  on_attach = ybbond_lsp_on_attach,
 }
 
 return ybbond_lsp_on_attach
