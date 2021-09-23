@@ -4,6 +4,14 @@
   context_commentstring = {
     enable = true,
     additional_vim_regex_highlighting = false,
+    config = {
+      http = {
+        __default = '#%s',
+      },
+      yaml = {
+        __default = '#%s',
+      },
+    },
   },
   playground = {
     enable = true,

@@ -62,7 +62,31 @@ return require('packer').startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
-    config = function() require'configs/nvim-treesitter' end
+    config = function()
+      require'configs/nvim-treesitter'
+      local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+      parser_configs.http = {
+        install_info = {
+          url = "https://github.com/NTBBloodbath/tree-sitter-http",
+          files = { "src/parser.c" },
+          branch = "main",
+        },
+      }
+      require'nvim-treesitter.configs'.setup {
+        -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        ensure_installed = {"http"}, -- for rest.nvim
+        -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+        -- highlight = {
+        --   enable = true,              -- false will disable the whole extension
+        --   disable = { "c", "rust" },  -- list of language that will be disabled
+        --   -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+        --   -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+        --   -- Using this option may slow down your editor, and you may see some duplicate highlights.
+        --   -- Instead of true it can also be a list of languages
+        --   additional_vim_regex_highlighting = false,
+        -- },
+      }
+    end
   }
   use {
     'nvim-treesitter/playground',
@@ -72,7 +96,24 @@ return require('packer').startup(function(use)
   -- vim-commentary extension with treesitter nvim-ts-context-commentstring
   use {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
+    -- requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
+    requires = {'nvim-treesitter/nvim-treesitter', 'winston0410/commented.nvim'},
+  }
+
+  use {
+    'winston0410/commented.nvim',
+    config = function()
+      require('commented').setup({
+        comment_padding = ' ', -- padding between starting and ending comment symbols
+        keybindings = {n = 'gc', v = 'gc', nl = 'gcc'}, -- what key to toggle comment, nl is for mapping <leader>c$, just like dd for d
+        prefer_block_comment = false, -- Set it to true to automatically use block comment when multiple lines are selected
+        set_keybindings = true, -- whether or not keybinding is set on setup
+        ex_mode_cmd = 'Comment', -- command for commenting in ex-mode, set it null to not set the command initially.
+        hooks = {
+          before_comment = require("ts_context_commentstring.internal").update_commentstring,
+        },
+      })
+    end,
   }
 
   use {
@@ -117,6 +158,30 @@ return require('packer').startup(function(use)
     config = function() require('nvim-gps').setup() end,
   }
 
+  use {
+    --  "NTBBloodbath/rest.nvim",
+    '~/poss/rest.nvim',
+    requires = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("rest-nvim").setup({
+        -- Open request results in a horizontal split
+        result_split_horizontal = true,
+        -- Skip SSL verification, useful for unknown certificates
+        skip_ssl_verification = false,
+        -- Highlight request on run
+        highlight = {
+          enabled = true,
+          timeout = 150,
+        },
+        -- Jump to request line on run
+        jump_to_request = true,
+      })
+      vim.api.nvim_set_keymap('n', '<C-F><C-F>', '<Plug>RestNvim<CR>', {})
+      vim.api.nvim_set_keymap('n', '<C-F><C-P>', '<Plug>RestNvimPreview<CR>', {})
+      vim.api.nvim_set_keymap('n', '<C-F><C-L>', '<Plug>RestNvimLast<CR>', {})
+    end
+  }
+
   -- using packer.nvim
   use {
     'akinsho/bufferline.nvim',
@@ -154,6 +219,10 @@ return require('packer').startup(function(use)
     requires = 'nvim-lua/plenary.nvim',
     config = function() require'configs/flutter-tools' end
   }
+  use {
+    'akinsho/dependency-assist.nvim',
+    config = function() require'dependency_assist'.setup{} end,
+  }
 
   -- TypeScript, JavaScript and ReactJS utilities with nvim-lsp-ts-utils
   use {
@@ -174,11 +243,8 @@ return require('packer').startup(function(use)
   use 'shumphrey/fugitive-gitlab.vim'
 
   -- vim-commentary vim-surround and vim-repeat
-  use 'tpope/vim-commentary'
+  -- use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
-
-  -- add delimiters
-  use 'wellle/targets.vim'
 
 end)

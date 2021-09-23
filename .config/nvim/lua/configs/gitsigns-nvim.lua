@@ -5,14 +5,16 @@ require('gitsigns').setup {
     -- delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     -- topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
     -- changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    add          = {hl = 'Ignore'   , text = '█', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'Ignore', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'Ignore', text = '▂', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'Ignore', text = '▀', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'Ignore', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    add          = {hl = 'Ignore'   , text = '█', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn', word_diff='GitSignsAddWord'},
+    change       = {hl = 'Ignore', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn', word_diff='GitSignsChangeWord'},
+    delete       = {hl = 'Ignore', text = '▂', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn', word_diff='GitSignsDeleteWord'},
+    topdelete    = {hl = 'Ignore', text = '▀', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn', word_diff='GitSignsDeleteWord'},
+    changedelete = {hl = 'Ignore', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn', word_diff='GitSignsChangeWord'},
   },
+  word_diff = false, -- requires diff_opts.internal
+  signcolumn = false,
   numhl = true,
-  linehl = true,
+  linehl = false,
   keymaps = {
     -- Default keymap options
     noremap = true,
@@ -26,10 +28,10 @@ require('gitsigns').setup {
     ['n <C-g><C-[>'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
 
     ['n <C-g><C-s>'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['v <LEADER><C-s>'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['v <LEADER>gs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <C-g><C-u>'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
     ['n <C-g><C-r><C-h>'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ['v <LEADER><C-r>'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ['v <LEADER>gr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ['n <C-g><C-r><C-b>'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
     ['n <C-g><C-p>'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
     ['n <C-g><C-b>'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
@@ -49,9 +51,8 @@ require('gitsigns').setup {
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
-  -- word_diff = true, -- requires use_internal_diff
   diff_opts = {
     -- algorithm = 'minimal',
-    internal = false,
+    internal = true,
   },
 }

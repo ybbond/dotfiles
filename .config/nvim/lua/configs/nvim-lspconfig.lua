@@ -1,4 +1,5 @@
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
+local lspconfig_util = require('lspconfig.util')
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   require('lsp_extensions.workspace.diagnostic').handler, {
@@ -48,7 +49,7 @@ end
 -- local servers = { "pyright", "rust_analyzer", "tsserver" }
 -- local servers = { 'sourcekit' }
 -- for _, lsp in ipairs(servers) do
---   nvim_lsp[lsp].setup {
+--   lspconfig[lsp].setup {
 --     on_attach = ybbond_lsp_on_attach,
 --     flags = {
 --       debounce_text_changes = 150,
@@ -56,7 +57,7 @@ end
 --   }
 -- end
 
--- require'lspconfig'.sourcekit.setup({
+-- lspconfig.sourcekit.setup({
 --   -- cmd = { "xcrun", "sourcekit-lsp" },
 --   on_attach = ybbond_lsp_on_attach,
 --   filetypes = { "swift", "c", "cpp", "objc", "objcpp", "objective-c", "objective-cpp" },
@@ -65,8 +66,20 @@ end
 
 --   -- },
 -- })
-require'lspconfig'.clangd.setup{
+lspconfig.clangd.setup{
+  filetype = { 'c', 'cpp' },
+  filetypes = { 'c', 'cpp' },
   on_attach = ybbond_lsp_on_attach,
 }
+lspconfig.sourcekit.setup{
+  filetype = { 'swift', 'objc', 'objcpp', 'objective-c', 'objective-cpp' },
+  filetypes = { 'swift', 'objc', 'objcpp', 'objective-c', 'objective-cpp' },
+  on_attach = ybbond_lsp_on_attach,
+  -- root_dir = lspconfig_util.root_pattern("compile_commands.json", "compile_flags.txt", ".git") or lspconfig_util.path.dirname
+  root_dir = lspconfig_util.path.dirname
+}
+-- lspconfig.bashls.setup{
+--   on_attach = ybbond_lsp_on_attach,
+-- }
 
 return ybbond_lsp_on_attach

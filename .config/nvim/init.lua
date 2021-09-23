@@ -30,12 +30,13 @@ vim.o.timeoutlen = 100
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
-vim.o.scrolloff = 2
+-- vim.o.scrolloff = 2
 vim.o.expandtab = true
 vim.o.wrap = false
 vim.o.linebreak = true
 vim.o.list = true
-vim.o.listchars = [[tab:▷\ ,trail:◻,nbsp:𐩒]]
+--  vim.o.listchars = [[tab:▷\ ,trail:◻,nbsp:𐩒]]
+vim.o.listchars = [[tab:> ,trail:-,nbsp:+]]
 
 vim.o.mouse = 'n'
 vim.o.showmode = false
@@ -83,7 +84,7 @@ vim.api.nvim_set_keymap('n', '0', [[v:lua.smart_wrap_nav_bindings("g0","0")]], {
 vim.api.nvim_set_keymap('n', '$', [[v:lua.smart_wrap_nav_bindings("g$","$")]], {expr = true, noremap = true})
 
 -- resource the neovim configurations
-vim.api.nvim_set_keymap('', '<LEADER>%', ':luafile ~/.config/nvim/init.lua<CR>', {noremap = true})
+vim.api.nvim_set_keymap('', '<LEADER>%', ':luafile ~/.config/nvim/init.lua<CR> | :NightfoxLoad nordfox<CR>', {noremap = true})
 
 -- unhighlight search
 vim.api.nvim_set_keymap('n', '<LEADER><SPACE>', ':nohlsearch<CR>', {noremap = true, silent = true})
@@ -142,13 +143,14 @@ vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
 ------------------------------------------------------------
 
 
+-- require('plenary.reload').reload_module('plugins')
 -- require('plenary.reload').reload_module('configs')
 require('plenary.reload').reload_module('ybbond-compat')
+
 
 require'plugins'
 -- require'configs'
 require'ybbond-compat'
-
 
 
 ------------------------------------------------------------
@@ -183,6 +185,10 @@ vim.api.nvim_set_keymap('n', '<C-t><C-a>',    [[<CMD>Telescope commands<CR>]],  
 vim.api.nvim_set_keymap('n', '<C-t><C-t>',    [[<CMD>Telescope treesitter<CR>]],  {noremap = true})
 
 vim.api.nvim_set_keymap('n', '<C-g><C-g>',    [[<CMD>Telescope git_status<CR>]],  {noremap = true})
+
+--fugitive
+vim.api.nvim_set_keymap('n', '<LEADER>gb', '<CMD>Git blame<CR>', {})
+vim.api.nvim_set_keymap('n', '<LEADER>go', '<CMD>GBrowse<CR>', {})
 
 -- local ts_utils = require("nvim-treesitter.ts_utils")
 

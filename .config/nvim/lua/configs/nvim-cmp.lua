@@ -30,10 +30,12 @@ cmp.setup {
   mapping = {
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-    ['<C-y>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-e>'] = cmp.mapping.scroll_docs(4),
+    -- ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    -- ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    -- ['<C-y>'] = cmp.mapping.scroll_docs(-4),
+    -- ['<C-e>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-g>'] = cmp.mapping.close(),
     ['<TAB>'] = cmp.mapping.confirm({

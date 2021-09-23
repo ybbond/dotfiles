@@ -30,6 +30,14 @@ require("flutter-tools").setup {
   flutter_path = "/Users/yohanesbandung/fvm/default/bin/flutter",
   -- flutter_lookup_cmd = "/Users/yohanesbandung/.tool_binaries/flutter/bin",
 
+  -- debugger = {
+  --   enabled = true,
+  -- },
+
+  closing_tags = {
+    prefix = ' → ',
+  },
+
   widget_guides = {
     enabled = true,
   },

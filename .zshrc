@@ -333,9 +333,9 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
-# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib" # for compilers to find llvm
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib" # to use built-in libc++
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include" # for compilers to find llvm
 
 export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
 
