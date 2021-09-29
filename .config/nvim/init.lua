@@ -11,9 +11,6 @@ vim.o.background = 'dark'
 -- vim.cmd('colorscheme OceanicNext')
 -- vim.cmd('colorscheme mariana')
 
--- moved to configs/nightfox-nvim.lua
--- vim.cmd('colorscheme nightfox')
-
 -- vim.cmd('syntax enable')
 -- vim.cmd('syntax on')
 vim.cmd('filetype plugin on')

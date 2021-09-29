@@ -6,10 +6,10 @@
     additional_vim_regex_highlighting = false,
     config = {
       http = {
-        __default = '#%s',
+        __default = '# %s',
       },
       yaml = {
-        __default = '#%s',
+        __default = '# %s',
       },
     },
   },
