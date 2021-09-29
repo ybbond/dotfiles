@@ -192,38 +192,6 @@ alias neorc="cd ~/.config/nvim && nvim . && cd -"
 
 eval "$(hub alias -s)"
 
-# see alternative below
-# eval "$(pyenv init -)"
-
-# alternative, from old .zshrc
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-# pip zsh completion start
-function _pip_completion {
-  local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] 2>/dev/null ))
-}
-compctl -K _pip_completion pip
-# pip zsh completion end
-
-# pip3 zsh completion start
-function _pip_completion {
-  local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] 2>/dev/null ))
-}
-compctl -K _pip_completion pip3
-# pip3 zsh completion end
-
 ###-begin-flutter-completion-###
 if type complete &>/dev/null; then
   __flutter_completion() {
@@ -315,10 +283,7 @@ export EDITOR=nvim
 export SHELL=zsh
 export LANG=en_US.UTF-8
 export TERM=xterm-256color
-
-# for pyenv to work correctly, I need to use brew version of OpenSSL
-export LDFLAGS="-L/opt/homebrew/opt/openssl@1.1/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/openssl@1.1/include"
+#  export TERM=screen-256color
 
 # export BAT_THEME="Monokai Extended Bright"
 # export BAT_THEME="GitHub"
