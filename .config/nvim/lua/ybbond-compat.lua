@@ -17,12 +17,12 @@ au({'BufNewFile', 'BufRead'}, {
   end,
 })
 
---  au({'BufNewFile', 'BufRead'}, {
-  --  '*.dart',
-  --  function()
-    --  vim.bo.iskeyword=vim.o.iskeyword..',$'
-  --  end
---  })
+au({'BufNewFile', 'BufRead'}, {
+  '*.dart',
+  function()
+    vim.bo.iskeyword='@,48-57,_,192-255'
+  end
+})
 
 au({'BufNewFile', 'BufRead'}, {
   '*.md,*.mmd,*.txt,*.markdown,*.multimarkdown',
@@ -30,44 +30,6 @@ au({'BufNewFile', 'BufRead'}, {
     vim.wo.wrap = true
   end
 })
-
---  local Augroup = {}
-
---  Augroup.cmds = function (definitions)
-  --  for group_name, definition in pairs(definitions) do
-    --  vim.cmd('augroup '..group_name)
-    --  vim.cmd('autocmd!')
-    --  for _, def in ipairs(definition) do
-      --  local command = table.concat(vim.tbl_flatten{'autocmd', def}, ' ')
-      --  vim.cmd(command)
-    --  end
-    --  vim.cmd('augroup END')
-  --  end
---  end
-
---  Augroup.cmds({
-  --  -- highlight on yank!!!
-  --  HighlightYank = {
-    --  {"TextYankPost", "* silent! lua require'vim.highlight'.on_yank({timeout = 400})"},
-  --  },
-  --  TabNotSpaces = {
-    --  {"BufNewFile,BufRead", "*.(c|v|vv|py) setlocal set tabstop=4"},
-    --  {"BufNewFile,BufRead", "*.(c|v|vv|py) setlocal set shiftwidth=4"},
-    --  {"BufNewFile,BufRead", "*.(c|v|vv|py) setlocal set noexpandtab"},
-    --  --  {"FileType", "c,v,vv,py setlocal set tabstop=4"},
-    --  --  {"FileType", "c,v,vv,py setlocal set shiftwidth=4"},
-    --  --  {"FileType", "c,v,vv,py setlocal set expandtab=false"},
-    --  --  {"BufNewFile,BufRead", "*.(c|v|vv|py) silent! lua vim.bo.tabstop=4"},
-    --  --  {"BufNewFile,BufRead", "*.(c|v|vv|py) silent! lua vim.bo.shiftwidth=4"},
-    --  --  {"BufNewFile,BufRead", "*.(c|v|vv|py) silent! lua vim.bo.expandtab=false"},
-  --  },
-  --  DartDollar = {
-    --  {"BufNewFile,BufRead", "*.dart setlocal iskeyword+=$"},
-  --  },
-  --  WrapForWritingMode = {
-    --  {"BufNewFile,BufRead", "*.(md|mmd|txt|markdown) setlocal set wrap!"},
-  --  }
---  })
 
 vim.api.nvim_exec(
 [[

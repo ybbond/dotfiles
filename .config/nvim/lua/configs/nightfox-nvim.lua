@@ -13,6 +13,12 @@ require('nightfox').setup({
     LspDiagnosticsUnderlineInformation = { bg = '#072e55', style = 'bold' },
     LspDiagnosticsUnderlineHint = { bg = '#0f3938', style = 'bold' },
 
+    -- since when??
+    DiagnosticUnderlineError = { bg = '#850007', style = 'bold' },
+    DiagnosticUnderlineWarn = { bg = '#6b4700', style = 'bold' },
+    DiagnosticUnderlineInfo = { bg = '#072e55', style = 'bold' },
+    DiagnosticUnderlineHint = { bg = '#0f3938', style = 'bold' },
+
     GitSignsAddNr = { bg = '#266d6a', fg = '#2e3440', style = 'bold' },
     GitSignsChangeNr = { bg= '#536c9e', fg = '#2e3440', style = 'bold'  },
     GitSignsDeleteNr = { bg='#b2555b', fg = '#2e3440', style = 'bold' },

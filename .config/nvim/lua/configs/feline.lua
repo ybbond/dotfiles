@@ -16,7 +16,7 @@ local colors = {
   yellow = '#ebcb8b',
 }
 
-local components = require('feline.presets')['noicon'].components
+local components = require('feline.presets')['noicon']
 
 components.active[1][1] = {
   provider = '▊ ',
@@ -47,17 +47,17 @@ components.active[1][5] = {
   provider = 'position',
   left_sep = {
     str = ' ',
-    hl = {
-      fg = 'NONE',
-      bg = '#62B3B2',
-    },
+    -- hl = {
+      -- fg = 'NONE',
+      -- bg = '#62B3B2',
+    -- },
   },
   right_sep = {
     str = ' ',
-    hl = {
-      fg = 'NONE',
-      bg = '#62B3B2',
-    },
+    -- hl = {
+      -- fg = 'NONE',
+      -- bg = '#62B3B2',
+    -- },
   },
   hl = {
     fg = 'black',

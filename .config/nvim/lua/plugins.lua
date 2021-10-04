@@ -13,13 +13,18 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- sublime dark theme with oceanic-next
-  use 'mhartington/oceanic-next'
+  -- use 'mhartington/oceanic-next'
 
   use 'dstein64/nvim-scrollview'
 
   use {
     'EdenEast/nightfox.nvim',
     config = function() require'configs/nightfox-nvim' end,
+  }
+
+  use {
+    'kyazdani42/nvim-web-devicons',
+    config = function() require'nvim-web-devicons'.setup {default = true} end,
   }
 
   -- -- lush
@@ -40,7 +45,9 @@ return require('packer').startup(function(use)
 
   -- file manager using nvim-tree.lua
   use {
-    'kyazdani42/nvim-tree.lua',
+    -- 'kyazdani42/nvim-tree.lua',
+    '~/poss/nvim-tree.lua',
+    branch = 'fix/open-directory-option',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/nvim-tree' end
   }
@@ -182,7 +189,6 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- using packer.nvim
   use {
     'akinsho/bufferline.nvim',
     requires = 'kyazdani42/nvim-web-devicons',

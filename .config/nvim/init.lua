@@ -55,6 +55,18 @@ vim.o.inccommand = 'split'
 -- originally used by |vim-fugitive|
 vim.o.diffopt = vim.o.diffopt .. ',vertical'
 
+vim.bo.iskeyword = "@,48-57,_,192-255"
+
+-- fold settings
+-- https://www.reddit.com/r/neovim/comments/psl8rq/sexy_folds/
+-- vim.wo.foldmethod = "expr"
+-- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.wo.foldtext =
+    -- [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
+-- vim.wo.fillchars = "fold:\\"
+-- vim.wo.foldnestmax = 3
+-- vim.wo.foldminlines = 1
+
 
 ------------------------------------------------------------
 --                   DEFAULT KEYBINDINGS

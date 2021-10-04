@@ -44,33 +44,12 @@ local ybbond_lsp_on_attach = function(client, bufnr)
 
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
--- local servers = { "pyright", "rust_analyzer", "tsserver" }
--- local servers = { 'sourcekit' }
--- for _, lsp in ipairs(servers) do
---   lspconfig[lsp].setup {
---     on_attach = ybbond_lsp_on_attach,
---     flags = {
---       debounce_text_changes = 150,
---     }
---   }
--- end
-
--- lspconfig.sourcekit.setup({
---   -- cmd = { "xcrun", "sourcekit-lsp" },
---   on_attach = ybbond_lsp_on_attach,
---   filetypes = { "swift", "c", "cpp", "objc", "objcpp", "objective-c", "objective-cpp" },
---   -- root_dir = root_pattern("Package.swift", ".git"),
---   -- settings = {
-
---   -- },
--- })
 lspconfig.clangd.setup{
   filetype = { 'c', 'cpp' },
   filetypes = { 'c', 'cpp' },
   on_attach = ybbond_lsp_on_attach,
 }
+
 lspconfig.sourcekit.setup{
   filetype = { 'swift', 'objc', 'objcpp', 'objective-c', 'objective-cpp' },
   filetypes = { 'swift', 'objc', 'objcpp', 'objective-c', 'objective-cpp' },
@@ -78,6 +57,7 @@ lspconfig.sourcekit.setup{
   -- root_dir = lspconfig_util.root_pattern("compile_commands.json", "compile_flags.txt", ".git") or lspconfig_util.path.dirname
   root_dir = lspconfig_util.path.dirname
 }
+
 -- lspconfig.bashls.setup{
 --   on_attach = ybbond_lsp_on_attach,
 -- }
