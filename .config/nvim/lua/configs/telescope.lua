@@ -11,6 +11,7 @@ require('telescope').setup{
       },
       vertical = {
         mirror = true,
+        prompt_position = 'top',
       },
     },
     mappings = {

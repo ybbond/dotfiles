@@ -7,8 +7,15 @@ nvim_lsp.tsserver.setup {
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
 
-    require('null-ls').config{}
-    nvim_lsp['null-ls'].setup{}
+    require('null-ls').config({
+      -- eslint_enable_diagnostics = true,
+      -- sources = {
+        -- require('null-ls').builtins.diagnostics.eslint_enable_diagnostics,
+      -- }
+    })
+    nvim_lsp['null-ls'].setup {
+      on_attach = ybbond_lsp_on_attach,
+    }
 
     local ts_utils = require("nvim-lsp-ts-utils")
 

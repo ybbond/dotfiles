@@ -8,9 +8,6 @@ vim.o.encoding = 'UTF-8'
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
 
--- vim.cmd('colorscheme OceanicNext')
--- vim.cmd('colorscheme mariana')
-
 -- vim.cmd('syntax enable')
 -- vim.cmd('syntax on')
 vim.cmd('filetype plugin on')
@@ -54,8 +51,6 @@ vim.o.inccommand = 'split'
 
 -- originally used by |vim-fugitive|
 vim.o.diffopt = vim.o.diffopt .. ',vertical'
-
-vim.bo.iskeyword = "@,48-57,_,192-255"
 
 -- fold settings
 -- https://www.reddit.com/r/neovim/comments/psl8rq/sexy_folds/
@@ -152,13 +147,13 @@ vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
 ------------------------------------------------------------
 
 
--- require('plenary.reload').reload_module('plugins')
+require('plenary.reload').reload_module('plugins')
 -- require('plenary.reload').reload_module('configs')
 require('plenary.reload').reload_module('ybbond-compat')
 
 
 require'plugins'
--- require'configs'
+require'configs'
 require'ybbond-compat'
 
 
@@ -167,11 +162,19 @@ require'ybbond-compat'
 ------------------------------------------------------------
 
 -- bufferline
-vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferLineCycleNext<CR>',{noremap = true})
-vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferLineCyclePrev<CR>',{noremap = true})
-vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferLineMoveNext<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferLineMovePrev<CR>', {noremap = true})
+-- vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferLineCycleNext<CR>',{noremap = true})
+-- vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferLineCyclePrev<CR>',{noremap = true})
+-- vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferLineMoveNext<CR>', {noremap = true})
+-- vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferLineMovePrev<CR>', {noremap = true})
+
+-- bufdelete
 vim.api.nvim_set_keymap('n', 'gx', '<CMD>Bdelete<CR>',            {noremap = true})
+
+-- cokeline
+vim.api.nvim_set_keymap('n', 'gb', '<Plug>(cokeline-focus-next)<CR>',  {silent = true})
+vim.api.nvim_set_keymap('n', 'gB', '<Plug>(cokeline-focus-prev)<CR>',  {silent = true})
+vim.api.nvim_set_keymap('n', 'g>', '<Plug>(cokeline-switch-next)<CR>', {silent = true})
+vim.api.nvim_set_keymap('n', 'g<', '<Plug>(cokeline-switch-prev)<CR>', {silent = true})
 
 -- nvim-tree.lua
 vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>',   {noremap = true})

@@ -9,19 +9,12 @@ au.TextYankPost = function()
 end
 
 au({'BufNewFile', 'BufRead'}, {
-  '*.c,*.py',
+  '*.c,*.cpp,*.py',
   function()
     vim.bo.tabstop = 4
     vim.bo.shiftwidth = 4
     vim.bo.expandtab = false
   end,
-})
-
-au({'BufNewFile', 'BufRead'}, {
-  '*.dart',
-  function()
-    vim.bo.iskeyword='@,48-57,_,192-255'
-  end
 })
 
 au({'BufNewFile', 'BufRead'}, {

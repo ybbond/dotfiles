@@ -12,19 +12,11 @@ return require('packer').startup(function(use)
   -- packer can manage itself
   use 'wbthomason/packer.nvim'
 
-  -- sublime dark theme with oceanic-next
-  -- use 'mhartington/oceanic-next'
-
   use 'dstein64/nvim-scrollview'
 
   use {
     'EdenEast/nightfox.nvim',
     config = function() require'configs/nightfox-nvim' end,
-  }
-
-  use {
-    'kyazdani42/nvim-web-devicons',
-    config = function() require'nvim-web-devicons'.setup {default = true} end,
   }
 
   -- -- lush
@@ -45,9 +37,8 @@ return require('packer').startup(function(use)
 
   -- file manager using nvim-tree.lua
   use {
-    -- 'kyazdani42/nvim-tree.lua',
-    '~/poss/nvim-tree.lua',
-    branch = 'fix/open-directory-option',
+    'kyazdani42/nvim-tree.lua',
+    -- '~/poss/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/nvim-tree' end
   }
@@ -190,10 +181,15 @@ return require('packer').startup(function(use)
   }
 
   use {
-    'akinsho/bufferline.nvim',
+    'noib3/cokeline.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'configs/bufferline-nvim' end,
+    config = function() require'configs/cokeline-nvim' end,
   }
+  -- use {
+    -- 'akinsho/bufferline.nvim',
+    -- requires = 'kyazdani42/nvim-web-devicons',
+    -- config = function() require'configs/bufferline-nvim' end,
+  -- }
   use 'famiu/bufdelete.nvim'
 
   use {
@@ -219,7 +215,7 @@ return require('packer').startup(function(use)
   }
 
   -- Flutter development, with dart-vim-plugin and flutter-tools.nvim
-  use 'dart-lang/dart-vim-plugin'
+  use '~/poss/dart-vim-plugin'
   use {
     'akinsho/flutter-tools.nvim',
     requires = 'nvim-lua/plenary.nvim',

@@ -1,9 +1,12 @@
--- require'nvim-tree'.open_on_directory = function() end
+vim.g.nvim_tree_quit_on_open = 1
+
+require'nvim-tree'.open_on_directory = function () end
+
 require'nvim-tree'.setup {
   disable_netrw = false,
   hijack_netrw = true,
   open_on_setup = false,
-  open_on_tab = true,
+  open_on_tab = false,
   update_cwd = false,
   lsp_diagnostics = true,
   update_focused_file = {
@@ -14,5 +17,5 @@ require'nvim-tree'.setup {
     width = 40,
     side = 'right',
     auto_resize = false,
-  }
+  },
 }
