@@ -67,14 +67,31 @@ vim.o.diffopt = vim.o.diffopt .. ',vertical'
 --                   DEFAULT KEYBINDINGS
 ------------------------------------------------------------
 
+local function base_map(lhs)
+  return function(mode)
+    return function(rhs)
+      vim.api.nvim_set_keymap(mode, lhs, rhs, {noremap = true, silent = true})
+    end
+  end
+end
 
--- https://oroques.dev/notes/neovim-init/#mappings
--- local function map(mode, lhs, rhs, opts)
---   local options = {noremap = true}
---   if opts then options = vim.tbl_extend('force', options, opts) end
---   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
--- end
+local function base_map_opt(lhs)
+  return function(mode)
+    return function(rhs)
+      return function(opts)
+        vim.api.nvim_set_keymap(mode, lhs, rhs, opts or {noremap = true, silent = true})
+      end
+    end
+  end
+end
 
+local function noremap(lhs) return base_map(lhs)('') end
+local function nnoremap(lhs) return base_map(lhs)('n') end
+local function inoremap(lhs) return base_map(lhs)('i') end
+local function cnoremap(lhs) return base_map(lhs)('c') end
+
+local function noremapopt(lhs) return base_map_opt(lhs)('') end
+local function nnoremapopt(lhs) return base_map_opt(lhs)('n') end
 
 local function replaceTermcodes(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
 
@@ -82,64 +99,58 @@ function _G.smart_wrap_nav_bindings(ifTrue,ifFalse)
   return vim.o.wrap == true and replaceTermcodes(ifTrue) or replaceTermcodes(ifFalse)
 end
 
-vim.api.nvim_set_keymap('n', 'j', [[v:lua.smart_wrap_nav_bindings("gj","j")]], {expr = true, noremap = true})
-vim.api.nvim_set_keymap('n', 'k', [[v:lua.smart_wrap_nav_bindings("gk","k")]], {expr = true, noremap = true})
-vim.api.nvim_set_keymap('n', '0', [[v:lua.smart_wrap_nav_bindings("g0","0")]], {expr = true, noremap = true})
-vim.api.nvim_set_keymap('n', '$', [[v:lua.smart_wrap_nav_bindings("g$","$")]], {expr = true, noremap = true})
+nnoremapopt 'j' [[v:lua.smart_wrap_nav_bindings("gj","j")]] ({expr = true, noremap = true})
+nnoremapopt 'k' [[v:lua.smart_wrap_nav_bindings("gk","k")]] ({expr = true, noremap = true})
+nnoremapopt '0' [[v:lua.smart_wrap_nav_bindings("g0","0")]] ({expr = true, noremap = true})
+nnoremapopt '$' [[v:lua.smart_wrap_nav_bindings("g$","$")]] ({expr = true, noremap = true})
 
 -- resource the neovim configurations
-vim.api.nvim_set_keymap('', '<LEADER>%', ':luafile ~/.config/nvim/init.lua<CR> | :NightfoxLoad nordfox<CR>', {noremap = true})
+noremap '<LEADER>%' ':luafile ~/.config/nvim/init.lua<CR> | :NightfoxLoad nordfox<CR>'
 
 -- unhighlight search
-vim.api.nvim_set_keymap('n', '<LEADER><SPACE>', ':nohlsearch<CR>', {noremap = true, silent = true})
+nnoremap '<LEADER><SPACE>' ':nohlsearch<CR>'
 
-vim.api.nvim_set_keymap('', '<LEADER>w', ':set wrap!<CR>', {})
-vim.api.nvim_set_keymap('', '<LEADER>s', ':set spell! spelllang=en_us<CR>', {noremap = true})
+noremap '<LEADER>w' ':set wrap!<CR>'
+noremap '<LEADER>s' ':set spell! spelllang=en_us<CR>'
 
 -- resize window
-vim.api.nvim_set_keymap('', '<A-h>', '<C-w><', {silent = true})
-vim.api.nvim_set_keymap('', '<A-k>', '<C-w>-', {silent = true})
-vim.api.nvim_set_keymap('', '<A-j>', '<C-w>+', {silent = true})
-vim.api.nvim_set_keymap('', '<A-l>', '<C-w>>', {silent = true})
+noremap '<A-h>' '<C-w><'
+noremap '<A-k>' '<C-w>-'
+noremap '<A-j>' '<C-w>+'
+noremap '<A-l>' '<C-w>>'
 
 -- keep asterisk and pound to be case sensitive
-vim.api.nvim_set_keymap('n', '<LEADER>*', [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER>#', [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]], {noremap = true})
+nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
+nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]]
 
 -- why does vim's Y behavior different?
--- but in neovim HEAD~, it's fixed!
--- vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
+nnoremap 'Y' 'y$'
 
 -- copy, paste and copy whole file to clipboard
-vim.api.nvim_set_keymap('', '<LEADER>cs', '"+y', {})
-vim.api.nvim_set_keymap('', '<LEADER>v', ':r !pbpaste<CR><CR>', {})
-vim.api.nvim_set_keymap('', '<LEADER>ca', ':%w !pbcopy<CR><CR>', {})
+noremapopt '<LEADER>cs'   '"+y' ({})
+noremapopt '<LEADER>v'    ':r !pbpaste<CR><CR>' ({})
+noremapopt '<LEADER>ca'   ':%w !pbcopy<CR><CR>' ({})
 
 -- identify syntax below cursor with <LEADER>h
 -- replaced by nvim-treesitter one below
--- vim.api.nvim_set_keymap('', '<LEADER>h', [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]], {})
+-- noremap '<LEADER>h' [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
 
--- rebind vim's ga to be <LEADER>a
-vim.api.nvim_set_keymap('n', '<LEADER>a', 'ga', {noremap = true})
+nnoremap '<LEADER>a' 'ga'
+-- nnoremap '<LEADER>x' 'gx'
 
--- rebind vim's gx to be <LEADER>x
--- vim.api.nvim_set_keymap('n', '<LEADER>x', 'gx', {noremap = true})
+inoremap '<C-d>' '<DEL>'
 
--- remap <C-d> to Delete
-vim.api.nvim_set_keymap('i', '<C-d>', '<DEL>', {noremap = true})
-
--- remap jk and <C-c> to escape
-vim.api.nvim_set_keymap('i', 'jk', '<ESC>', {noremap = true})
-vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>', {noremap = true})
+inoremap 'jk'    '<ESC>'
+inoremap '<C-c>' '<ESC>'
 
 -- make emacs navigation available on EX-mode
 
-vim.api.nvim_set_keymap('c', '<C-a>', '<Home>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-e>', '<End>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-b>', '<Left>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-f>', '<Right>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-M-b>', '<S-Left>', {noremap = true})
-vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
+cnoremap '<C-a>'   '<Home>'
+cnoremap '<C-e>'   '<End>'
+cnoremap '<C-b>'   '<Left>'
+cnoremap '<C-f>'   '<Right>'
+cnoremap '<C-M-b>' '<S-Left>'
+cnoremap '<C-M-f>' '<S-Right>'
 
 
 ------------------------------------------------------------
@@ -148,12 +159,10 @@ vim.api.nvim_set_keymap('c', '<C-M-f>', '<S-Right>', {noremap = true})
 
 
 require('plenary.reload').reload_module('plugins')
--- require('plenary.reload').reload_module('configs')
 require('plenary.reload').reload_module('ybbond-compat')
 
 
 require'plugins'
-require'configs'
 require'ybbond-compat'
 
 
@@ -162,70 +171,60 @@ require'ybbond-compat'
 ------------------------------------------------------------
 
 -- bufferline
--- vim.api.nvim_set_keymap('n', 'gb', '<CMD>BufferLineCycleNext<CR>',{noremap = true})
--- vim.api.nvim_set_keymap('n', 'gB', '<CMD>BufferLineCyclePrev<CR>',{noremap = true})
--- vim.api.nvim_set_keymap('n', 'g>', '<CMD>BufferLineMoveNext<CR>', {noremap = true})
--- vim.api.nvim_set_keymap('n', 'g<', '<CMD>BufferLineMovePrev<CR>', {noremap = true})
+-- nnoremap 'gb' '<CMD>BufferLineCycleNext<CR>'
+-- nnoremap 'gB' '<CMD>BufferLineCyclePrev<CR>'
+-- nnoremap 'g>' '<CMD>BufferLineMoveNext<CR>'
+-- nnoremap 'g<' '<CMD>BufferLineMovePrev<CR>'
 
 -- bufdelete
-vim.api.nvim_set_keymap('n', 'gx', '<CMD>Bdelete<CR>',            {noremap = true})
+nnoremap 'gx' '<CMD>Bdelete<CR>'
 
 -- cokeline
-vim.api.nvim_set_keymap('n', 'gb', '<Plug>(cokeline-focus-next)<CR>',  {silent = true})
-vim.api.nvim_set_keymap('n', 'gB', '<Plug>(cokeline-focus-prev)<CR>',  {silent = true})
-vim.api.nvim_set_keymap('n', 'g>', '<Plug>(cokeline-switch-next)<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', 'g<', '<Plug>(cokeline-switch-prev)<CR>', {silent = true})
+nnoremap 'gb' '<CMD>lua require("cokeline").focus({step = 1})<CR>'
+nnoremap 'gB' '<CMD>lua require("cokeline").focus({step = -1})<CR>'
+nnoremap 'g>' '<CMD>lua require("cokeline").switch({step = 1})<CR>'
+nnoremap 'g<' '<CMD>lua require("cokeline").switch({step = -1})<CR>'
 
 -- nvim-tree.lua
-vim.api.nvim_set_keymap('n', '<LEADER>e', '<CMD>NvimTreeToggle<CR>',   {noremap = true})
-vim.api.nvim_set_keymap('n', '<LEADER>r', '<CMD>NvimTreeFindFile<CR>', {noremap = true})
+nnoremap '<LEADER>e' '<CMD>NvimTreeToggle<CR>'
+nnoremap '<LEADER>r' '<CMD>NvimTreeFindFile<CR>'
 
 -- telescope.nvim
-vim.api.nvim_set_keymap('n', '<C-t><C-p>',        [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f"}} hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-p>',  [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f","--no-ignore"}} hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-i>',        [[<CMD>Telescope live_grep hidden=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-i>',  [[<CMD>Telescope live_grep hidden=true grep_open_files=true<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-n>',        [[<CMD>lua require("telescope.builtin").live_grep{ find_command={"rg","--no-heading","--hidden","-g='!.git/**'","--with-filename","--line-number","--column","--smart-case","--ignore","--regexp"}}<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-\\><C-n>',  [[<CMD>lua require("telescope.builtin").live_grep{ find_command={"rg","--no-heading","--hidden","-g='!.git/**'",'--with-filename',"--line-number","--column","--smart-case","--no-ignore","--regexp"}}<CR>]], {noremap = true})
+nnoremap '<C-t><C-p>'        [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f"}} hidden=true<CR>]]
+nnoremap '<C-t><C-\\><C-p>'  [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f","--no-ignore"}} hidden=true<CR>]]
+nnoremap '<C-t><C-i>'        [[<CMD>Telescope live_grep hidden=true<CR>]]
+nnoremap '<C-t><C-\\><C-i>'  [[<CMD>Telescope live_grep hidden=true grep_open_files=true<CR>]]
+nnoremap '<C-t><C-n>'        [[<CMD>lua require("telescope.builtin").live_grep{ find_command={"rg","--no-heading","--hidden","-g='!.git/**'","--with-filename","--line-number","--column","--smart-case","--ignore","--regexp"}}<CR>]]
+nnoremap '<C-t><C-\\><C-n>'  [[<CMD>lua require("telescope.builtin").live_grep{ find_command={"rg","--no-heading","--hidden","-g='!.git/**'",'--with-filename',"--line-number","--column","--smart-case","--no-ignore","--regexp"}}<CR>]]
 
-vim.api.nvim_set_keymap('n', '<C-t><C-s>',    [[<CMD>Telescope grep_string<CR>]], {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-r>',    [[<CMD>Telescope registers<CR>]],   {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-b>',    [[<CMD>Telescope buffers<CR>]],     {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-h>',    [[<CMD>Telescope help_tags<CR>]],   {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-m>',    [[<CMD>Telescope marks<CR>]],       {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-a>',    [[<CMD>Telescope commands<CR>]],    {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-t><C-t>',    [[<CMD>Telescope treesitter<CR>]],  {noremap = true})
+nnoremap '<C-t><C-s>'        [[<CMD>Telescope grep_string<CR>]]
+nnoremap '<C-t><C-r>'        [[<CMD>Telescope registers<CR>]]
+nnoremap '<C-t><C-b>'        [[<CMD>Telescope buffers<CR>]]
+nnoremap '<C-t><C-h>'        [[<CMD>Telescope help_tags<CR>]]
+nnoremap '<C-t><C-m>'        [[<CMD>Telescope marks<CR>]]
+nnoremap '<C-t><C-a>'        [[<CMD>Telescope commands<CR>]]
+nnoremap '<C-t><C-t>'        [[<CMD>Telescope treesitter<CR>]]
 
-vim.api.nvim_set_keymap('n', '<C-g><C-g>',    [[<CMD>Telescope git_status<CR>]],  {noremap = true})
+nnoremap '<C-g><C-g>'        [[<CMD>Telescope git_status<CR>]]
 
 --fugitive
-vim.api.nvim_set_keymap('n', '<LEADER>gb', '<CMD>Git blame<CR>', {})
-vim.api.nvim_set_keymap('n', '<LEADER>go', '<CMD>GBrowse<CR>', {})
-
--- local ts_utils = require("nvim-treesitter.ts_utils")
-
--- function Test()
---   local curr_node = ts_utils.get_node_at_cursor(0)
---   -- local prev_node = ts_utils.get_previous_node(curr_node, true, false)
-
---   print(ts_utils.get_node_text(curr_node, 0)[1])
---   -- print(ts_utils.get_node_text(prev_node, 0)[1])
--- end
+nnoremap '<LEADER>gb' '<CMD>Git blame<CR>'
+nnoremap '<LEADER>go' '<CMD>GBrowse<CR>'
 
 -- nvim-treesitter
--- vim.api.nvim_set_keymap('', '<LEADER>f', '<CMD>lua Test()<CR>', {noremap = true})
-vim.api.nvim_set_keymap('', '<LEADER>h', '<CMD>TSHighlightCapturesUnderCursor<CR>', {noremap = true})
+noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
 
 -- vim-sneak
-vim.api.nvim_set_keymap('n', 'f', '<Plug>Sneak_f', {})
-vim.api.nvim_set_keymap('n', 'F', '<Plug>Sneak_F', {})
-vim.api.nvim_set_keymap('n', 't', '<Plug>Sneak_t', {})
-vim.api.nvim_set_keymap('n', 'T', '<Plug>Sneak_T', {})
+nnoremap 'f' '<Plug>Sneak_f'
+nnoremap 'F' '<Plug>Sneak_F'
+nnoremap 't' '<Plug>Sneak_t'
+nnoremap 'T' '<Plug>Sneak_T'
 
 -- trouble.nvim
-vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", {silent = true, noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>xr", "<cmd>Trouble lsp_references<cr>", {silent = true, noremap = true})
+nnoremap "<LEADER>xx" "<CMD>Trouble<CR>"
+nnoremap "<LEADER>xw" "<CMD>Trouble lsp_workspace_diagnostics<CR>"
+nnoremap "<LEADER>xd" "<CMD>Trouble lsp_document_diagnostics<CR>"
+nnoremap "<LEADER>xl" "<CMD>Trouble loclist<CR>"
+nnoremap "<LEADER>xq" "<CMD>Trouble quickfix<CR>"
+--nnoremap "<LEADER>xr" "<cmd>Trouble lsp_references<cr>"
+nnoremap "<LEADER>xr" "<CMD>TroubleRefresh<CR>"
