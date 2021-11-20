@@ -1,3 +1,13 @@
+require("which-key.util").t = function(str)
+  if str == "<c-d>" then
+    return nil
+  elseif str == "<c-u>" then
+    return nil
+  else
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  end
+end
+
 require("which-key").setup {
   plugins = {
     marks = true, -- shows a list of your marks on ' and `

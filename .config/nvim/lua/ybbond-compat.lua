@@ -9,7 +9,7 @@ au.TextYankPost = function()
 end
 
 au({'BufNewFile', 'BufRead'}, {
-  '*.c,*.cpp,*.py',
+  '*.c,*.cpp,*.cc,*.h,*.py',
   function()
     vim.bo.tabstop = 4
     vim.bo.shiftwidth = 4
@@ -24,6 +24,13 @@ au({'BufNewFile', 'BufRead'}, {
   end
 })
 
+au({'FileType'}, {
+  'qf',
+  function()
+    vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>cclose<CR>', {noremap = true})
+  end,
+})
+
 vim.api.nvim_exec(
 [[
 fun! YbbondOtherSetups()
@@ -34,6 +41,13 @@ fun! YbbondOtherSetups()
       autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
     endif
   augroup end
+
+  cnoremap <C-a>   <Home>
+  cnoremap <C-e>   <End>
+  cnoremap <C-b>   <Left>
+  cnoremap <C-f>   <Right>
+  cnoremap <C-A-b> <S-Left>
+  cnoremap <C-A-f> <S-Right>
 
   function! ToggleNumberToggle(numberVar)
     " Reset group

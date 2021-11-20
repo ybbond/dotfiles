@@ -94,12 +94,12 @@ components.active[1] = {
   },
 
   {
-    provider = 'file( ',
+    provider = 'f(',
     hl = {
       fg = colors.white,
       bg = colors.bg,
     },
-    left_sep = ' ',
+    left_sep = '',
     right_sep = '',
     enabled = function()
       return diagnostics('Error') ~= ''
@@ -110,25 +110,25 @@ components.active[1] = {
   },
 
   {
-    provider = function() return diagnostics('Error') .. ' ' end,
+    provider = function() return diagnostics('Error') .. '' end,
     hl = { fg = colors.red, bg = 'NONE' },
     icon = '',
     enabled = function() return diagnostics('Error') ~= '' end,
   },
   {
-    provider = function() return diagnostics('Warning') .. ' ' end,
+    provider = function() return diagnostics('Warning') .. '' end,
     hl = { fg = colors.yellow, bg = 'NONE' },
     icon = '',
     enabled = function() return diagnostics('Warning') ~= '' end,
   },
   {
-    provider = function() return diagnostics('Hint') .. ' ' end,
+    provider = function() return diagnostics('Hint') .. '' end,
     hl = { fg = colors.skyblue, bg = 'NONE' },
     icon = '',
     enabled = function() return diagnostics('Hint') ~= '' end,
   },
   {
-    provider = function() return diagnostics('Information') .. ' ' end,
+    provider = function() return diagnostics('Information') .. '' end,
     hl = { fg = colors.cyan, bg = 'NONE' },
     icon = '',
     enabled = function() return diagnostics('Information') ~= '' end,
@@ -151,7 +151,7 @@ components.active[1] = {
   },
 
   {
-    provider = 'workspace( ',
+    provider = 'w(',
     hl = {
       fg = colors.white,
       bg = colors.bg,
@@ -174,7 +174,7 @@ components.active[1] = {
     provider = function()
       local ws_errors = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Error')
       return ws_errors ~= 0
-        and ''..ws_errors..' '
+        and ''..ws_errors..''
          or ''
     end,
     hl = { fg = colors.red, bg = 'NONE' },
@@ -183,7 +183,7 @@ components.active[1] = {
     provider = function()
       local ws_warnings = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Warning')
       return ws_warnings ~= 0
-        and ''..ws_warnings..' '
+        and ''..ws_warnings..''
          or ''
     end,
     hl = { fg = colors.yellow, bg = 'NONE' },
@@ -192,7 +192,7 @@ components.active[1] = {
     provider = function()
       local ws_hints = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Hint')
       return ws_hints ~= 0
-        and ''..ws_hints..' '
+        and ''..ws_hints..''
          or ''
     end,
     hl = { fg = colors.skyblue, bg = 'NONE' },
@@ -201,7 +201,7 @@ components.active[1] = {
     provider = function()
       local ws_infos = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Information')
       return ws_infos ~= 0
-        and ''..ws_infos..' '
+        and ''..ws_infos..''
          or ''
     end,
     hl = { fg = colors.cyan, bg = 'NONE' },
@@ -214,7 +214,7 @@ components.active[1] = {
       bg = colors.bg,
     },
     left_sep = '',
-    right_sep = ' ',
+    right_sep = '',
     enabled = function()
       local ws_errors = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Error')
       local ws_warnings = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Warning')
@@ -235,17 +235,6 @@ components.active[1] = {
 }
 
 components.active[2] = {
-  {
-    provider = function()
-      return require("nvim-gps").get_location()
-    end,
-    enabled = function()
-      return require("nvim-gps").is_available()
-    end,
-    right_sep = ' ',
-    hl = { fg = '#ffffff', bg = colors.bg },
-  },
-
   {
     provider = 'git_diff_added',
     hl = {

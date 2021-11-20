@@ -2,14 +2,15 @@
 --                    CUSTOMIZATIONS
 ------------------------------------------------------------
 
+-- for filetype.nvim
+vim.g.did_load_filetypes = 1
+
 vim.o.compatible = false
 vim.o.encoding = 'UTF-8'
 
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
 
--- vim.cmd('syntax enable')
--- vim.cmd('syntax on')
 vim.cmd('filetype plugin on')
 vim.cmd('filetype plugin indent on')
 
@@ -29,8 +30,10 @@ vim.o.expandtab = true
 vim.o.wrap = false
 vim.o.linebreak = true
 vim.o.list = true
---  vim.o.listchars = [[tab:▷\ ,trail:◻,nbsp:𐩒]]
+-- vim.o.listchars = [[tab:▷\ ,trail:◻,nbsp:𐩒]]
 vim.o.listchars = [[tab:> ,trail:-,nbsp:+]]
+-- vim.o.showbreak = [[↪\ ]]
+-- vim.o.listchars = [[tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨]]
 
 vim.o.mouse = 'n'
 vim.o.showmode = false
@@ -62,7 +65,6 @@ vim.o.diffopt = vim.o.diffopt .. ',vertical'
 -- vim.wo.foldnestmax = 3
 -- vim.wo.foldminlines = 1
 
-
 ------------------------------------------------------------
 --                   DEFAULT KEYBINDINGS
 ------------------------------------------------------------
@@ -88,10 +90,10 @@ end
 local function noremap(lhs) return base_map(lhs)('') end
 local function nnoremap(lhs) return base_map(lhs)('n') end
 local function inoremap(lhs) return base_map(lhs)('i') end
-local function cnoremap(lhs) return base_map(lhs)('c') end
+local function vnoremap(lhs) return base_map(lhs)('v') end
 
-local function noremapopt(lhs) return base_map_opt(lhs)('') end
-local function nnoremapopt(lhs) return base_map_opt(lhs)('n') end
+local function map(lhs) return base_map_opt(lhs)('') end
+local function nmap(lhs) return base_map_opt(lhs)('n') end
 
 local function replaceTermcodes(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
 
@@ -99,13 +101,14 @@ function _G.smart_wrap_nav_bindings(ifTrue,ifFalse)
   return vim.o.wrap == true and replaceTermcodes(ifTrue) or replaceTermcodes(ifFalse)
 end
 
-nnoremapopt 'j' [[v:lua.smart_wrap_nav_bindings("gj","j")]] ({expr = true, noremap = true})
-nnoremapopt 'k' [[v:lua.smart_wrap_nav_bindings("gk","k")]] ({expr = true, noremap = true})
-nnoremapopt '0' [[v:lua.smart_wrap_nav_bindings("g0","0")]] ({expr = true, noremap = true})
-nnoremapopt '$' [[v:lua.smart_wrap_nav_bindings("g$","$")]] ({expr = true, noremap = true})
+nmap 'j' [[v:lua.smart_wrap_nav_bindings("gj","j")]] ({expr = true, noremap = true})
+nmap 'k' [[v:lua.smart_wrap_nav_bindings("gk","k")]] ({expr = true, noremap = true})
+nmap '0' [[v:lua.smart_wrap_nav_bindings("g0","0")]] ({expr = true, noremap = true})
+nmap '$' [[v:lua.smart_wrap_nav_bindings("g$","$")]] ({expr = true, noremap = true})
 
 -- resource the neovim configurations
 noremap '<LEADER>%' ':luafile ~/.config/nvim/init.lua<CR> | :NightfoxLoad nordfox<CR>'
+-- noremap '<LEADER>%' ':luafile ~/.config/nvim/init.lua<CR>'
 
 -- unhighlight search
 nnoremap '<LEADER><SPACE>' ':nohlsearch<CR>'
@@ -127,9 +130,9 @@ nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searc
 nnoremap 'Y' 'y$'
 
 -- copy, paste and copy whole file to clipboard
-noremapopt '<LEADER>cs'   '"+y' ({})
-noremapopt '<LEADER>v'    ':r !pbpaste<CR><CR>' ({})
-noremapopt '<LEADER>ca'   ':%w !pbcopy<CR><CR>' ({})
+map '<LEADER>cs'   '"+y' ({})
+map '<LEADER>v'    ':r !pbpaste<CR><CR>' ({})
+map '<LEADER>ca'   ':%w !pbcopy<CR><CR>' ({})
 
 -- identify syntax below cursor with <LEADER>h
 -- replaced by nvim-treesitter one below
@@ -143,23 +146,24 @@ inoremap '<C-d>' '<DEL>'
 inoremap 'jk'    '<ESC>'
 inoremap '<C-c>' '<ESC>'
 
--- make emacs navigation available on EX-mode
+-- -- make emacs navigation available on EX-mode
+-- -- done in ybbond-compat
+-- cnoremap '<C-a>'   '<Home>'
+-- cnoremap '<C-e>'   '<End>'
+-- cnoremap '<C-b>'   '<Left>'
+-- cnoremap '<C-f>'   '<Right>'
+-- cnoremap '<C-A-b>' '<S-Left>'
+-- cnoremap '<C-A-f>' '<S-Right>'
 
-cnoremap '<C-a>'   '<Home>'
-cnoremap '<C-e>'   '<End>'
-cnoremap '<C-b>'   '<Left>'
-cnoremap '<C-f>'   '<Right>'
-cnoremap '<C-M-b>' '<S-Left>'
-cnoremap '<C-M-f>' '<S-Right>'
-
+-- <C-R><C-W> command line mode, insert word under cursor
 
 ------------------------------------------------------------
 --                       RESOURCES
 ------------------------------------------------------------
 
 
-require('plenary.reload').reload_module('plugins')
-require('plenary.reload').reload_module('ybbond-compat')
+-- require('plenary.reload').reload_module('plugins')
+-- require('plenary.reload').reload_module('ybbond-compat')
 
 
 require'plugins'
@@ -169,12 +173,6 @@ require'ybbond-compat'
 ------------------------------------------------------------
 --                   PLUGINS KEYBINDINGS
 ------------------------------------------------------------
-
--- bufferline
--- nnoremap 'gb' '<CMD>BufferLineCycleNext<CR>'
--- nnoremap 'gB' '<CMD>BufferLineCyclePrev<CR>'
--- nnoremap 'g>' '<CMD>BufferLineMoveNext<CR>'
--- nnoremap 'g<' '<CMD>BufferLineMovePrev<CR>'
 
 -- bufdelete
 nnoremap 'gx' '<CMD>Bdelete<CR>'
@@ -190,12 +188,12 @@ nnoremap '<LEADER>e' '<CMD>NvimTreeToggle<CR>'
 nnoremap '<LEADER>r' '<CMD>NvimTreeFindFile<CR>'
 
 -- telescope.nvim
-nnoremap '<C-t><C-p>'        [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f"}} hidden=true<CR>]]
-nnoremap '<C-t><C-\\><C-p>'  [[<CMD>lua require("telescope.builtin").find_files{ find_command={"fd","-E=.git","--hidden","-t=f","--no-ignore"}} hidden=true<CR>]]
+nnoremap '<C-t><C-p>'        [[<CMD>lua require("telescope.builtin").find_files({ find_command={"fd","-E=.git","--hidden","-t=f"}}) hidden=true<CR>]]
+nnoremap '<C-t><C-\\><C-p>'  [[<CMD>lua require("telescope.builtin").find_files({ find_command={"fd","-E=.git","--hidden","-t=f","--no-ignore"}}) hidden=true<CR>]]
 nnoremap '<C-t><C-i>'        [[<CMD>Telescope live_grep hidden=true<CR>]]
 nnoremap '<C-t><C-\\><C-i>'  [[<CMD>Telescope live_grep hidden=true grep_open_files=true<CR>]]
-nnoremap '<C-t><C-n>'        [[<CMD>lua require("telescope.builtin").live_grep{ find_command={"rg","--no-heading","--hidden","-g='!.git/**'","--with-filename","--line-number","--column","--smart-case","--ignore","--regexp"}}<CR>]]
-nnoremap '<C-t><C-\\><C-n>'  [[<CMD>lua require("telescope.builtin").live_grep{ find_command={"rg","--no-heading","--hidden","-g='!.git/**'",'--with-filename',"--line-number","--column","--smart-case","--no-ignore","--regexp"}}<CR>]]
+nnoremap '<C-t><C-n>'        [[<CMD>lua require("telescope.builtin").live_grep({ find_command={"rg","--no-heading","--hidden","-g='!.git/**'","--with-filename","--line-number","--column","--smart-case","--ignore","--regexp"}})<CR>]]
+nnoremap '<C-t><C-\\><C-n>'  [[<CMD>lua require("telescope.builtin").live_grep({ find_command={"rg","--no-heading","--hidden","-g='!.git/**'",'--with-filename',"--line-number","--column","--smart-case","--no-ignore","--regexp"}})<CR>]]
 
 nnoremap '<C-t><C-s>'        [[<CMD>Telescope grep_string<CR>]]
 nnoremap '<C-t><C-r>'        [[<CMD>Telescope registers<CR>]]
@@ -203,9 +201,14 @@ nnoremap '<C-t><C-b>'        [[<CMD>Telescope buffers<CR>]]
 nnoremap '<C-t><C-h>'        [[<CMD>Telescope help_tags<CR>]]
 nnoremap '<C-t><C-m>'        [[<CMD>Telescope marks<CR>]]
 nnoremap '<C-t><C-a>'        [[<CMD>Telescope commands<CR>]]
-nnoremap '<C-t><C-t>'        [[<CMD>Telescope treesitter<CR>]]
+
+nnoremap '<C-t><C-w>'        [[<CMD>Telescope lsp_workspace_diagnostics<CR>]]
+nnoremap '<C-t><C-d>'        [[<CMD>Telescope lsp_document_diagnostics<CR>]]
+
+nnoremap '<C-t><C-t>'        [[<CMD>Telescope yabs current_language_tasks<CR>]]
 
 nnoremap '<C-g><C-g>'        [[<CMD>Telescope git_status<CR>]]
+
 
 --fugitive
 nnoremap '<LEADER>gb' '<CMD>Git blame<CR>'
@@ -215,16 +218,27 @@ nnoremap '<LEADER>go' '<CMD>GBrowse<CR>'
 noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
 
 -- vim-sneak
-nnoremap 'f' '<Plug>Sneak_f'
-nnoremap 'F' '<Plug>Sneak_F'
-nnoremap 't' '<Plug>Sneak_t'
-nnoremap 'T' '<Plug>Sneak_T'
+nmap 'f' '<Plug>Sneak_f' ({})
+nmap 'F' '<Plug>Sneak_F' ({})
+nmap 't' '<Plug>Sneak_t' ({})
+nmap 'T' '<Plug>Sneak_T' ({})
 
 -- trouble.nvim
-nnoremap "<LEADER>xx" "<CMD>Trouble<CR>"
-nnoremap "<LEADER>xw" "<CMD>Trouble lsp_workspace_diagnostics<CR>"
-nnoremap "<LEADER>xd" "<CMD>Trouble lsp_document_diagnostics<CR>"
-nnoremap "<LEADER>xl" "<CMD>Trouble loclist<CR>"
-nnoremap "<LEADER>xq" "<CMD>Trouble quickfix<CR>"
---nnoremap "<LEADER>xr" "<cmd>Trouble lsp_references<cr>"
-nnoremap "<LEADER>xr" "<CMD>TroubleRefresh<CR>"
+nnoremap '<LEADER>xx' '<CMD>Trouble<CR>'
+nnoremap '<LEADER>xw' '<CMD>Trouble lsp_workspace_diagnostics<CR>'
+nnoremap '<LEADER>xd' '<CMD>Trouble lsp_document_diagnostics<CR>'
+nnoremap '<LEADER>xl' '<CMD>Trouble loclist<CR>'
+nnoremap '<LEADER>xq' '<CMD>Trouble quickfix<CR>'
+--nnoremap '<LEADER>xr' '<cmd>Trouble lsp_references<cr>'
+nnoremap '<LEADER>xr' '<CMD>TroubleRefresh<CR>'
+
+-- nvim-dap
+nnoremap '<LEADER>db' '<CMD>lua require"dap".toggle_breakpoint()<CR>'
+nnoremap '<LEADER>dc' '<CMD>lua require"dap".continue()<CR>'
+-- nvim-dap-ui
+nnoremap '<LEADER>dus' '<CMD>lua require("dapui").setup()<CR>'
+nnoremap '<LEADER>duo' '<CMD>lua require("dapui").open()<CR>'
+nnoremap '<LEADER>duc' '<CMD>lua require("dapui").close()<CR>'
+nnoremap '<LEADER>dut' '<CMD>lua require("dapui").toggle()<CR>'
+nnoremap '<LEADER>due' '<CMD>lua require("dapui").eval()<CR>'
+vnoremap '<LEADER>due' '<CMD>lua require("dapui").eval()<CR>'

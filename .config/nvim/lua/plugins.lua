@@ -9,8 +9,9 @@ vim.cmd([[autocmd! BufWritePost plugins.lua source <afile> | PackerCompile profi
 
 return require('packer').startup(function(use)
 
-  -- packer can manage itself
   use 'wbthomason/packer.nvim'
+
+  use 'nathom/filetype.nvim'
 
   use 'dstein64/nvim-scrollview'
 
@@ -19,10 +20,10 @@ return require('packer').startup(function(use)
     config = function() require'configs/nightfox-nvim' end,
   }
 
-  -- -- lush
-  -- use 'rktjmp/lush.nvim'
-  -- -- try lush local theme
-  -- use '~/pbond/mariana'
+  use {
+    'kyazdani42/nvim-web-devicons',
+    config = function() require'nvim-web-devicons'.setup({default = true}) end,
+  }
 
   -- using built-in lsp with nvim-lspconfig
   use {
@@ -35,10 +36,14 @@ return require('packer').startup(function(use)
     requires = 'neovim/nvim-lspconfig',
   }
 
+  use {
+    'pianocomposer321/yabs.nvim',
+    config = function() require'configs/yabs-nvim' end,
+  }
+
   -- file manager using nvim-tree.lua
   use {
     'kyazdani42/nvim-tree.lua',
-    -- '~/poss/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/nvim-tree' end
   }
@@ -62,27 +67,8 @@ return require('packer').startup(function(use)
     run = ':TSUpdate',
     config = function()
       require'configs/nvim-treesitter'
-      local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
-      parser_configs.http = {
-        install_info = {
-          url = "https://github.com/NTBBloodbath/tree-sitter-http",
-          files = { "src/parser.c" },
-          branch = "main",
-        },
-      }
       require'nvim-treesitter.configs'.setup {
-        -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-        ensure_installed = {"http"}, -- for rest.nvim
-        -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
-        -- highlight = {
-        --   enable = true,              -- false will disable the whole extension
-        --   disable = { "c", "rust" },  -- list of language that will be disabled
-        --   -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        --   -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        --   -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        --   -- Instead of true it can also be a list of languages
-        --   additional_vim_regex_highlighting = false,
-        -- },
+        ensure_installed = {"http", "json"}, -- for rest.nvim
       }
     end
   }
@@ -94,24 +80,8 @@ return require('packer').startup(function(use)
   -- vim-commentary extension with treesitter nvim-ts-context-commentstring
   use {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    -- requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
-    requires = {'nvim-treesitter/nvim-treesitter', 'winston0410/commented.nvim'},
-  }
-
-  use {
-    'winston0410/commented.nvim',
-    config = function()
-      require('commented').setup({
-        comment_padding = '', -- padding between starting and ending comment symbols
-        keybindings = {n = 'gc', v = 'gc', nl = 'gcc'}, -- what key to toggle comment, nl is for mapping <leader>c$, just like dd for d
-        prefer_block_comment = false, -- Set it to true to automatically use block comment when multiple lines are selected
-        set_keybindings = true, -- whether or not keybinding is set on setup
-        ex_mode_cmd = 'Comment', -- command for commenting in ex-mode, set it null to not set the command initially.
-        hooks = {
-          before_comment = require("ts_context_commentstring.internal").update_commentstring,
-        },
-      })
-    end,
+    requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
+    -- requires = {'nvim-treesitter/nvim-treesitter', 'numToStr/Comment.nvim'},
   }
 
   use {
@@ -120,7 +90,8 @@ return require('packer').startup(function(use)
     config = function() require'configs/trouble-nvim' end
   }
 
-  use { 'L3MON4D3/LuaSnip' }
+  use { 'hrsh7th/vim-vsnip' }
+  -- use { 'dcampos/nvim-snippy' }
   use {
     'hrsh7th/nvim-cmp',
     requires = {
@@ -129,7 +100,12 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-calc',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
-      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-vsnip',
+      -- 'dcampos/cmp-snippy',
+      {
+        'petertriho/cmp-git',
+        requires = 'nvim-lua/plenary.nvim',
+      },
     },
     config = function() require'configs/nvim-cmp' end,
   }
@@ -141,38 +117,35 @@ return require('packer').startup(function(use)
     config = function() require'configs/gitsigns-nvim' end
   }
 
-  -- use {
-  --   'TimUntersberger/neogit',
-  --   requires = 'nvim-lua/plenary.nvim',
-  -- }
-
   use {
     'famiu/feline.nvim',
     config = function() require'configs/feline' end,
-  }
-  use {
-    'SmiteshP/nvim-gps',
-    requires = 'nvim-treesitter/nvim-treesitter',
-    config = function() require('nvim-gps').setup() end,
   }
 
   use {
     --  "NTBBloodbath/rest.nvim",
     '~/poss/rest.nvim',
+    branch = "feat/custom-dynamic-variables",
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
       require("rest-nvim").setup({
-        -- Open request results in a horizontal split
         result_split_horizontal = true,
-        -- Skip SSL verification, useful for unknown certificates
         skip_ssl_verification = false,
-        -- Highlight request on run
         highlight = {
           enabled = true,
-          timeout = 150,
+          timeout = 300,
         },
-        -- Jump to request line on run
-        jump_to_request = true,
+        jump_to_request = false,
+        custom_dynamic_variables = {
+          ["$date"] = function()
+            local os_date = os.date('%Y-%m-%d')
+            return os_date
+          end,
+          ["$clock"] = function()
+            local os_date = os.date('%H:%M:%S')
+            return os_date
+          end
+        },
       })
       vim.api.nvim_set_keymap('n', '<C-F><C-F>', '<Plug>RestNvim<CR>', {})
       vim.api.nvim_set_keymap('n', '<C-F><C-P>', '<Plug>RestNvimPreview<CR>', {})
@@ -185,11 +158,7 @@ return require('packer').startup(function(use)
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/cokeline-nvim' end,
   }
-  -- use {
-    -- 'akinsho/bufferline.nvim',
-    -- requires = 'kyazdani42/nvim-web-devicons',
-    -- config = function() require'configs/bufferline-nvim' end,
-  -- }
+
   use 'famiu/bufdelete.nvim'
 
   use {
@@ -208,33 +177,22 @@ return require('packer').startup(function(use)
              end
   }
 
-  -- lua development with lua-dev
-  use {
-    'folke/lua-dev.nvim',
-    config = function() require'configs/lua-dev-nvim' end
-  }
-
   -- Flutter development, with dart-vim-plugin and flutter-tools.nvim
   use '~/poss/dart-vim-plugin'
   use {
     'akinsho/flutter-tools.nvim',
     requires = 'nvim-lua/plenary.nvim',
-    config = function() require'configs/flutter-tools' end
+    config = function() require'configs/flutter-tools' end,
   }
   use {
     'akinsho/dependency-assist.nvim',
     config = function() require'dependency_assist'.setup{} end,
   }
 
-  -- TypeScript, JavaScript and ReactJS utilities with nvim-lsp-ts-utils
   use {
     'jose-elias-alvarez/nvim-lsp-ts-utils',
-    requires = {
-      'neovim/nvim-lspconfig',
-      'nvim-lua/plenary.nvim',
-      {'jose-elias-alvarez/null-ls.nvim', requires = 'nvim-lua/plenary.nvim'}
-    },
-    config = function() require'configs/lsp-ts-utils' end
+    requires = 'jose-elias-alvarez/null-ls.nvim',
+    config = function() require'configs/nvim-lsp-ts-utils' end,
   }
 
   use 'justinmk/vim-sneak'
@@ -245,7 +203,7 @@ return require('packer').startup(function(use)
   use 'shumphrey/fugitive-gitlab.vim'
 
   -- vim-commentary vim-surround and vim-repeat
-  -- use 'tpope/vim-commentary'
+  use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
 
