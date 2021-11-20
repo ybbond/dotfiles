@@ -296,13 +296,33 @@ export PATH="$PATH:$HOME/fvm/default/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 
 export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 
-# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib" # for compilers to find llvm
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib" # to use built-in libc++
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include" # for compilers to find llvm
+## for llvm homebrew
+# export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+# # export LDFLAGS="-L/opt/homebrew/opt/llvm/lib" # for compilers to find llvm
+# export LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib" # to use built-in libc++
+# export CPPFLAGS="-I/opt/homebrew/opt/llvm/include" # for compilers to find llvm
 
+## for llvm homebrew, modified
+# export LDFLAGS="-L/opt/homebrew/lib -Wl,-rpath,/opt/homebrew/lib" # to use built-in libc++
+# export CPPFLAGS="-I/opt/homebrew/include" # for compilers to find llvm
+# export CFLAGS="-I/opt/homebrew/include" # for compilers to find llvm
+# export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/opt/homebrew/include"
+
+# for built-in clangd
+# export CLANGD_FLAGS="-I/opt/homebrew/include"
+
+#TEMP
+#export CPATH="/opt/homebrew/include"
+#export LIBRARY_PATH="/opt/homebrew/lib"
+
+# export C_INCLUDE_DIRS="/opt/homebrew/include"
+# export CLANG_LIBS="/opt/homebrew/lib"
+
+export GO111MODULE=on
+export GOPRIVATE="gitlab.com/pinvest/*"
 export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
+# export GOPROXY=https://proxy.golang.org
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 
