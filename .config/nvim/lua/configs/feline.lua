@@ -1,4 +1,4 @@
-local colors = {
+local theme = {
   black = '#3b4252',
   white = '#e5e9f0',
   red = '#bf616a',
@@ -35,7 +35,7 @@ components.active[1] = {
   {
     provider = '▊ ',
     hl = {
-      fg = colors.cyan
+      fg = theme.cyan
     }
   },
 
@@ -58,12 +58,12 @@ components.active[1] = {
       str = ' ',
       hl = {
         fg = 'NONE',
-        bg = colors.cyan,
+        bg = theme.cyan,
       },
     },
     hl = {
-      fg = colors.bg,
-      bg = colors.cyan,
+      fg = theme.bg,
+      bg = theme.cyan,
     },
     enabled = function() return vim.fn.getfsize(vim.fn.expand('%:p')) > 0 end,
   },
@@ -74,18 +74,18 @@ components.active[1] = {
       str = ' ',
       hl = {
         fg = 'NONE',
-        bg = colors.cyan,
+        bg = theme.cyan,
       },
     },
     hl = {
-      fg = colors.bg,
-      bg = colors.cyan,
+      fg = theme.bg,
+      bg = theme.cyan,
     },
   },
 
   {
     provider = 'lsp_client_names',
-    -- hl = { fg = 'black', bg =  colors.cyan},
+    -- hl = { fg = 'black', bg =  theme.cyan},
     hl = { fg = '#ffffff', bg = 'NONE' },
     icon = '',
     left_sep = function()
@@ -103,8 +103,8 @@ components.active[1] = {
   {
     provider = 'f(',
     hl = {
-      fg = colors.white,
-      bg = colors.bg,
+      fg = theme.white,
+      bg = theme.bg,
     },
     left_sep = '',
     right_sep = '',
@@ -118,25 +118,25 @@ components.active[1] = {
 
   {
     provider = function() return diagnostics(diag_severity.ERROR) .. '' end,
-    hl = { fg = colors.red, bg = 'NONE' },
+    hl = { fg = theme.red, bg = 'NONE' },
     icon = '',
     enabled = function() return diagnostics(diag_severity.ERROR) ~= '' end,
   },
   {
     provider = function() return diagnostics(diag_severity.WARN) .. '' end,
-    hl = { fg = colors.yellow, bg = 'NONE' },
+    hl = { fg = theme.yellow, bg = 'NONE' },
     icon = '',
     enabled = function() return diagnostics(diag_severity.WARN) ~= '' end,
   },
   {
     provider = function() return diagnostics(diag_severity.HINT) .. '' end,
-    hl = { fg = colors.skyblue, bg = 'NONE' },
+    hl = { fg = theme.skyblue, bg = 'NONE' },
     icon = '',
     enabled = function() return diagnostics(diag_severity.HINT) ~= '' end,
   },
   {
     provider = function() return diagnostics(diag_severity.INFO) .. '' end,
-    hl = { fg = colors.cyan, bg = 'NONE' },
+    hl = { fg = theme.cyan, bg = 'NONE' },
     icon = '',
     enabled = function() return diagnostics(diag_severity.INFO) ~= '' end,
   },
@@ -144,8 +144,8 @@ components.active[1] = {
   {
     provider = ')',
     hl = {
-      fg = colors.white,
-      bg = colors.bg,
+      fg = theme.white,
+      bg = theme.bg,
     },
     left_sep = '',
     right_sep = ' ',
@@ -160,8 +160,8 @@ components.active[1] = {
   {
     provider = 'w(',
     hl = {
-      fg = colors.white,
-      bg = colors.bg,
+      fg = theme.white,
+      bg = theme.bg,
     },
     left_sep = '',
     right_sep = '',
@@ -184,7 +184,7 @@ components.active[1] = {
         and ''..ws_errors..''
          or ''
     end,
-    hl = { fg = colors.red, bg = 'NONE' },
+    hl = { fg = theme.red, bg = 'NONE' },
   },
   {
     provider = function()
@@ -193,7 +193,7 @@ components.active[1] = {
         and ''..ws_warnings..''
          or ''
     end,
-    hl = { fg = colors.yellow, bg = 'NONE' },
+    hl = { fg = theme.yellow, bg = 'NONE' },
   },
   {
     provider = function()
@@ -202,7 +202,7 @@ components.active[1] = {
         and ''..ws_hints..''
          or ''
     end,
-    hl = { fg = colors.skyblue, bg = 'NONE' },
+    hl = { fg = theme.skyblue, bg = 'NONE' },
   },
   {
     provider = function()
@@ -211,14 +211,14 @@ components.active[1] = {
         and ''..ws_infos..''
          or ''
     end,
-    hl = { fg = colors.cyan, bg = 'NONE' },
+    hl = { fg = theme.cyan, bg = 'NONE' },
   },
 
   {
     provider = ')',
     hl = {
-      fg = colors.white,
-      bg = colors.bg,
+      fg = theme.white,
+      bg = theme.bg,
     },
     left_sep = '',
     right_sep = '',
@@ -245,30 +245,30 @@ components.active[2] = {
   {
     provider = 'git_diff_added',
     hl = {
-      fg = colors.green,
-      bg = colors.bg,
+      fg = theme.green,
+      bg = theme.bg,
     },
     icon = ' +'
   },
   {
     provider = 'git_diff_changed',
     hl = {
-      fg = colors.yellow,
-      bg = colors.bg,
+      fg = theme.yellow,
+      bg = theme.bg,
     },
     icon = ' ~'
   },
   {
     provider = 'git_diff_removed',
     hl = {
-      fg = colors.red,
-      bg = colors.bg,
+      fg = theme.red,
+      bg = theme.bg,
     },
     right_sep = {
       str = ' ',
       hl = {
         fg = 'NONE',
-        bg = colors.bg,
+        bg = theme.bg,
       }
     },
     icon = ' -'
@@ -277,11 +277,11 @@ components.active[2] = {
   {
     provider = 'git_branch',
     hl = {
-      fg = colors.white,
-      bg = colors.bg,
+      fg = theme.white,
+      bg = theme.bg,
       style = 'bold'
     },
-    right_sep = {hl = {fg = 'NONE', bg = colors.bg}, str = ' '},
+    right_sep = {hl = {fg = 'NONE', bg = theme.bg}, str = ' '},
     icon = ' '
   },
 
@@ -289,7 +289,7 @@ components.active[2] = {
     provider = ' :D ',
     hl = {
       fg = 'bg',
-      bg = colors.cyan,
+      bg = theme.cyan,
       style = 'bold',
     },
   },
@@ -299,8 +299,8 @@ components.active[2] = {
 components.inactive[1] = {
   provider = 'file_info',
   hl = {
-    fg = colors.bg,
-    bg = colors.cyan,
+    fg = theme.bg,
+    bg = theme.cyan,
     style = 'bold',
   },
   left_sep = '',
@@ -313,15 +313,15 @@ components.inactive[2] = {
   {
     provider = 'file_type',
     hl = {
-      fg = colors.bg,
-      bg = colors.cyan,
+      fg = theme.bg,
+      bg = theme.cyan,
       style = 'bold',
     },
     left_sep = {
       str = ' ',
       hl = {
         fg = 'NONE',
-        bg = colors.cyan,
+        bg = theme.cyan,
       },
     },
     right_sep = {
@@ -329,7 +329,7 @@ components.inactive[2] = {
         str = ' ',
         hl = {
           fg = 'NONE',
-          bg = colors.cyan,
+          bg = theme.cyan,
         },
       },
       ' ',
@@ -340,6 +340,6 @@ components.inactive[2] = {
 
 require('feline').setup({
   preset = 'noicon',
-  colors = colors,
+  theme = theme,
   components = components,
 })

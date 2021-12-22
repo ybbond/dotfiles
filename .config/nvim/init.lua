@@ -154,20 +154,6 @@ inoremap '<C-c>' '<ESC>'
 
 
 ------------------------------------------------------------
---                       COMPAT
-------------------------------------------------------------
-
-
--- nvim 0.6.0
-if vim.inspect(vim.version().minor) == '5' then
-  vim.o.hidden = true
-
-  -- why does vim's Y behavior different?
-  nnoremap 'Y' 'y$'
-end
-
-
-------------------------------------------------------------
 --                       RESOURCES
 ------------------------------------------------------------
 
@@ -226,12 +212,6 @@ nnoremap '<LEADER>go' '<CMD>GBrowse<CR>'
 
 -- nvim-treesitter
 noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
-
--- vim-sneak
--- nmap 'f' '<Plug>Sneak_f' ({})
--- nmap 'F' '<Plug>Sneak_F' ({})
--- nmap 't' '<Plug>Sneak_t' ({})
--- nmap 'T' '<Plug>Sneak_T' ({})
 
 -- nvim-dap
 nnoremap '<LEADER>db' '<CMD>lua require"dap".toggle_breakpoint()<CR>'
