@@ -177,9 +177,11 @@ alias set_dark="cp ~/.tmux-dark.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-da
 alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-light.conf ~/.config/kitty/kitty.conf"
 
 alias opsimulator="open -a Simulator"
-alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3_API_31 -netdelay none -netspeed full"
+alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_31 -netdelay none -netspeed full"
 
 alias neorc="cd ~/.config/nvim && nvim . && cd -"
+
+alias flut="fvm flutter"
 
 ########################################################################
 #                     END OF BANDUNG's ALIASES
@@ -192,48 +194,48 @@ alias neorc="cd ~/.config/nvim && nvim . && cd -"
 
 eval "$(hub alias -s)"
 
-###-begin-flutter-completion-###
-if type complete &>/dev/null; then
-  __flutter_completion() {
-    local si="$IFS"
-    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
-                           COMP_LINE="$COMP_LINE" \
-                           COMP_POINT="$COMP_POINT" \
-                           flutter completion -- "${COMP_WORDS[@]}" \
-                           2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  complete -F __flutter_completion flutter
-elif type compdef &>/dev/null; then
-  __flutter_completion() {
-    si=$IFS
-    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
-                 COMP_LINE=$BUFFER \
-                 COMP_POINT=0 \
-                 flutter completion -- "${words[@]}" \
-                 2>/dev/null)
-    IFS=$si
-  }
-  compdef __flutter_completion flutter
-elif type compctl &>/dev/null; then
-  __flutter_completion() {
-    local cword line point words si
-    read -Ac words
-    read -cn cword
-    let cword-=1
-    read -l line
-    read -ln point
-    si="$IFS"
-    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
-                       COMP_LINE="$line" \
-                       COMP_POINT="$point" \
-                       flutter completion -- "${words[@]}" \
-                       2>/dev/null)) || return $?
-    IFS="$si"
-  }
-  compctl -K __flutter_completion flutter
-fi
-###-end-flutter-completion-###
+####-begin-flutter-completion-###
+#if type complete &>/dev/null; then
+#  __flutter_completion() {
+#    local si="$IFS"
+#    IFS=$'\n' COMPREPLY=($(COMP_CWORD="$COMP_CWORD" \
+#                           COMP_LINE="$COMP_LINE" \
+#                           COMP_POINT="$COMP_POINT" \
+#                           flutter completion -- "${COMP_WORDS[@]}" \
+#                           2>/dev/null)) || return $?
+#    IFS="$si"
+#  }
+#  complete -F __flutter_completion flutter
+#elif type compdef &>/dev/null; then
+#  __flutter_completion() {
+#    si=$IFS
+#    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+#                 COMP_LINE=$BUFFER \
+#                 COMP_POINT=0 \
+#                 flutter completion -- "${words[@]}" \
+#                 2>/dev/null)
+#    IFS=$si
+#  }
+#  compdef __flutter_completion flutter
+#elif type compctl &>/dev/null; then
+#  __flutter_completion() {
+#    local cword line point words si
+#    read -Ac words
+#    read -cn cword
+#    let cword-=1
+#    read -l line
+#    read -ln point
+#    si="$IFS"
+#    IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+#                       COMP_LINE="$line" \
+#                       COMP_POINT="$point" \
+#                       flutter completion -- "${words[@]}" \
+#                       2>/dev/null)) || return $?
+#    IFS="$si"
+#  }
+#  compctl -K __flutter_completion flutter
+#fi
+####-end-flutter-completion-###
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -289,11 +291,12 @@ export TERM=xterm-256color
 # export BAT_THEME="GitHub"
 export BAT_THEME="Coldark-Dark"
 
-export PATH="$HOME/.tool_binaries/zulu16.32.15-ca-jdk16.0.2-macosx_aarch64/zulu-16.jdk/Contents/Home:$PATH"
-export JAVA_HOME="$HOME/.tool_binaries/zulu16.32.15-ca-jdk16.0.2-macosx_aarch64/zulu-16.jdk/Contents/Home"
+export PATH="$HOME/.tool_binaries/zulu17.30.15-ca-jdk17.0.1-macosx_aarch64/zulu-17.jdk/Contents/Home:$PATH"
+export JAVA_HOME="$HOME/.tool_binaries/zulu17.30.15-ca-jdk17.0.1-macosx_aarch64/zulu-17.jdk/Contents/Home"
 
 export PATH="$PATH:$HOME/fvm/default/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
+# export PATH="$PATH:$HOME/flutter/bin"
 
 export PATH="/opt/homebrew/bin:$PATH"
 
