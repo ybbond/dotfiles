@@ -40,5 +40,5 @@ require("trouble").setup {
     information = "",
     other = "﫠"
   },
-  use_lsp_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
+  use_diagnostic_signs = true -- enabling this will use the signs defined in your lsp client
 }

@@ -84,11 +84,11 @@ return require('packer').startup(function(use)
     -- requires = {'nvim-treesitter/nvim-treesitter', 'numToStr/Comment.nvim'},
   }
 
-  use {
-    'folke/trouble.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'configs/trouble-nvim' end
-  }
+  -- use {
+  --   'folke/trouble.nvim',
+  --   requires = 'kyazdani42/nvim-web-devicons',
+  --   config = function() require'configs/trouble-nvim' end
+  -- }
 
   use { 'hrsh7th/vim-vsnip' }
   -- use { 'dcampos/nvim-snippy' }
@@ -123,9 +123,7 @@ return require('packer').startup(function(use)
   }
 
   use {
-    --  "NTBBloodbath/rest.nvim",
-    '~/poss/rest.nvim',
-    branch = "feat/custom-dynamic-variables",
+     "NTBBloodbath/rest.nvim",
     requires = { "nvim-lua/plenary.nvim" },
     config = function()
       require("rest-nvim").setup({
@@ -186,8 +184,25 @@ return require('packer').startup(function(use)
   }
   use {
     'akinsho/dependency-assist.nvim',
-    config = function() require'dependency_assist'.setup{} end,
+    config = function ()
+      require('dependency_assist').setup()
+    end
   }
+  -- use {
+  --   'akinsho/pubspec-assist.nvim',
+  --   requires = 'plenary.nvim',
+  --   rocks = {
+  --     'semver',
+  --     {
+  --       'lyaml',
+  --       server = 'http://rocks.moonscript.org',
+  --       env = { YAML_DIR = '/opt/homebrew/Cellar/libyaml/0.2.5/' },
+  --     },
+  --   },
+  --   config = function()
+  --     require('pubspec-assist').setup()
+  --   end,
+  -- }
 
   use {
     'jose-elias-alvarez/nvim-lsp-ts-utils',
@@ -195,7 +210,10 @@ return require('packer').startup(function(use)
     config = function() require'configs/nvim-lsp-ts-utils' end,
   }
 
-  use 'justinmk/vim-sneak'
+  use {
+    'ggandor/lightspeed.nvim',
+    config = function () require'lightspeed'.setup {} end
+  }
 
   -- vim-fugitive vim-rhubarb and fugitive-gitlab
   use 'tpope/vim-fugitive'

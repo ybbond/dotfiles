@@ -11,6 +11,7 @@ local ybbond_flutter_lsp_on_attach = function(client, bufnr)
   buf_set_keymap('n', '<LEADER>f', '<CMD>DartFmt<CR>', opts)
 
   require('flutter-tools.utils').command("FlutterAgentStartStaging", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety')]])
+  require('flutter-tools.utils').command("FlutterAgentStartStagingNoPub", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety --no-pub')]])
   require('flutter-tools.utils').command("FlutterAgentStartProduction", [[lua require('flutter-tools.commands').run_command('--flavor=production --no-sound-null-safety')]])
   require('flutter-tools.utils').command("FlutterRikuStartStaging", [[lua require('flutter-tools.commands').run_command('--flavor=mandiristaging --no-sound-null-safety')]])
   require('flutter-tools.utils').command("FlutterRikuStartProduction", [[lua require('flutter-tools.commands').run_command('--flavor=mandiriproduction --no-sound-null-safety')]])
@@ -21,7 +22,8 @@ require("flutter-tools").setup {
   lsp = {
     on_attach = ybbond_flutter_lsp_on_attach,
   },
-  flutter_path = os.getenv('HOME').."/fvm/default/bin/flutter",
+  -- flutter_path = os.getenv('HOME').."/fvm/default/bin/flutter",
+  -- flutter_path = os.getenv('HOME').."/flutter/bin/flutter",
 
   closing_tags = {
     prefix = ' → ',

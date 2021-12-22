@@ -23,7 +23,18 @@ local colors = {
 }
 
 require('cokeline').setup({
-  cycle_prev_next_mappings = true,
+  buffers = {
+    filter_valid = function(buffer)
+      if buffer.type == 'quickfix' then
+        return false
+      elseif buffer.filetype == '' then
+        return false
+      elseif buffer.path == '.' then
+        return false
+      end
+      return true
+    end,
+  },
 
   default_hl = {
     focused = {
@@ -86,9 +97,9 @@ require('cokeline').setup({
     },
     {
       text = function(buffer)
-        if buffer.lsp.errors ~= 0 then
-          -- return '[E:' .. buffer.lsp.errors .. ']'
-          return buffer.lsp.errors .. ' '
+        if buffer.diagnostics.errors ~= 0 then
+          -- return '[E:' .. buffer.diagnostics.errors .. ']'
+          return buffer.diagnostics.errors .. ' '
         end
         return ''
       end,
@@ -102,9 +113,9 @@ require('cokeline').setup({
     },
     {
       text = function(buffer)
-        if buffer.lsp.warnings ~= 0 then
-          -- return '[W:' .. buffer.lsp.warnings .. ']'
-          return buffer.lsp.warnings .. ' '
+        if buffer.diagnostics.warnings ~= 0 then
+          -- return '[W:' .. buffer.diagnostics.warnings .. ']'
+          return buffer.diagnostics.warnings .. ' '
         end
         return ''
       end,
@@ -118,9 +129,9 @@ require('cokeline').setup({
     },
     {
       text = function(buffer)
-        if buffer.lsp.hints ~= 0 then
-          -- return '[H:' .. buffer.lsp.hints .. ']'
-          return buffer.lsp.hints .. ' '
+        if buffer.diagnostics.hints ~= 0 then
+          -- return '[H:' .. buffer.diagnostics.hints .. ']'
+          return buffer.diagnostics.hints .. ' '
         end
         return ''
       end,
@@ -134,9 +145,9 @@ require('cokeline').setup({
     },
     {
       text = function(buffer)
-        if buffer.lsp.infos ~= 0 then
-          -- return '[I:' .. buffer.lsp.infos .. ']'
-          return buffer.lsp.infos .. ' '
+        if buffer.diagnostics.infos ~= 0 then
+          -- return '[I:' .. buffer.diagnostics.infos .. ']'
+          return buffer.diagnostics.infos .. ' '
         end
         return ''
       end,

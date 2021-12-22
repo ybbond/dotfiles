@@ -27,15 +27,17 @@ lspconfig.tsserver.setup {
   end,
 }
 
-null_ls.config({
+null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.code_actions.eslint_d,
     null_ls.builtins.formatting.eslint_d,
+    null_ls.builtins.diagnostics.eslint_d,
   },
+  on_attach = ybbond_lsp_on_attach,
 })
 
-lspconfig["null-ls"].setup {
-  autostart = true,
-  on_attach = ybbond_lsp_on_attach
-}
+-- lspconfig["null-ls"].setup {
+--   autostart = true,
+--   on_attach = ybbond_lsp_on_attach
+-- }

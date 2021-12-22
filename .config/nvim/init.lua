@@ -17,8 +17,6 @@ vim.cmd('filetype plugin indent on')
 vim.o.paste = false
 vim.o.pastetoggle = '<F2>'
 
-vim.o.hidden = true
-
 -- used by which-key.nvim
 vim.o.timeoutlen = 100
 
@@ -126,9 +124,6 @@ noremap '<A-l>' '<C-w>>'
 nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
 nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]]
 
--- why does vim's Y behavior different?
-nnoremap 'Y' 'y$'
-
 -- copy, paste and copy whole file to clipboard
 map '<LEADER>cs'   '"+y' ({})
 map '<LEADER>v'    ':r !pbpaste<CR><CR>' ({})
@@ -157,6 +152,21 @@ inoremap '<C-c>' '<ESC>'
 
 -- <C-R><C-W> command line mode, insert word under cursor
 
+
+------------------------------------------------------------
+--                       COMPAT
+------------------------------------------------------------
+
+
+-- nvim 0.6.0
+if vim.inspect(vim.version().minor) == '5' then
+  vim.o.hidden = true
+
+  -- why does vim's Y behavior different?
+  nnoremap 'Y' 'y$'
+end
+
+
 ------------------------------------------------------------
 --                       RESOURCES
 ------------------------------------------------------------
@@ -178,10 +188,10 @@ require'ybbond-compat'
 nnoremap 'gx' '<CMD>Bdelete<CR>'
 
 -- cokeline
-nnoremap 'gb' '<CMD>lua require("cokeline").focus({step = 1})<CR>'
-nnoremap 'gB' '<CMD>lua require("cokeline").focus({step = -1})<CR>'
-nnoremap 'g>' '<CMD>lua require("cokeline").switch({step = 1})<CR>'
-nnoremap 'g<' '<CMD>lua require("cokeline").switch({step = -1})<CR>'
+nmap 'gb' '<Plug>(cokeline-focus-next)' ({})
+nmap 'gB' '<Plug>(cokeline-focus-prev)' ({})
+nmap 'g>' '<Plug>(cokeline-switch-next)' ({})
+nmap 'g<' '<Plug>(cokeline-switch-prev)' ({})
 
 -- nvim-tree.lua
 nnoremap '<LEADER>e' '<CMD>NvimTreeToggle<CR>'
@@ -202,8 +212,8 @@ nnoremap '<C-t><C-h>'        [[<CMD>Telescope help_tags<CR>]]
 nnoremap '<C-t><C-m>'        [[<CMD>Telescope marks<CR>]]
 nnoremap '<C-t><C-a>'        [[<CMD>Telescope commands<CR>]]
 
-nnoremap '<C-t><C-w>'        [[<CMD>Telescope lsp_workspace_diagnostics<CR>]]
-nnoremap '<C-t><C-d>'        [[<CMD>Telescope lsp_document_diagnostics<CR>]]
+nnoremap '<C-t><C-w>'        [[<CMD>Telescope diagnostics<CR>]]
+nnoremap '<C-t><C-d>'        [[<CMD>Telescope diagnostics bufnr=0<CR>]]
 
 nnoremap '<C-t><C-t>'        [[<CMD>Telescope yabs current_language_tasks<CR>]]
 
@@ -218,19 +228,19 @@ nnoremap '<LEADER>go' '<CMD>GBrowse<CR>'
 noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
 
 -- vim-sneak
-nmap 'f' '<Plug>Sneak_f' ({})
-nmap 'F' '<Plug>Sneak_F' ({})
-nmap 't' '<Plug>Sneak_t' ({})
-nmap 'T' '<Plug>Sneak_T' ({})
+-- nmap 'f' '<Plug>Sneak_f' ({})
+-- nmap 'F' '<Plug>Sneak_F' ({})
+-- nmap 't' '<Plug>Sneak_t' ({})
+-- nmap 'T' '<Plug>Sneak_T' ({})
 
--- trouble.nvim
-nnoremap '<LEADER>xx' '<CMD>Trouble<CR>'
-nnoremap '<LEADER>xw' '<CMD>Trouble lsp_workspace_diagnostics<CR>'
-nnoremap '<LEADER>xd' '<CMD>Trouble lsp_document_diagnostics<CR>'
-nnoremap '<LEADER>xl' '<CMD>Trouble loclist<CR>'
-nnoremap '<LEADER>xq' '<CMD>Trouble quickfix<CR>'
---nnoremap '<LEADER>xr' '<cmd>Trouble lsp_references<cr>'
-nnoremap '<LEADER>xr' '<CMD>TroubleRefresh<CR>'
+-- -- trouble.nvim
+-- nnoremap '<LEADER>xx' '<CMD>Trouble<CR>'
+-- nnoremap '<LEADER>xw' '<CMD>Trouble workspace_diagnostics<CR>'
+-- nnoremap '<LEADER>xd' '<CMD>Trouble document_diagnostics<CR>'
+-- nnoremap '<LEADER>xl' '<CMD>Trouble loclist<CR>'
+-- nnoremap '<LEADER>xq' '<CMD>Trouble quickfix<CR>'
+-- --nnoremap '<LEADER>xr' '<cmd>Trouble lsp_references<cr>'
+-- nnoremap '<LEADER>xr' '<CMD>TroubleRefresh<CR>'
 
 -- nvim-dap
 nnoremap '<LEADER>db' '<CMD>lua require"dap".toggle_breakpoint()<CR>'
