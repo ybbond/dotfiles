@@ -233,15 +233,6 @@ noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
 -- nmap 't' '<Plug>Sneak_t' ({})
 -- nmap 'T' '<Plug>Sneak_T' ({})
 
--- -- trouble.nvim
--- nnoremap '<LEADER>xx' '<CMD>Trouble<CR>'
--- nnoremap '<LEADER>xw' '<CMD>Trouble workspace_diagnostics<CR>'
--- nnoremap '<LEADER>xd' '<CMD>Trouble document_diagnostics<CR>'
--- nnoremap '<LEADER>xl' '<CMD>Trouble loclist<CR>'
--- nnoremap '<LEADER>xq' '<CMD>Trouble quickfix<CR>'
--- --nnoremap '<LEADER>xr' '<cmd>Trouble lsp_references<cr>'
--- nnoremap '<LEADER>xr' '<CMD>TroubleRefresh<CR>'
-
 -- nvim-dap
 nnoremap '<LEADER>db' '<CMD>lua require"dap".toggle_breakpoint()<CR>'
 nnoremap '<LEADER>dc' '<CMD>lua require"dap".continue()<CR>'

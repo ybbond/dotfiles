@@ -84,12 +84,6 @@ return require('packer').startup(function(use)
     -- requires = {'nvim-treesitter/nvim-treesitter', 'numToStr/Comment.nvim'},
   }
 
-  -- use {
-  --   'folke/trouble.nvim',
-  --   requires = 'kyazdani42/nvim-web-devicons',
-  --   config = function() require'configs/trouble-nvim' end
-  -- }
-
   use { 'hrsh7th/vim-vsnip' }
   -- use { 'dcampos/nvim-snippy' }
   use {

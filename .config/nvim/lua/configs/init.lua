@@ -12,7 +12,6 @@
 -- require('plenary.reload').reload_module('configs/nvim-tree')
 -- require('plenary.reload').reload_module('configs/nvim-treesitter')
 -- require('plenary.reload').reload_module('configs/telescope')
--- require('plenary.reload').reload_module('configs/trouble-nvim')
 -- require('plenary.reload').reload_module('configs/which-key')
 -- require('plenary.reload').reload_module('configs/yabs-nvim')
 
@@ -30,7 +29,6 @@
 -- require('configs/nvim-tree')
 -- require('configs/nvim-treesitter')
 -- require('configs/telescope')
--- require('configs/trouble-nvim')
 -- require('configs/which-key')
 -- require('configs/yabs-nvim')
 
