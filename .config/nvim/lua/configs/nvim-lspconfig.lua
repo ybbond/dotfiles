@@ -1,14 +1,6 @@
 local lspconfig = require('lspconfig')
 local lspconfig_util = require('lspconfig.util')
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  require('lsp_extensions.workspace.diagnostic').handler, {
-    -- signs = {
-    --   severity_limit = "Error",
-    -- }
-  }
-)
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local ybbond_lsp_on_attach = function(client, bufnr)

@@ -19,9 +19,16 @@ local colors = {
 
 local components = require('feline.presets')['noicon']
 
+local diag_severity = vim.diagnostic.severity
+
 local function diagnostics(severity)
   local count = require'feline.providers.lsp'.get_diagnostics_count(severity)
   return count ~= 0 and tostring(count) or ''
+end
+
+local function workspace_diag(severity)
+  local count = vim.diagnostic.get(nil, {severity = severity})
+  return vim.tbl_count(count)
 end
 
 components.active[1] = {
@@ -102,36 +109,36 @@ components.active[1] = {
     left_sep = '',
     right_sep = '',
     enabled = function()
-      return diagnostics('Error') ~= ''
-          or diagnostics('Warning') ~= ''
-          or diagnostics('Hint') ~= ''
-          or diagnostics('Information') ~= ''
+      return diagnostics(diag_severity.ERROR) ~= ''
+          or diagnostics(diag_severity.WARN) ~= ''
+          or diagnostics(diag_severity.INFO) ~= ''
+          or diagnostics(diag_severity.HINT) ~= ''
     end,
   },
 
   {
-    provider = function() return diagnostics('Error') .. '' end,
+    provider = function() return diagnostics(diag_severity.ERROR) .. '' end,
     hl = { fg = colors.red, bg = 'NONE' },
     icon = '',
-    enabled = function() return diagnostics('Error') ~= '' end,
+    enabled = function() return diagnostics(diag_severity.ERROR) ~= '' end,
   },
   {
-    provider = function() return diagnostics('Warning') .. '' end,
+    provider = function() return diagnostics(diag_severity.WARN) .. '' end,
     hl = { fg = colors.yellow, bg = 'NONE' },
     icon = '',
-    enabled = function() return diagnostics('Warning') ~= '' end,
+    enabled = function() return diagnostics(diag_severity.WARN) ~= '' end,
   },
   {
-    provider = function() return diagnostics('Hint') .. '' end,
+    provider = function() return diagnostics(diag_severity.HINT) .. '' end,
     hl = { fg = colors.skyblue, bg = 'NONE' },
     icon = '',
-    enabled = function() return diagnostics('Hint') ~= '' end,
+    enabled = function() return diagnostics(diag_severity.HINT) ~= '' end,
   },
   {
-    provider = function() return diagnostics('Information') .. '' end,
+    provider = function() return diagnostics(diag_severity.INFO) .. '' end,
     hl = { fg = colors.cyan, bg = 'NONE' },
     icon = '',
-    enabled = function() return diagnostics('Information') ~= '' end,
+    enabled = function() return diagnostics(diag_severity.INFO) ~= '' end,
   },
 
   {
@@ -143,10 +150,10 @@ components.active[1] = {
     left_sep = '',
     right_sep = ' ',
     enabled = function()
-      return diagnostics('Error') ~= ''
-          or diagnostics('Warning') ~= ''
-          or diagnostics('Hint') ~= ''
-          or diagnostics('Information') ~= ''
+      return diagnostics(diag_severity.ERROR) ~= ''
+          or diagnostics(diag_severity.WARN) ~= ''
+          or diagnostics(diag_severity.INFO) ~= ''
+          or diagnostics(diag_severity.HINT) ~= ''
     end,
   },
 
@@ -159,10 +166,10 @@ components.active[1] = {
     left_sep = '',
     right_sep = '',
     enabled = function()
-      local ws_errors = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Error')
-      local ws_warnings = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Warning')
-      local ws_hints = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Hint')
-      local ws_infos = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Information')
+      local ws_errors = workspace_diag(diag_severity.ERROR)
+      local ws_warnings = workspace_diag(diag_severity.WARN)
+      local ws_hints = workspace_diag(diag_severity.HINT)
+      local ws_infos = workspace_diag(diag_severity.INFO)
       return ws_errors ~= 0
           or ws_warnings ~= 0
           or ws_hints ~= 0
@@ -172,7 +179,7 @@ components.active[1] = {
 
   {
     provider = function()
-      local ws_errors = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Error')
+      local ws_errors = workspace_diag(diag_severity.ERROR)
       return ws_errors ~= 0
         and ''..ws_errors..''
          or ''
@@ -181,7 +188,7 @@ components.active[1] = {
   },
   {
     provider = function()
-      local ws_warnings = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Warning')
+      local ws_warnings = workspace_diag(diag_severity.WARN)
       return ws_warnings ~= 0
         and ''..ws_warnings..''
          or ''
@@ -190,7 +197,7 @@ components.active[1] = {
   },
   {
     provider = function()
-      local ws_hints = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Hint')
+      local ws_hints = workspace_diag(diag_severity.HINT)
       return ws_hints ~= 0
         and ''..ws_hints..''
          or ''
@@ -199,7 +206,7 @@ components.active[1] = {
   },
   {
     provider = function()
-      local ws_infos = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Information')
+      local ws_infos = workspace_diag(diag_severity.INFO)
       return ws_infos ~= 0
         and ''..ws_infos..''
          or ''
@@ -216,10 +223,10 @@ components.active[1] = {
     left_sep = '',
     right_sep = '',
     enabled = function()
-      local ws_errors = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Error')
-      local ws_warnings = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Warning')
-      local ws_hints = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Hint')
-      local ws_infos = require('lsp_extensions.workspace.diagnostic').get_count(0, 'Information')
+      local ws_errors = workspace_diag(diag_severity.ERROR)
+      local ws_warnings = workspace_diag(diag_severity.WARN)
+      local ws_hints = workspace_diag(diag_severity.HINT)
+      local ws_infos = workspace_diag(diag_severity.INFO)
       return ws_errors ~= 0
           or ws_warnings ~= 0
           or ws_hints ~= 0
