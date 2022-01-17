@@ -178,21 +178,6 @@ return require('packer').startup(function(use)
       require('dependency_assist').setup()
     end
   }
-  -- use {
-  --   'akinsho/pubspec-assist.nvim',
-  --   requires = 'plenary.nvim',
-  --   rocks = {
-  --     'semver',
-  --     {
-  --       'lyaml',
-  --       server = 'http://rocks.moonscript.org',
-  --       env = { YAML_DIR = '/opt/homebrew/Cellar/libyaml/0.2.5/' },
-  --     },
-  --   },
-  --   config = function()
-  --     require('pubspec-assist').setup()
-  --   end,
-  -- }
 
   use {
     'jose-elias-alvarez/nvim-lsp-ts-utils',
