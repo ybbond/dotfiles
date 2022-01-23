@@ -180,12 +180,6 @@ return require('packer').startup(function(use)
   }
 
   use {
-    'jose-elias-alvarez/nvim-lsp-ts-utils',
-    requires = 'jose-elias-alvarez/null-ls.nvim',
-    config = function() require'configs/nvim-lsp-ts-utils' end,
-  }
-
-  use {
     'ggandor/lightspeed.nvim',
     config = function () require'lightspeed'.setup {} end
   }

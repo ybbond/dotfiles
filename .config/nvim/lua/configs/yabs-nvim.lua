@@ -69,5 +69,21 @@ yabs:setup {
         },
       },
     },
+    typescript = {
+      tasks = {
+        run = {
+          command = "yarn dev",
+          output = "terminal",
+        },
+      },
+    },
+    typescriptreact = {
+      tasks = {
+        run = {
+          command = "yarn dev",
+          output = "terminal",
+        },
+      },
+    },
   },
 }

@@ -36,17 +36,35 @@ local ybbond_lsp_on_attach = function(client, bufnr)
   -- buf_set_keymap("n", "<space>f", "<CMD>lua vim.lsp.buf.formatting()<CR>", opts)
 end
 
--- lspconfig.tsserver.setup {
---   on_attach = ybbond_lsp_on_attach,
--- }
--- lspconfig.eslint.setup {
---   on_attach = function(client, bufnr)
---     ybbond_lsp_on_attach(client, bufnr)
---     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LEADER>f', '<CMD>EslintFixAll<CR>', { noremap = true, silent = true })
---   end
--- }
+local ybbond_lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+ybbond_lsp_capabilities = require'cmp_nvim_lsp'.update_capabilities(ybbond_lsp_capabilities)
+
+lspconfig.tsserver.setup {
+  capabilities = ybbond_lsp_capabilities,
+  on_attach = ybbond_lsp_on_attach,
+}
+lspconfig.eslint.setup {
+  capabilities = ybbond_lsp_capabilities,
+  on_attach = function(client, bufnr)
+    ybbond_lsp_on_attach(client, bufnr)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LEADER>f', '<CMD>EslintFixAll<CR>', { noremap = true, silent = true })
+  end,
+  -- https://neovim.discourse.group/t/supressing-eslint-ls-errors/1687/4
+  handlers = {
+    ['window/showMessageRequest'] = function(_, result, __) return result end
+  },
+  settings = {
+    packageManager = 'yarn',
+    format = true,
+    codeActionOnSave = {
+      enable = false,
+      mode = "all"
+    },
+  },
+}
 
 lspconfig.clangd.setup{
+  capabilities = ybbond_lsp_capabilities,
   filetypes = { 'c', 'cpp' },
   cmd = {
     -- "clangd",
@@ -65,10 +83,12 @@ lspconfig.clangd.setup{
 }
 
 lspconfig.gopls.setup{
+  capabilities = ybbond_lsp_capabilities,
   on_attach = ybbond_lsp_on_attach,
 }
 
 lspconfig.zls.setup{
+  capabilities = ybbond_lsp_capabilities,
   cmd = {
     os.getenv('HOME').."/poss/zls/zig-out/bin/zls",
   },
@@ -76,6 +96,7 @@ lspconfig.zls.setup{
 }
 
 lspconfig.sourcekit.setup{
+  capabilities = ybbond_lsp_capabilities,
   filetypes = { 'swift', 'objc', 'objcpp', 'objective-c', 'objective-cpp' },
   on_attach = ybbond_lsp_on_attach,
   -- root_dir = lspconfig_util.root_pattern("compile_commands.json", "compile_flags.txt", ".git") or lspconfig_util.path.dirname
@@ -83,6 +104,7 @@ lspconfig.sourcekit.setup{
 }
 
 require'lspconfig'.clojure_lsp.setup{
+  capabilities = ybbond_lsp_capabilities,
   on_attach = ybbond_lsp_on_attach
 }
 
@@ -94,6 +116,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 lspconfig.sumneko_lua.setup{
+  capabilities = ybbond_lsp_capabilities,
   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
   on_attach = ybbond_lsp_on_attach,
   filetypes = { "lua" },
