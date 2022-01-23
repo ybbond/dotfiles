@@ -291,8 +291,8 @@ export TERM=xterm-256color
 # export BAT_THEME="GitHub"
 export BAT_THEME="Coldark-Dark"
 
-export PATH="$HOME/.tool_binaries/zulu17.30.15-ca-jdk17.0.1-macosx_aarch64/zulu-17.jdk/Contents/Home:$PATH"
-export JAVA_HOME="$HOME/.tool_binaries/zulu17.30.15-ca-jdk17.0.1-macosx_aarch64/zulu-17.jdk/Contents/Home"
+export PATH="$HOME/.tool_binaries/zulu17.32.13-ca-fx-jdk17.0.2-macosx_aarch64/zulu-17.jdk/Contents/Home:$PATH"
+export JAVA_HOME="$HOME/.tool_binaries/zulu17.32.13-ca-fx-jdk17.0.2-macosx_aarch64/zulu-17.jdk/Contents/Home"
 
 export PATH="$PATH:$HOME/fvm/default/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
