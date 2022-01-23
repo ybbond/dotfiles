@@ -14,7 +14,6 @@ cmp.setup{
     {name = 'nvim_lsp'},
     {name = 'nvim_lua'},
     {name = 'vsnip'},
-    -- {name = 'snippy'},
     {name = 'calc'},
     {name = 'path'},
     {name = 'buffer'},
@@ -27,7 +26,6 @@ cmp.setup{
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         vsnip = "[vsnip]",
-        -- snippy = "[snippy]",
         calc = "[Calc]",
         path = "[Path]",
         buffer = "[Buffer]",
@@ -39,7 +37,6 @@ cmp.setup{
   snippet = {
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body)
-      -- require'snippy'.expand_snippet(args.body)
     end,
   },
   completion = {

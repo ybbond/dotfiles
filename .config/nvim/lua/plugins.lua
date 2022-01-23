@@ -81,7 +81,6 @@ return require('packer').startup(function(use)
   }
 
   use { 'hrsh7th/vim-vsnip' }
-  -- use { 'dcampos/nvim-snippy' }
   use {
     'hrsh7th/nvim-cmp',
     requires = {
@@ -91,7 +90,6 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-vsnip',
-      -- 'dcampos/cmp-snippy',
       {
         'petertriho/cmp-git',
         requires = 'nvim-lua/plenary.nvim',
@@ -165,7 +163,10 @@ return require('packer').startup(function(use)
              end
   }
 
-  -- Flutter development, with dart-vim-plugin and flutter-tools.nvim
+  use {
+    'guns/vim-sexp',
+  }
+
   use '~/poss/dart-vim-plugin'
   use {
     'akinsho/flutter-tools.nvim',

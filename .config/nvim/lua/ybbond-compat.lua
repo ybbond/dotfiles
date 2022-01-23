@@ -4,9 +4,12 @@
 
 local au = require'au'
 
-au.TextYankPost = function()
-  vim.highlight.on_yank({ timeout = 400 })
-end
+au({'TextYankPost'}, {
+  '*',
+  function()
+    vim.highlight.on_yank({ timeout = 400 })
+  end
+})
 
 au({'BufNewFile', 'BufRead'}, {
   '*.c,*.cpp,*.cc,*.h,*.py',
