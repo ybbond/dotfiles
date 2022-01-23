@@ -10,32 +10,36 @@ require('gitsigns').setup {
   signcolumn = false,
   numhl = true,
   linehl = false,
-  keymaps = {
-    -- Default keymap options
-    noremap = true,
-    buffer = true,
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
 
-    ['n ]c']                    = { expr = true, [[&diff ? ']c' : '<cmd>lua require"gitsigns.actions".next_hunk()<CR>']]},
-    ['n [c']                    = { expr = true, [[&diff ? '[c' : '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>']]},
-    ['n ]g']                    = { expr = true, [[&diff ? ']c' : '<cmd>lua require"gitsigns.actions".next_hunk()<CR>']]},
-    ['n [g']                    = { expr = true, [[&diff ? '[c' : '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>']]},
-    ['n <C-g><C-]>']            = { expr = true, [[&diff ? ']c' : '<cmd>lua require"gitsigns.actions".next_hunk()<CR>']]},
-    ['n <C-g><C-[>']            = { expr = true, [[&diff ? '[c' : '<cmd>lua require"gitsigns.actions".prev_hunk()<CR>']]},
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      opts.noremap = true
+      opts.silent = true
+      vim.keymap.set(mode, l, r, opts)
+    end
 
-    ['n <C-g><C-s>']            = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    ['v <LEADER>gs']            = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <C-g><C-u>']            = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    ['n <C-g><C-r><C-h>']       = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-    ['v <LEADER>gr']            = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    ['n <C-g><C-r><C-b>']       = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-    ['n <C-g><C-p>']            = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ['n <C-g><C-b>']            = '<cmd>lua require"gitsigns".blame_line({full=true})<CR>',
-    ['n <C-g><C-\\><C-b>']      = '<cmd>lua require"gitsigns".blame_line({full=true, ignore_whitespace=true})<CR>',
+    map('n', ']c',         [[&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>']],         ({expr = true}))
+    map('n', '[c',         [[&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>']],         ({expr = true}))
+    map('n', ']g',         [[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']],         ({expr = true}))
+    map('n', '[g',         [[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']],         ({expr = true}))
+    map('n', '<C-g><C-]>', [[&diff ? '<C-g><C-]>' : '<cmd>Gitsigns next_hunk<CR>']], ({expr = true}))
+    map('n', '<C-g><C-[>', [[&diff ? '<C-g><C-[>' : '<cmd>Gitsigns prev_hunk<CR>']], ({expr = true}))
 
-    -- Text objects
-    ['o ih']              = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
-    ['x ih']              = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
-  },
+    map('n', '<C-g><C-s>',        gs.stage_hunk)
+    map('v', '<LEADER>gs',        gs.stage_hunk)
+    map('n', '<C-g><C-u>',        gs.undo_stage_hunk)
+    map('n', '<C-g><C-r><C-h>',   gs.reset_hunk)
+    map('v', '<LEADER>gr',        gs.reset_hunk)
+    map('n', '<C-g><C-r><C-b>',   gs.reset_buffer)
+    map('n', '<C-g><C-p>',        gs.preview_hunk)
+    map('n', '<C-g><C-b>',        function() gs.blame_line{full=true} end)
+    map('n', '<C-g><C-\\><C-b>',  function() gs.blame_line{full=true, ignore_whitespace=true} end)
+
+    map({'o', 'x'}, 'ih',                ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>')
+  end,
   watch_gitdir = {
     interval = 1000,
     follow_files = true
