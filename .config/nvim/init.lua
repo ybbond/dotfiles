@@ -181,7 +181,11 @@ nmap 'g<' '<Plug>(cokeline-switch-prev)' ({})
 
 -- nvim-tree.lua
 nnoremap '<LEADER>e' '<CMD>NvimTreeToggle<CR>'
-nnoremap '<LEADER>r' '<CMD>NvimTreeFindFile<CR>'
+nnoremap '<LEADER>r' '<CMD>NvimTreeToggle<CR>'
+nnoremap '<C-s><C-b>' '<CMD>NvimTreeToggle<CR>'
+nnoremap '<C-s>b'     '<CMD>NvimTreeToggle<CR>'
+nnoremap '<C-s><C-f>'  '<CMD>NvimTreeFindFile<CR>'
+nnoremap '<C-s>f'     '<CMD>NvimTreeFindFile<CR>'
 
 -- telescope.nvim
 nnoremap '<C-t><C-p>'        [[<CMD>lua require("telescope.builtin").find_files({ find_command={"fd","-E=.git","--hidden","-t=f"}}) hidden=true<CR>]]
