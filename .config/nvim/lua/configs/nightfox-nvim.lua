@@ -1,5 +1,6 @@
 require('nightfox').setup({
   fox = "nordfox",
+  transparent = false,
   styles = {
     comments = 'italic',
     strings = 'italic',

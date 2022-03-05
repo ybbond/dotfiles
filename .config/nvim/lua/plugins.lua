@@ -31,6 +31,10 @@ return require('packer').startup(function(use)
     requires = 'nvim-lua/lsp-status.nvim',
     config = function() require'configs/nvim-lspconfig' end,
   }
+  use {
+    'j-hui/fidget.nvim',
+    config = function() require'fidget'.setup{} end,
+  }
 
   use {
     'pianocomposer321/yabs.nvim',

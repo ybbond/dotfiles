@@ -78,8 +78,8 @@ cmp.setup{
       -- vim.api.nvim_feedkeys('<CR>', 'n', true)
     end,
   },
-  experimental = {
-    native_menu = true,
+  view = {
+    entries = "native",
   },
 }
 
