@@ -166,6 +166,12 @@ return require('packer').startup(function(use)
   use {
     'guns/vim-sexp',
   }
+  use 'tpope/vim-dispatch'
+  use 'clojure-vim/vim-jack-in'
+  use 'radenling/vim-dispatch-neovim'
+  use {
+    'Olical/conjure',
+  }
 
   use '~/poss/dart-vim-plugin'
   use {
