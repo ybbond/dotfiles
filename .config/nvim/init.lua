@@ -33,6 +33,8 @@ vim.o.listchars = [[tab:> ,trail:-,nbsp:+]]
 -- vim.o.showbreak = [[↪\ ]]
 -- vim.o.listchars = [[tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨]]
 
+vim.o.laststatus = 3
+
 vim.o.mouse = 'n'
 vim.o.showmode = false
 
