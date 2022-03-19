@@ -164,6 +164,7 @@ inoremap '<C-c>' '<ESC>'
 
 require'plugins'
 require'ybbond-compat'
+require'autos'
 
 
 ------------------------------------------------------------
@@ -227,3 +228,5 @@ nnoremap '<LEADER>duc' '<CMD>lua require("dapui").close()<CR>'
 nnoremap '<LEADER>dut' '<CMD>lua require("dapui").toggle()<CR>'
 nnoremap '<LEADER>due' '<CMD>lua require("dapui").eval()<CR>'
 vnoremap '<LEADER>due' '<CMD>lua require("dapui").eval()<CR>'
+
+vim.cmd[[colorscheme nordfox]]

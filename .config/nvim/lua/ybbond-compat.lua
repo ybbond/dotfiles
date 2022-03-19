@@ -2,82 +2,15 @@
 --                    COMPATIBILITIES
 ------------------------------------------------------------
 
-vim.api.nvim_create_autocmd(
-  'TextYankPost',
-  {
-    callback = function()
-      vim.highlight.on_yank({ timeout = 400 })
-    end,
-  }
-)
-
-vim.api.nvim_create_autocmd(
-  {'BufNewFile', 'BufRead'},
-  {
-    pattern = '*.c,*.cpp,*.cc,*.h,*.py',
-    callback = function()
-      vim.bo.tabstop = 4
-      vim.bo.shiftwidth = 4
-      vim.bo.expandtab = false
-    end,
-  }
-)
-
-vim.api.nvim_create_autocmd(
-  {'BufNewFile', 'BufRead'},
-  {
-    pattern = '*.md,*.mmd,*.txt,*.markdown,*.multimarkdown',
-    callback = function()
-      vim.wo.wrap = true
-    end
-  }
-)
-
-vim.api.nvim_create_autocmd(
-  'FileType',
-  {
-    pattern = 'qf',
-    callback = function()
-      vim.api.nvim_buf_set_keymap(0, 'n', 'q', '<CMD>cclose<CR>', {noremap = true})
-    end,
-  }
-)
-
 vim.api.nvim_exec(
 [[
 fun! YbbondOtherSetups()
-  augroup numbertoggle
-    if &number == 1
-      autocmd!
-      autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-      autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-    endif
-  augroup end
-
   cnoremap <C-a>   <Home>
   cnoremap <C-e>   <End>
   cnoremap <C-b>   <Left>
   cnoremap <C-f>   <Right>
   cnoremap <C-A-b> <S-Left>
   cnoremap <C-A-f> <S-Right>
-
-  function! ToggleNumberToggle(numberVar)
-    " Reset group
-    augroup numbertoggle
-      autocmd!
-    augroup end
-
-    " Enable if toggled on
-    if a:numberVar
-      augroup numbertoggle
-        if &number == 1
-          autocmd!
-          autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-          autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-        endif
-      augroup end
-    endif
-  endfunction
 
   " change cursor in different mode
   " if has('nvim')
