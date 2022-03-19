@@ -1,11 +1,18 @@
 require'nvim-tree'.open_on_directory = function () end
 
 require'nvim-tree'.setup {
-  nvim_tree_quit_on_open = 0,
-  disable_netrw = false,
-  hijack_netrw = true,
+  actions = {
+    open_file = {
+      quit_on_open = false,
+    },
+  },
+  hijack_directories = {
+    enable = false,
+    auto_open = false,
+  },
   diagnostics = {
     enable = true,
+    show_on_dirs = true,
   },
   update_focused_file = {
     enable = true,
