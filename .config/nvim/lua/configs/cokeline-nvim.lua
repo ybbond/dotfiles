@@ -37,63 +37,57 @@ require('cokeline').setup({
   },
 
   default_hl = {
-    focused = {
-      fg = '#000000',
-      bg = '#ffffff',
-    },
-    unfocused = {
-      fg = '#ffffff',
-      bg = '#3b4252',
-    },
+    fg = function (buffer)
+      return
+        buffer.is_focused
+        and '#000000'
+         or '#ffffff'
+    end,
+    bg = function (buffer)
+      return
+        buffer.is_focused
+        and '#ffffff'
+         or '#000000'
+    end,
   },
 
   components = {
     {
       text = function(buffer) return ' ' .. buffer.devicon.icon end,
-      hl = {
-        fg = function(buffer) return buffer.devicon.color end,
-      },
+      fg = function(buffer) return buffer.devicon.color end,
     },
     {
       text = function(buffer) return ' ' .. buffer.index .. ': ' end,
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and '#000000'
-             or '#ffffff'
-        end,
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and '#000000'
+           or '#ffffff'
+      end,
     },
     {
       text = function(buffer) return buffer.unique_prefix end,
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and '#4c4c4c'
-             or '#acb8ca'
-        end,
-        style = 'italic',
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and '#4c4c4c'
+           or '#acb8ca'
+      end,
+      style = 'italic',
     },
     {
       text = function(buffer) return buffer.filename end,
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and '#000000'
-             or '#ffffff'
-        end,
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and '#000000'
+           or '#ffffff'
+      end,
     },
     {
       text = ' ',
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and '#000000'
-             or '#ffffff'
-        end,
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and '#000000'
+           or '#ffffff'
+      end,
     },
     {
       text = function(buffer)
@@ -103,13 +97,11 @@ require('cokeline').setup({
         end
         return ''
       end,
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and colors.red_dark
-             or colors.red
-        end,
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and colors.red_dark
+           or colors.red
+      end,
     },
     {
       text = function(buffer)
@@ -119,13 +111,11 @@ require('cokeline').setup({
         end
         return ''
       end,
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and colors.yellow_dark
-             or colors.yellow
-        end,
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and colors.yellow_dark
+           or colors.yellow
+      end,
     },
     {
       text = function(buffer)
@@ -135,13 +125,11 @@ require('cokeline').setup({
         end
         return ''
       end,
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and colors.blue_dark
-             or colors.skyblue
-        end,
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and colors.blue_dark
+           or colors.skyblue
+      end,
     },
     {
       text = function(buffer)
@@ -151,13 +139,11 @@ require('cokeline').setup({
         end
         return ''
       end,
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and colors.teal
-             or colors.cyan
-        end,
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and colors.teal
+           or colors.cyan
+      end,
     },
     {
       text = function(buffer)
@@ -165,19 +151,17 @@ require('cokeline').setup({
           and '●'
            or ''
       end,
-      hl = {
-        fg = function(buffer)
-          local focused_color = buffer.is_modified
-            and colors.green_dark
-             or '#000000'
-          local not_focused_color = buffer.is_modified
-            and colors.green
-             or '#ffffff'
-          return buffer.is_focused
-            and focused_color
-             or not_focused_color
-        end,
-      },
+      fg = function(buffer)
+        local focused_color = buffer.is_modified
+          and colors.green_dark
+           or '#000000'
+        local not_focused_color = buffer.is_modified
+          and colors.green
+           or '#ffffff'
+        return buffer.is_focused
+          and focused_color
+           or not_focused_color
+      end,
       delete_buffer_on_left_click = function(buffer)
         return buffer.is_modified
           and false
@@ -186,13 +170,11 @@ require('cokeline').setup({
     },
     {
       text = ' ',
-      hl = {
-        fg = function(buffer)
-          return buffer.is_focused
-            and '#000000'
-             or '#ffffff'
-        end,
-      },
+      fg = function(buffer)
+        return buffer.is_focused
+          and '#000000'
+           or '#ffffff'
+      end,
     },
   },
 })
