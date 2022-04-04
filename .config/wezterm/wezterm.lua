@@ -3,8 +3,29 @@ local wezterm = require('wezterm')
 
 return {
   color_scheme = 'nord',
-  font = wezterm.font('JetBrainsMono Nerd Font Mono'),
+  font = wezterm.font('JetBrains Mono'),
+  -- font = wezterm.font('JetBrainsMono Nerd Font Mono'),
 
+  colors = {
+    tab_bar = {
+      active_tab = {
+        -- bg_color = '#2d3441',
+        bg_color = '#2e3440',
+        fg_color = '#ffffff',
+      },
+      inactive_tab = {
+        bg_color = '#111222',
+        fg_color = '#ffffff',
+      },
+    },
+  },
+  window_frame = {
+    font = wezterm.font({ family = "Roboto" }),
+    font_size = 12.0,
+    active_titlebar_bg = "#111111",
+    inactive_titlebar_bg = "#111111",
+    inactive_tab_edge = "#575757",
+  },
   -- window_frame = {
   --   font = wezterm.font({ family = "Roboto", weight = "Bold" }),
   --   font_size = 12.0,
@@ -24,6 +45,11 @@ return {
   },
 
   exit_behavior = "Close",
+
+  keys = {
+    {key="[",mods="SUPER|SHIFT",action=wezterm.action{MoveTabRelative=-1}},
+    {key="]",mods="SUPER|SHIFT",action=wezterm.action{MoveTabRelative=1}},
+  },
 
   -- emacs keybindings
   -- https://github.com/wez/wezterm/discussions/808
