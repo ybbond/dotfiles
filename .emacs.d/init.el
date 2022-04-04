@@ -40,8 +40,10 @@
   :bind
   (:map projectile-mode-map
         ("s-p" . projectile-command-map))
+  ;; (("s-p l" . projectile--find-file))
   :config
-  (setq projectile-project-search-path '("~/pbond/"))
+  ;; (unbind-key "s-p l" projectile-mode-map)
+  ;; (setq projectile-project-search-path '("~/pbond/"))
   (setq projectile-completion-system 'ivy))
 
 ;; https://github.com/DiegoVicen/my-emacs#fill-the-exec-path-variable
@@ -123,6 +125,30 @@
          (cider-mode . cider-company-enable-fuzzy-completion)
          (cider-repl-mode . cider-company-enable-fuzzy-completion)))
 
+(use-package lsp-dart
+  :ensure t
+  :demand t
+  ;; :init
+  ;; (dap-register-debug-template "Staging No Sound Null Safety"
+  ;;                              (list
+  ;;                               :args '(
+  ;;                                       "--flavor=staging"
+  ;;                                       "--no-sound-null-safety"
+  ;;                                       )))
+  :config
+  (setq lsp-dart-sdk-dir "/Users/yohanesbandung/fvm/versions/2.5.0/bin/cache/dart-sdk/")
+  (setq lsp-dart-flutter-sdk-dir "/Users/yohanesbandung/fvm/versions/2.5.0/")
+  (setq lsp-dart-outline-position-params
+        '((side . right)
+          (slot . 2)
+          (window-width . 35)))
+  (setq lsp-dart-flutter-outline-position-params
+        '((side . right)
+          (slot . 2)
+          (window-width . 35)))
+  (setq lsp-dart-closing-labels-prefix " →")
+  (setq lsp-dart-show-todos t))
+
 (use-package which-key
   :ensure t
   :config
@@ -144,11 +170,13 @@
   :config
   (setq lsp-eldoc-enable-hover nil)
   :hook ((clojure-mode . lsp)
+         (dart-mode . lsp)
          (lsp-mode . lsp-enable-which-key-integration)))
 (use-package lsp-ui
   :ensure t
   :config
   (lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-show-with-cursor t)
   :hook (lsp-mode . lsp-ui-mode))
 
 
@@ -165,6 +193,9 @@
 (delete-selection-mode t)
 
 (setq-default cursor-type 'bar)
+
+(setq select-enable-clipboard nil)
+(setq select-enable-primary nil)
 
 (setq-default ring-bell-function 'ignore)
 (setq visible-bell t)
@@ -184,7 +215,7 @@
                         ))
 
 (defun my-hooks ()
-  ;; (display-line-numbers-mode)
+  (display-line-numbers-mode)
   (setq truncate-lines t))
 (add-hook 'prog-mode-hook #'my-hooks)
 
@@ -206,7 +237,7 @@
  ;; If there is more than one, they won't work right.
  '(git-gutter:update-interval 1)
  '(package-selected-packages
-   '(geiser-mit helpful projectile company-lsp lsp-ui lsp-mode undo-fu git-gutter-fringe counsel swiper ivy company exec-path-from-shell cider clojure-mode which-key slime paredit use-package macrostep)))
+   '(ripgrep rg magit lsp-dart geiser-mit helpful projectile company-lsp lsp-ui lsp-mode undo-fu git-gutter-fringe counsel swiper ivy company exec-path-from-shell cider clojure-mode which-key slime paredit use-package macrostep)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -248,10 +279,28 @@
 (global-set-key (kbd "C-c ;") 'git-gutter:previous-hunk)
 (global-set-key (kbd "C-c '") 'git-gutter:next-hunk)
 
+(global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
+(global-set-key (kbd "s-x") 'clipboard-kill-region)
+(global-set-key (kbd "s-v") 'clipboard-yank)
+
+(global-set-key (kbd "C-s-u") 'scroll-down-command)
+(global-set-key (kbd "C-s-d") 'scroll-up-command)
 
 (global-unset-key (kbd "C-x C-k"))
 (global-set-key (kbd "C-x C-k") 'ido-kill-buffer)
 
+(defun backward-paragraph-with-shift-select ()
+  (interactive)
+  (setq this-command-keys-shift-translated t)
+  (call-interactively 'backward-paragraph))
+(defun forward-paragraph-with-shift-select ()
+  (interactive)
+  (setq this-command-keys-shift-translated t)
+  (call-interactively 'forward-paragraph))
+(global-set-key (kbd "M-[") 'backward-paragraph)
+(global-set-key (kbd "M-{") 'backward-paragraph-with-shift-select)
+(global-set-key (kbd "M-]") 'forward-paragraph)
+(global-set-key (kbd "M-}") 'forward-paragraph-with-shift-select)
 
 
 ;; FUNCTIONS
