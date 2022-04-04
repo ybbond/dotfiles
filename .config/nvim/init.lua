@@ -217,6 +217,21 @@ nnoremap '<LEADER>go' '<CMD>GBrowse<CR>'
 -- nvim-treesitter
 noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
 
+-- lightspeeed.nvim
+function _G.lightspeed_repeat_semicolon()
+  return vim.g.lightspeed_last_motion == 'sx'
+     and replaceTermcodes'<Plug>Lightspeed_;_sx'
+      or replaceTermcodes'<Plug>Lightspeed_;_ft'
+end
+map ';' [[v:lua.lightspeed_repeat_semicolon()]] ({expr = true, noremap = false})
+
+function _G.lightspeed_repeat_comma()
+  return vim.g.lightspeed_last_motion == 'sx'
+     and replaceTermcodes'<Plug>Lightspeed_,_sx'
+      or replaceTermcodes'<Plug>Lightspeed_,_ft'
+end
+map ',' [[v:lua.lightspeed_repeat_comma()]] ({expr = true, noremap = false})
+
 -- nvim-dap
 nnoremap '<LEADER>db' '<CMD>lua require"dap".toggle_breakpoint()<CR>'
 nnoremap '<LEADER>dc' '<CMD>lua require"dap".continue()<CR>'

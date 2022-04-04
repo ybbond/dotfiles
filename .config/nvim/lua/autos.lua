@@ -39,8 +39,26 @@ vim.api.nvim_create_autocmd(
   }
 )
 
-vim.api.nvim_create_augroup('NumberToggle', {})
+vim.g.lightspeed_last_motion = ''
+vim.api.nvim_create_augroup('LightspeedLastMotion', {})
+vim.api.nvim_create_autocmd(
+  'User',
+  {
+    group = 'LightspeedLastMotion',
+    pattern = 'LightspeedSxEnter',
+    callback = function () vim.g.lightspeed_last_motion = 'sx' end,
+  }
+)
+vim.api.nvim_create_autocmd(
+  'User',
+  {
+    group = 'LightspeedLastMotion',
+    pattern = 'LightspeedFtEnter',
+    callback = function () vim.g.lightspeed_last_motion = 'ft' end,
+  }
+)
 
+vim.api.nvim_create_augroup('NumberToggle', {})
 vim.api.nvim_create_autocmd(
   {'BufEnter', 'FocusGained', 'InsertLeave'},
   {
@@ -53,7 +71,6 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
-
 vim.api.nvim_create_autocmd(
   {'BufLeave', 'FocusLost', 'InsertEnter'},
   {

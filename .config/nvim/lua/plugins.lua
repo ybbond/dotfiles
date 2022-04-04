@@ -25,12 +25,11 @@ return require('packer').startup(function(use)
     config = function() require'nvim-web-devicons'.setup({default = true}) end,
   }
 
-  -- using built-in lsp with nvim-lspconfig
   use {
     'neovim/nvim-lspconfig',
-    requires = 'nvim-lua/lsp-status.nvim',
     config = function() require'configs/nvim-lspconfig' end,
   }
+
   use {
     'j-hui/fidget.nvim',
     config = function() require'fidget'.setup{} end,
@@ -41,27 +40,23 @@ return require('packer').startup(function(use)
     config = function() require'configs/yabs-nvim' end,
   }
 
-  -- file manager using nvim-tree.lua
   use {
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/nvim-tree' end
   }
 
-  -- colorize colors with nvim-colorizer.lua
   use {
     'norcalli/nvim-colorizer.lua',
     config = function() require'colorizer'.setup() end
   }
 
-  -- telescope.nvim for fuzzy findings and cool stuffs
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function() require'configs/telescope' end
   }
 
-  -- leveraging neovim >0.5.0 nvim-treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
@@ -77,11 +72,9 @@ return require('packer').startup(function(use)
     requires = 'nvim-treesitter/nvim-treesitter'
   }
 
-  -- vim-commentary extension with treesitter nvim-ts-context-commentstring
   use {
     'JoosepAlviste/nvim-ts-context-commentstring',
     requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
-    -- requires = {'nvim-treesitter/nvim-treesitter', 'numToStr/Comment.nvim'},
   }
 
   use { 'hrsh7th/vim-vsnip' }
@@ -191,16 +184,27 @@ return require('packer').startup(function(use)
   }
 
   use {
-    'ggandor/lightspeed.nvim',
-    config = function () require'lightspeed'.setup {} end
+    'ray-x/go.nvim',
+    config = function () require'configs/go-nvim' end,
   }
 
-  -- vim-fugitive vim-rhubarb and fugitive-gitlab
+  use {
+    'ggandor/lightspeed.nvim',
+    config = function () require'lightspeed'.setup({
+      jump_to_unique_chars = false,
+      labels = nil,
+      limit_ft_matches = 20,
+      exit_after_idle_msecs = {
+        unlabeled = 1000,
+        labeled = 1000,
+      },
+    }) end
+  }
+
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'shumphrey/fugitive-gitlab.vim'
 
-  -- vim-commentary vim-surround and vim-repeat
   use 'tpope/vim-commentary'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
