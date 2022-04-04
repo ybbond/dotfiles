@@ -107,8 +107,7 @@ nmap '0' [[v:lua.smart_wrap_nav_bindings("g0","0")]] ({expr = true, noremap = tr
 nmap '$' [[v:lua.smart_wrap_nav_bindings("g$","$")]] ({expr = true, noremap = true})
 
 -- resource the neovim configurations
-noremap '<LEADER>%' ':luafile ~/.config/nvim/init.lua<CR> | :NightfoxLoad nordfox<CR>'
--- noremap '<LEADER>%' ':luafile ~/.config/nvim/init.lua<CR>'
+noremap '<LEADER>%' ':luafile ~/.config/nvim/init.lua<CR>'
 
 -- unhighlight search
 nnoremap '<LEADER><SPACE>' ':nohlsearch<CR>'
@@ -117,10 +116,10 @@ noremap '<LEADER>w' ':set wrap!<CR>'
 noremap '<LEADER>s' ':set spell! spelllang=en_us<CR>'
 
 -- resize window
-noremap '<A-h>' '<C-w><'
-noremap '<A-k>' '<C-w>-'
-noremap '<A-j>' '<C-w>+'
-noremap '<A-l>' '<C-w>>'
+noremap 'Ó' '<C-w><' -- Alt Shift h
+noremap '' '<C-w>-' -- Alt Shift k
+noremap 'Ô' '<C-w>+' -- Alt Shift j
+noremap 'Ò' '<C-w>>' -- Alt Shift l
 
 -- keep asterisk and pound to be case sensitive
 nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
@@ -183,8 +182,6 @@ nmap 'g>' '<Plug>(cokeline-switch-next)' ({})
 nmap 'g<' '<Plug>(cokeline-switch-prev)' ({})
 
 -- nvim-tree.lua
-nnoremap '<LEADER>e' '<CMD>NvimTreeToggle<CR>'
-nnoremap '<LEADER>r' '<CMD>NvimTreeToggle<CR>'
 nnoremap '<C-s><C-b>' '<CMD>NvimTreeToggle<CR>'
 nnoremap '<C-s>b'     '<CMD>NvimTreeToggle<CR>'
 nnoremap '<C-s><C-f>'  '<CMD>NvimTreeFindFile<CR>'

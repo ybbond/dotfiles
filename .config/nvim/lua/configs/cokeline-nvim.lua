@@ -25,15 +25,17 @@ local colors = {
 require('cokeline').setup({
   buffers = {
     filter_valid = function(buffer)
-      if buffer.type == 'quickfix' then
-        return false
-      -- elseif buffer.filetype == '' then
+      -- if buffer.type == 'quickfix' then
       --   return false
+      if buffer.filetype == '' then
+        return false
       -- elseif buffer.path == '.' then
       --   return false
       end
       return true
     end,
+    focus_on_delete = 'prev',
+    new_buffers_position = 'next',
   },
 
   default_hl = {
