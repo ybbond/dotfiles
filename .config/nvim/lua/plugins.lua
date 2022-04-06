@@ -61,6 +61,10 @@ return require('packer').startup(function(use)
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function() require'configs/telescope' end
   }
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    run = 'make',
+  }
 
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -142,9 +146,18 @@ return require('packer').startup(function(use)
           end
         },
       })
-      vim.api.nvim_set_keymap('n', '<C-F><C-F>', '<Plug>RestNvim<CR>', {})
-      vim.api.nvim_set_keymap('n', '<C-F><C-P>', '<Plug>RestNvimPreview<CR>', {})
-      vim.api.nvim_set_keymap('n', '<C-F><C-L>', '<Plug>RestNvimLast<CR>', {})
+
+      vim.api.nvim_create_autocmd(
+        'FileType',
+        {
+          pattern = 'http',
+          callback = function()
+            nmap '<C-F><C-F>' '<Plug>RestNvim<CR>' ({})
+            nmap '<C-F><C-P>' '<Plug>RestNvimPreview<CR>' ({})
+            nmap '<C-F><C-L>' '<Plug>RestNvimLast<CR>' ({})
+          end,
+        }
+      )
     end
   }
 

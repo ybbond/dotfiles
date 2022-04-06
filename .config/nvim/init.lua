@@ -140,7 +140,7 @@ inoremap 'jk'    '<ESC>'
 inoremap '<C-c>' '<ESC>'
 
 -- -- make emacs navigation available on EX-mode
--- -- done in ybbond-compat
+-- -- done in compat
 -- cnoremap '<C-a>'   '<Home>'
 -- cnoremap '<C-e>'   '<End>'
 -- cnoremap '<C-b>'   '<Left>'
@@ -157,7 +157,7 @@ inoremap '<C-c>' '<ESC>'
 
 
 require'plugins'
-require'ybbond-compat'
+require'compat'
 require'autos'
 
 vim.cmd[[colorscheme nordfox]]
