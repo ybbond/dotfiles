@@ -1,5 +1,7 @@
 return function(_, bufnr)
-  local function buf_set_keymap(l, r, c) vim.api.nvim_buf_set_keymap(bufnr, l, r, c, { noremap=true, silent=true }) end
+  local function buf_set_keymap(l, r, c)
+    vim.api.nvim_buf_set_keymap(bufnr, l, r, c, { noremap=true, silent=true })
+  end
   buf_set_keymap('n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>')
   buf_set_keymap('n', 'gD', '<CMD>lua vim.lsp.buf.declaration()<CR>')
   buf_set_keymap('n', 'g<A-d>', '<CMD>lua vim.lsp.buf.type_definition()<CR>')
@@ -7,7 +9,8 @@ return function(_, bufnr)
   buf_set_keymap('n', 'gH', '<CMD>lua vim.diagnostic.open_float()<CR>')
   buf_set_keymap('n', 'gi', '<CMD>lua vim.lsp.buf.implementation()<CR>')
   buf_set_keymap('n', 'gs', '<CMD>lua vim.lsp.buf.signature_help()<CR>')
-  buf_set_keymap('n', 'ga', '<CMD>lua vim.lsp.buf.code_action()<CR>')
+  -- buf_set_keymap('n', 'ga', '<CMD>lua vim.lsp.buf.code_action()<CR>')
+  buf_set_keymap('n', 'ga', '<CMD>Telescope lsp_code_actions theme=cursor layout_config={height=15}<CR>')
   buf_set_keymap('n', 'gr', '<CMD>lua vim.lsp.buf.references()<CR>')
   buf_set_keymap('n', '[e', '<CMD>lua vim.diagnostic.goto_prev()<CR>')
   buf_set_keymap('n', ']e', '<CMD>lua vim.diagnostic.goto_next()<CR>')
