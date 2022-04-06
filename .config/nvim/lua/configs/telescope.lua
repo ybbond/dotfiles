@@ -3,6 +3,28 @@ local previewers_utils = require('telescope.previewers.utils')
 
 local max_size = 20000
 
+-- telescope.nvim
+nnoremap '<C-t><C-p>'        [[<CMD>lua require("telescope.builtin").find_files({ find_command={"fd","-E=.git","--hidden","-t=f"}}) hidden=true<CR>]]
+nnoremap '<C-t><C-\\><C-p>'  [[<CMD>lua require("telescope.builtin").find_files({ find_command={"fd","-E=.git","--hidden","-t=f","--no-ignore"}}) hidden=true<CR>]]
+nnoremap '<C-t><C-i>'        [[<CMD>Telescope live_grep hidden=true<CR>]]
+nnoremap '<C-t><C-\\><C-i>'  [[<CMD>Telescope live_grep hidden=true grep_open_files=true<CR>]]
+nnoremap '<C-t><C-n>'        [[<CMD>lua require("telescope.builtin").live_grep({ find_command={"rg","--no-heading","--hidden","-g='!.git/**'","--with-filename","--line-number","--column","--smart-case","--ignore","--regexp"}})<CR>]]
+nnoremap '<C-t><C-\\><C-n>'  [[<CMD>lua require("telescope.builtin").live_grep({ find_command={"rg","--no-heading","--hidden","-g='!.git/**'",'--with-filename',"--line-number","--column","--smart-case","--no-ignore","--regexp"}})<CR>]]
+
+nnoremap '<C-t><C-s>'        [[<CMD>Telescope grep_string<CR>]]
+nnoremap '<C-t><C-r>'        [[<CMD>Telescope registers<CR>]]
+nnoremap '<C-t><C-b>'        [[<CMD>Telescope buffers<CR>]]
+nnoremap '<C-t><C-h>'        [[<CMD>Telescope help_tags<CR>]]
+nnoremap '<C-t><C-m>'        [[<CMD>Telescope marks<CR>]]
+nnoremap '<C-t><C-a>'        [[<CMD>Telescope commands<CR>]]
+
+nnoremap '<C-t><C-w>'        [[<CMD>Telescope diagnostics<CR>]]
+nnoremap '<C-t><C-d>'        [[<CMD>Telescope diagnostics bufnr=0<CR>]]
+
+nnoremap '<C-t><C-t>'        [[<CMD>Telescope yabs current_language_tasks<CR>]]
+
+nnoremap '<C-g><C-g>'        [[<CMD>Telescope git_status<CR>]]
+
 -- https://github.com/nvim-telescope/telescope.nvim/issues/623
 local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}

@@ -1,4 +1,6 @@
- require'nvim-treesitter.configs'.setup {
+noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
+
+require'nvim-treesitter.configs'.setup {
   highlight = {enable = true},
   -- nvim-ts-context-commentstring
   context_commentstring = {

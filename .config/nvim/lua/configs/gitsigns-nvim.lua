@@ -6,12 +6,11 @@ require('gitsigns').setup {
     topdelete    = {hl = 'Ignore', text = '▀', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn', word_diff='GitSignsDeleteWord'},
     changedelete = {hl = 'Ignore', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn', word_diff='GitSignsChangeWord'},
   },
-  word_diff = false, -- requires diff_opts.internal
   signcolumn = false,
   numhl = true,
-  linehl = false,
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
+    local wk = require('which-key')
 
     local function map(mode, l, r, opts)
       opts = opts or {}
@@ -21,12 +20,13 @@ require('gitsigns').setup {
       vim.keymap.set(mode, l, r, opts)
     end
 
-    map('n', ']c',         [[&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>']],         ({expr = true}))
-    map('n', '[c',         [[&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>']],         ({expr = true}))
-    map('n', ']g',         [[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']],         ({expr = true}))
-    map('n', '[g',         [[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']],         ({expr = true}))
-    map('n', '<C-g><C-]>', [[&diff ? '<C-g><C-]>' : '<cmd>Gitsigns next_hunk<CR>']], ({expr = true}))
-    map('n', '<C-g><C-[>', [[&diff ? '<C-g><C-[>' : '<cmd>Gitsigns prev_hunk<CR>']], ({expr = true}))
+    map('n', ']g', [[&diff ? ']g' : '<cmd>Gitsigns next_hunk<CR>']], ({expr = true}))
+    map('n', '[g', [[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], ({expr = true}))
+
+    wk.register({
+      [']'] = { g = 'Gitsigns next hunk or plain ]g' },
+      ['['] = { g = 'Gitsigns previous hunk or plain [g' },
+    })
 
     map('n', '<C-g><C-s>',        gs.stage_hunk)
     map('v', '<LEADER>gs',        gs.stage_hunk)
@@ -38,16 +38,41 @@ require('gitsigns').setup {
     map('n', '<C-g><C-b>',        function() gs.blame_line{full=true} end)
     map('n', '<C-g><C-\\><C-b>',  function() gs.blame_line{full=true, ignore_whitespace=true} end)
 
+    wk.register({
+      ['<C-g>'] = {
+        ['<C-s>'] = 'Gitsigns stage hunk',
+        ['<C-u>'] = 'Gitsigns UNDO stage hunk',
+        ['<C-r>'] = {
+          ['<C-h>'] = 'Gitsigns reset hunk',
+          ['<C-b>'] = 'Gitsigns reset buffer',
+        },
+        ['<C-p>'] = 'Gitsigns preview hunk',
+        ['<C-b>'] = 'Gitsigns blame line',
+        ['<C-\\>'] = {
+          ['<C-b>'] = 'Gitsigns blame line WITHOUT whitespace',
+        },
+      },
+    },
+    {
+      buffer = bufnr,
+    })
+
+    wk.register({
+      g = {
+        s = { 'Gitsigns stage hunk' },
+        r = { 'Gitsigns reset hunk' },
+      },
+    },
+    {
+      prefix = '<leader>',
+      mode = 'v',
+      buffer = bufnr,
+    })
+
     map({'o', 'x'}, 'ih',                ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>')
   end,
   watch_gitdir = {
     interval = 1000,
     follow_files = true
-  },
-  sign_priority = 6,
-  update_debounce = 100,
-  status_formatter = nil, -- Use default
-  diff_opts = {
-    internal = true,
   },
 }

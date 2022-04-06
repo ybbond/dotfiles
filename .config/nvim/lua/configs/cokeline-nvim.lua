@@ -22,15 +22,22 @@ local colors = {
   -- violet = '#9E93E8',
 }
 
+nmap 'gb' '<Plug>(cokeline-focus-next)' ({})
+nmap 'gB' '<Plug>(cokeline-focus-prev)' ({})
+nmap 'g>' '<Plug>(cokeline-switch-next)' ({})
+nmap 'g<' '<Plug>(cokeline-switch-prev)' ({})
+
 require('cokeline').setup({
   buffers = {
     filter_valid = function(buffer)
-      -- if buffer.type == 'quickfix' then
-      --   return false
       if buffer.filetype == '' then
         return false
+      -- elseif buffer.type == 'quickfix' then
+      --   return false
       -- elseif buffer.path == '.' then
       --   return false
+      elseif string.sub(buffer.path, 1, 8) == 'fugitive' then
+        return false
       end
       return true
     end,

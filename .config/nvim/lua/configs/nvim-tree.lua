@@ -1,13 +1,19 @@
 require'nvim-tree'.open_on_directory = function () end
 
+nnoremap '<C-s><C-b>' '<CMD>NvimTreeToggle<CR>'
+nnoremap '<C-s>b'     '<CMD>NvimTreeToggle<CR>'
+nnoremap '<C-s><C-f>'  '<CMD>NvimTreeFindFile<CR>'
+nnoremap '<C-s>f'     '<CMD>NvimTreeFindFile<CR>'
+
 require'nvim-tree'.setup {
+  -- hijack_unnamed_buffer_when_opening = true,
   actions = {
     open_file = {
       quit_on_open = false,
     },
   },
   hijack_directories = {
-    enable = false,
+  --   enable = true,
     auto_open = false,
   },
   diagnostics = {

@@ -16,6 +16,11 @@ return require('packer').startup(function(use)
   use 'dstein64/nvim-scrollview'
 
   use {
+    "folke/which-key.nvim",
+    config = function() require'configs/which-key' end
+  }
+
+  use {
     'EdenEast/nightfox.nvim',
     config = function() require'configs/nightfox-nvim' end,
   }
@@ -108,8 +113,10 @@ return require('packer').startup(function(use)
   }
 
   use {
-     "NTBBloodbath/rest.nvim",
+    "~/poss/rest.nvim",
+     -- "NTBBloodbath/rest.nvim",
     requires = { "nvim-lua/plenary.nvim" },
+    branch = 'fix/split-config',
     config = function()
       require("rest-nvim").setup({
         result_split_horizontal = true,
@@ -118,7 +125,12 @@ return require('packer').startup(function(use)
           enabled = true,
           timeout = 300,
         },
-        jump_to_request = false,
+        -- jump_to_request = true,
+        -- result = {
+        --   show_url = true,
+        --   show_http_info = true,
+        --   show_headers = true,
+        -- },
         custom_dynamic_variables = {
           ["$date"] = function()
             local os_date = os.date('%Y-%m-%d')
@@ -142,11 +154,11 @@ return require('packer').startup(function(use)
     config = function() require'configs/cokeline-nvim' end,
   }
 
-  use 'famiu/bufdelete.nvim'
-
   use {
-    "folke/which-key.nvim",
-    config = function() require'configs/which-key' end
+    'famiu/bufdelete.nvim',
+    config = function ()
+      nnoremap 'gx' '<CMD>Bdelete<CR>'
+    end
   }
 
   use {
@@ -190,18 +202,16 @@ return require('packer').startup(function(use)
 
   use {
     'ggandor/lightspeed.nvim',
-    config = function () require'lightspeed'.setup({
-      jump_to_unique_chars = false,
-      labels = nil,
-      limit_ft_matches = 20,
-      exit_after_idle_msecs = {
-        unlabeled = 1000,
-        labeled = 1000,
-      },
-    }) end
+    config = function () require'configs/lightspeed' end
   }
 
-  use 'tpope/vim-fugitive'
+  use {
+    'tpope/vim-fugitive',
+    config = function ()
+      nnoremap '<LEADER>gb' '<CMD>Git blame<CR>'
+      nnoremap '<LEADER>go' '<CMD>GBrowse<CR>'
+    end
+  }
   use 'tpope/vim-rhubarb'
   use 'shumphrey/fugitive-gitlab.vim'
 
