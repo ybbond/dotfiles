@@ -139,6 +139,10 @@ inoremap '<C-d>' '<DEL>'
 inoremap 'jk'    '<ESC>'
 inoremap '<C-c>' '<ESC>'
 
+-- https://www.reddit.com/r/neovim/comments/tsol2n/why_macros_are_so_slow_compared_to_emacs/i2ugipm/
+nnoremap '@' [[<cmd>execute "noautocmd norm! " . v:count1 . "@" . getcharstr()<cr>]]
+xnoremap '@' [[:<C-U>execute "noautocmd '<,'>norm! " . v:count1 . "@" . getcharstr()<cr>]]
+
 -- -- make emacs navigation available on EX-mode
 -- -- done in compat
 -- cnoremap '<C-a>'   '<Home>'
