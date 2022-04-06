@@ -179,7 +179,9 @@ return require('packer').startup(function(use)
     config = function()
                vim.cmd[[hi IndentBlanklineChar guifg=#3B434E]]
                require("indent_blankline").setup {
-                 char = "⎸",
+                 -- char = "⎸",
+                 char = "│",
+                 -- indent_blankline_char_blankline = "⎸",
                  buftype_exclude = {"terminal"}
                }
              end
@@ -191,9 +193,7 @@ return require('packer').startup(function(use)
   use 'tpope/vim-dispatch'
   use 'clojure-vim/vim-jack-in'
   use 'radenling/vim-dispatch-neovim'
-  use {
-    'Olical/conjure',
-  }
+  use 'Olical/conjure'
 
   use '~/poss/dart-vim-plugin'
   use {
