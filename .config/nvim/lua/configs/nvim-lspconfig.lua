@@ -54,6 +54,22 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
+local sumneko_lua_settings = {
+  runtime = {
+    version = 'Lua 5.4.3',
+    path = runtime_path,
+  },
+  telemetry = { enable = false, },
+}
+if vim.fn.getcwd() == os.getenv('HOME') .. '/.config/nvim' then
+  sumneko_lua_settings = {
+    diagnostics = { globals = {'vim'}, },
+    workspace = {
+      library = vim.api.nvim_get_runtime_file("", true),
+    },
+  }
+end
+
 lspconfig.sumneko_lua.setup{
   capabilities = ybbond_lsp_capabilities,
   cmd = {
@@ -63,21 +79,5 @@ lspconfig.sumneko_lua.setup{
   },
   on_attach = ybbond_lsp_on_attach,
   filetypes = { "lua" },
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'Lua 5.4.3',
-        path = runtime_path,
-      },
-      diagnostics = {
-        globals = {'vim'},
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      telemetry = {
-        enable = false,
-      },
-    },
-  }
+  settings = { Lua = sumneko_lua_settings },
 }
