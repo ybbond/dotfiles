@@ -36,8 +36,8 @@ return require('packer').startup(function(use)
   }
 
   use {
-    'j-hui/fidget.nvim',
-    config = function() require'fidget'.setup{} end,
+    'rcarriga/nvim-notify',
+    config = function() require'configs/nvim-notify' end,
   }
 
   use {
