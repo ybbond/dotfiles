@@ -9,6 +9,7 @@ require'nvim-tree'.setup {
   -- hijack_unnamed_buffer_when_opening = true,
   actions = {
     open_file = {
+      resize_window = false,
       quit_on_open = false,
     },
   },
@@ -31,7 +32,6 @@ require'nvim-tree'.setup {
     hide_root_folder = true,
     width = 40,
     side = 'right',
-    auto_resize = false,
     mappings = {
       custom_only = true,
       list = {
