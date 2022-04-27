@@ -183,6 +183,10 @@ alias neorc="cd ~/.config/nvim && nvim . && cd -"
 
 alias flut="fvm flutter"
 
+alias bffrun="source ./local_env.sh && ./tools/run.sh"
+alias bfftest="source ./local_env.sh && make test > result.txt"
+
+alias quicklisp="sbcl --eval '(load #P\"~/.quicklisp/setup.lisp\")'"
 ########################################################################
 #                     END OF BANDUNG's ALIASES
 ########################################################################
