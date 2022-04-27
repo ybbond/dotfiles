@@ -4,7 +4,6 @@ local wezterm = require('wezterm')
 return {
   color_scheme = 'nord',
   font = wezterm.font('JetBrains Mono'),
-  -- font = wezterm.font('JetBrainsMono Nerd Font Mono'),
 
   colors = {
     tab_bar = {
@@ -49,6 +48,8 @@ return {
   keys = {
     {key="[",mods="SUPER|SHIFT",action=wezterm.action{MoveTabRelative=-1}},
     {key="]",mods="SUPER|SHIFT",action=wezterm.action{MoveTabRelative=1}},
+    {key="u",mods="CTRL|SHIFT",action=wezterm.action{ScrollByPage=-1}},
+    {key="d",mods="CTRL|SHIFT",action=wezterm.action{ScrollByPage=1}},
   },
 
   -- emacs keybindings
