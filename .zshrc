@@ -48,7 +48,7 @@ function zvm_after_init() {
   # bindkey -M viins 'jk' vi-cmd-mode
 }
 
-plugins=(zsh-vi-mode zsh-autosuggestions zsh-syntax-highlighting history-substring-search lein nix-zsh-completions)
+plugins=(zsh-vi-mode zsh-autosuggestions zsh-syntax-highlighting history-substring-search lein)
 
 DISABLE_MAGIC_FUNCTIONS=true
 DISABLE_AUTO_TITLE=true
@@ -82,15 +82,14 @@ alias bfftest="source ./local_env.sh && make test > result.txt"
 
 alias quicklisp="sbcl --eval '(load #P\"~/.quicklisp/setup.lisp\")'"
 
-eval "$(direnv hook zsh)"
-# eval "$(hub alias -s)"
+eval "$(hub alias -s)"
 
 
-# if type brew &>/dev/null; then
-#   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-# fi
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 
-fpath=(~/.tool_binaries/completions ~/.nix-profile/share/zsh/site-functions /nix/var/nix/profiles/default/share/zsh/site-functions $fpath)
+fpath=(~/.tool_binaries/completions $fpath)
 autoload -U compinit && compinit
 
 nn ()
@@ -122,8 +121,6 @@ nn ()
 
 
 export EDITOR=nvim
-export NIX_PAGER=cat
-export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
 export SHELL=zsh
 export LANG=en_US.UTF-8
 # export TERM=xterm-256color
@@ -139,7 +136,7 @@ export JAVA_HOME="$HOME/.tool_binaries/zulu17.32.13-ca-fx-jdk17.0.2-macosx_aarch
 export PATH="$PATH:$HOME/fvm/default/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 
-# export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
 
 ## for llvm homebrew
 # export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
