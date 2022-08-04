@@ -2,9 +2,6 @@
 --                    CUSTOMIZATIONS
 ------------------------------------------------------------
 
--- for filetype.nvim
-vim.g.did_load_filetypes = 1
-
 vim.o.compatible = false
 vim.o.encoding = 'UTF-8'
 

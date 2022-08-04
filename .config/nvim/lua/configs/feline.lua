@@ -22,7 +22,11 @@ local theme = {
   -- violet = '#9E93E8',
 }
 
-local components = require('feline.presets')['noicon']
+-- local components = require('feline.presets')['noicon']
+local components = {
+  active = {},
+  inactive = {},
+}
 
 local diag_severity = vim.diagnostic.severity
 

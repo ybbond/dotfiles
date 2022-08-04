@@ -63,8 +63,10 @@ cmp.setup{
     end,
     ['<C-e>'] = cmp.config.disable,
 
-    ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Replace, select = false}), { 'i', 'c' }),
-    ['<S-Tab>'] = cmp.mapping(cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false}), { 'i', 'c' }),
+    -- ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Replace, select = false}), { 'i', 'c' }),
+    -- ['<S-Tab>'] = cmp.mapping(cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false}), { 'i', 'c' }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Replace, select = false}), {'i'}),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.confirm({behavior = cmp.ConfirmBehavior.Insert, select = false}), {'i'}),
 
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-g>'] = cmp.mapping.close(),

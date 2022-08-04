@@ -11,9 +11,10 @@ return require('packer').startup(function(use)
 
   use 'wbthomason/packer.nvim'
 
-  use 'nathom/filetype.nvim'
-
-  use 'dstein64/nvim-scrollview'
+  use {
+    'petertriho/nvim-scrollbar',
+    config = function() require("scrollbar").setup() end,
+  }
 
   use {
     "folke/which-key.nvim",
@@ -36,8 +37,19 @@ return require('packer').startup(function(use)
   }
 
   use {
-    'rcarriga/nvim-notify',
-    config = function() require'configs/nvim-notify' end,
+    'andythigpen/nvim-coverage',
+    config = function() require('coverage').setup({
+      lang = {
+        dart = {
+          coverage_command = "fvm flutter test --coverage --no-sound-null-safety",
+        },
+      },
+    }) end,
+  }
+
+  use {
+    'j-hui/fidget.nvim',
+    config = function() require'fidget'.setup() end
   }
 
   use {
@@ -175,8 +187,8 @@ return require('packer').startup(function(use)
     config = function()
                vim.cmd[[hi IndentBlanklineChar guifg=#3B434E]]
                require("indent_blankline").setup {
-                 -- char = "⎸",
-                 char = "│",
+                 char = "⎸",
+                 -- char = "│",
                  -- indent_blankline_char_blankline = "⎸",
                  buftype_exclude = {"terminal"}
                }

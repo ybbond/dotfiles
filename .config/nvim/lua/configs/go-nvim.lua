@@ -20,6 +20,7 @@ end
 
 require('go').setup({
   gofmt = 'gopls',
+  -- lsp_codelens = false,
 })
 
 local lspconfig = require('lspconfig')

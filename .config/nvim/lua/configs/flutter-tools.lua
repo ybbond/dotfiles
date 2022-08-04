@@ -1,4 +1,5 @@
 local ybbond_lsp_on_attach = require'configs/ybbond_lsp_on_attach'
+local ybbond_lsp_capabilities = require'configs/ybbond_lsp_capabilities'
 
 -- local lspconfig = require('lspconfig')
 -- lspconfig.dartls.setup{
@@ -39,6 +40,7 @@ require("flutter-tools").setup {
       virtual_text = false,
     },
     on_attach = ybbond_flutter_lsp_on_attach,
+    capabilities = ybbond_lsp_capabilities,
   },
   dev_log = {
     enabled = true,
@@ -60,6 +62,8 @@ require("flutter-tools").setup {
     prefix = ' → ',
   },
 
+  -- flutter_lookup_cmd = '/Users/yohanesbandung/fvm/versions/2.5.0/bin',
+  flutter_path = '/Users/yohanesbandung/fvm/versions/2.5.0/bin/flutter',
   fvm = true,
 
   widget_guides = {

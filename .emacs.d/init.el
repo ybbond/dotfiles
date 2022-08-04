@@ -1,11 +1,29 @@
 (setq user-full-name "Yohanes Bandung Bondowoso"
       user-mail-address "hi@ybbond.id")
 
+(setq auth-sources '("~/.netrc"))
+
 (make-directory "~/.tmp/emacs/auto-save/" t)
+
+(setq disp-w (display-pixel-width)
+      disp-h (display-pixel-height))
+
+(cond
+ ((and (= disp-w 1440) (= disp-h 900))
+  (setq initial-frame-alist '((top . 190) (left . 425))))
+ ((and (= disp-w 2560) (= disp-h 1440))
+  (setq initial-frame-alist '((top . 350) (left . 950))))
+ ((and (= disp-w 1440) (= disp-h 2560))
+  (setq initial-frame-alist '((top . 950) (left . 350)))))
+
 (setq auto-save-file-name-transforms '((".*" "~/.tmp/emacs/auto-save/" t)))
 (setq backup-directory-alist '(("." . "~/.tmp/emacs/backup/")))
 (setq backup-by-copying t)
 
+(setq modus-themes-subtle-line-numbers nil
+      modus-themes-italic-constructs t
+      modus-themes-bold-constructs nil)
+(load-theme 'modus-vivendi)
 
 ;; https://gist.github.com/belak/ca1c9ae75e53324ee16e2e5289a9c4bc#package-stuff
 (require 'package)
@@ -19,6 +37,7 @@
 (eval-when-compile
   (defvar use-package-verbose t)
   (require 'use-package))
+
 
 (use-package helpful
   :ensure t
@@ -40,10 +59,7 @@
   :bind
   (:map projectile-mode-map
         ("s-p" . projectile-command-map))
-  ;; (("s-p l" . projectile--find-file))
   :config
-  ;; (unbind-key "s-p l" projectile-mode-map)
-  ;; (setq projectile-project-search-path '("~/pbond/"))
   (setq projectile-completion-system 'ivy))
 
 ;; https://github.com/DiegoVicen/my-emacs#fill-the-exec-path-variable
@@ -55,34 +71,53 @@
         '("PATH" "MANPATH" "DESKTOP_SESSION" "JAVA_HOME"))
   (exec-path-from-shell-initialize))
 
+(use-package eshell-syntax-highlighting
+  :ensure t
+  :hook
+  (eshell-mode . eshell-syntax-highlighting-mode))
+
 (use-package paredit
   :config
   (unbind-key "C-j" paredit-mode-map))
 
-(use-package slime
+;; (use-package slime
+;;   :config
+;;   (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
+;;   (add-hook 'slime-repl-mode-hook
+;;             (lambda ()
+;;               (define-key slime-repl-mode-map
+;;                 (read-kbd-macro paredit-backward-delete-key) nil))
+;;             ))
+
+(use-package sly
+  :ensure t
+  :init
+  (sly-setup)
   :config
-  (setq inferior-lisp-program "/opt/homebrew/bin/sbcl")
-  (add-hook 'slime-repl-mode-hook 'enable-paredit-mode)
-  (add-hook 'slime-repl-mode-hook
-            (lambda ()
-              (define-key slime-repl-mode-map
-                (read-kbd-macro paredit-backward-delete-key) nil))
-            ))
+  ;; (setq sly-contribs '(sly-mrepl sly-scratch))
+  (add-to-list 'sly-contribs 'sly-asdf 'append)
+  (add-hook 'sly-mrepl-mode-hook 'enable-paredit-mode))
 
 (use-package counsel
   :ensure t
+  :demand t
   :config
-  (ivy-mode 1)
+  (ivy-mode +1)
   (setq ivy-use-virtual-buffers t
-	    ivy-count-format "%d/%d ")
+	    ivy-count-format "%d/%d "
+        ivy-wrap t)
   :bind (("C-s" . swiper)
+         ;("C-s" . swiper-isearch)
+         ;("C-r" . swiper-isearch-backward)
 	     ("C-c h f" . counsel-describe-function)
 	     ("C-c h v" . counsel-describe-variable)
 	     ("M-i" . counsel-imenu)
 	     ("M-x" . counsel-M-x)
          ("C-x C-b" . ivy-switch-buffer)
-         ("C-x b" . list-buffers)
+         ;; ("C-x b" . list-buffers)
+         ("C-x b" . counsel-switch-buffer)
 	     :map ivy-minibuffer-map
+         ("C-h" . counsel-minibuffer-history)
 	     ("RET" . ivy-alt-done)
 	     ("C-j" . ivy-done)))
 
@@ -97,6 +132,9 @@
   (define-key company-active-map (kbd "RET") nil)
   (define-key company-active-map (kbd "<backtab>")
     #'company-complete-selection))
+
+(use-package forge
+  :after magit)
 
 (use-package git-gutter
   :ensure git-gutter-fringe
@@ -117,7 +155,7 @@
   :demand t
   :config
   (setq cider-font-lock-dynamically t)
-  ;; (setq cider-eldoc-display-for-symbol-at-point nil)
+  (setq cider-eldoc-display-for-symbol-at-point nil)
   :hook ((clojure-mode . cider-mode)
          (cider-mode . paredit-mode)
          (cider-repl-mode . paredit-mode) (cider-mode . company-mode)
@@ -157,8 +195,6 @@
 
 (use-package undo-fu
   :config
-  (global-unset-key (kbd "C-z"))
-  (global-unset-key (kbd "C-/"))
   (global-set-key (kbd "C-z") 'undo-fu-only-undo)
   (global-set-key (kbd "C-S-z") 'undo-fu-only-redo)
   (global-set-key (kbd "C-/") 'undo-fu-only-undo)
@@ -175,13 +211,18 @@
 (use-package lsp-ui
   :ensure t
   :config
-  (lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-enable t)
   (setq lsp-ui-doc-show-with-cursor t)
+  (setq lsp-ui-doc-position 'at-point)
   :hook (lsp-mode . lsp-ui-mode))
 
+(use-package command-log-mode
+  :ensure t
+  :demand t
+  :config
+  (global-set-key (kbd "C-s-o") 'command-log-mode))
 
 
-(load-theme 'tango-dark)
 
 (menu-bar-mode 0)
 (when (display-graphic-p)
@@ -216,6 +257,7 @@
 
 (defun my-hooks ()
   (display-line-numbers-mode)
+  (hl-line-mode)
   (setq truncate-lines t))
 (add-hook 'prog-mode-hook #'my-hooks)
 
@@ -237,7 +279,7 @@
  ;; If there is more than one, they won't work right.
  '(git-gutter:update-interval 1)
  '(package-selected-packages
-   '(ripgrep rg magit lsp-dart geiser-mit helpful projectile company-lsp lsp-ui lsp-mode undo-fu git-gutter-fringe counsel swiper ivy company exec-path-from-shell cider clojure-mode which-key slime paredit use-package macrostep)))
+   '(forge eshell-syntax-highlighting sly-asdf sly command-log-mode ripgrep rg magit lsp-dart geiser-mit helpful projectile company-lsp lsp-ui lsp-mode undo-fu git-gutter-fringe counsel swiper ivy company exec-path-from-shell cider clojure-mode which-key paredit use-package macrostep)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -248,28 +290,33 @@
 
 ;; KEYBINDINGS
 
+; suspend-frame
+; on macOS, minimizes window
+(global-unset-key (kbd "C-x C-z"))
+
 (defun insert-new-line-below ()
   "Add a new line below the current line."
   (interactive)
-  (let ((oldpos (point)))
-    (end-of-line)
-    (newline-and-indent)))
+  (end-of-line)
+  (newline-and-indent))
 (global-set-key (kbd "C-o") 'insert-new-line-below)
 
 (defun insert-new-line-above ()
   "Add a new line above the current line."
   (interactive)
-  (let ((oldpos (point)))
-    (previous-line)
-    (end-of-line)
-    (newline-and-indent)))
+  (beginning-of-line)
+  (open-line 1)
+  (newline-and-indent)
+  (previous-line)
+  (delete-forward-char 1)
+  (end-of-line))
 (global-set-key (kbd "C-S-o") 'insert-new-line-above)
 
-(global-set-key (kbd "C-j")
+(global-set-key (kbd "C-s-j")
                 (lambda ()
                   (interactive)
                   (join-line -1)))
-(global-set-key (kbd "C-S-j") 'join-line)
+(global-set-key (kbd "C-s-S-j") 'join-line)
 
 (global-set-key (kbd "C-x C-o") 'other-window)
 (global-set-key (kbd "C-x o") 'delete-blank-lines)
@@ -286,8 +333,24 @@
 (global-set-key (kbd "C-s-u") 'scroll-down-command)
 (global-set-key (kbd "C-s-d") 'scroll-up-command)
 
-(global-unset-key (kbd "C-x C-k"))
+(defun hold-line-scroll-up ()
+  "Scroll the page with the cursor in the same line"
+  (interactive)
+  (let ((next-screen-context-lines
+         (count-lines (window-start) (window-end))))
+    (scroll-up)))
+(global-set-key (kbd "M-n") 'hold-line-scroll-up)
+
+(defun hold-line-scroll-down ()
+  "Scroll the page with the cursor in the same line"
+  (interactive)
+  (let ((next-screen-context-lines
+         (count-lines (window-start) (window-end))))
+    (scroll-down)))
+(global-set-key (kbd "M-p") 'hold-line-scroll-down)
+
 (global-set-key (kbd "C-x C-k") 'ido-kill-buffer)
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 (defun backward-paragraph-with-shift-select ()
   (interactive)
@@ -310,7 +373,7 @@
   (interactive)
   (load-file user-init-file))
 
-(defun open-user-init-file ()
+(defun user-init-file ()
   "Call to open the Emacs configuration file."
   (interactive)
   (find-file user-init-file))
@@ -326,4 +389,5 @@
 (add-hook 'lisp-mode-hook #'enable-paredit-mode)
 (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
 (add-hook 'scheme-mode-hook #'enable-paredit-mode)
-
+(add-hook 'scheme-mode-hook #'enable-paredit-mode)
+(add-hook 'inferior-scheme-mode-hook #'enable-paredit-mode)

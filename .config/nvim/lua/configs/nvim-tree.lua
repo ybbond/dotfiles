@@ -29,13 +29,14 @@ require'nvim-tree'.setup {
     cmd = 'open',
   },
   view = {
+    adaptive_size = true,
     hide_root_folder = true,
     width = 40,
     side = 'right',
     mappings = {
       custom_only = true,
       list = {
-        { key = {"<CR>", "o", "<2-LeftMouse>"}, action = "edit" },
+        { key = {"<CR>", "<2-LeftMouse>"}, action = "edit" },
         { key = {"O"},                          action = "edit_no_picker" },
         { key = {"<2-RightMouse>", "<C-]>"},    action = "cd" },
         { key = "<",                            action = "prev_sibling" },
@@ -62,7 +63,7 @@ require'nvim-tree'.setup {
         { key = {"[c", "[g"},                   action = "prev_git_item" },
         { key = {"]c", "]g"},                   action = "next_git_item" },
         { key = "-",                            action = "dir_up" },
-        { key = "s",                            action = "system_open" },
+        { key = "o",                            action = "system_open" },
         { key = "q",                            action = "close" },
         { key = "g?",                           action = "toggle_help" },
       },

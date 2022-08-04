@@ -27,6 +27,11 @@ lspconfig.eslint.setup {
   },
 }
 
+lspconfig.sourcekit.setup{
+  capabilities = ybbond_lsp_capabilities,
+  filetypes = { "swift", "objective-c", "objective-cpp" },
+}
+
 lspconfig.clangd.setup{
   capabilities = ybbond_lsp_capabilities,
   filetypes = { 'c', 'cpp' },
@@ -61,7 +66,8 @@ local sumneko_lua_settings = {
   },
   telemetry = { enable = false, },
 }
-if vim.fn.getcwd() == os.getenv('HOME') .. '/.config/nvim' then
+if vim.fn.getcwd() == os.getenv('HOME') .. '/.config/nvim'
+  or string.find(vim.fn.getcwd(), os.getenv('HOME') .. '/poss/nvim') then
   sumneko_lua_settings = {
     diagnostics = { globals = {'vim'}, },
     workspace = {

@@ -30,14 +30,14 @@ nmap 'g<' '<Plug>(cokeline-switch-prev)' ({})
 require('cokeline').setup({
   buffers = {
     filter_valid = function(buffer)
-      if buffer.filetype == '' then
+      if buffer.number == 1 and buffer.filetype == '' then
         return false
+      -- elseif buffer.filetype == '' then
+      --   return false
       -- elseif buffer.type == 'quickfix' then
       --   return false
-      -- elseif buffer.path == '.' then
+      -- elseif string.sub(buffer.path, 1, 8) == 'fugitive' then
       --   return false
-      elseif string.sub(buffer.path, 1, 8) == 'fugitive' then
-        return false
       end
       return true
     end,
