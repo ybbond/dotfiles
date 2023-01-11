@@ -22,7 +22,8 @@
 
 (setq modus-themes-subtle-line-numbers nil
       modus-themes-italic-constructs t
-      modus-themes-bold-constructs nil)
+      modus-themes-bold-constructs nil
+      modus-themes-hl-line '(intense accented))
 (load-theme 'modus-vivendi)
 
 ;; https://gist.github.com/belak/ca1c9ae75e53324ee16e2e5289a9c4bc#package-stuff
@@ -339,7 +340,7 @@
   (let ((next-screen-context-lines
          (count-lines (window-start) (window-end))))
     (scroll-up)))
-(global-set-key (kbd "M-n") 'hold-line-scroll-up)
+(global-set-key (kbd "C-s-n") 'hold-line-scroll-up)
 
 (defun hold-line-scroll-down ()
   "Scroll the page with the cursor in the same line"
@@ -347,7 +348,7 @@
   (let ((next-screen-context-lines
          (count-lines (window-start) (window-end))))
     (scroll-down)))
-(global-set-key (kbd "M-p") 'hold-line-scroll-down)
+(global-set-key (kbd "C-s-p") 'hold-line-scroll-down)
 
 (global-set-key (kbd "C-x C-k") 'ido-kill-buffer)
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
