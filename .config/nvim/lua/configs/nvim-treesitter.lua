@@ -2,9 +2,13 @@ noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
 
 require'nvim-treesitter.configs'.setup {
   highlight = {enable = true},
-  -- nvim-ts-context-commentstring
+  -- START nvim-ts-context-commentstring
   context_commentstring = {
+    -- START for Comment.nvim
     enable = true,
+    enable_autocmd = false,
+    -- END for Comment.nvim
+
     additional_vim_regex_highlighting = false,
     config = {
       http = {

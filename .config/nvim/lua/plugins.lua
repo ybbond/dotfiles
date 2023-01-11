@@ -13,11 +13,11 @@ return require('packer').startup(function(use)
 
   use {
     'petertriho/nvim-scrollbar',
-    config = function() require("scrollbar").setup() end,
+    config = function() require('scrollbar').setup() end,
   }
 
   use {
-    "folke/which-key.nvim",
+    'folke/which-key.nvim',
     config = function() require'configs/which-key' end
   }
 
@@ -80,7 +80,7 @@ return require('packer').startup(function(use)
     config = function()
       require'configs/nvim-treesitter'
       require'nvim-treesitter.configs'.setup {
-        ensure_installed = {"http", "json"}, -- for rest.nvim
+        ensure_installed = {'http', 'json'}, -- for rest.nvim
       }
     end
   }
@@ -125,12 +125,12 @@ return require('packer').startup(function(use)
   }
 
   use {
-    "~/poss/rest.nvim",
-     -- "NTBBloodbath/rest.nvim",
-    requires = { "nvim-lua/plenary.nvim" },
+    '~/poss/rest.nvim',
+     -- 'NTBBloodbath/rest.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
     branch = 'fix/split-config',
     config = function()
-      require("rest-nvim").setup({
+      require('rest-nvim').setup({
         result_split_horizontal = true,
         skip_ssl_verification = false,
         highlight = {
@@ -144,11 +144,11 @@ return require('packer').startup(function(use)
         --   show_headers = true,
         -- },
         custom_dynamic_variables = {
-          ["$date"] = function()
+          ['$date'] = function()
             local os_date = os.date('%Y-%m-%d')
             return os_date
           end,
-          ["$clock"] = function()
+          ['$clock'] = function()
             local os_date = os.date('%H:%M:%S')
             return os_date
           end
@@ -183,16 +183,20 @@ return require('packer').startup(function(use)
   }
 
   use {
-    "lukas-reineke/indent-blankline.nvim",
+    'lukas-reineke/indent-blankline.nvim',
     config = function()
-               vim.cmd[[hi IndentBlanklineChar guifg=#3B434E]]
-               require("indent_blankline").setup {
-                 char = "⎸",
-                 -- char = "│",
-                 -- indent_blankline_char_blankline = "⎸",
-                 buftype_exclude = {"terminal"}
-               }
-             end
+      vim.cmd[[hi IndentBlanklineChar guifg=#3B434E]]
+      require('indent_blankline').setup {
+        -- char = '⎸',
+        char = '▏',
+        indent_blankline_char_blankline = '▏',
+        -- char = '│',
+        -- indent_blankline_char_blankline = '⎸',
+        buftype_exclude = {'terminal'},
+        show_current_context = true,
+        show_current_context_start = true,
+      }
+    end
   }
 
   use {
