@@ -38,13 +38,16 @@ return require('packer').startup(function(use)
 
   use {
     'andythigpen/nvim-coverage',
-    config = function() require('coverage').setup({
-      lang = {
-        dart = {
-          coverage_command = "fvm flutter test --coverage --no-sound-null-safety",
-        },
-      },
-    }) end,
+    config = function()
+      require('coverage').setup()
+      -- require('coverage').setup({
+      --   lang = {
+      --     dart = {
+      --       coverage_command = 'fvm flutter test --coverage --no-sound-null-safety',
+      --     },
+      --   },
+      -- })
+    end,
   }
 
   use {
@@ -91,7 +94,7 @@ return require('packer').startup(function(use)
 
   use {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    requires = {'nvim-treesitter/nvim-treesitter', 'tpope/vim-commentary'},
+    requires = {'nvim-treesitter/nvim-treesitter', 'numToStr/Comment.nvim'},
   }
 
   use { 'hrsh7th/vim-vsnip' }
@@ -231,6 +234,46 @@ return require('packer').startup(function(use)
   }
 
   use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup({
+        toggler = {
+          line = 'gcc',
+          block = '',
+        },
+        opleader = {
+          line = 'gc',
+          block = '',
+        },
+        mappings = {
+          extra = false,
+        },
+        pre_hook = function(ctx)
+          local U = require 'Comment.utils'
+
+          local location = nil
+          if ctx.ctype == U.ctype.block then
+            location = require('ts_context_commentstring.utils').get_cursor_location()
+          elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+            location = require('ts_context_commentstring.utils').get_visual_start_location()
+          end
+
+          return require('ts_context_commentstring.internal').calculate_commentstring {
+            key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
+            location = location,
+          }
+        end,
+      })
+    end,
+  }
+  use {
+    'kylechui/nvim-surround',
+    config = function()
+      require('nvim-surround').setup({})
+    end,
+  }
+
+  use {
     'tpope/vim-fugitive',
     config = function ()
       nnoremap '<LEADER>gb' '<CMD>Git blame<CR>'
@@ -240,8 +283,6 @@ return require('packer').startup(function(use)
   use 'tpope/vim-rhubarb'
   use 'shumphrey/fugitive-gitlab.vim'
 
-  use 'tpope/vim-commentary'
-  use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
 
 end)

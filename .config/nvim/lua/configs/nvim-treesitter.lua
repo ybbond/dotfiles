@@ -19,6 +19,7 @@ require'nvim-treesitter.configs'.setup {
       },
     },
   },
+  -- END nvim-ts-context-commentstring
   playground = {
     enable = true,
     disable = {},
