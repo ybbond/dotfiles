@@ -95,6 +95,11 @@
   :init
   (sly-setup)
   :config
+  ;; (setq inferior-lisp-program "ros dynamic-space-size=3gb -Q run -- --eval \"(ql:quickload :swank)\"")
+
+  ;; (setq inferior-lisp-program "ros -Q run")
+
+  ;; (setq inferior-lisp-program "ros run --eval '(ql:quickload :swank)' --eval '(swank:create-server :dont-close t)'")
   ;; (setq sly-contribs '(sly-mrepl sly-scratch))
   (add-to-list 'sly-contribs 'sly-asdf 'append)
   (add-hook 'sly-mrepl-mode-hook 'enable-paredit-mode))
