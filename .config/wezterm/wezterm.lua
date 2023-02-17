@@ -3,8 +3,13 @@ local wezterm = require('wezterm')
 local act = wezterm.action
 
 return {
+  send_composed_key_when_left_alt_is_pressed = true,
+  send_composed_key_when_right_alt_is_pressed = false,
+
   color_scheme = 'nord',
   font = wezterm.font('JetBrains Mono'),
+
+  scrollback_lines = 10000,
 
   colors = {
     tab_bar = {
@@ -47,10 +52,18 @@ return {
   exit_behavior = "Close",
 
   keys = {
-    {key="[",mods="SUPER|SHIFT",action=wezterm.action{MoveTabRelative=-1}},
-    {key="]",mods="SUPER|SHIFT",action=wezterm.action{MoveTabRelative=1}},
-    {key="u",mods="CTRL|SHIFT",action=wezterm.action{ScrollByPage=-1}},
-    {key="d",mods="CTRL|SHIFT",action=wezterm.action{ScrollByPage=1}},
+    {key="{",mods="SUPER|SHIFT",action=act.ActivateTabRelative(-1)},
+    {key="}",mods="SUPER|SHIFT",action=act.ActivateTabRelative(1)},
+    {key="LeftArrow",mods="SUPER|ALT",action=act.ActivateTabRelative(-1)},
+    {key="RightArrow",mods="SUPER|ALT",action=act.ActivateTabRelative(1)},
+    {key="{",mods="SUPER|CTRL|SHIFT",action=act.MoveTabRelative(-1)},
+    {key="}",mods="SUPER|CTRL|SHIFT",action=act.MoveTabRelative(1)},
+    {key="u",mods="CTRL|SHIFT",action=act.ScrollByPage(-1)},
+    {key="d",mods="CTRL|SHIFT",action=act.ScrollByPage(1)},
+    -- {key="[",mods="SUPER|SHIFT",action=wezterm.action{MoveTabRelative=-1}},
+    -- {key="]",mods="SUPER|SHIFT",action=wezterm.action{MoveTabRelative=1}},
+    -- {key="u",mods="CTRL|SHIFT",action=wezterm.action{ScrollByPage=-1}},
+    -- {key="d",mods="CTRL|SHIFT",action=wezterm.action{ScrollByPage=1}},
   },
   key_tables = {
     copy_mode = {
