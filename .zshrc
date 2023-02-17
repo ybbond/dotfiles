@@ -73,7 +73,7 @@ alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-
 alias opsimulator="open -a Simulator"
 alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_32 -netdelay none -netspeed full"
 
-alias neorc="cd ~/.config/nvim && nvim . && cd -"
+alias neorc="cd ~/.config/nvim && nvim . || cd -"
 
 alias flut="fvm flutter"
 
