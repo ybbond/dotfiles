@@ -130,13 +130,7 @@ export TERM=screen-256color
 # export BAT_THEME="GitHub"
 export BAT_THEME="Coldark-Dark"
 
-export PATH="$HOME/.tool_binaries/zulu17.32.13-ca-fx-jdk17.0.2-macosx_aarch64/zulu-17.jdk/Contents/Home:$PATH"
-export JAVA_HOME="$HOME/.tool_binaries/zulu17.32.13-ca-fx-jdk17.0.2-macosx_aarch64/zulu-17.jdk/Contents/Home"
-
-export PATH="$PATH:$HOME/fvm/default/bin"
-export PATH="$PATH:$HOME/.pub-cache/bin"
-
-export PATH="/opt/homebrew/bin:$PATH"
+eval "$(frum init)"
 
 ## for llvm homebrew
 # export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
@@ -159,8 +153,3 @@ export PATH="/opt/homebrew/bin:$PATH"
 
 # export C_INCLUDE_DIRS="/opt/homebrew/include"
 # export CLANG_LIBS="/opt/homebrew/lib"
-
-export GO111MODULE=on
-# export GOPRIVATE="gitlab.com/pinvest/*"
-export GOPATH="$HOME/go"; export GOROOT="$HOME/.go"; export PATH="$GOPATH/bin:$PATH"; # g-install: do NOT edit, see https://github.com/stefanmaric/g
-# export GOPROXY=https://proxy.golang.org
