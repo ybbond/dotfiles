@@ -2,6 +2,14 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="spaceship"
 
+## https://www.soberkoder.com/better-zsh-history/
+# setopt INC_APPEND_HISTORY
+# export HISTTIMEFORMAT="[%F %T] "
+# setopt EXTENDED_HISTORY
+setopt HIST_FIND_NO_DUPS
+# export HISTFILESIZE=10000000
+export HISTSIZE=10000000
+
 SPACESHIP_PROMPT_ORDER=(
     battery
     time
