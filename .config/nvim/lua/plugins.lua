@@ -30,7 +30,7 @@ return {
 
   {
     'folke/which-key.nvim',
-    config = function() require'configs/which-key' end
+    config = function() require'configs/folke-which-key' end
   },
 
   {
@@ -104,7 +104,7 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-    config = function() require'configs/telescope' end
+    config = function() require'configs/nvim-telescope' end
   },
 
   {
