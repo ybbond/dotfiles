@@ -5,6 +5,8 @@
 vim.o.compatible = false
 vim.o.encoding = 'UTF-8'
 
+vim.g.mapleader = [[\]]
+
 vim.opt.termguicolors = true
 vim.o.background = 'dark'
 
@@ -115,9 +117,10 @@ noremap '' '<C-w>-' -- Alt Shift k
 noremap 'Ô' '<C-w>+' -- Alt Shift j
 noremap 'Ò' '<C-w>>' -- Alt Shift l
 
+-- temporarily handled in nvim-hlslens
 -- keep asterisk and pound to be case sensitive
-nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
-nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]]
+-- nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
+-- nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]]
 
 -- copy, paste and copy whole file to clipboard
 map '<LEADER>cs'   '"+y' ({})
@@ -140,6 +143,16 @@ inoremap '<C-c>' '<ESC>'
 nnoremap '@' [[<cmd>execute "noautocmd norm! " . v:count1 . "@" . getcharstr()<cr>]]
 xnoremap '@' [[:<C-U>execute "noautocmd '<,'>norm! " . v:count1 . "@" . getcharstr()<cr>]]
 
+-- vim.keymap.set({ "n", "x" }, "<C-S><C-R>", function() require("ssr").open() end)
+nnoremap '<C-S><C-R>' [[<CMD>lua require("ssr").open()<CR>]]
+xnoremap '<C-S><C-R>' [[<CMD>lua require("ssr").open()<CR>]]
+nnoremap '<C-S>R' [[<CMD>lua require("ssr").open()<CR>]]
+xnoremap '<C-S>R' [[<CMD>lua require("ssr").open()<CR>]]
+
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}
+
 -- -- make emacs navigation available on EX-mode
 -- -- done in compat
 -- cnoremap '<C-a>'   '<Home>'
@@ -156,9 +169,20 @@ xnoremap '@' [[:<C-U>execute "noautocmd '<,'>norm! " . v:count1 . "@" . getchars
 --                       RESOURCES
 ------------------------------------------------------------
 
-
-require'plugins'
 require'compat'
 require'autos'
 
-vim.cmd[[colorscheme nordfox]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup('plugins')

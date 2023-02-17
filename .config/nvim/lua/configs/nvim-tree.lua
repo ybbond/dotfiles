@@ -1,5 +1,8 @@
 require'nvim-tree'.open_on_directory = function () end
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 nnoremap '<C-s><C-b>' '<CMD>NvimTreeToggle<CR>'
 nnoremap '<C-s>b'     '<CMD>NvimTreeToggle<CR>'
 nnoremap '<C-s><C-f>'  '<CMD>NvimTreeFindFile<CR>'

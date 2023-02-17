@@ -17,9 +17,7 @@ local function execute_command(bufnr)
   local cmd = selection.command
   if cmd then
     local success, msg = pcall(cmd)
-    if not success then
-      vim.notify(msg, vim.log.levels.ERROR)
-    end
+    if not success then vim.notify(msg, vim.log.levels.ERROR) end
   end
 end
 
@@ -111,8 +109,14 @@ function M.commands(opts)
       {
         id = "flutter-tools-run",
         label = "Flutter tools: Run",
-        hint = "Start a flutter project in staging flavor",
+        hint = "Start a flutter project",
         command = require("flutter-tools.commands").run,
+      },
+      {
+        id = "flutter-tools-run-non-null-safety",
+        label = "Flutter tools: Run Non Null Safety",
+        hint = "Start a flutter project Non Null Safety",
+        command = function() require("flutter-tools.commands").run_command('--no-sound-null-safety') end,
       },
       {
         id = "flutter-tools-run-agent-staging",
@@ -191,6 +195,12 @@ function M.commands(opts)
       command = require("flutter-tools.outline").open,
     },
     {
+      id = "flutter-tools-generate",
+      label = "Flutter tools: Generate ",
+      hint = "Generate code",
+      command = require("flutter-tools.commands").generate,
+    },
+    {
       id = "flutter-tools-clear-dev-log",
       label = "Flutter tools: Clear Dev Log",
       hint = "Clear previous logs in the output buffer",
@@ -207,6 +217,12 @@ function M.commands(opts)
         label = "Flutter tools: Copy Profiler Url",
         hint = "Run the app and the DevTools first",
         command = require("flutter-tools.commands").copy_profiler_url,
+      },
+      {
+        id = "flutter-tools-open-dev-tools",
+        label = "Flutter tools: Open Dev Tools",
+        hint = "Run the app and the Dev Tools first",
+        command = require("flutter-tools.commands").open_dev_tools,
       },
     })
   else
@@ -227,24 +243,26 @@ function M.commands(opts)
     },
   })
 
-  pickers.new(picker_opts, {
-    prompt_title = "Flutter tools commands",
-    finder = finders.new_table({
-      results = commands,
-      entry_maker = command_entry_maker(get_max_length(commands)),
-    }),
-    sorter = sorters.get_generic_fuzzy_sorter(),
-    attach_mappings = function(_, map)
-      map("i", "<CR>", execute_command)
-      map("n", "<CR>", execute_command)
+  pickers
+    .new(picker_opts, {
+      prompt_title = "Flutter tools commands",
+      finder = finders.new_table({
+        results = commands,
+        entry_maker = command_entry_maker(get_max_length(commands)),
+      }),
+      sorter = sorters.get_generic_fuzzy_sorter(),
+      attach_mappings = function(_, map)
+        map("i", "<CR>", execute_command)
+        map("n", "<CR>", execute_command)
 
-      -- If the return value of `attach_mappings` is true, then the other
-      -- default mappings are still applies.
-      -- Return false if you don't want any other mappings applied.
-      -- A return value _must_ be returned. It is an error to not return anything.
-      return true
-    end,
-  }):find()
+        -- If the return value of `attach_mappings` is true, then the other
+        -- default mappings are still applies.
+        -- Return false if you don't want any other mappings applied.
+        -- A return value _must_ be returned. It is an error to not return anything.
+        return true
+      end,
+    })
+    :find()
 end
 
 local function execute_fvm_use(bufnr)
@@ -253,9 +271,7 @@ local function execute_fvm_use(bufnr)
   local cmd = selection.command
   if cmd then
     local success, msg = pcall(cmd, selection.ordinal)
-    if not success then
-      vim.notify(msg, vim.log.levels.ERROR)
-    end
+    if not success then vim.notify(msg, vim.log.levels.ERROR) end
   end
 end
 
@@ -280,19 +296,21 @@ function M.fvm(opts)
       })
     end
 
-    pickers.new(opts, {
-      prompt_title = "Change Flutter SDK",
-      finder = finders.new_table({
-        results = sdk_entries,
-        entry_maker = command_entry_maker(get_max_length(sdk_entries)),
-      }),
-      sorter = sorters.get_generic_fuzzy_sorter(),
-      attach_mappings = function(_, map)
-        map("i", "<CR>", execute_fvm_use)
-        map("n", "<CR>", execute_fvm_use)
-        return true
-      end,
-    }):find()
+    pickers
+      .new(opts, {
+        prompt_title = "Change Flutter SDK",
+        finder = finders.new_table({
+          results = sdk_entries,
+          entry_maker = command_entry_maker(get_max_length(sdk_entries)),
+        }),
+        sorter = sorters.get_generic_fuzzy_sorter(),
+        attach_mappings = function(_, map)
+          map("i", "<CR>", execute_fvm_use)
+          map("n", "<CR>", execute_fvm_use)
+          return true
+        end,
+      })
+      :find()
   end)
 end
 

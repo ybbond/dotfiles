@@ -24,6 +24,7 @@ local ybbond_flutter_lsp_on_attach = function(client, bufnr)
 
   local flutter_command = require('flutter-tools.utils').command
 
+  flutter_command("FlutterNonNullSafety", [[lua require('flutter-tools.commands').run_command('--no-sound-null-safety')]])
   flutter_command("FlutterAgentStartStaging", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety')]])
   flutter_command("FlutterAgentStartStagingNoPub", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety --no-pub')]])
   flutter_command("FlutterAgentStartProduction", [[lua require('flutter-tools.commands').run_command('--flavor=production --no-sound-null-safety')]])
@@ -66,9 +67,9 @@ require("flutter-tools").setup {
   flutter_path = '/Users/yohanesbandung/fvm/versions/2.5.0/bin/flutter',
   fvm = true,
 
-  widget_guides = {
-    enabled = true,
-  },
+  -- widget_guides = {
+  --   enabled = true,
+  -- },
 }
 
 require('telescope').load_extension('flutter')

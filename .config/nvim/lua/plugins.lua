@@ -1,106 +1,158 @@
--- this file can be loaded by calling `lua require('plugins')` from your init.vim
-
--- only required if you have packer configured as `opt`
--- vim.cmd [[packadd packer.nvim]]
--- only if your version of Neovim doesn't have https://github.com/neovim/neovim/pull/12632 merged
--- vim._update_package_paths()
-
-vim.cmd([[autocmd! BufWritePost plugins.lua source <afile> | PackerCompile profile=true]])
-
-return require('packer').startup(function(use)
-
-  use 'wbthomason/packer.nvim'
-
-  use {
+return {
+  {
     'petertriho/nvim-scrollbar',
-    config = function() require('scrollbar').setup() end,
-  }
+    config = function()
+      require('scrollbar').setup()
+      require('scrollbar.handlers.search').setup()
+      require('scrollbar.handlers.gitsigns').setup()
+    end,
+  },
 
-  use {
+  {
+    'kevinhwang91/nvim-hlslens',
+    config = function()
+      nnoremap 'n' [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'N' [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '*' [[*<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '#' [[#<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'g*' [[g*<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'g#' [[g#<Cmd>lua require('hlslens').start()<CR>]]
+
+      nnoremap '<Leader>l' ':noh<CR>'
+
+      nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+
+      nnoremap '<LEADER><LEADER>*' [[:let @/=expand('<cword>')<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '<LEADER><LEADER>#' [[:let @/=expand('<cword>')<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+    end,
+  },
+
+  {
     'folke/which-key.nvim',
     config = function() require'configs/which-key' end
-  }
+  },
 
-  use {
+  {
     'EdenEast/nightfox.nvim',
-    config = function() require'configs/nightfox-nvim' end,
-  }
+    config = function()
+      require'configs/nightfox-nvim'
 
-  use {
+      vim.cmd[[colorscheme nordfox]]
+    end,
+  },
+
+  {
     'kyazdani42/nvim-web-devicons',
     config = function() require'nvim-web-devicons'.setup({default = true}) end,
-  }
+  },
 
-  use {
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    config = function() require 'configs/nvim-ufo' end,
+  },
+
+  {
+    'luukvbaal/statuscol.nvim',
+    config = function()
+      require('statuscol').setup({
+        setopt = true,
+        reeval = true,
+        foldfunc = 'builtin',
+      })
+    end,
+  },
+
+  {
     'neovim/nvim-lspconfig',
     config = function() require'configs/nvim-lspconfig' end,
-  }
+  },
 
-  use {
+  {
     'andythigpen/nvim-coverage',
+    dependencies = 'nvim-lua/plenary.nvim',
     config = function()
+      require('coverage.config').setup({
+        auto_reload = true,
+      })
       require('coverage').setup()
-      -- require('coverage').setup({
-      --   lang = {
-      --     dart = {
-      --       coverage_command = 'fvm flutter test --coverage --no-sound-null-safety',
-      --     },
-      --   },
-      -- })
     end,
-  }
+  },
 
-  use {
+  {
     'j-hui/fidget.nvim',
     config = function() require'fidget'.setup() end
-  }
+  },
 
-  use {
+  {
     'pianocomposer321/yabs.nvim',
     config = function() require'configs/yabs-nvim' end,
-  }
+  },
 
-  use {
+  {
     'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
+    dependencies = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/nvim-tree' end
-  }
+  },
 
-  use {
+  {
     'norcalli/nvim-colorizer.lua',
     config = function() require'colorizer'.setup() end
-  }
+  },
 
-  use {
+  {
     'nvim-telescope/telescope.nvim',
-    requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+    dependencies = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
     config = function() require'configs/telescope' end
-  }
+  },
 
-  use {
+  {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
     config = function()
       require'configs/nvim-treesitter'
       require'nvim-treesitter.configs'.setup {
-        ensure_installed = {'http', 'json'}, -- for rest.nvim
+        ensure_installed = {
+          'http', 'json',  -- for rest.nvim
+          'go',
+          'lua',
+          'dart',
+        },
       }
     end
-  }
-  use {
+  },
+  {
     'nvim-treesitter/playground',
-    requires = 'nvim-treesitter/nvim-treesitter'
-  }
+    dependencies = 'nvim-treesitter/nvim-treesitter'
+  },
 
-  use {
+  {
+    'cshuaimin/ssr.nvim',
+    name = 'ssr',
+    config = function()
+      require('ssr').setup {
+        min_width = 50,
+        min_height = 5,
+        keymaps = {
+          close = 'q',
+          next_match = 'n',
+          prev_match = 'N',
+          replace_all = '<LEADER><CR>',
+        },
+      }
+    end,
+  },
+
+  {
     'JoosepAlviste/nvim-ts-context-commentstring',
-    requires = {'nvim-treesitter/nvim-treesitter', 'numToStr/Comment.nvim'},
-  }
+    dependencies = {'nvim-treesitter/nvim-treesitter', 'numToStr/Comment.nvim'},
+  },
 
-  use { 'hrsh7th/vim-vsnip' }
-  use {
+  'hrsh7th/vim-vsnip',
+  {
     'hrsh7th/nvim-cmp',
-    requires = {
+    dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-calc',
@@ -109,29 +161,26 @@ return require('packer').startup(function(use)
       'hrsh7th/cmp-vsnip',
       {
         'petertriho/cmp-git',
-        requires = 'nvim-lua/plenary.nvim',
+        dependencies = 'nvim-lua/plenary.nvim',
       },
     },
     config = function() require'configs/nvim-cmp' end,
-  }
+  },
 
-  -- gitsigns.nvim on gutter
-  use {
+  {
     'lewis6991/gitsigns.nvim',
-    requires = 'nvim-lua/plenary.nvim',
-    config = function() require'configs/gitsigns-nvim' end
-  }
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = function() require'configs/gitsigns-nvim' end,
+  },
 
-  use {
+  {
     'famiu/feline.nvim',
     config = function() require'configs/feline' end,
-  }
+  },
 
-  use {
-    '~/poss/rest.nvim',
-     -- 'NTBBloodbath/rest.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    branch = 'fix/split-config',
+  {
+     'NTBBloodbath/rest.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       require('rest-nvim').setup({
         result_split_horizontal = true,
@@ -140,12 +189,6 @@ return require('packer').startup(function(use)
           enabled = true,
           timeout = 300,
         },
-        -- jump_to_request = true,
-        -- result = {
-        --   show_url = true,
-        --   show_http_info = true,
-        --   show_headers = true,
-        -- },
         custom_dynamic_variables = {
           ['$date'] = function()
             local os_date = os.date('%Y-%m-%d')
@@ -170,22 +213,22 @@ return require('packer').startup(function(use)
         }
       )
     end
-  }
+  },
 
-  use {
+  {
     'noib3/cokeline.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
+    dependencies = 'kyazdani42/nvim-web-devicons',
     config = function() require'configs/cokeline-nvim' end,
-  }
+  },
 
-  use {
+  {
     'famiu/bufdelete.nvim',
     config = function ()
       nnoremap 'gx' '<CMD>Bdelete<CR>'
     end
-  }
+  },
 
-  use {
+  {
     'lukas-reineke/indent-blankline.nvim',
     config = function()
       vim.cmd[[hi IndentBlanklineChar guifg=#3B434E]]
@@ -197,92 +240,79 @@ return require('packer').startup(function(use)
         -- indent_blankline_char_blankline = '⎸',
         buftype_exclude = {'terminal'},
         show_current_context = true,
-        show_current_context_start = true,
+        show_current_context_start = false,
       }
     end
-  }
+  },
 
-  use {
-    'guns/vim-sexp',
-  }
-  use 'tpope/vim-dispatch'
-  use 'clojure-vim/vim-jack-in'
-  use 'radenling/vim-dispatch-neovim'
-  use 'Olical/conjure'
+  'guns/vim-sexp',
+  'tpope/vim-dispatch',
+  'clojure-vim/vim-jack-in',
+  'radenling/vim-dispatch-neovim',
+  'Olical/conjure',
 
-  use '~/poss/dart-vim-plugin'
-  use {
+  {
+    dir = '~/poss/dart-vim-plugin',
+  },
+  {
     'akinsho/flutter-tools.nvim',
-    requires = 'nvim-lua/plenary.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
     config = function() require'configs/flutter-tools' end,
-  }
-  use {
+  },
+  {
     'akinsho/dependency-assist.nvim',
     config = function ()
-      require('dependency_assist').setup()
+      require('dependency_assist').setup({})
     end
-  }
+  },
 
-  use {
+  {
     'ray-x/go.nvim',
+    dependencies = 'ray-x/guihua.lua',
     config = function () require'configs/go-nvim' end,
-  }
+  },
 
-  use {
+  'terrastruct/d2-vim',
+
+  'ellisonleao/glow.nvim',
+
+  {
     'ggandor/lightspeed.nvim',
     config = function () require'configs/lightspeed' end
-  }
+  },
 
-  use {
+  {
     'numToStr/Comment.nvim',
     config = function()
       require('Comment').setup({
         toggler = {
           line = 'gcc',
-          block = '',
+          block = 'gCc',
         },
         opleader = {
           line = 'gc',
-          block = '',
+          block = 'gC',
         },
-        mappings = {
-          extra = false,
-        },
-        pre_hook = function(ctx)
-          local U = require 'Comment.utils'
-
-          local location = nil
-          if ctx.ctype == U.ctype.block then
-            location = require('ts_context_commentstring.utils').get_cursor_location()
-          elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-            location = require('ts_context_commentstring.utils').get_visual_start_location()
-          end
-
-          return require('ts_context_commentstring.internal').calculate_commentstring {
-            key = ctx.ctype == U.ctype.line and '__default' or '__multiline',
-            location = location,
-          }
-        end,
+        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
       })
     end,
-  }
-  use {
+  },
+  {
     'kylechui/nvim-surround',
     config = function()
       require('nvim-surround').setup({})
     end,
-  }
+  },
 
-  use {
+  {
     'tpope/vim-fugitive',
     config = function ()
       nnoremap '<LEADER>gb' '<CMD>Git blame<CR>'
       nnoremap '<LEADER>go' '<CMD>GBrowse<CR>'
     end
-  }
-  use 'tpope/vim-rhubarb'
-  use 'shumphrey/fugitive-gitlab.vim'
+  },
+  'tpope/vim-rhubarb',
+  'shumphrey/fugitive-gitlab.vim',
 
-  use 'tpope/vim-repeat'
-
-end)
+  'tpope/vim-repeat',
+}

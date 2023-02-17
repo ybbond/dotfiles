@@ -50,6 +50,21 @@ lspconfig.clangd.setup{
   on_attach = ybbond_lsp_on_attach,
 }
 
+lspconfig.vls.setup{
+  capabilities = ybbond_lsp_capabilities,
+  on_attach = ybbond_lsp_on_attach,
+}
+
+lspconfig.denols.setup{
+  init_options = {
+    enable = true,
+    unstable = true,
+  },
+  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
+  capabilities = ybbond_lsp_capabilities,
+  on_attach = ybbond_lsp_on_attach,
+}
+
 lspconfig.clojure_lsp.setup{
   capabilities = ybbond_lsp_capabilities,
   on_attach = ybbond_lsp_on_attach
@@ -59,31 +74,30 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-local sumneko_lua_settings = {
+local lua_ls_settings = {
   runtime = {
-    version = 'Lua 5.4.3',
+    version = 'LuaJIT',
     path = runtime_path,
+  },
+  workspace = {
+    checkThirdParty = false,
   },
   telemetry = { enable = false, },
 }
 if vim.fn.getcwd() == os.getenv('HOME') .. '/.config/nvim'
   or string.find(vim.fn.getcwd(), os.getenv('HOME') .. '/poss/nvim') then
-  sumneko_lua_settings = {
-    diagnostics = { globals = {'vim'}, },
-    workspace = {
-      library = vim.api.nvim_get_runtime_file("", true),
-    },
-  }
+  lua_ls_settings['diagnostics'] = { globals = {'vim'}, }
+  lua_ls_settings['workspace']['library'] = vim.api.nvim_get_runtime_file("", true)
 end
 
-lspconfig.sumneko_lua.setup{
+lspconfig.lua_ls.setup{
   capabilities = ybbond_lsp_capabilities,
   cmd = {
-    os.getenv('HOME') .. "/poss/lua-language-server" .. "/bin/macOS/lua-language-server",
+    os.getenv('HOME') .. "/.tool_binaries/lua-language-server" .. "/bin/lua-language-server",
     "-E",
-    os.getenv('HOME') .. "/poss/lua-language-server" .. "/main.lua"
+    os.getenv('HOME') .. "/.tool_binaries/lua-language-server" .. "/main.lua"
   },
   on_attach = ybbond_lsp_on_attach,
   filetypes = { "lua" },
-  settings = { Lua = sumneko_lua_settings },
+  settings = { Lua = lua_ls_settings },
 }

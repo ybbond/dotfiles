@@ -10,7 +10,17 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
   {'BufNewFile', 'BufRead'},
   {
-    pattern = '*.c,*.cpp,*.cc,*.h,*.py',
+    pattern = '*.v',
+    callback = function()
+      vim.o.filetype = 'vlang'
+    end,
+  }
+)
+
+vim.api.nvim_create_autocmd(
+  {'BufNewFile', 'BufRead'},
+  {
+    pattern = '*.c,*.cpp,*.cc,*.h,*.py,*.go',
     callback = function()
       vim.bo.tabstop = 4
       vim.bo.shiftwidth = 4
