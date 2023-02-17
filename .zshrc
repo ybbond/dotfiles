@@ -78,8 +78,8 @@ precmd () {
 alias set_dark="cp ~/.tmux-dark.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-dark.conf ~/.config/kitty/kitty.conf"
 alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-light.conf ~/.config/kitty/kitty.conf"
 
-alias opsimulator="open -a Simulator"
-alias opemulator="~/Library/Android/sdk/emulator/emulator -avd Pixel_3a_API_32 -netdelay none -netspeed full"
+alias opsimulator="arch -x86_64 /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator"
+alias opemulator4="~/Library/Android/sdk/emulator/emulator -avd Pixel_4_API_31 -netdelay none -netspeed full"
 
 alias neorc="cd ~/.config/nvim && nvim . || cd -"
 
