@@ -8,6 +8,10 @@ local ybbond_go_lsp_on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, l, r, c, { noremap=true, silent=true })
   end
 
+  local function buf_create_command(name, cmd)
+    vim.api.nvim_buf_create_user_command(bufnr, name, cmd, {})
+  end
+
   buf_set_keymap('n', 'gh', '<CMD>GoDoc<CR>')
   buf_set_keymap('n', 'gt', '<CMD>GoAddTag<CR>')
   buf_set_keymap('n', 'gT', '<CMD>GoRmTag<CR>')
@@ -16,6 +20,7 @@ local ybbond_go_lsp_on_attach = function(client, bufnr)
   buf_set_keymap('n', '<LEADER>f', '<CMD>lua require("go.format").gofmt()<CR>')
   buf_set_keymap('n', '<LEADER>F', '<CMD>lua require("go.format").goimport()<CR>')
 
+  buf_create_command('GoTestFuncCoverage', 'GoTestFunc -C coverage.out')
 end
 
 require('go').setup({

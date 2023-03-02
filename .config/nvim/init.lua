@@ -16,9 +16,6 @@ vim.cmd('filetype plugin indent on')
 vim.o.paste = false
 vim.o.pastetoggle = '<F2>'
 
--- used by which-key.nvim
-vim.o.timeoutlen = 100
-
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
@@ -127,8 +124,8 @@ map '<LEADER>cs'   '"+y' ({})
 map '<LEADER>v'    ':r !pbpaste<CR><CR>' ({})
 map '<LEADER>ca'   ':%w !pbcopy<CR><CR>' ({})
 
+-- temporarily handled in nvim-treesitter
 -- identify syntax below cursor with <LEADER>h
--- replaced by nvim-treesitter
 -- noremap '<LEADER>h' [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
 
 nnoremap '<LEADER>a' 'ga'
@@ -142,12 +139,6 @@ inoremap '<C-c>' '<ESC>'
 -- https://www.reddit.com/r/neovim/comments/tsol2n/why_macros_are_so_slow_compared_to_emacs/i2ugipm/
 nnoremap '@' [[<cmd>execute "noautocmd norm! " . v:count1 . "@" . getcharstr()<cr>]]
 xnoremap '@' [[:<C-U>execute "noautocmd '<,'>norm! " . v:count1 . "@" . getcharstr()<cr>]]
-
--- vim.keymap.set({ "n", "x" }, "<C-S><C-R>", function() require("ssr").open() end)
-nnoremap '<C-S><C-R>' [[<CMD>lua require("ssr").open()<CR>]]
-xnoremap '<C-S><C-R>' [[<CMD>lua require("ssr").open()<CR>]]
-nnoremap '<C-S>R' [[<CMD>lua require("ssr").open()<CR>]]
-xnoremap '<C-S>R' [[<CMD>lua require("ssr").open()<CR>]]
 
 vim.g.markdown_fenced_languages = {
   "ts=typescript"

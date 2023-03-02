@@ -2,6 +2,12 @@ noremap '<LEADER>h' '<CMD>TSHighlightCapturesUnderCursor<CR>'
 
 require'nvim-treesitter.configs'.setup {
   highlight = {enable = true},
+  ensure_installed = {
+    'http', 'json',  -- for rest.nvim
+    'go',
+    'lua',
+    'dart',
+  },
   -- START nvim-ts-context-commentstring
   context_commentstring = {
     -- START for Comment.nvim

@@ -1,39 +1,5 @@
 return {
   {
-    'petertriho/nvim-scrollbar',
-    config = function()
-      require('scrollbar').setup()
-      require('scrollbar.handlers.search').setup()
-      require('scrollbar.handlers.gitsigns').setup()
-    end,
-  },
-
-  {
-    'kevinhwang91/nvim-hlslens',
-    config = function()
-      nnoremap 'n' [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap 'N' [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap '*' [[*<Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap '#' [[#<Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap 'g*' [[g*<Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap 'g#' [[g#<Cmd>lua require('hlslens').start()<CR>]]
-
-      nnoremap '<Leader>l' ':noh<CR>'
-
-      nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-
-      nnoremap '<LEADER><LEADER>*' [[:let @/=expand('<cword>')<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap '<LEADER><LEADER>#' [[:let @/=expand('<cword>')<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-    end,
-  },
-
-  {
-    'folke/which-key.nvim',
-    config = function() require'configs/folke-which-key' end
-  },
-
-  {
     'EdenEast/nightfox.nvim',
     config = function()
       require'configs/nightfox-nvim'
@@ -43,25 +9,34 @@ return {
   },
 
   {
-    'kyazdani42/nvim-web-devicons',
-    config = function() require'nvim-web-devicons'.setup({default = true}) end,
+    'folke/which-key.nvim',
+    config = function() require'configs/folke-which-key' end
   },
 
   {
-    'kevinhwang91/nvim-ufo',
-    dependencies = 'kevinhwang91/promise-async',
-    config = function() require 'configs/nvim-ufo' end,
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
+    config = function() require'configs/nvim-telescope' end
   },
 
   {
-    'luukvbaal/statuscol.nvim',
-    config = function()
-      require('statuscol').setup({
-        setopt = true,
-        reeval = true,
-        foldfunc = 'builtin',
-      })
-    end,
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function() require'configs/nvim-treesitter' end
+  },
+  {
+    'nvim-treesitter/playground',
+    dependencies = 'nvim-treesitter/nvim-treesitter'
+  },
+
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function() require'configs/nvim-tree' end
   },
 
   {
@@ -78,6 +53,15 @@ return {
       })
       require('coverage').setup()
     end,
+    cmd = {
+      'Coverage',
+      'CoverageClear',
+      'CoverageHide',
+      'CoverageLoad',
+      'CoverageShow',
+      'CoverageSummary',
+      'CoverageToggle',
+    },
   },
 
   {
@@ -91,46 +75,19 @@ return {
   },
 
   {
-    'kyazdani42/nvim-tree.lua',
-    dependencies = 'kyazdani42/nvim-web-devicons',
-    config = function() require'configs/nvim-tree' end
-  },
-
-  {
     'norcalli/nvim-colorizer.lua',
     config = function() require'colorizer'.setup() end
-  },
-
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
-    config = function() require'configs/nvim-telescope' end
-  },
-
-  {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    config = function()
-      require'configs/nvim-treesitter'
-      require'nvim-treesitter.configs'.setup {
-        ensure_installed = {
-          'http', 'json',  -- for rest.nvim
-          'go',
-          'lua',
-          'dart',
-        },
-      }
-    end
-  },
-  {
-    'nvim-treesitter/playground',
-    dependencies = 'nvim-treesitter/nvim-treesitter'
   },
 
   {
     'cshuaimin/ssr.nvim',
     name = 'ssr',
     config = function()
+      nnoremap '<C-S><C-R>' [[<CMD>lua require("ssr").open()<CR>]]
+      xnoremap '<C-S><C-R>' [[<CMD>lua require("ssr").open()<CR>]]
+      nnoremap '<C-S>R' [[<CMD>lua require("ssr").open()<CR>]]
+      xnoremap '<C-S>R' [[<CMD>lua require("ssr").open()<CR>]]
+
       require('ssr').setup {
         min_width = 50,
         min_height = 5,
@@ -174,14 +131,67 @@ return {
   },
 
   {
-    'famiu/feline.nvim',
+    'petertriho/nvim-scrollbar',
+    config = function()
+      require('scrollbar').setup()
+      require('scrollbar.handlers.search').setup()
+      require('scrollbar.handlers.gitsigns').setup()
+    end,
+  },
+
+  {
+    'kevinhwang91/nvim-hlslens',
+    config = function()
+      nnoremap 'n' [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'N' [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '*' [[*<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '#' [[#<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'g*' [[g*<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'g#' [[g#<Cmd>lua require('hlslens').start()<CR>]]
+
+      nnoremap '<Leader>l' ':noh<CR>'
+
+      nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+
+      nnoremap '<LEADER><LEADER>*' [[:let @/=expand('<cword>')<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '<LEADER><LEADER>#' [[:let @/=expand('<cword>')<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+    end,
+  },
+
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = 'kevinhwang91/promise-async',
+    config = function() require 'configs/nvim-ufo' end,
+  },
+
+  {
+    'luukvbaal/statuscol.nvim',
+    commit = '49a3bdab3e9cf23982724c1e888a6296fca4c8b9',
+    config = function()
+      require('statuscol').setup({
+        setopt = true,
+        reeval = true,
+        foldfunc = 'builtin',
+        relculright = true,
+      })
+    end,
+  },
+
+  {
+    'freddiehaddad/feline.nvim',
     config = function() require'configs/feline' end,
   },
 
   {
-     'NTBBloodbath/rest.nvim',
+    'NTBBloodbath/rest.nvim',
+    ft = 'http',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
+      nmap '<C-F><C-F>' '<Plug>RestNvim<CR>' ({})
+      nmap '<C-F><C-P>' '<Plug>RestNvimPreview<CR>' ({})
+      nmap '<C-F><C-L>' '<Plug>RestNvimLast<CR>' ({})
+
       require('rest-nvim').setup({
         result_split_horizontal = true,
         skip_ssl_verification = false,
@@ -200,18 +210,6 @@ return {
           end
         },
       })
-
-      vim.api.nvim_create_autocmd(
-        'FileType',
-        {
-          pattern = 'http',
-          callback = function()
-            nmap '<C-F><C-F>' '<Plug>RestNvim<CR>' ({})
-            nmap '<C-F><C-P>' '<Plug>RestNvimPreview<CR>' ({})
-            nmap '<C-F><C-L>' '<Plug>RestNvimLast<CR>' ({})
-          end,
-        }
-      )
     end
   },
 
@@ -245,17 +243,27 @@ return {
     end
   },
 
-  'guns/vim-sexp',
-  'tpope/vim-dispatch',
-  'clojure-vim/vim-jack-in',
-  'radenling/vim-dispatch-neovim',
-  'Olical/conjure',
+  {
+    'guns/vim-sexp',
+    ft = {'clojure', 'lisp', 'scheme', 'timl'},
+  },
+  {
+    'clojure-vim/vim-jack-in',
+    dependencies = {'tpope/vim-dispatch', 'radenling/vim-dispatch-neovim'},
+    ft = 'clojure',
+  },
+  {
+    'Olical/conjure',
+    ft = {'clojure', 'fennel', 'janet', 'hy', 'julia', 'racket', 'scheme', 'lua', 'lisp', 'python', 'rust'},
+  },
 
   {
     dir = '~/poss/dart-vim-plugin',
+    ft = 'dart',
   },
   {
     'akinsho/flutter-tools.nvim',
+    ft = 'dart',
     dependencies = 'nvim-lua/plenary.nvim',
     config = function() require'configs/flutter-tools' end,
   },
@@ -268,13 +276,24 @@ return {
 
   {
     'ray-x/go.nvim',
+    ft = {'go', 'gomod'},
     dependencies = 'ray-x/guihua.lua',
     config = function () require'configs/go-nvim' end,
   },
 
-  'terrastruct/d2-vim',
+  {
+    'terrastruct/d2-vim',
+    ft = 'd2',
+    config = function ()
+      vim.b.included_syntaxes = {}
+    end,
+  },
 
-  'ellisonleao/glow.nvim',
+  {
+    'ellisonleao/glow.nvim',
+    config = true,
+    cmd = "Glow",
+  },
 
   {
     'ggandor/lightspeed.nvim',

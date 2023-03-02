@@ -1,14 +1,17 @@
-require("which-key.util").t = function(str)
-  if str == "<c-d>" then
+vim.o.timeout = true
+vim.o.timeoutlen = 100
+
+require('which-key.util').t = function(str)
+  if str == '<c-d>' then
     return nil
-  elseif str == "<c-u>" then
+  elseif str == '<c-u>' then
     return nil
   else
     return vim.api.nvim_replace_termcodes(str, true, true, true)
   end
 end
 
-require("which-key").setup {
+require('which-key').setup {
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
     registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -30,7 +33,7 @@ require("which-key").setup {
   },
   -- add operators that will trigger motion and text object completion
   -- to enable all native operators, set the preset / operators plugin above
-  operators = { gc = "Comments", ys = "Surround" },
+  operators = { gc = 'Comments', ys = 'Surround' },
   key_labels = {
     -- override the label used to display some keys. It doesn't effect WK in any other way.
     -- For example:
@@ -39,13 +42,13 @@ require("which-key").setup {
     -- ["<tab>"] = "TAB",
   },
   icons = {
-    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-    separator = "➜", -- symbol used between a key and it's label
-    group = "+", -- symbol prepended to a group
+    breadcrumb = '»', -- symbol used in the command line area that shows your active key combo
+    separator = '➜', -- symbol used between a key and it's label
+    group = '+', -- symbol prepended to a group
   },
   window = {
-    border = "none", -- none, single, double, shadow
-    position = "bottom", -- bottom, top
+    border = 'none', -- none, single, double, shadow
+    position = 'bottom', -- bottom, top
     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
     padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
   },
@@ -53,12 +56,12 @@ require("which-key").setup {
     height = { min = 4, max = 25 }, -- min and max height of the columns
     width = { min = 20, max = 50 }, -- min and max width of the columns
     spacing = 3, -- spacing between columns
-    align = "left", -- align columns left, center or right
+    align = 'left', -- align columns left, center or right
   },
   ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
+  hidden = { '<silent>', '<cmd>', '<Cmd>', '<CR>', 'call', 'lua', '^:', '^ '}, -- hide mapping boilerplate
   show_help = true, -- show help message on the command line when the popup is visible
-  triggers = "auto", -- automatically setup triggers
+  triggers = 'auto', -- automatically setup triggers
   -- triggers = {"<C-t>"}, -- or specify a list manually
   triggers_blacklist = {
     -- -- list of mode / prefixes that should never be hooked by WhichKey
