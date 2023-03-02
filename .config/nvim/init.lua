@@ -31,7 +31,7 @@ vim.o.mouse = 'n'
 vim.o.showmode = false
 
 vim.o.number = true
-vim.o.relativenumber = true
+vim.g.use_relative_number = true
 
 vim.o.ruler = true
 vim.o.showmatch = true
