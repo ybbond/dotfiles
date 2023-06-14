@@ -43,6 +43,37 @@ return {
     'neovim/nvim-lspconfig',
     config = function() require'configs/nvim-lspconfig' end,
   },
+  {
+    'seblj/nvim-lsp-extras',
+    dependencies = 'neovim/nvim-lspconfig',
+    config = function()
+      require'nvim-lsp-extras'.setup({
+        lightbulb = false,
+      })
+    end
+  },
+  {
+    'VidocqH/lsp-lens.nvim',
+    config = function()
+      require'lsp-lens'.setup({
+        enable = false,
+        include_declaration = false   -- Reference include declaration
+      })
+    end
+  },
+
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {
+      -- configurations go here
+    },
+  },
 
   {
     'andythigpen/nvim-coverage',
@@ -53,15 +84,6 @@ return {
       })
       require('coverage').setup()
     end,
-    cmd = {
-      'Coverage',
-      'CoverageClear',
-      'CoverageHide',
-      'CoverageLoad',
-      'CoverageShow',
-      'CoverageSummary',
-      'CoverageToggle',
-    },
   },
 
   {
@@ -133,9 +155,13 @@ return {
   {
     'petertriho/nvim-scrollbar',
     config = function()
-      require('scrollbar').setup()
-      require('scrollbar.handlers.search').setup()
-      require('scrollbar.handlers.gitsigns').setup()
+      require('scrollbar').setup({
+        hide_if_all_visible = true,
+        handlers = {
+          gitsigns = true,
+          search = true,
+        },
+      })
     end,
   },
 
@@ -214,10 +240,39 @@ return {
   },
 
   {
-    'noib3/cokeline.nvim',
-    dependencies = 'kyazdani42/nvim-web-devicons',
-    config = function() require'configs/cokeline-nvim' end,
+    'romgrk/barbar.nvim',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      nmap 'gb' '<Cmd>BufferNext<CR>' ({})
+      nmap 'gB' '<Cmd>BufferPrevious<CR>' ({})
+      nmap 'g>' '<Cmd>BufferMoveNext<CR>' ({})
+      nmap 'g<' '<Cmd>BufferMovePrevious<CR>' ({})
+      nmap 'gx' '<Cmd>BufferClose<CR>' ({})
+      nmap 'gp' '<Cmd>BufferPin<CR>' ({})
+      require('bufferline').setup({
+        exclude_ft = {
+          '',
+        },
+        icons = {
+          pinned = {
+            button = '車',
+          },
+          diagnostics = {
+            [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ''},
+            [vim.diagnostic.severity.WARN] = {enabled = true, icon = ''},
+            [vim.diagnostic.severity.INFO] = {enabled = true, icon = ''},
+            [vim.diagnostic.severity.HINT] = {enabled = true, icon = ''},
+          },
+        },
+        maximum_length = 80,
+      })
+    end,
   },
+  -- {
+  --   'noib3/cokeline.nvim',
+  --   dependencies = 'nvim-tree/nvim-web-devicons',
+  --   config = function() require'configs/cokeline-nvim' end,
+  -- },
 
   {
     'famiu/bufdelete.nvim',
@@ -264,14 +319,20 @@ return {
   {
     'akinsho/flutter-tools.nvim',
     ft = 'dart',
-    dependencies = 'nvim-lua/plenary.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      -- 'stevearc/dressing.nvim',
+    },
     config = function() require'configs/flutter-tools' end,
   },
   {
-    'akinsho/dependency-assist.nvim',
-    config = function ()
-      require('dependency_assist').setup({})
-    end
+    'akinsho/pubspec-assist.nvim',
+    dependencies = {
+      'plenary.nvim',
+    },
+    config = function()
+      require('pubspec-assist').setup()
+    end,
   },
 
   {

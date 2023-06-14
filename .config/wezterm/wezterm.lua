@@ -29,7 +29,7 @@ return {
     font_size = 12.0,
     active_titlebar_bg = "#111111",
     inactive_titlebar_bg = "#111111",
-    inactive_tab_edge = "#575757",
+    -- inactive_tab_edge = "#575757",
   },
   -- window_frame = {
   --   font = wezterm.font({ family = "Roboto", weight = "Bold" }),

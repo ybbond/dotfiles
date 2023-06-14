@@ -79,7 +79,8 @@ alias set_dark="cp ~/.tmux-dark.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-da
 alias set_light="cp ~/.tmux-light.conf ~/.tmux.conf && cp ~/.config/kitty/kitty-light.conf ~/.config/kitty/kitty.conf"
 
 alias opsimulator="arch -x86_64 /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator"
-alias opemulator4="~/Library/Android/sdk/emulator/emulator -avd Pixel_4_API_31 -netdelay none -netspeed full"
+alias opemulator4_33="~/Library/Android/sdk/emulator/emulator -avd Pixel_4_API_33 -netdelay none -netspeed full"
+alias opemulator4_31="~/Library/Android/sdk/emulator/emulator -avd Pixel_4_API_31 -netdelay none -netspeed full"
 
 alias neorc="cd ~/.config/nvim && nvim . || cd -"
 

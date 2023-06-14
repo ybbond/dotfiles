@@ -1,3 +1,33 @@
+local colors = {
+  white = '#ffffff',
+  black = '#000000',
+
+  fg1 = '#e0e7f0',
+  fg2 = '#b9bfca',
+  fg3 = '#969cab',
+
+  bg0 = '#1E1F25',
+  bg1 = '#232831',
+  bg2 = '#2e3440',
+  bg3 = '#3b4252',
+
+  bright = {
+    error = '#bf616a',
+    hint = '#a3be8c',
+    info = '#8cafd2',
+    warn = '#ebcb8b',
+  },
+  dark = {
+    error = '#a54e56',
+    hint = '#8aa872',
+    info = '#668aab',
+    warn = '#d9b263',
+  },
+  darker = {
+    warn = '#754e01',
+  },
+}
+
 local groups = {
   all = {
     LspDiagnosticsUnderlineError = { bg = '#850007', style = 'bold' },
@@ -25,6 +55,48 @@ local groups = {
     -- LspDiagnosticsSignWarning = { bg = '#f99157', fg = '#2e3440', style = 'bold'},
     -- LspDiagnosticsSignInformation = { bg = '#6699cc', fg = '#2e3440', style = 'bold'},
     -- LspDiagnosticsSignHint = { bg = '#ffffff', fg = '#2e3440', style = 'bold'},
+
+    BufferCurrent        = { bg = colors.bg3, fg = colors.fg1 },
+    BufferCurrentERROR = { bg = colors.bg3, fg = colors.bright.error },
+    BufferCurrentHINT = { bg = colors.bg3, fg = colors.bright.hint },
+    BufferCurrentINFO = { bg = colors.bg3, fg = colors.bright.info },
+    BufferCurrentWARN = { bg = colors.bg3, fg = colors.bright.warn },
+    BufferCurrentIndex   = { bg = colors.bg3, fg = colors.bright.info },
+    BufferCurrentMod     = { bg = colors.bg3, fg = colors.bright.warn },
+    BufferCurrentSign    = { bg = colors.bg3, fg = colors.bright.info },
+    BufferCurrentTarget  = { bg = colors.bg3, fg = colors.bright.error },
+    BufferAlternate = { bg = colors.bg2, fg = colors.fg1 },
+    BufferAlternateERROR = { bg = colors.bg2, fg = colors.bright.error },
+    BufferAlternateHINT = { bg = colors.bg2, fg = colors.bright.hint },
+    BufferAlternateIndex = { bg = colors.bg2, fg = colors.bright.info },
+    BufferAlternateINFO = { bg = colors.bg2, fg = colors.bright.info },
+    BufferAlternateMod = { bg = colors.bg2, fg = colors.bright.warn },
+    BufferAlternateSign = { bg = colors.bg2, fg = colors.bright.info },
+    BufferAlternateTarget = { bg = colors.bg2, fg = colors.bright.red },
+    BufferAlternateWARN = { bg = colors.bg2, fg = colors.bright.warn },
+    BufferVisible        = { bg = colors.bg0, fg = colors.fg2 },
+    BufferVisibleERROR = { bg = colors.bg0, fg = colors.bright.error },
+    BufferVisibleHINT = { bg = colors.bg0, fg = colors.bright.hint },
+    BufferVisibleINFO = { bg = colors.bg0, fg = colors.bright.info },
+    BufferVisibleWARN = { bg = colors.bg0, fg = colors.bright.warn },
+    BufferVisibleIndex   = { bg = colors.bg0, fg = colors.bright.info },
+    BufferVisibleMod     = { bg = colors.bg0, fg = colors.bright.warn },
+    BufferVisibleSign    = { bg = colors.bg0, fg = colors.bright.info },
+    BufferVisibleTarget  = { bg = colors.bg0, fg = colors.bright.error },
+    BufferInactive       = { bg = colors.bg0, fg = colors.fg3 },
+    BufferInactiveERROR = { bg = colors.bg0, fg = colors.dark.error },
+    BufferInactiveHINT = { bg = colors.bg0, fg = colors.dark.hint },
+    BufferInactiveINFO = { bg = colors.bg0, fg = colors.dark.info },
+    BufferInactiveWARN = { bg = colors.bg0, fg = colors.dark.warn },
+    BufferInactiveIndex  = { bg = colors.bg0, fg = colors.fg3 },
+    BufferInactiveMod    = { bg = colors.bg0, fg = colors.darker.warn },
+    BufferInactiveSign   = { bg = colors.bg0, fg = colors.bg2 },
+    BufferInactiveTarget = { bg = colors.bg0, fg = colors.bright.error },
+    BufferOffset = { bg = colors.bg0, fg = colors.fg2 },
+    BufferTabpageFill = { bg = colors.bg0, fg = colors.fg2 },
+    BufferTabpages       = { bg = colors.bg0 },
+    BufferTabpage        = { bg = colors.bg0, fg = colors.bg2 },
+
   }
 }
 

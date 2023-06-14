@@ -27,7 +27,7 @@ vim.o.listchars = [[tab:> ,trail:-,nbsp:+]]
 
 vim.o.laststatus = 3
 
-vim.o.mouse = 'n'
+vim.o.mouse = 'nicr'
 vim.o.showmode = false
 
 vim.o.number = true
@@ -46,16 +46,6 @@ vim.o.inccommand = 'split'
 
 -- originally used by |vim-fugitive|
 vim.o.diffopt = vim.o.diffopt .. ',vertical'
-
--- fold settings
--- https://www.reddit.com/r/neovim/comments/psl8rq/sexy_folds/
--- vim.wo.foldmethod = "expr"
--- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
--- vim.wo.foldtext =
-    -- [[substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend)) ]]
--- vim.wo.fillchars = "fold:\\"
--- vim.wo.foldnestmax = 3
--- vim.wo.foldminlines = 1
 
 ------------------------------------------------------------
 --                   KEYBINDINGS
@@ -84,6 +74,7 @@ function _G.nnoremap(lhs) return base_map(lhs)('n') end
 function _G.inoremap(lhs) return base_map(lhs)('i') end
 function _G.vnoremap(lhs) return base_map(lhs)('v') end
 function _G.xnoremap(lhs) return base_map(lhs)('x') end
+function _G.cnoremap(lhs) return base_map(lhs)('c') end
 
 function _G.map(lhs) return base_map_opt(lhs)('') end
 function _G.nmap(lhs) return base_map_opt(lhs)('n') end
@@ -160,7 +151,7 @@ vim.g.markdown_fenced_languages = {
 --                       RESOURCES
 ------------------------------------------------------------
 
-require'compat'
+require'compatibilities'
 require'autos'
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

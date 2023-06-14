@@ -33,3 +33,13 @@ lspconfig.gopls.setup{
   on_attach = ybbond_go_lsp_on_attach,
 }
 
+-- require('go').setup({
+--   gofmt = 'gopls',
+--   lsp_on_attach = ybbond_go_lsp_on_attach,
+--   lsp_cfg = {
+--     capabilities = ybbond_lsp_capabilities,
+--   },
+-- })
+--
+-- local cfg = require('go.lsp').config()
+-- require('lspconfig').gopls.setup(cfg)
