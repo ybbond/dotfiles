@@ -25,11 +25,11 @@ local ybbond_flutter_lsp_on_attach = function(client, bufnr)
   local flutter_command = require('flutter-tools.utils').command
 
   flutter_command("FlutterNonNullSafety", [[lua require('flutter-tools.commands').run_command('--no-sound-null-safety')]])
-  flutter_command("FlutterAgentStartStaging", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety')]])
-  flutter_command("FlutterAgentStartStagingNoPub", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety --no-pub')]])
+  flutter_command("FlutterAgentStartStaging", [[lua require('flutter-tools.commands').run_command('--flavor=staging')]])
+  flutter_command("FlutterAgentStartStagingNonNullSafety", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety')]])
+  flutter_command("FlutterAgentStartStagingNoPub", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-pub')]])
+  flutter_command("FlutterAgentStartStagingNoPubNonNullSafety", [[lua require('flutter-tools.commands').run_command('--flavor=staging --no-sound-null-safety --no-pub')]])
   flutter_command("FlutterAgentStartProduction", [[lua require('flutter-tools.commands').run_command('--flavor=production --no-sound-null-safety')]])
-  flutter_command("FlutterRikuStartStaging", [[lua require('flutter-tools.commands').run_command('--flavor=mandiristaging --no-sound-null-safety')]])
-  flutter_command("FlutterRikuStartProduction", [[lua require('flutter-tools.commands').run_command('--flavor=mandiriproduction --no-sound-null-safety')]])
 
 end
 
