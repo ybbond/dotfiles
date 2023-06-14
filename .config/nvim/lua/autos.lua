@@ -20,6 +20,16 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
   {'BufNewFile', 'BufRead'},
   {
+    pattern = '*.lock,*.pbxproj',
+    callback = function()
+      vim.o.filetype = 'lock'
+    end,
+  }
+)
+
+vim.api.nvim_create_autocmd(
+  {'BufNewFile', 'BufRead'},
+  {
     pattern = '*.c,*.cpp,*.cc,*.h,*.py,*.go',
     callback = function()
       vim.bo.tabstop = 4
