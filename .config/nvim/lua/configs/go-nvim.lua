@@ -21,25 +21,23 @@ local ybbond_go_lsp_on_attach = function(client, bufnr)
   buf_set_keymap('n', '<LEADER>F', '<CMD>lua require("go.format").goimport()<CR>')
 
   buf_create_command('GoTestFuncCoverage', 'GoTestFunc -C coverage.out')
+  buf_create_command('GoTestFileCoverage', 'GoTestFile -C coverage.out')
 end
 
 require('go').setup({
   gofmt = 'gopls',
+  -- lsp_cfg = {
+  --   capabilities = ybbond_lsp_capabilities,
+  -- },
+  -- lsp_on_attach = ybbond_go_lsp_on_attach,
+  lsp_cfg = true,
+  tag_options = 'json='
 })
 
-local lspconfig = require('lspconfig')
-lspconfig.gopls.setup{
+-- local cfg = require'go.lsp'.config()
+-- require('lspconfig').gopls.setup(cfg)
+
+require('lspconfig').gopls.setup{
   capabilities = ybbond_lsp_capabilities,
   on_attach = ybbond_go_lsp_on_attach,
 }
-
--- require('go').setup({
---   gofmt = 'gopls',
---   lsp_on_attach = ybbond_go_lsp_on_attach,
---   lsp_cfg = {
---     capabilities = ybbond_lsp_capabilities,
---   },
--- })
---
--- local cfg = require('go.lsp').config()
--- require('lspconfig').gopls.setup(cfg)
