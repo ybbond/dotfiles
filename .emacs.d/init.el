@@ -344,7 +344,7 @@
       (null-device . "/dev/null"))))
  '(git-gutter:update-interval 1)
  '(package-selected-packages
-   '(0blayout forge eshell-syntax-highlighting sly-asdf sly command-log-mode ripgrep rg magit geiser-mit helpful projectile company-lsp lsp-ui lsp-mode undo-fu git-gutter-fringe counsel swiper ivy company exec-path-from-shell cider clojure-mode which-key paredit use-package macrostep)))
+   '(forge eshell-syntax-highlighting sly-asdf sly command-log-mode ripgrep rg magit geiser-mit helpful projectile company-lsp lsp-ui lsp-mode undo-fu git-gutter-fringe counsel swiper ivy company exec-path-from-shell cider clojure-mode which-key paredit use-package macrostep)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

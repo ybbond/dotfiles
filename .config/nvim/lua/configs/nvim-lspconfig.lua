@@ -50,10 +50,14 @@ lspconfig.clangd.setup{
   on_attach = ybbond_lsp_on_attach,
 }
 
-lspconfig.vls.setup{
-  capabilities = ybbond_lsp_capabilities,
-  on_attach = ybbond_lsp_on_attach,
-}
+-- lspconfig.vls.setup{
+--   capabilities = ybbond_lsp_capabilities,
+--   on_attach = ybbond_lsp_on_attach,
+-- }
+-- lspconfig.v_analyzer.setup{
+--   capabilities = ybbond_lsp_capabilities,
+--   on_attach = ybbond_lsp_on_attach,
+-- }
 
 lspconfig.denols.setup{
   init_options = {
@@ -64,6 +68,12 @@ lspconfig.denols.setup{
   capabilities = ybbond_lsp_capabilities,
   on_attach = ybbond_lsp_on_attach,
 }
+
+-- lspconfig.dartls.setup{
+--   cmd = { "fvm", "dart", "language-server", "--protocol=lsp" },
+--   capabilities = ybbond_lsp_capabilities,
+--   on_attach = ybbond_lsp_on_attach,
+-- }
 
 lspconfig.clojure_lsp.setup{
   capabilities = ybbond_lsp_capabilities,

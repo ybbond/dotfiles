@@ -86,11 +86,11 @@ return {
     end,
   },
 
-  {
-    'j-hui/fidget.nvim',
-    tag = 'legacy',
-    config = function() require'fidget'.setup() end
-  },
+  -- {
+  --   'j-hui/fidget.nvim',
+  --   tag = 'legacy',
+  --   config = function() require'fidget'.setup() end
+  -- },
 
   {
     'pianocomposer321/yabs.nvim',
@@ -152,6 +152,11 @@ return {
     dependencies = 'nvim-lua/plenary.nvim',
     config = function() require'configs/gitsigns-nvim' end,
   },
+  {
+    'ruifm/gitlinker.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = function() require'gitlinker'.setup() end,
+  },
 
   {
     'petertriho/nvim-scrollbar',
@@ -208,6 +213,13 @@ return {
   {
     'freddiehaddad/feline.nvim',
     config = function() require'configs/feline' end,
+  },
+
+  {
+    'tzachar/highlight-undo.nvim',
+    config = function()
+      require('highlight-undo').setup({})
+    end
   },
 
   {
