@@ -14,5 +14,7 @@ return function(_, bufnr)
   buf_set_keymap('n', 'gr', '<CMD>lua vim.lsp.buf.references()<CR>')
   buf_set_keymap('n', '[e', '<CMD>lua vim.diagnostic.goto_prev()<CR>')
   buf_set_keymap('n', ']e', '<CMD>lua vim.diagnostic.goto_next()<CR>')
-  buf_set_keymap('n', '<LEADER>f', '<CMD>lua vim.lsp.buf.formatting()<CR>')
+  -- buf_set_keymap('n', '<LEADER>f', '<CMD>lua vim.lsp.buf.formatting()<CR>')
+  -- buf_set_keymap('n', '<LEADER>f', [[<CMD>lua require('format-on-save').format()<CR><CMD>lua require('format-on-save').restore_cursors()<CR>]])
+  buf_set_keymap('n', '<LEADER>f', '<CMD>Format<CR>')
 end

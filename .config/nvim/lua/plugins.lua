@@ -165,50 +165,50 @@ return {
         hide_if_all_visible = true,
         handlers = {
           gitsigns = true,
-          search = true,
+          -- search = true,
         },
       })
     end,
   },
 
-  {
-    'kevinhwang91/nvim-hlslens',
-    config = function()
-      nnoremap 'n' [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap 'N' [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap '*' [[*<Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap '#' [[#<Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap 'g*' [[g*<Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap 'g#' [[g#<Cmd>lua require('hlslens').start()<CR>]]
+  -- {
+  --   'kevinhwang91/nvim-hlslens',
+  --   config = function()
+  --     nnoremap 'n' [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+  --     nnoremap 'N' [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]]
+  --     nnoremap '*' [[*<Cmd>lua require('hlslens').start()<CR>]]
+  --     nnoremap '#' [[#<Cmd>lua require('hlslens').start()<CR>]]
+  --     nnoremap 'g*' [[g*<Cmd>lua require('hlslens').start()<CR>]]
+  --     nnoremap 'g#' [[g#<Cmd>lua require('hlslens').start()<CR>]]
+  --
+  --     nnoremap '<Leader>l' ':noh<CR>'
+  --
+  --     nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+  --     nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+  --
+  --     nnoremap '<LEADER><LEADER>*' [[:let @/=expand('<cword>')<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+  --     nnoremap '<LEADER><LEADER>#' [[:let @/=expand('<cword>')<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+  --   end,
+  -- },
 
-      nnoremap '<Leader>l' ':noh<CR>'
-
-      nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-
-      nnoremap '<LEADER><LEADER>*' [[:let @/=expand('<cword>')<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-      nnoremap '<LEADER><LEADER>#' [[:let @/=expand('<cword>')<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
-    end,
-  },
-
-  {
-    'kevinhwang91/nvim-ufo',
-    dependencies = 'kevinhwang91/promise-async',
-    config = function() require 'configs/nvim-ufo' end,
-  },
-
-  {
-    'luukvbaal/statuscol.nvim',
-    commit = '49a3bdab3e9cf23982724c1e888a6296fca4c8b9',
-    config = function()
-      require('statuscol').setup({
-        setopt = true,
-        reeval = true,
-        foldfunc = 'builtin',
-        relculright = true,
-      })
-    end,
-  },
+  -- {
+  --   'kevinhwang91/nvim-ufo',
+  --   dependencies = 'kevinhwang91/promise-async',
+  --   config = function() require 'configs/nvim-ufo' end,
+  -- },
+  --
+  -- {
+  --   'luukvbaal/statuscol.nvim',
+  --   commit = '49a3bdab3e9cf23982724c1e888a6296fca4c8b9',
+  --   config = function()
+  --     require('statuscol').setup({
+  --       setopt = true,
+  --       reeval = true,
+  --       foldfunc = 'builtin',
+  --       relculright = true,
+  --     })
+  --   end,
+  -- },
 
   {
     'freddiehaddad/feline.nvim',
@@ -252,40 +252,40 @@ return {
     end
   },
 
-  {
-    'romgrk/barbar.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      nmap 'gb' '<Cmd>BufferNext<CR>' ({})
-      nmap 'gB' '<Cmd>BufferPrevious<CR>' ({})
-      nmap 'g>' '<Cmd>BufferMoveNext<CR>' ({})
-      nmap 'g<' '<Cmd>BufferMovePrevious<CR>' ({})
-      nmap 'gx' '<Cmd>BufferClose<CR>' ({})
-      nmap 'gp' '<Cmd>BufferPin<CR>' ({})
-      require('bufferline').setup({
-        exclude_ft = {
-          '',
-        },
-        icons = {
-          pinned = {
-            button = '車',
-          },
-          diagnostics = {
-            [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ''},
-            [vim.diagnostic.severity.WARN] = {enabled = true, icon = ''},
-            [vim.diagnostic.severity.INFO] = {enabled = true, icon = ''},
-            [vim.diagnostic.severity.HINT] = {enabled = true, icon = ''},
-          },
-        },
-        maximum_length = 80,
-      })
-    end,
-  },
   -- {
-  --   'noib3/cokeline.nvim',
+  --   'romgrk/barbar.nvim',
   --   dependencies = 'nvim-tree/nvim-web-devicons',
-  --   config = function() require'configs/cokeline-nvim' end,
+  --   config = function()
+  --     nmap 'gb' '<Cmd>BufferNext<CR>' ({})
+  --     nmap 'gB' '<Cmd>BufferPrevious<CR>' ({})
+  --     nmap 'g>' '<Cmd>BufferMoveNext<CR>' ({})
+  --     nmap 'g<' '<Cmd>BufferMovePrevious<CR>' ({})
+  --     nmap 'gx' '<Cmd>BufferClose<CR>' ({})
+  --     nmap 'gp' '<Cmd>BufferPin<CR>' ({})
+  --     require('bufferline').setup({
+  --       exclude_ft = {
+  --         '',
+  --       },
+  --       icons = {
+  --         pinned = {
+  --           button = '車',
+  --         },
+  --         diagnostics = {
+  --           [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ''},
+  --           [vim.diagnostic.severity.WARN] = {enabled = true, icon = ''},
+  --           [vim.diagnostic.severity.INFO] = {enabled = true, icon = ''},
+  --           [vim.diagnostic.severity.HINT] = {enabled = true, icon = ''},
+  --         },
+  --       },
+  --       maximum_length = 80,
+  --     })
+  --   end,
   -- },
+  {
+    'noib3/cokeline.nvim',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function() require'configs/cokeline-nvim' end,
+  },
 
   {
     'famiu/bufdelete.nvim',
@@ -326,9 +326,44 @@ return {
   },
 
   {
-    dir = '~/poss/dart-vim-plugin',
-    ft = 'dart',
+    'mhartington/formatter.nvim',
+    config = function()
+      require('formatter').setup {
+        filetype = {
+          dart = {
+            require('formatter.filetypes.dart').dartformat,
+          },
+          go = {
+            require('formatter.filetypes.go').gofmt,
+          },
+        },
+      }
+    end,
   },
+  -- {
+  --   'elentok/format-on-save.nvim',
+  --   config = function()
+  --     local formatters = require("format-on-save.formatters")
+  --
+  --     require('format-on-save').setup({
+  --       auto_commands = false,
+  --       user_commands = false,
+  --       formatter_by_ft = {
+  --         go = formatters.shell({
+  --           cmd = { "gofmt" },
+  --         }),
+  --         dart = formatters.shell({
+  --           cmd = { "fvm", "dart", "format", "--output", "show" },
+  --         }),
+  --       },
+  --     })
+  --   end,
+  -- },
+
+  -- {
+  --   dir = '~/poss/dart-vim-plugin',
+  --   ft = 'dart',
+  -- },
   {
     'akinsho/flutter-tools.nvim',
     ft = 'dart',

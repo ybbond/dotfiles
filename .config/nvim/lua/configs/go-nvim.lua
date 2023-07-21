@@ -17,7 +17,7 @@ local ybbond_go_lsp_on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gT', '<CMD>GoRmTag<CR>')
   buf_set_keymap('n', 'gA', '<CMD>GoAlt<CR>')
 
-  buf_set_keymap('n', '<LEADER>f', '<CMD>lua require("go.format").gofmt()<CR>')
+  -- buf_set_keymap('n', '<LEADER>f', '<CMD>lua require("go.format").gofmt()<CR>')
   buf_set_keymap('n', '<LEADER>F', '<CMD>lua require("go.format").goimport()<CR>')
 
   buf_create_command('GoTestFuncCoverage', 'GoTestFunc -C coverage.out')

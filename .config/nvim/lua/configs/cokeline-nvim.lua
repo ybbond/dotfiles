@@ -158,7 +158,7 @@ require('cokeline').setup({
       text = function(buffer)
         return buffer.is_modified
           and '●'
-           or ''
+           or '✕'
       end,
       fg = function(buffer)
         local focused_color = buffer.is_modified
