@@ -116,28 +116,28 @@ return {
   },
 
   {
-    'akinsho/bufferline.nvim',
-    dependencies = {'nvim-tree/nvim-web-devicons', 'famiu/bufdelete.nvim' },
+    'romgrk/barbar.nvim',
+    dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
-      require'bufferline'.setup({
-        options = {
-          close_command = 'Bdelete',
-          max_name_length = 80,
-          diagnostics = 'nvim_lsp',
-          custom_filter = function(buf_number, _)
-            if vim.bo[buf_number].filetype ~= '' then
-              return true
-            end
-            return false
-          end,
+      nmap 'gb' '<Cmd>BufferNext<CR>' ({})
+      nmap 'gB' '<Cmd>BufferPrevious<CR>' ({})
+      nmap 'g>' '<Cmd>BufferMoveNext<CR>' ({})
+      nmap 'g<' '<Cmd>BufferMovePrevious<CR>' ({})
+      nmap 'gx' '<Cmd>BufferClose<CR>' ({})
+      nmap 'gp' '<Cmd>BufferPin<CR>' ({})
+      require('bufferline').setup({
+        exclude_ft = { '' },
+        icons = {
+          pinned = { button = '' },
+          diagnostics = {
+            [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ''},
+            [vim.diagnostic.severity.WARN] = {enabled = true, icon = ''},
+            [vim.diagnostic.severity.INFO] = {enabled = true, icon = ''},
+            [vim.diagnostic.severity.HINT] = {enabled = true, icon = ''},
+          },
         },
+        maximum_length = 80,
       })
-      noremap 'gx' '<CMD>Bdelete<CR>'
-      noremap 'gb' '<CMD>BufferLineCycleNext<CR>'
-      noremap 'gB' '<CMD>BufferLineCyclePrev<CR>'
-      noremap 'g>' '<CMD>BufferLineMoveNext<CR>'
-      noremap 'g<' '<CMD>BufferLineMovePrev<CR>'
-      noremap 'gp' '<CMD>BufferLineTogglePin<CR>'
     end,
   },
 
