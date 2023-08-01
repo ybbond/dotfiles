@@ -3,9 +3,6 @@ local previewers_utils = require('telescope.previewers.utils')
 
 local actions = require('telescope.actions')
 
-local max_size = 20000
-
--- telescope.nvim
 nnoremap '<C-t><C-p>'        [[<CMD>lua require("telescope.builtin").find_files({ find_command={"fd","-E=.git","--hidden","-t=f"}}) hidden=true<CR>]]
 nnoremap '<C-t><C-\\><C-p>'  [[<CMD>lua require("telescope.builtin").find_files({ find_command={"fd","-E=.git","--hidden","-t=f","--no-ignore"}}) hidden=true<CR>]]
 nnoremap '<C-t><C-i>'        [[<CMD>Telescope live_grep hidden=true<CR>]]
@@ -23,16 +20,18 @@ nnoremap '<C-t><C-a>'        [[<CMD>Telescope commands<CR>]]
 nnoremap '<C-t><C-w>'        [[<CMD>Telescope diagnostics<CR>]]
 nnoremap '<C-t><C-d>'        [[<CMD>Telescope diagnostics bufnr=0<CR>]]
 
-nnoremap '<C-t><C-t>'        [[<CMD>Telescope yabs current_language_tasks<CR>]]
-
 nnoremap '<C-g><C-g>'        [[<CMD>Telescope git_status<CR>]]
 
 -- https://github.com/nvim-telescope/telescope.nvim/issues/623
+local max_size = 20000
+
 local new_maker = function(filepath, bufnr, opts)
   opts = opts or {}
 
   filepath = vim.fn.expand(filepath)
-  vim.loop.fs_stat(filepath, function(_, stat)
+  -- deprecated https://github.com/neovim/neovim/pull/22846
+  -- vim.loop.fs_stat(filepath, function(_, stat)
+  vim.uv.fs_stat(filepath, function(_, stat)
     if not stat then return end
     if stat.size > max_size then
       local cmd = {"head", "-c", max_size, filepath}
@@ -69,5 +68,4 @@ require('telescope').setup{
   },
 }
 
-require('telescope').load_extension('flutter')
 require('telescope').load_extension('fzf')

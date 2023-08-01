@@ -1,7 +1,3 @@
-------------------------------------------------------------
---                    COMPATIBILITIES
-------------------------------------------------------------
-
 vim.api.nvim_exec(
 [[
 fun! YbbondOtherSetups()
@@ -13,14 +9,6 @@ fun! YbbondOtherSetups()
   cnoremap <C-A-f> <S-Right>
 
   " change cursor in different mode
-  " if has('nvim')
-  "   " make the ^[ sign with:
-  "   " (INSERT MODE) <C-v><ESC>
-  "   " make sure it shows different color than the rest
-  "   set t_SI=[5\ q
-  "   set t_SR=[4\ q
-  "   set t_EI=[1\ q
-  " else
   if exists('$TMUX')
       " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
       let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[5 q\<Esc>\\"

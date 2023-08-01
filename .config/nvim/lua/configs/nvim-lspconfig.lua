@@ -1,84 +1,30 @@
+local M = {}
+
+M.ybbond_lsp_on_attach = function(_, bufnr)
+  local function buf_set_keymap(l, r, c)
+    vim.api.nvim_buf_set_keymap(bufnr, l, r, c, { noremap=true, silent=true })
+  end
+  buf_set_keymap('n', 'gd', '<CMD>lua vim.lsp.buf.definition()<CR>')
+  buf_set_keymap('n', 'gD', '<CMD>lua vim.lsp.buf.declaration()<CR>')
+  buf_set_keymap('n', 'g<A-d>', '<CMD>lua vim.lsp.buf.type_definition()<CR>')
+  buf_set_keymap('n', 'gh', '<CMD>lua vim.lsp.buf.hover()<CR>')
+  buf_set_keymap('n', 'gH', '<CMD>lua vim.diagnostic.open_float()<CR>')
+  buf_set_keymap('n', 'gi', '<CMD>lua vim.lsp.buf.implementation()<CR>')
+  buf_set_keymap('n', 'gs', '<CMD>lua vim.lsp.buf.signature_help()<CR>')
+  buf_set_keymap('n', 'ga', '<CMD>lua vim.lsp.buf.code_action()<CR>')
+  -- buf_set_keymap('n', 'ga', '<CMD>Telescope lsp_code_actions theme=cursor layout_config={height=15}<CR>')
+  buf_set_keymap('n', 'gr', '<CMD>lua vim.lsp.buf.references()<CR>')
+  buf_set_keymap('n', '[e', '<CMD>lua vim.diagnostic.goto_prev()<CR>')
+  buf_set_keymap('n', ']e', '<CMD>lua vim.diagnostic.goto_next()<CR>')
+  -- buf_set_keymap('n', '<LEADER>f', '<CMD>lua vim.lsp.buf.formatting()<CR>')
+  -- buf_set_keymap('n', '<LEADER>f', [[<CMD>lua require('format-on-save').format()<CR><CMD>lua require('format-on-save').restore_cursors()<CR>]])
+  buf_set_keymap('n', '<LEADER>f', '<CMD>Format<CR>')
+end
+
+-- return require'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+M.ybbond_lsp_capabilities = require'cmp_nvim_lsp'.default_capabilities()
+
 local lspconfig = require('lspconfig')
-
-local ybbond_lsp_on_attach = require'configs/ybbond_lsp_on_attach'
-local ybbond_lsp_capabilities = require'configs/ybbond_lsp_capabilities'
-
-lspconfig.tsserver.setup {
-  capabilities = ybbond_lsp_capabilities,
-  on_attach = ybbond_lsp_on_attach,
-}
-lspconfig.eslint.setup {
-  capabilities = ybbond_lsp_capabilities,
-  on_attach = function(client, bufnr)
-    ybbond_lsp_on_attach(client, bufnr)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LEADER>f', '<CMD>EslintFixAll<CR>', { noremap = true, silent = true })
-  end,
-  -- https://neovim.discourse.group/t/supressing-eslint-ls-errors/1687/4
-  handlers = {
-    ['window/showMessageRequest'] = function(_, result, __) return result end
-  },
-  settings = {
-    packageManager = 'yarn',
-    format = true,
-    codeActionOnSave = {
-      enable = false,
-      mode = "all"
-    },
-  },
-}
-
-lspconfig.sourcekit.setup{
-  capabilities = ybbond_lsp_capabilities,
-  filetypes = { "swift", "objective-c", "objective-cpp" },
-}
-
-lspconfig.clangd.setup{
-  capabilities = ybbond_lsp_capabilities,
-  filetypes = { 'c', 'cpp' },
-  cmd = {
-    -- "clangd",
-    -- "/Library/Developer/CommandLineTools/usr/bin/clangd",
-    "xcrun", "clangd",
-    -- "-I/opt/homebrew/lib",
-    -- "-I/opt/homebrew/include",
-    "--completion-style=bundled",
-    "--clang-tidy",
-    "--suggest-missing-includes",
-    "--background-index",
-    "--header-insertion=iwyu",
-  },
-  on_attach = ybbond_lsp_on_attach,
-}
-
--- lspconfig.vls.setup{
---   capabilities = ybbond_lsp_capabilities,
---   on_attach = ybbond_lsp_on_attach,
--- }
--- lspconfig.v_analyzer.setup{
---   capabilities = ybbond_lsp_capabilities,
---   on_attach = ybbond_lsp_on_attach,
--- }
-
-lspconfig.denols.setup{
-  init_options = {
-    enable = true,
-    unstable = true,
-  },
-  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-  capabilities = ybbond_lsp_capabilities,
-  on_attach = ybbond_lsp_on_attach,
-}
-
--- lspconfig.dartls.setup{
---   cmd = { "fvm", "dart", "language-server", "--protocol=lsp" },
---   capabilities = ybbond_lsp_capabilities,
---   on_attach = ybbond_lsp_on_attach,
--- }
-
-lspconfig.clojure_lsp.setup{
-  capabilities = ybbond_lsp_capabilities,
-  on_attach = ybbond_lsp_on_attach
-}
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
@@ -101,13 +47,23 @@ if vim.fn.getcwd() == os.getenv('HOME') .. '/.config/nvim'
 end
 
 lspconfig.lua_ls.setup{
-  capabilities = ybbond_lsp_capabilities,
+  capabilities = M.ybbond_lsp_capabilities,
   cmd = {
     os.getenv('HOME') .. "/.tool_binaries/lua-language-server" .. "/bin/lua-language-server",
     "-E",
     os.getenv('HOME') .. "/.tool_binaries/lua-language-server" .. "/main.lua"
   },
-  on_attach = ybbond_lsp_on_attach,
+  on_attach = M.ybbond_lsp_on_attach,
   filetypes = { "lua" },
   settings = { Lua = lua_ls_settings },
 }
+
+-- lspconfig.dartls.setup{
+--   capabilities = M.ybbond_lsp_capabilities,
+--   on_attach = M.ybbond_lsp_on_attach,
+--   init_options = {
+--     onlyAnalyzeProjectsWithOpenFiles = false,
+--   },
+-- }
+
+return M

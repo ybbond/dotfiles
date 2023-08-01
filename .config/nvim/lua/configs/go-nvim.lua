@@ -1,8 +1,5 @@
-local ybbond_lsp_on_attach = require'configs/ybbond_lsp_on_attach'
-local ybbond_lsp_capabilities = require'configs/ybbond_lsp_capabilities'
-
-local ybbond_go_lsp_on_attach = function(client, bufnr)
-  ybbond_lsp_on_attach(client, bufnr);
+local ybbond_go_lsp_on_attach = function(_, bufnr)
+  require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr);
 
   local function buf_set_keymap(l, r, c)
     vim.api.nvim_buf_set_keymap(bufnr, l, r, c, { noremap=true, silent=true })
@@ -38,6 +35,6 @@ require('go').setup({
 -- require('lspconfig').gopls.setup(cfg)
 
 require('lspconfig').gopls.setup{
-  capabilities = ybbond_lsp_capabilities,
+  capabilities = require'configs/nvim-lspconfig'.ybbond_lsp_capabilities,
   on_attach = ybbond_go_lsp_on_attach,
 }

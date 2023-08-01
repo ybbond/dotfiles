@@ -1,7 +1,3 @@
-------------------------------------------------------------
---                    CUSTOMIZATIONS
-------------------------------------------------------------
-
 vim.o.compatible = false
 vim.o.encoding = 'UTF-8'
 
@@ -13,8 +9,9 @@ vim.o.background = 'dark'
 vim.cmd('filetype plugin on')
 vim.cmd('filetype plugin indent on')
 
-vim.o.paste = false
-vim.o.pastetoggle = '<F2>'
+-- deprecated https://github.com/neovim/neovim/pull/22647
+-- vim.o.paste = false
+-- vim.o.pastetoggle = '<F2>'
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
@@ -47,9 +44,6 @@ vim.o.inccommand = 'split'
 -- originally used by |vim-fugitive|
 vim.o.diffopt = vim.o.diffopt .. ',vertical'
 
-------------------------------------------------------------
---                   KEYBINDINGS
-------------------------------------------------------------
 
 local function base_map(lhs)
   return function(mode)
@@ -105,19 +99,17 @@ noremap '' '<C-w>-' -- Alt Shift k
 noremap 'Ô' '<C-w>+' -- Alt Shift j
 noremap 'Ò' '<C-w>>' -- Alt Shift l
 
--- temporarily handled in nvim-hlslens
 -- keep asterisk and pound to be case sensitive
--- nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
--- nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]]
+nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
+nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]]
 
 -- copy, paste and copy whole file to clipboard
 map '<LEADER>cs'   '"+y' ({})
-map '<LEADER>v'    ':r !pbpaste<CR><CR>' ({})
+map '<LEADER>v'    '"+p' ({})
 map '<LEADER>ca'   ':%w !pbcopy<CR><CR>' ({})
 
--- temporarily handled in nvim-treesitter
 -- identify syntax below cursor with <LEADER>h
--- noremap '<LEADER>h' [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
+noremap '<LEADER>h' [[:echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>]]
 
 nnoremap '<LEADER>a' 'ga'
 -- nnoremap '<LEADER>x' 'gx'
@@ -135,27 +127,16 @@ vim.g.markdown_fenced_languages = {
   "ts=typescript"
 }
 
--- -- make emacs navigation available on EX-mode
--- -- done in compat
--- cnoremap '<C-a>'   '<Home>'
--- cnoremap '<C-e>'   '<End>'
--- cnoremap '<C-b>'   '<Left>'
--- cnoremap '<C-f>'   '<Right>'
--- cnoremap '<C-A-b>' '<S-Left>'
--- cnoremap '<C-A-f>' '<S-Right>'
-
 -- <C-R><C-W> command line mode, insert word under cursor
 
-
-------------------------------------------------------------
---                       RESOURCES
-------------------------------------------------------------
 
 require'compatibilities'
 require'autos'
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+-- deprecated https://github.com/neovim/neovim/pull/22846
+-- if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",

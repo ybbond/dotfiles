@@ -10,11 +10,9 @@ cmp.setup{
   -- reference: https://github.com/timbedard/dotfiles/blob/main/config/nvim/lua/plugins.lua
   min_length = 1,
   sources = {
-    {name = 'cmp_git'},
     {name = 'nvim_lsp'},
     {name = 'nvim_lua'},
     {name = 'vsnip'},
-    {name = 'calc'},
     {name = 'path'},
     {name = 'buffer'},
   },
@@ -22,11 +20,9 @@ cmp.setup{
   formatting = {
     format = function(entry, vim_item)
       vim_item.menu = ({
-        cmp_git = "[Git]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         vsnip = "[vsnip]",
-        calc = "[Calc]",
         path = "[Path]",
         buffer = "[Buffer]",
       })[entry.source.name]
@@ -84,27 +80,3 @@ cmp.setup{
     entries = "native",
   },
 }
-
-require('cmp_git').setup({
-    -- defaults
-    filetypes = { "gitcommit" },
-    github = {
-        issues = {
-            filter = "all", -- assigned, created, mentioned, subscribed, all, repos
-            limit = 100,
-            state = "open", -- open, closed, all
-        },
-        mentions = {
-            limit = 100,
-        },
-    },
-    gitlab = {
-        issues = {
-            limit = 100,
-            state = "opened", -- opened, closed, all
-        },
-        mentions = {
-            limit = 100,
-        },
-    },
-})

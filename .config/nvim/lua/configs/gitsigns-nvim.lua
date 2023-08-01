@@ -1,10 +1,10 @@
 require('gitsigns').setup {
   signs = {
-    add          = {hl = 'Ignore'   , text = '█', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn', word_diff='GitSignsAddWord'},
-    change       = {hl = 'Ignore', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn', word_diff='GitSignsChangeWord'},
-    delete       = {hl = 'Ignore', text = '▂', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn', word_diff='GitSignsDeleteWord'},
-    topdelete    = {hl = 'Ignore', text = '▀', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn', word_diff='GitSignsDeleteWord'},
-    changedelete = {hl = 'Ignore', text = '█', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn', word_diff='GitSignsChangeWord'},
+    add          = {hl = 'Ignore'   , text = '█', numhl='GitSignsAddLn'   , linehl='GitSignsAddNr', word_diff='GitSignsAddWord'},
+    change       = {hl = 'Ignore', text = '█', numhl='GitSignsChangeLn', linehl='GitSignsChangeNr', word_diff='GitSignsChangeWord'},
+    delete       = {hl = 'Ignore', text = '▂', numhl='GitSignsDeleteLn', linehl='GitSignsDeleteNr', word_diff='GitSignsDeleteWord'},
+    topdelete    = {hl = 'Ignore', text = '▀', numhl='GitSignsDeleteLn', linehl='GitSignsDeleteNr', word_diff='GitSignsDeleteWord'},
+    changedelete = {hl = 'Ignore', text = '█', numhl='GitSignsChangeLn', linehl='GitSignsChangeNr', word_diff='GitSignsChangeWord'},
   },
   signcolumn = false,
   numhl = true,
