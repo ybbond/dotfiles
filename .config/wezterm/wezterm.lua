@@ -6,12 +6,15 @@ return {
   send_composed_key_when_left_alt_is_pressed = true,
   send_composed_key_when_right_alt_is_pressed = false,
 
-  color_scheme = 'nord',
+  -- color_scheme = 'nord',
+  color_scheme = 'Vs Code Dark+ (Gogh)',
   font = wezterm.font('JetBrains Mono'),
+  font_size = 12.0,
 
   scrollback_lines = 10000,
 
   colors = {
+    cursor_fg = 'black',
     tab_bar = {
       active_tab = {
         -- bg_color = '#2d3441',
