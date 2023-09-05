@@ -58,6 +58,21 @@ lspconfig.lua_ls.setup{
   settings = { Lua = lua_ls_settings },
 }
 
+lspconfig.tsserver.setup{
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+}
+
+lspconfig.ocamllsp.setup{
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+}
+
+lspconfig.zls.setup {
+  on_attach = M.ybbond_lsp_on_attach,
+  capabilities = M.ybbond_lsp_capabilities,
+}
+
 -- lspconfig.dartls.setup{
 --   capabilities = M.ybbond_lsp_capabilities,
 --   on_attach = M.ybbond_lsp_on_attach,

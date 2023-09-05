@@ -20,6 +20,16 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
   {'BufNewFile', 'BufRead'},
   {
+    pattern = '.env*,.ocamlformat',
+    callback = function()
+      vim.o.filetype = 'config'
+    end,
+  }
+)
+
+vim.api.nvim_create_autocmd(
+  {'BufNewFile', 'BufRead'},
+  {
     pattern = '*.lock,*.pbxproj',
     callback = function()
       vim.o.filetype = 'lock'
@@ -61,7 +71,7 @@ vim.api.nvim_create_autocmd(
 
 vim.api.nvim_create_user_command(
   'RelativeNumberToggle',
-  function ()
+  function()
     if vim.g.use_relative_number then
       vim.g.use_relative_number = false
       vim.o.relativenumber = false

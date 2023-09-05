@@ -50,7 +50,7 @@ cmp.setup{
     -- ['<C-y>'] = cmp.mapping.scroll_docs(-4),
     -- ['<C-e>'] = cmp.mapping.scroll_docs(4),
     -- ['<C-y>'] = cmp.config.disable,
-    ['<C-y>'] = function (_)
+    ['<C-y>'] = function(_)
       if cmp.visible() then
         cmp.abort()
         cmp.close()
@@ -67,7 +67,7 @@ cmp.setup{
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-g>'] = cmp.mapping.close(),
 
-    ['<CR>'] = function (_)
+    ['<CR>'] = function(_)
       if cmp.visible() then
         cmp.abort()
         cmp.close()

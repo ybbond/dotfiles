@@ -56,9 +56,9 @@ require('telescope').setup{
         prompt_position = 'top',
       },
     },
-    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-    -- generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-    generic_sorter =  require'telescope.sorters'.get_fzy_sorter,
+    -- file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+    -- -- generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+    -- generic_sorter =  require'telescope.sorters'.get_fzy_sorter,
     buffer_previewer_maker = new_maker,
     mappings = {
       i = {

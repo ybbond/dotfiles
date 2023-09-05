@@ -1,4 +1,4 @@
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
 [[
 fun! YbbondOtherSetups()
   cnoremap <C-a>   <Home>
@@ -51,6 +51,8 @@ fun! YbbondOtherSetups()
     endfunction
   endif
 
+  let g:ruby_host_prog = '~/.frum/versions/3.2.2/bin/neovim-ruby-host'
+
 endfun
 call YbbondOtherSetups()
-]], true)
+]], {output = true})

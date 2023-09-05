@@ -2,7 +2,12 @@ return {
   {
     'Mofiqul/vscode.nvim',
     config = function()
-      require'vscode'.setup({})
+      -- local c = require('vscode.colors').get_colors()
+      require'vscode'.setup({
+        -- group_overrides = {
+        --   CursorLine = { bg=c.vscGray },
+        -- },
+      })
       require'vscode'.load()
     end,
   },
@@ -22,7 +27,8 @@ return {
     build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
   },
   {
-    'nvim-telescope/telescope.nvim',
+    -- 'nvim-telescope/telescope.nvim',
+    dir = '~/poss/telescope.nvim',
     dependencies = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
     config = function() require'configs/telescope-nvim' end
   },
@@ -33,12 +39,15 @@ return {
     config = function()
       require('nvim-treesitter.configs').setup({
         highlight = {enable = true},
-        ensure_installed = { 'http', 'json', 'go', 'lua', 'dart' },
+        ensure_installed = { 'http', 'json', 'go', 'lua', 'dart', 'zig' },
         context_commentstring = {
           enable = true,
           enable_autocmd = false,
         },
         indent = { enable = false},
+        endwise = {
+          enable = true,
+        },
       })
     end,
   },
@@ -69,8 +78,27 @@ return {
           dart = {
             require('formatter.filetypes.dart').dartformat,
           },
+          ocaml = {
+            -- require('formatter.filetypes.ocaml').ocamlformat,
+            function()
+              -- local util = require('formatter.util')
+              local path = string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd()..'/', '')
+              return {
+                exe = "ocamlformat",
+                args = {
+                  "--enable-outside-detected-project",
+                  -- util.escape_path(util.get_current_buffer_file_path()),
+                  path,
+                },
+                stdin = true,
+              }
+            end
+          },
           go = {
             require('formatter.filetypes.go').gofmt,
+          },
+          zig = {
+            require('formatter.filetypes.zig').zigfmt,
           },
         },
       }
@@ -78,11 +106,16 @@ return {
   },
 
   {
+    'Bekaboo/dropbar.nvim',
+    commit = '2bc8fd4bb3a80c08e9647328f1f954d71e1dd431',
+  },
+
+  {
     'akinsho/flutter-tools.nvim',
     ft = 'dart',
     dependencies = 'nvim-lua/plenary.nvim',
     config = function()
-      require("flutter-tools").setup {
+      require('flutter-tools').setup {
         lsp = {
           color = {
             enabled = true,
@@ -102,6 +135,11 @@ return {
       require('telescope').load_extension('flutter')
     end,
   },
+  {
+    'akinsho/pubspec-assist.nvim',
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = function() require('pubspec-assist').setup() end,
+  },
 
   {
     'ray-x/go.nvim',
@@ -110,9 +148,83 @@ return {
   },
 
   {
+    'andythigpen/nvim-coverage',
+    config = function()
+      require('coverage').setup({
+        auto_reload = true,
+      })
+    end
+  },
+
+  {
     'nvim-tree/nvim-tree.lua',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function() require'configs/nvim-tree' end,
+  },
+
+  -- {
+  --   'altermo/ultimate-autopair.nvim',
+  --   event = {
+  --     'InsertEnter',
+  --     'CmdlineEnter',
+  --   },
+  --   branch = 'v0.6',
+  --   opts = {},
+  -- },
+
+  {
+    'kevinhwang91/nvim-hlslens',
+    config = function()
+      nnoremap 'n' [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'N' [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '*' [[*<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '#' [[#<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'g*' [[g*<Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap 'g#' [[g#<Cmd>lua require('hlslens').start()<CR>]]
+
+      nnoremap '<Leader>l' ':noh<CR>'
+
+      nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+
+      nnoremap '<LEADER><LEADER>*' [[:let @/=expand('<cword>')<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+      nnoremap '<LEADER><LEADER>#' [[:let @/=expand('<cword>')<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
+    end,
+  },
+
+  {
+    'petertriho/nvim-scrollbar',
+    config = function()
+      local c = require('vscode.colors').get_colors()
+      require('scrollbar').setup({
+        handle = {
+          color = c.vscGray,
+        },
+        marks = {
+          Search = { color = c.vscSearchCurrent },
+          GitAdd = {
+            text = '█',
+            -- text = '▂',
+          },
+          GitChange = {
+            text = '█',
+            -- text = '▂',
+          },
+        --   Error = { color = c.vscRed },
+        --   Warn = { color = c.vscYellow },
+        --   Info = { color = c.vscGreen },
+        --   Hint = { color = c.vscBlue },
+        --   Misc = { color = c.vscDarkBlue },
+        },
+        hide_if_all_visible = true,
+        handlers = {
+          gitsigns = true,
+          search = true,
+        },
+      })
+      require('scrollbar.handlers.search').setup()
+      require('scrollbar.handlers.gitsigns').setup()
+    end,
   },
 
   {
@@ -160,7 +272,7 @@ return {
             {'diagnostics', sources = {'nvim_workspace_diagnostic'}},
           },
           lualine_x = {},
-          lualine_y = {'filename'},
+          lualine_y = {'location'},
           lualine_z = {'branch', 'diff'}
         },
       })
@@ -171,6 +283,13 @@ return {
     'lewis6991/gitsigns.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
     config = function() require'configs/gitsigns-nvim' end,
+  },
+  {
+    'FabijanZulj/blame.nvim',
+    config = function()
+      nnoremap '<LEADER>gb' '<CMD>ToggleBlame window<CR>'
+      nnoremap '<LEADER>gB' '<CMD>ToggleBlame virtual<CR>'
+    end,
   },
 
   {
