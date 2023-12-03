@@ -122,26 +122,31 @@ return {
     config = function() require('tsc').setup() end
   },
 
-  --     require('flutter-tools').setup {
-  --       lsp = {
-  --         color = {
-  --           enabled = true,
-  --           background = true,
-  --           virtual_text = false,
-  --         },
-  --         on_attach = function(_, bufnr)
-  --           require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr)
-  --           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', {noremap=true, silent=true})
-  --         end,
-  --         capabilities = require'configs/nvim-lspconfig'.ybbond_lsp_capabilities,
-  --       },
-  --       dev_log = { enabled = true, notify_errors = true },
-  --       closing_tags = { prefix = ' → ' },
-  --       fvm = true,
-  --     }
-  --     require('telescope').load_extension('flutter')
-  --   end,
-  -- },
+  {
+    'akinsho/flutter-tools.nvim',
+    ft = 'dart',
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = function()
+      require('flutter-tools').setup {
+        lsp = {
+          color = {
+            enabled = true,
+            background = true,
+            virtual_text = false,
+          },
+          on_attach = function(_, bufnr)
+            require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr)
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', {noremap=true, silent=true})
+          end,
+          capabilities = require'configs/nvim-lspconfig'.ybbond_lsp_capabilities,
+        },
+        dev_log = { enabled = true, notify_errors = true },
+        closing_tags = { prefix = ' → ' },
+        fvm = true,
+      }
+      require('telescope').load_extension('flutter')
+    end,
+  },
   {
     'akinsho/pubspec-assist.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
@@ -295,11 +300,10 @@ return {
     config = function() require'configs/gitsigns-nvim' end,
   },
   {
-    'FabijanZulj/blame.nvim',
-    config = function()
-      nnoremap '<LEADER>gb' '<CMD>ToggleBlame window<CR>'
-      nnoremap '<LEADER>gB' '<CMD>ToggleBlame virtual<CR>'
-    end,
+    'dinhhuy258/git.nvim',
+    config = function() require('git').setup({
+      winbar = true,
+    }) end
   },
 
   {
