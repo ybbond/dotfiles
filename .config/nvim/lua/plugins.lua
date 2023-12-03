@@ -115,14 +115,13 @@ return {
 
   {
     'Bekaboo/dropbar.nvim',
-    -- commit = '2bc8fd4bb3a80c08e9647328f1f954d71e1dd431',
   },
 
-  -- {
-  --   'akinsho/flutter-tools.nvim',
-  --   ft = 'dart',
-  --   dependencies = 'nvim-lua/plenary.nvim',
-  --   config = function()
+  {
+    'dmmulroy/tsc.nvim',
+    config = function() require('tsc').setup() end
+  },
+
   --     require('flutter-tools').setup {
   --       lsp = {
   --         color = {

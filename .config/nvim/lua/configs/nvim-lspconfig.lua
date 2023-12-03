@@ -83,6 +83,26 @@ lspconfig.astro.setup{
   end,
 }
 
+lspconfig.cssls.setup{
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+}
+
+lspconfig.eslint.setup{
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = function(_, bufnr)
+    M.ybbond_lsp_on_attach(_, bufnr)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LEADER>F',
+      '<CMD>EslintFixAll<CR>', { noremap=true, silent=true })
+  end,
+}
+
+lspconfig.tailwindcss.setup{
+  root_dir = lspconfig.util.root_pattern('tailwind.config.js', 'tailwind.config.ts'),
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+}
+
 lspconfig.ocamllsp.setup{
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
@@ -91,14 +111,6 @@ lspconfig.ocamllsp.setup{
 lspconfig.zls.setup {
   on_attach = M.ybbond_lsp_on_attach,
   capabilities = M.ybbond_lsp_capabilities,
-}
-
-lspconfig.dartls.setup{
-  capabilities = M.ybbond_lsp_capabilities,
-  on_attach = M.ybbond_lsp_on_attach,
-  init_options = {
-    onlyAnalyzeProjectsWithOpenFiles = false,
-  },
 }
 
 return M
