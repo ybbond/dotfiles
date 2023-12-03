@@ -1,6 +1,6 @@
 local M = {}
 
-M.ybbond_lsp_on_attach = function(_, bufnr)
+M.ybbond_lsp_on_attach = function(client, bufnr)
   local function buf_set_keymap(l, r, c)
     vim.api.nvim_buf_set_keymap(bufnr, l, r, c, { noremap=true, silent=true })
   end
@@ -58,9 +58,29 @@ lspconfig.lua_ls.setup{
   settings = { Lua = lua_ls_settings },
 }
 
+lspconfig.gopls.setup{
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+}
+
 lspconfig.tsserver.setup{
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
+}
+
+lspconfig.astro.setup{
+  init_options = {
+    typescript = {
+      tsdk = vim.fs.normalize('~/.config/yarn/global/node_modules/typescript/lib'),
+    },
+  },
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = function(_, bufnr)
+    M.ybbond_lsp_on_attach(_, bufnr)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LEADER>f',
+      '<CMD>lua vim.lsp.buf.format({ async = true })<CR>',
+        { noremap=true, silent=true })
+  end,
 }
 
 lspconfig.ocamllsp.setup{
@@ -73,12 +93,12 @@ lspconfig.zls.setup {
   capabilities = M.ybbond_lsp_capabilities,
 }
 
--- lspconfig.dartls.setup{
---   capabilities = M.ybbond_lsp_capabilities,
---   on_attach = M.ybbond_lsp_on_attach,
---   init_options = {
---     onlyAnalyzeProjectsWithOpenFiles = false,
---   },
--- }
+lspconfig.dartls.setup{
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+  init_options = {
+    onlyAnalyzeProjectsWithOpenFiles = false,
+  },
+}
 
 return M

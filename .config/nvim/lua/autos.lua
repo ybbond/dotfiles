@@ -1,3 +1,9 @@
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+  callback = function()
+    vim.fn.jobstart('notify-send "hello"', {detach=true})
+  end,
+})
+
 vim.api.nvim_create_autocmd(
   'TextYankPost',
   {
@@ -13,6 +19,16 @@ vim.api.nvim_create_autocmd(
     pattern = '*.v',
     callback = function()
       vim.o.filetype = 'vlang'
+    end,
+  }
+)
+
+vim.api.nvim_create_autocmd(
+  {'BufNewFile', 'BufRead'},
+  {
+    pattern = 'Fastfile',
+    callback = function()
+      vim.o.filetype = 'ruby'
     end,
   }
 )

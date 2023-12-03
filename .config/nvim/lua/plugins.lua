@@ -2,11 +2,11 @@ return {
   {
     'Mofiqul/vscode.nvim',
     config = function()
-      -- local c = require('vscode.colors').get_colors()
+      local c = require('vscode.colors').get_colors()
       require'vscode'.setup({
-        -- group_overrides = {
-        --   CursorLine = { bg=c.vscGray },
-        -- },
+        group_overrides = {
+          CursorLine = { bg = c.vscLeftDark },
+        },
       })
       require'vscode'.load()
     end,
@@ -27,8 +27,7 @@ return {
     build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
   },
   {
-    -- 'nvim-telescope/telescope.nvim',
-    dir = '~/poss/telescope.nvim',
+    'nvim-telescope/telescope.nvim',
     dependencies = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'},
     config = function() require'configs/telescope-nvim' end
   },
@@ -39,7 +38,7 @@ return {
     config = function()
       require('nvim-treesitter.configs').setup({
         highlight = {enable = true},
-        ensure_installed = { 'http', 'json', 'go', 'lua', 'dart', 'zig' },
+        ensure_installed = { 'http', 'json', 'go', 'lua', 'dart', 'zig', 'markdown', 'markdown_inline' },
         context_commentstring = {
           enable = true,
           enable_autocmd = false,
@@ -100,6 +99,15 @@ return {
           zig = {
             require('formatter.filetypes.zig').zigfmt,
           },
+          astro = {
+            require('formatter.filetypes.typescript').prettierd,
+          },
+          typescript = {
+            require('formatter.filetypes.typescript').eslint_d,
+          },
+          typescriptreact = {
+            require('formatter.filetypes.typescript').eslint_d,
+          },
         },
       }
     end,
@@ -107,34 +115,34 @@ return {
 
   {
     'Bekaboo/dropbar.nvim',
-    commit = '2bc8fd4bb3a80c08e9647328f1f954d71e1dd431',
+    -- commit = '2bc8fd4bb3a80c08e9647328f1f954d71e1dd431',
   },
 
-  {
-    'akinsho/flutter-tools.nvim',
-    ft = 'dart',
-    dependencies = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('flutter-tools').setup {
-        lsp = {
-          color = {
-            enabled = true,
-            background = true,
-            virtual_text = false,
-          },
-          on_attach = function(_, bufnr)
-            require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr)
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', {noremap=true, silent=true})
-          end,
-          capabilities = require'configs/nvim-lspconfig'.ybbond_lsp_capabilities,
-        },
-        dev_log = { enabled = true, notify_errors = true },
-        closing_tags = { prefix = ' → ' },
-        fvm = true,
-      }
-      require('telescope').load_extension('flutter')
-    end,
-  },
+  -- {
+  --   'akinsho/flutter-tools.nvim',
+  --   ft = 'dart',
+  --   dependencies = 'nvim-lua/plenary.nvim',
+  --   config = function()
+  --     require('flutter-tools').setup {
+  --       lsp = {
+  --         color = {
+  --           enabled = true,
+  --           background = true,
+  --           virtual_text = false,
+  --         },
+  --         on_attach = function(_, bufnr)
+  --           require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr)
+  --           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', {noremap=true, silent=true})
+  --         end,
+  --         capabilities = require'configs/nvim-lspconfig'.ybbond_lsp_capabilities,
+  --       },
+  --       dev_log = { enabled = true, notify_errors = true },
+  --       closing_tags = { prefix = ' → ' },
+  --       fvm = true,
+  --     }
+  --     require('telescope').load_extension('flutter')
+  --   end,
+  -- },
   {
     'akinsho/pubspec-assist.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
@@ -150,8 +158,13 @@ return {
   {
     'andythigpen/nvim-coverage',
     config = function()
+      local c = require('vscode.colors').get_colors()
       require('coverage').setup({
         auto_reload = true,
+        highlight = {
+          covered = { fg = c.vscLightGreen },
+          uncovered = { fg = c.vscLightRed },
+        },
       })
     end
   },
@@ -162,15 +175,12 @@ return {
     config = function() require'configs/nvim-tree' end,
   },
 
-  -- {
-  --   'altermo/ultimate-autopair.nvim',
-  --   event = {
-  --     'InsertEnter',
-  --     'CmdlineEnter',
-  --   },
-  --   branch = 'v0.6',
-  --   opts = {},
-  -- },
+  {
+    'altermo/ultimate-autopair.nvim',
+    event = {'InsertEnter', 'CmdlineEnter'},
+    branch = 'v0.6',
+    opts = {},
+  },
 
   {
     'kevinhwang91/nvim-hlslens',
@@ -218,6 +228,7 @@ return {
         },
         hide_if_all_visible = true,
         handlers = {
+          cursor = false,
           gitsigns = true,
           search = true,
         },

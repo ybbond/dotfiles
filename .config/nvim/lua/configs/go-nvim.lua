@@ -28,7 +28,8 @@ require('go').setup({
   -- },
   -- lsp_on_attach = ybbond_go_lsp_on_attach,
   lsp_cfg = true,
-  tag_options = 'json='
+  tag_options = 'json=',
+  tag_transform = 'camelcase',
 })
 
 -- local cfg = require'go.lsp'.config()
