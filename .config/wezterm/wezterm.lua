@@ -3,8 +3,8 @@ local wezterm = require('wezterm')
 local act = wezterm.action
 
 return {
-  send_composed_key_when_left_alt_is_pressed = true,
-  send_composed_key_when_right_alt_is_pressed = false,
+  send_composed_key_when_left_alt_is_pressed = false,
+  send_composed_key_when_right_alt_is_pressed = true,
 
   -- color_scheme = 'nord',
   color_scheme = 'Vs Code Dark+ (Gogh)',
