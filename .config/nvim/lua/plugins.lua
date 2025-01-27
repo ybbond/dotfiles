@@ -2,18 +2,59 @@ return {
   {
     'Mofiqul/vscode.nvim',
     config = function()
-      local c = require('vscode.colors').get_colors()
-      require'vscode'.setup({
-        group_overrides = {
-          CursorLine = { bg = c.vscLeftDark },
-        },
-      })
+      -- local c = require('vscode.colors').get_colors()
+      -- require'vscode'.setup({
+      --   -- color_overrides = {
+      --   --   vscCursorDarkDark = c.vscLeftDark,
+      --   -- },
+      --   group_overrides = {
+      --     CursorLine = { bg = c.vscLeftDark },
+      --   },
+      -- })
       require'vscode'.load()
     end,
+  },
+  {
+    'cormacrelf/dark-notify',
+    config = function()
+      require('dark_notify').run({
+        schemes = {
+          dark = {
+            background = 'dark',
+          },
+          light = {
+            background = 'light',
+          },
+        },
+        onchange = function(mode)
+          local c = require('vscode.colors').get_colors()
+          if mode == 'light' then
+            vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg=c.vscBlueGreen })
+            vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg=c.vscRed })
+
+            vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg=c.vscDiffGreenLight, fg=c.vscCursorLight })
+            vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg=c.vscDarkYellow, fg=c.vscCursorLight })
+            vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg=c.vscDarkYellow, fg=c.vscCursorLight })
+            vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg=c.vscDiffRedLight, fg=c.vscCursorLight })
+            vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg=c.vscDiffRedLight, fg=c.vscCursorLight })
+          elseif mode == 'dark' then
+            vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg=c.vscLightGreen })
+            vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg=c.vscLightRed })
+
+            vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg=c.vscDiffGreenDark, fg=c.vscCursorDarkDark })
+            vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg=c.vscYellow, fg=c.vscCursorDarkDark })
+            vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg=c.vscYellow, fg=c.vscCursorDarkDark })
+            vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg=c.vscDiffRedDark, fg=c.vscCursorDarkDark })
+            vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg=c.vscDiffRedDark, fg=c.vscCursorDarkDark })
+          end
+        end
+      })
+    end
   },
 
   {
     'folke/which-key.nvim',
+    dependencies = {{ 'echasnovski/mini.icons', version = false }},
     event = 'VeryLazy',
     init = function()
       vim.o.timeout = true
@@ -37,16 +78,12 @@ return {
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup({
-        highlight = {enable = true},
         ensure_installed = { 'http', 'json', 'go', 'lua', 'dart', 'zig', 'markdown', 'markdown_inline' },
-        context_commentstring = {
-          enable = true,
-          enable_autocmd = false,
-        },
-        indent = { enable = false},
-        endwise = {
-          enable = true,
-        },
+        sync_install = false,
+        auto_install = false,
+        ignore_install = {},
+        highlight = { enable = true },
+        indent = { enable = false },
       })
     end,
   },
@@ -54,6 +91,10 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function() require'configs/nvim-lspconfig' end,
+  },
+
+  {
+    'b0o/schemastore.nvim',
   },
 
   'hrsh7th/vim-vsnip',
@@ -65,6 +106,8 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-vsnip',
+      'PaterJason/cmp-conjure',
+      { dir = '~/pbond/cmp_css_vars' },
     },
     config = function() require'configs/nvim-cmp' end,
   },
@@ -75,29 +118,24 @@ return {
       require('formatter').setup {
         filetype = {
           dart = {
-            require('formatter.filetypes.dart').dartformat,
-          },
-          ocaml = {
-            -- require('formatter.filetypes.ocaml').ocamlformat,
-            function()
-              -- local util = require('formatter.util')
-              local path = string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd()..'/', '')
+            -- require('formatter.filetypes.dart').dartformat,
+            function(t)
+              t = t or {}
+
+              local args = { "--output show" }
+              if t.line_length ~= nil then
+                table.insert(args, "--line-length " .. t.line_length)
+              end
+
               return {
-                exe = "ocamlformat",
-                args = {
-                  "--enable-outside-detected-project",
-                  -- util.escape_path(util.get_current_buffer_file_path()),
-                  path,
-                },
+                exe = "fvm dart format",
+                args = args,
                 stdin = true,
               }
             end
           },
           go = {
             require('formatter.filetypes.go').gofmt,
-          },
-          zig = {
-            require('formatter.filetypes.zig').zigfmt,
           },
           astro = {
             require('formatter.filetypes.typescript').prettierd,
@@ -123,8 +161,27 @@ return {
   },
 
   {
+    'gpanders/nvim-parinfer',
+    ft = { 'lisp', 'commonlisp' },
+  },
+  {
+    'Olical/conjure',
+    ft = { 'lisp', 'commonlisp', 'lua' },
+    config = function()
+      require("conjure.main").main()
+      require("conjure.mapping")["on-filetype"]()
+      vim.g['conjure#extract#tree_sitter#enabled'] = true
+    end,
+    init = function()
+      -- Set configuration options here
+      vim.g["conjure#debug"] = true
+    end,
+  },
+
+  {
     'akinsho/flutter-tools.nvim',
-    ft = 'dart',
+    -- ft = 'dart',
+    lazy = false,
     dependencies = 'nvim-lua/plenary.nvim',
     config = function()
       require('flutter-tools').setup {
@@ -138,7 +195,7 @@ return {
             require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr)
             vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', {noremap=true, silent=true})
           end,
-          capabilities = require'configs/nvim-lspconfig'.ybbond_lsp_capabilities,
+          capabilities = require'cmp_nvim_lsp'.default_capabilities()
         },
         dev_log = { enabled = true, notify_errors = true },
         closing_tags = { prefix = ' → ' },
@@ -150,7 +207,7 @@ return {
   {
     'akinsho/pubspec-assist.nvim',
     dependencies = 'nvim-lua/plenary.nvim',
-    config = function() require('pubspec-assist').setup() end,
+    config = function() require('pubspec-assist').setup({}) end,
   },
 
   {
@@ -162,12 +219,22 @@ return {
   {
     'andythigpen/nvim-coverage',
     config = function()
-      local c = require('vscode.colors').get_colors()
       require('coverage').setup({
         auto_reload = true,
-        highlight = {
-          covered = { fg = c.vscLightGreen },
-          uncovered = { fg = c.vscLightRed },
+        signs = {
+          -- possible coverage texts:
+          -- '▌'
+          -- '░'
+          -- '▒'
+          -- '▓'
+          covered = {
+            hl = 'YbbondCoverageCovered',
+            text = '▒',
+          },
+          uncovered = {
+            hl = 'YbbondCoverageUncovered',
+            text = '▒',
+          },
         },
       })
     end
@@ -180,8 +247,20 @@ return {
   },
 
   {
+    'backdround/improved-ft.nvim',
+    config = function()
+      require('improved-ft').setup({
+        use_default_mappings = true,
+        use_relative_repetition = true,
+      })
+    end
+  },
+
+  {
     'altermo/ultimate-autopair.nvim',
     event = {'InsertEnter', 'CmdlineEnter'},
+    -- TODO(xxkkbb)
+    -- event = { 'User EnableAutoPair' },
     branch = 'v0.6',
     opts = {},
   },
@@ -224,11 +303,6 @@ return {
             text = '█',
             -- text = '▂',
           },
-        --   Error = { color = c.vscRed },
-        --   Warn = { color = c.vscYellow },
-        --   Info = { color = c.vscGreen },
-        --   Hint = { color = c.vscBlue },
-        --   Misc = { color = c.vscDarkBlue },
         },
         hide_if_all_visible = true,
         handlers = {
@@ -243,6 +317,23 @@ return {
   },
 
   {
+    'ThePrimeagen/harpoon',
+    dependencies = 'nvim-lua/plenary.nvim',
+    config = function()
+      noremap '<C-h><C-h>' '<CMD>lua require("harpoon.ui").toggle_quick_menu()<CR>'
+      noremap '<C-h>h'     '<CMD>lua require("harpoon.ui").toggle_quick_menu()<CR>'
+      noremap '<C-h><C-a>' '<CMD>lua require("harpoon.mark").add_file()<CR>'
+      noremap '<C-h>a'     '<CMD>lua require("harpoon.mark").add_file()<CR>'
+
+      require('harpoon').setup({
+        menu = {
+          width = vim.api.nvim_win_get_width(0) - 4,
+        }
+      })
+    end
+  },
+
+  {
     'romgrk/barbar.nvim',
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
@@ -252,7 +343,7 @@ return {
       nmap 'g<' '<Cmd>BufferMovePrevious<CR>' ({})
       nmap 'gx' '<Cmd>BufferClose<CR>' ({})
       nmap 'gp' '<Cmd>BufferPin<CR>' ({})
-      require('bufferline').setup({
+      require('barbar').setup({
         exclude_ft = { '' },
         icons = {
           pinned = { button = '' },
@@ -270,7 +361,7 @@ return {
 
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    dependencies = {'nvim-tree/nvim-web-devicons', 'Mofiqul/vscode.nvim'},
     config = function()
       require('lualine').setup({
         options = {
@@ -307,22 +398,50 @@ return {
   },
 
   {
-    'numToStr/Comment.nvim',
-    dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
+    'johmsalas/text-case.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
     config = function()
-      require('Comment').setup({
-        toggler = {
-          line = 'gcc',
-          block = 'gCc',
-        },
-        opleader = {
-          line = 'gc',
-          block = 'gC',
-        },
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      })
+      require('textcase').setup({})
+      require('telescope').load_extension('textcase')
     end,
+    keys = {
+      "<leader>c", -- Default invocation prefix
+      { "<leader>c.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+    },
+    cmd = {
+      -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
+      'Subs',
+      'TextCaseOpenTelescope',
+      'TextCaseOpenTelescopeQuickChange',
+      'TextCaseOpenTelescopeLSPChange',
+      'TextCaseStartReplacingCommand',
+    },
+    -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
+    -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
+    -- available after the first executing of it or after a keymap of text-case.nvim has been used.
+    lazy = false,
   },
+
+  -- {
+  --   'numToStr/Comment.nvim',
+  --   dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
+  --   config = function()
+  --     require('ts_context_commentstring').setup {
+  --       enable_autocmd = false,
+  --     }
+  --     require('Comment').setup({
+  --       toggler = {
+  --         line = 'gcc',
+  --         block = 'gCc',
+  --       },
+  --       opleader = {
+  --         line = 'gc',
+  --         block = 'gC',
+  --       },
+  --       pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+  --     })
+  --   end,
+  -- },
 
   {
     'kylechui/nvim-surround',

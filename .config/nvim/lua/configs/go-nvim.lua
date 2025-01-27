@@ -13,6 +13,7 @@ local ybbond_go_lsp_on_attach = function(_, bufnr)
   buf_set_keymap('n', 'gt', '<CMD>GoAddTag<CR>')
   buf_set_keymap('n', 'gT', '<CMD>GoRmTag<CR>')
   buf_set_keymap('n', 'gA', '<CMD>GoAlt<CR>')
+  buf_set_keymap('n', 'gi', '<CMD>GoImplements<CR>')
 
   -- buf_set_keymap('n', '<LEADER>f', '<CMD>lua require("go.format").gofmt()<CR>')
   buf_set_keymap('n', '<LEADER>F', '<CMD>lua require("go.format").goimport()<CR>')
@@ -36,6 +37,6 @@ require('go').setup({
 -- require('lspconfig').gopls.setup(cfg)
 
 require('lspconfig').gopls.setup{
-  capabilities = require'configs/nvim-lspconfig'.ybbond_lsp_capabilities,
+  capabilities = require'cmp_nvim_lsp'.default_capabilities(),
   on_attach = ybbond_go_lsp_on_attach,
 }

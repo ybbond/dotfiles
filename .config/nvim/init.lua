@@ -2,9 +2,9 @@ vim.o.compatible = false
 vim.o.encoding = 'UTF-8'
 
 vim.g.mapleader = [[\]]
+vim.g.maplocalleader = [[\]]
 
 vim.opt.termguicolors = true
-vim.o.background = 'dark'
 
 vim.cmd('filetype plugin on')
 vim.cmd('filetype plugin indent on')
@@ -136,7 +136,8 @@ require'autos'
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 -- deprecated https://github.com/neovim/neovim/pull/22846
 -- if not vim.loop.fs_stat(lazypath) then
-if not vim.uv.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+-- if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",

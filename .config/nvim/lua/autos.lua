@@ -104,6 +104,21 @@ vim.api.nvim_create_autocmd(
   }
 )
 
+-- TODO(xxkkbb)
+-- vim.api.nvim_create_autocmd(
+--   {'InsertEnter', 'CmdlineEnter'},
+--   {
+--     callback = function()
+--       if vim.bo.filetype ~= 'lisp' and vim.bo.filetype ~= 'commonlisp' and vim.bo.ft ~= "TelescopePrompt" then
+--         vim.api.nvim_exec_autocmds('User', {
+--           pattern = 'EnableAutoPair',
+--         })
+--         print 'test'
+--       end
+--     end
+--   }
+-- )
+
 vim.api.nvim_create_user_command(
   'RelativeNumberToggle',
   function()

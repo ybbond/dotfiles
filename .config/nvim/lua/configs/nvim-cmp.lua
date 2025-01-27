@@ -5,11 +5,14 @@ local cmp = require('cmp')
 --   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 -- end
 
+vim.g.css_variables_file = 'tokens.css'
 
 cmp.setup{
   -- reference: https://github.com/timbedard/dotfiles/blob/main/config/nvim/lua/plugins.lua
   min_length = 1,
   sources = {
+    {name = 'cmp_css_vars'},
+    {name = 'conjure'},
     {name = 'nvim_lsp'},
     {name = 'nvim_lua'},
     {name = 'vsnip'},
@@ -20,6 +23,8 @@ cmp.setup{
   formatting = {
     format = function(entry, vim_item)
       vim_item.menu = ({
+        cmp_css_vars = '[CSS]',
+        conjure = "[Conjure]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         vsnip = "[vsnip]",
