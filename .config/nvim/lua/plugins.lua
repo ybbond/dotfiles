@@ -166,7 +166,7 @@ return {
   },
   {
     'Olical/conjure',
-    ft = { 'lisp', 'commonlisp', 'lua' },
+    ft = { 'lisp', 'commonlisp' },
     config = function()
       require("conjure.main").main()
       require("conjure.mapping")["on-filetype"]()
@@ -318,18 +318,26 @@ return {
 
   {
     'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
     dependencies = 'nvim-lua/plenary.nvim',
     config = function()
-      noremap '<C-h><C-h>' '<CMD>lua require("harpoon.ui").toggle_quick_menu()<CR>'
-      noremap '<C-h>h'     '<CMD>lua require("harpoon.ui").toggle_quick_menu()<CR>'
-      noremap '<C-h><C-a>' '<CMD>lua require("harpoon.mark").add_file()<CR>'
-      noremap '<C-h>a'     '<CMD>lua require("harpoon.mark").add_file()<CR>'
+      local harpoon = require('harpoon')
 
-      require('harpoon').setup({
-        menu = {
-          width = vim.api.nvim_win_get_width(0) - 4,
-        }
-      })
+      vim.keymap.set("n", "<C-h><C-a>", function() harpoon:list():add() end)
+      vim.keymap.set("n", "<C-h>a",     function() harpoon:list():add() end)
+      vim.keymap.set("n", "<C-h><C-h>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+      vim.keymap.set("n", "<C-h>h",     function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+      -- noremap '<C-h><C-h>' '<CMD>lua require("harpoon.ui").toggle_quick_menu()<CR>'
+      -- noremap '<C-h>h'     '<CMD>lua require("harpoon.ui").toggle_quick_menu()<CR>'
+      -- noremap '<C-h><C-a>' '<CMD>lua require("harpoon.mark").add_file()<CR>'
+      -- noremap '<C-h>a'     '<CMD>lua require("harpoon.mark").add_file()<CR>'
+      --
+      -- require('harpoon').setup({
+      --   menu = {
+      --     width = vim.api.nvim_win_get_width(0) - 4,
+      --   }
+      -- })
     end
   },
 
@@ -421,27 +429,6 @@ return {
     -- available after the first executing of it or after a keymap of text-case.nvim has been used.
     lazy = false,
   },
-
-  -- {
-  --   'numToStr/Comment.nvim',
-  --   dependencies = 'JoosepAlviste/nvim-ts-context-commentstring',
-  --   config = function()
-  --     require('ts_context_commentstring').setup {
-  --       enable_autocmd = false,
-  --     }
-  --     require('Comment').setup({
-  --       toggler = {
-  --         line = 'gcc',
-  --         block = 'gCc',
-  --       },
-  --       opleader = {
-  --         line = 'gc',
-  --         block = 'gC',
-  --       },
-  --       pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-  --     })
-  --   end,
-  -- },
 
   {
     'kylechui/nvim-surround',

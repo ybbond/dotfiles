@@ -1,10 +1,10 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-nnoremap '<C-s><C-b>' '<CMD>NvimTreeToggle<CR>'
-nnoremap '<C-s>b'     '<CMD>NvimTreeToggle<CR>'
-nnoremap '<C-s><C-f>'  '<CMD>NvimTreeFindFile<CR>'
-nnoremap '<C-s>f'     '<CMD>NvimTreeFindFile<CR>'
+nnoremap '<C-k><C-b>' '<CMD>NvimTreeToggle<CR>'
+nnoremap '<C-k>b'     '<CMD>NvimTreeToggle<CR>'
+nnoremap '<C-k><C-f>'  '<CMD>NvimTreeFindFile<CR>'
+nnoremap '<C-k>f'     '<CMD>NvimTreeFindFile<CR>'
 
 require'nvim-tree'.setup {
   git = {
@@ -29,7 +29,7 @@ require'nvim-tree'.setup {
     show_on_dirs = true,
   },
   update_focused_file = {
-    enable = true,
+    enable = false,
     update_cwd = false,
   },
   system_open = {
