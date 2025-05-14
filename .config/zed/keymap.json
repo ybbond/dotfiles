@@ -1,0 +1,72 @@
+[
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-shift-tab": "pane::ActivatePreviousItem",
+      "ctrl-tab": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "context": "Workspace || Editor",
+    "bindings": {
+      "cmd-l": "workspace::ToggleLeftDock",
+      "cmd-r": "workspace::ToggleRightDock",
+      "cmd-b": "workspace::ToggleBottomDock",
+      "cmd-;": "editor::ToggleRelativeLineNumbers"
+    }
+  },
+  {
+    // "context": "Editor && vim_mode == insert && !menu",
+    "context": "vim_mode == insert",
+    "bindings": {
+      "j k": "vim::NormalBefore",
+      "ctrl-d": "editor::Delete"
+    }
+  },
+  {
+    // "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "context": "vim_mode == normal",
+    "bindings": {
+      "\\ f": "editor::Format",
+      "g shift-b": "pane::ActivatePreviousItem",
+      "g b": "pane::ActivateNextItem",
+      "g <": "pane::SwapItemLeft",
+      "g >": "pane::SwapItemRight",
+      "g p": "pane::TogglePinTab",
+      "g r": "editor::FindAllReferences",
+      "g x": "pane::CloseActiveItem",
+
+      "ctrl-t ctrl-p": "file_finder::Toggle",
+
+      "ctrl-g ctrl-p": "editor::ToggleSelectedDiffHunks",
+      "\\ g b": "git::Blame",
+      "ctrl-g ctrl-r ctrl-h": "git::Restore",
+      "ctrl-g ctrl-r ctrl-b": "git::RestoreFile"
+    }
+  },
+  {
+    // "context": "Editor && vim_mode == visual && !VimWaiting && !menu",
+    "context": "vim_mode == visual",
+    "bindings": {
+      "S": [ "vim::PushAddSurrounds", {}]
+    }
+  },
+  {
+    "context": "vim_mode == visual || vim_mode == normal",
+    "bindings": {
+      "ctrl-w ctrl-v": "pane::SplitRight",
+      "ctrl-w ctrl-s": "pane::SplitDown",
+      "ctrl-w v":      "pane::SplitRight",
+      "ctrl-w s":      "pane::SplitDown"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w l": "workspace::ActivatePaneRight"
+    }
+  }
+]

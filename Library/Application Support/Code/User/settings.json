@@ -1,66 +1,60 @@
 {
   "flow.useNPMPackagedFlow": true,
   "flow.pathToFlow": "${workspaceRoot}/node_modules/.bin/flow",
-  // BEGIN NOTE: since update vscode on 19/Dec/2018, this should be added.
+  // BEGIN NOTE: since update vscode on 2018-12-19, this should be added
   "flow.useLSP": false,
-  // END NOTE:
+  // END NOTE
   "flow.coverageSeverity": "error",
   "javascript.validate.enable": false,
   "diffEditor.renderSideBySide": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "editor.fontSize": 16,
   "editor.dragAndDrop": false,
-  // "editor.fontFamily": "Liga Cartograph Mono CF",
-  "editor.fontLigatures": true,
-  "editor.lineNumbers": "relative",
   "editor.matchBrackets": "near",
   "editor.tabCompletion": "on",
   "editor.tabSize": 2,
-  // "editor.formatOnSave": true,
-  "eslint.alwaysShowStatus": true,
-  // "eslint.autoFixOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
-  "editor.suggestSelection": "first",
+  "editor.minimap.showSlider": "always",
+  "editor.renderWhitespace": "all",
+  "editor.renderLineHighlight": "all",
+
+  "debug.openDebug": "openOnDebugBreak",
+
   "search.quickOpen.includeSymbols": true,
   "search.showLineNumbers": true,
-  "workbench.colorTheme": "Xcode 10 Default Light",
+
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "workbench.list.automaticKeyboardNavigation": false,
-  // "editor.tokenColorCustomizations": {
-  //   "textMateRules": [
-  //     {
-  //       "scope": "punctuation.definition.tag.jsx",
-  //       "settings": {
-  //         "foreground": "#00fff2"
-  //       }
-  //     }
-  //   ]
-  // },
-  "vim.cursorStylePerMode.insert": "line",
-  "vim.enableNeovim": true,
+  "workbench.sideBar.location": "right",
+
   "vim.highlightedyank.enable": true,
   "vim.replaceWithRegister": true,
   "vim.hlsearch": true,
   "vim.incsearch": true,
-  "vim.neovimPath": "/usr/local/bin/nvim",
-  // "vim.searchHighlightColor": "rgba(150, 150, 255, 0.3)",
-  "vim.visualstar": true,
+  "vim.sneak": true,
+  "vim.sneakReplacesF": true,
+
   "vim.insertModeKeyBindings": [
     {
       "before": ["j", "k"],
       "after": ["<Esc>"]
-    }
-  ],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-        "before": ["j"],
-        "after": ["g", "j"]
     },
     {
-        "before": ["k"],
-        "after": ["g", "k"]
+      "before": ["ctrl+d"],
+      "after": [],
+      "commands": ["deleteRight"]
+    }
+  ],
+
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["j"],
+      "after": ["g", "j"]
+    },
+    {
+      "before": ["k"],
+      "after": ["g", "k"]
     },
     {
       "before": ["u"],
@@ -81,16 +75,28 @@
       "commands": ["editor.action.dirtydiff.next"]
     },
     {
-      "before": ["&"],
-      "after": ["#"]
-    },
-    {
       "before": ["g", "b"],
       "commands": ["workbench.action.nextEditorInGroup"]
     },
     {
       "before": ["g", "B"],
       "commands": ["workbench.action.previousEditorInGroup"]
+    },
+    {
+      "before": ["g", "t"],
+      "commands": ["workbench.action.focusNextGroup"]
+    },
+    {
+      "before": ["g", "T"],
+      "commands": ["workbench.action.focusPreviousGroup"]
+    },
+    {
+      "before": ["g", "<"],
+      "commands": ["workbench.action.moveEditorLeftInGroup"]
+    },
+    {
+      "before": ["g", ">"],
+      "commands": ["workbench.action.moveEditorRightInGroup"]
     },
     {
       "before": ["]", "c"],
@@ -101,12 +107,20 @@
       "commands": ["workbench.action.editor.previousChange"]
     },
     {
-      "before": ["]", "C"],
+      "before": ["]", "d"],
       "commands": ["editor.action.marker.next"]
     },
     {
-      "before": ["[", "C"],
+      "before": ["[", "d"],
       "commands": ["editor.action.marker.prev"]
+    },
+    {
+      "before": ["ctrl+w", "v"],
+      "commands": ["workbench.action.splitEditorRight"]
+    },
+    {
+      "before": ["ctrl+w", "s"],
+      "commands": ["workbench.action.splitEditorDown"]
     },
     // {
     //   "before": ["Q"],
@@ -118,6 +132,7 @@
     //   ]
     // }
   ],
+
   "vim.visualModeKeyBindingsNonRecursive": [
     {
       "before": [
@@ -131,37 +146,93 @@
       ]
     }
   ],
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "editor.fontFamily": "IBM Plex Mono, Hermit, Victor Mono, Liga Cartograph Mono CF, Menlo, Monaco, 'Courier New', monospace",
-  "editor.minimap.showSlider": "always",
-  "editor.minimap.maxColumn": 100,
-  "editor.renderWhitespace": "all",
-  "editor.renderLineHighlight": "all",
-  "editor.renderFinalNewline": false,
-  "editor.cursorSurroundingLines": 5,
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "editor.codeLens": false,
-  "window.zoomLevel": -1,
-  "[markdown]": {
-    "editor.wordWrap": "on",
-    "editor.quickSuggestions": true
+
+  "eslint.alwaysShowStatus": true,
+
+  "[python]": {
+    "gitlens.codeLens.symbolScopes": [
+      "!Module"
+    ],
+    "editor.tabSize": 4
   },
+
+  "[dart]": {
+		// Automatically format code on save and during typing of certain characters
+		// (like `;` and `}`).
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+
+		// Draw a guide line at 80 characters, where Dart's formatting will wrap code.
+		"editor.rulers": [80],
+
+		// Disables built-in highlighting of words that match your selection. Without
+		// this, all instances of the selected text will be highlighted, interfering
+		// with Dart's ability to highlight only exact references to the selected variable.
+		"editor.selectionHighlight": false,
+
+		// By default, VS Code prevents code completion from popping open when in
+		// "snippet mode" (editing placeholders in inserted code). Setting this option
+		// to `false` stops that and allows completion to open as normal, as if you
+		// weren't in a snippet placeholder.
+		"editor.suggest.snippetsPreventQuickSuggestions": false,
+
+		// By default, VS Code will pre-select the most recently used item from code
+		// completion. This is usually not the most relevant item.
+		//
+		// "first" will always select top item
+		// "recentlyUsedByPrefix" will filter the recently used items based on the
+		//     text immediately preceding where completion was invoked.
+		"editor.suggestSelection": "first",
+
+		// Allows pressing <TAB> to complete snippets such as `for` even when the
+		// completion list is not visible.
+		"editor.tabCompletion": "onlySnippets",
+
+		// By default, VS Code will populate code completion with words found in the
+		// current file when a language service does not provide its own completions.
+		// This results in code completion suggesting words when editing comments and
+		// strings. This setting will prevent that.
+		"editor.wordBasedSuggestions": "off"
+  },
+  "gitlens.views.repositories.includeWorkingTree": true,
+  "git.enableCommitSigning": true,
+  "gitlens.codeLens.enabled": false,
+  "editor.rename.enablePreview": false,
+  "workbench.editor.enablePreview": false,
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.suggestSelection": "recentlyUsedByPrefix",
+  "dart.allowAnalytics": false,
+  "workbench.editor.focusRecentEditorAfterClose": false,
+  "dart.previewHotReloadOnSaveWatcher": true,
+  "git.autofetch": true,
+  "gitlens.defaultDateFormat": "YYYY-MM-DD HH:mm",
+  "gitlens.defaultDateShortFormat": "DD/MM/YYYY",
+  "dart.flutterTestAdditionalArgs": [
+    "--no-sound-null-safety"
+  ],
+  "dart.buildRunnerAdditionalArgs": [
+    "--delete-conflicting-outputs"
+  ],
+  "dart.testAdditionalArgs": [
+    "--no-sound-null-safety"
+  ],
+  "coverage-gutters.coverageFileNames": [
+
+    "lcov.info",
+    "cov.xml",
+    "coverage.xml",
+    "jacoco.xml",
+    "coverage.cobertura.xml",
+    "coverage.out"
+  ],
+  "redhat.telemetry.enabled": false,
   "editor.minimap.enabled": false,
-  "vim.cursorStylePerMode.replace": "underline",
-  "terminal.integrated.macOptionIsMeta": true,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.copyWithSyntaxHighlighting": false,
-  "files.simpleDialog.enable": true,
-  "workbench.sideBar.location": "right",
-  "vim.smartRelativeLine": true,
-  "vim.sneak": true,
-  "vim.sneakReplacesF": true,
-  "gitlens.views.lineHistory.enabled": true,
-  "workbench.editor.decorations.colors": true,
-  "workbench.editor.decorations.badges": true,
+  "go.coverOnSingleTestFile": true,
+  "go.coverOnSingleTest": true,
+  "C_Cpp.default.compilerPath": "/usr/bin/clang",
+  "debug.toolBarLocation": "commandCenter",
+  "window.zoomLevel": -1,
+  "workbench.tree.indent": 20,
+  "editor.codeLens": false,
+  "git.blame.editorDecoration.enabled": true
 }
