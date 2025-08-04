@@ -40,17 +40,17 @@
     "default_width": 360,
     "dock": "right"
   },
-  "assistant": {
+  "agent": {
     "default_width": 360,
     "default_model": {
-      "provider": "anthropic",
-      "model": "claude-3-5-sonnet-latest"
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet"
     },
     "version": "2"
   },
   // END Pannels
 
-  "hide_mouse":"never",
+  "hide_mouse": "never",
   "completions": {
     "words": "enabled"
   },
@@ -77,7 +77,6 @@
   "show_signature_help_after_edits": false,
 
   "vim": {
-    "use_multiline_find": true,
     "use_smartcase_find": true,
     "use_system_clipboard": "never",
     "toggle_relative_line_numbers": true
@@ -99,6 +98,64 @@
       "binary": {
         "path": "/opt/homebrew/bin/fvm",
         "arguments": ["dart", "language-server", "--protocol=lsp"]
+      }
+    }
+  },
+  "languages": {
+    "JavaScript": {
+      "prettier": { "allowed": false },
+      "formatter": {
+        "external": {
+          "command": "eslint_d",
+          "arguments": [
+            "--stdin",
+            "--stdin-filename",
+            "{buffer_path}",
+            "--fix-to-stdout"
+          ]
+        }
+      }
+    },
+    "JSX": {
+      "prettier": { "allowed": false },
+      "formatter": {
+        "external": {
+          "command": "eslint_d",
+          "arguments": [
+            "--stdin",
+            "--stdin-filename",
+            "{buffer_path}",
+            "--fix-to-stdout"
+          ]
+        }
+      }
+    },
+    "TypeScript": {
+      "prettier": { "allowed": false },
+      "formatter": {
+        "external": {
+          "command": "eslint_d",
+          "arguments": [
+            "--stdin",
+            "--stdin-filename",
+            "{buffer_path}",
+            "--fix-to-stdout"
+          ]
+        }
+      }
+    },
+    "TSX": {
+      "prettier": { "allowed": false },
+      "formatter": {
+        "external": {
+          "command": "eslint_d",
+          "arguments": [
+            "--stdin",
+            "--stdin-filename",
+            "{buffer_path}",
+            "--fix-to-stdout"
+          ]
+        }
       }
     }
   }

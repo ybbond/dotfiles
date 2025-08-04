@@ -41,7 +41,12 @@
       "ctrl-g ctrl-p": "editor::ToggleSelectedDiffHunks",
       "\\ g b": "git::Blame",
       "ctrl-g ctrl-r ctrl-h": "git::Restore",
-      "ctrl-g ctrl-r ctrl-b": "git::RestoreFile"
+      "ctrl-g ctrl-r ctrl-b": "git::RestoreFile",
+
+      "f": ["vim::PushFindForward", { "before": false, "multiline": true }],
+      "t": ["vim::PushFindForward", { "before": true, "multiline": true }],
+      "shift-f": ["vim::PushFindBackward", { "after": false, "multiline": true }],
+      "shift-t": ["vim::PushFindBackward", { "after": true, "multiline": true }],
     }
   },
   {
