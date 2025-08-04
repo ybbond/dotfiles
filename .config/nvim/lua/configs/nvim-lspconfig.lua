@@ -47,24 +47,28 @@ if vim.fn.getcwd() == os.getenv('HOME') .. '/.config/nvim'
   lua_ls_settings['workspace']['library'] = vim.api.nvim_get_runtime_file('', true)
 end
 
-lspconfig.lua_ls.setup{
+vim.lsp.enable('lua_ls')
+vim.lsp.config('lua_ls', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
   filetypes = { 'lua' },
   settings = { Lua = lua_ls_settings },
-}
+})
 
-lspconfig.gopls.setup{
+vim.lsp.enable('gopls')
+vim.lsp.config('gopls', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
-}
+})
 
-lspconfig.ts_ls.setup{
+vim.lsp.enable('ts_ls')
+vim.lsp.config('ts_ls', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
-}
+})
 
-lspconfig.jsonls.setup{
+vim.lsp.enable('jsonls')
+vim.lsp.config('jsonls', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
   settings = {
@@ -73,12 +77,14 @@ lspconfig.jsonls.setup{
       validate = { enable = true },
     },
   },
-}
+})
 
-lspconfig.astro.setup{
+vim.lsp.enable('astro')
+vim.lsp.config('astro', {
   init_options = {
     typescript = {
-      tsdk = vim.fs.normalize('~/.config/yarn/global/node_modules/typescript/lib'),
+      -- tsdk = vim.fs.normalize('~/.config/yarn/global/node_modules/typescript/lib'),
+      tsdk = vim.fs.normalize('~/n/lib/node_modules/typescript/lib'),
     },
   },
   capabilities = M.ybbond_lsp_capabilities,
@@ -88,26 +94,35 @@ lspconfig.astro.setup{
       '<CMD>lua vim.lsp.buf.format({ async = true })<CR>',
         { noremap=true, silent=true })
   end,
-}
+})
 
-lspconfig.cssls.setup{
+vim.lsp.enable('cssls')
+vim.lsp.config('cssls', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
-}
+})
 
-lspconfig.eslint.setup{
+vim.lsp.enable('eslint')
+vim.lsp.config('eslint', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = function(_, bufnr)
     M.ybbond_lsp_on_attach(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<LEADER>F',
       '<CMD>EslintFixAll<CR>', { noremap=true, silent=true })
   end,
-}
+})
 
-lspconfig.rust_analyzer.setup{
+vim.lsp.enable('rust_analyzer')
+vim.lsp.config('rust_analyzer', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
-}
+})
+
+vim.lsp.enable('hls')
+vim.lsp.config('hls', {
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+})
 
 -- lspconfig.dartls.setup{
 --   capabilities = M.ybbond_lsp_capabilities,

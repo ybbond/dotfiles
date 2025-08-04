@@ -107,7 +107,6 @@ return {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-vsnip',
       'PaterJason/cmp-conjure',
-      { dir = '~/pbond/cmp_css_vars' },
     },
     config = function() require'configs/nvim-cmp' end,
   },
