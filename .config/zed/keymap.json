@@ -27,6 +27,15 @@
     // "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "context": "vim_mode == normal",
     "bindings": {
+      // "h": ["editor::MoveLeft", { "skip_soft_wrap": false }],
+      // "j": ["editor::MoveDown", { "skip_soft_wrap": false }],
+      // "k": ["editor::MoveUp", { "skip_soft_wrap": false }],
+      // "l": ["editor::MoveRight", { "skip_soft_wrap": false }],
+      // "g h": ["editor::MoveLeft", { "skip_soft_wrap": true }],
+      // "g j": ["editor::MoveDown", { "skip_soft_wrap": true }],
+      // "g k": ["editor::MoveUp", { "skip_soft_wrap": true }],
+      // "g l": ["editor::MoveRight", { "skip_soft_wrap": true }],
+
       "\\ f": "editor::Format",
       "g shift-b": "pane::ActivatePreviousItem",
       "g b": "pane::ActivateNextItem",

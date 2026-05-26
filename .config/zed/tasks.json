@@ -54,6 +54,24 @@
   //   "tags": ["tsx-test", "ts-test", "js-test"]
   // },
 
+  {
+    "label": "Zig Compile and Open C++",
+    "command": "zig c++",
+    "args": ["$ZED_RELATIVE_FILE", "-o", "$ZED_RELATIVE_DIR/$ZED_STEM", "&&", "$ZED_RELATIVE_DIR/$ZED_STEM"],
+    "reveal": "always"
+  },
+  {
+    "label": "G++ Compile and Open C++",
+    "command": "g++",
+    "args": ["$ZED_RELATIVE_FILE", "-o", "$ZED_RELATIVE_DIR/$ZED_STEM", "&&", "$ZED_RELATIVE_DIR/$ZED_STEM"],
+    "reveal": "always"
+  },
+  {
+    "label": "Open Compiled",
+    "command": "$ZED_RELATIVE_DIR/$ZED_STEM",
+    "reveal": "always"
+  },
+
   // vitest >=3
   {
     "label": "vitest $ZED_RELATIVE_FILE:$ZED_ROW",

@@ -73,20 +73,19 @@ return {
     config = function() require'configs/telescope-nvim' end
   },
 
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    config = function()
-      require('nvim-treesitter.configs').setup({
-        ensure_installed = { 'http', 'json', 'go', 'lua', 'dart', 'zig', 'markdown', 'markdown_inline' },
-        sync_install = false,
-        auto_install = false,
-        ignore_install = {},
-        highlight = { enable = true },
-        indent = { enable = false },
-      })
-    end,
-  },
+  -- {
+  --   'nvim-treesitter/nvim-treesitter',
+  --   lazy = false,
+  --   build = ':TSUpdate',
+  --   branch = 'master',
+  --   config = function()
+  --     require('nvim-treesitter.configs').setup({
+  --       highlight = {
+  --         enable = true,
+  --       },
+  --     })
+  --   end,
+  -- },
 
   {
     'neovim/nvim-lspconfig',
@@ -111,43 +110,110 @@ return {
     config = function() require'configs/nvim-cmp' end,
   },
 
+  -- {
+  --   'mhartington/formatter.nvim',
+  --   config = function()
+  --     require('formatter').setup {
+  --       filetype = {
+  --         dart = {
+  --           -- require('formatter.filetypes.dart').dartformat,
+  --           function(t)
+  --             t = t or {}
+  --
+  --             local args = { "--output show" }
+  --             if t.line_length ~= nil then
+  --               table.insert(args, "--line-length " .. t.line_length)
+  --             end
+  --
+  --             return {
+  --               exe = "fvm dart format",
+  --               args = args,
+  --               stdin = true,
+  --             }
+  --           end
+  --         },
+  --         go = {
+  --           require('formatter.filetypes.go').gofmt,
+  --         },
+  --         astro = {
+  --           require('formatter.filetypes.typescript').prettierd,
+  --         },
+  --         typescript = {
+  --           require('formatter.filetypes.typescript').eslint_d,
+  --         },
+  --         typescriptreact = {
+  --           require('formatter.filetypes.typescript').eslint_d,
+  --         },
+  --       },
+  --     }
+  --   end,
+  -- },
+
   {
-    'mhartington/formatter.nvim',
-    config = function()
-      require('formatter').setup {
-        filetype = {
-          dart = {
-            -- require('formatter.filetypes.dart').dartformat,
-            function(t)
-              t = t or {}
+    'carlos-algms/agentic.nvim',
+    opts = {
+      provider = 'gemini-acp'
+    },
+    keys = {
+      {
+        'î',
+        function() require('agentic').toggle() end,
+        mode = { 'n', 'v', 'i' },
+        desc = 'Toggle Agentic Chat',
+      },
+      {
+        'û',
+        function() require('agentic').add_selection_or_file_to_context() end,
+        mode = { 'n', 'v' },
+        desc = 'Add file or selection to Agentic to Context',
+      },
+      {
+        'ê',
+        function() require('agentic').add_current_line_diagnostics() end,
+        mode = { 'n' },
+        desc = 'Add current line diagnostic to Agentic',
+      },
+      {
+        'Ê',
+        function() require('agentic').add_buffer_diagnostics() end,
+        mode = { 'n' },
+        desc = 'Add all buffer diagnostics to Agentic',
+      },
+    },
+  },
 
-              local args = { "--output show" }
-              if t.line_length ~= nil then
-                table.insert(args, "--line-length " .. t.line_length)
-              end
-
-              return {
-                exe = "fvm dart format",
-                args = args,
-                stdin = true,
-              }
-            end
-          },
-          go = {
-            require('formatter.filetypes.go').gofmt,
-          },
-          astro = {
-            require('formatter.filetypes.typescript').prettierd,
-          },
-          typescript = {
-            require('formatter.filetypes.typescript').eslint_d,
-          },
-          typescriptreact = {
-            require('formatter.filetypes.typescript').eslint_d,
-          },
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        '<leader>f',
+        function()
+          require('conform').format({ async = true })
+        end,
+        mode = '',
+        desc = 'Format buffer',
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        astro = { 'prettierd', 'prettier', 'eslint_d', 'eslint', stop_after_first = true },
+        cpp = { 'astyle' },
+        go = { 'gofmt' },
+        java = { 'spotless_gradle' },
+        typescript = { 'prettierd', 'prettier', 'eslint_d', 'eslint', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        -- typescript = { 'eslint_d' },
+        -- typescriptreact = { 'eslint_d' },
+        zig = { 'zigfmt' },
+      },
+      formatters = {
+        astyle = {
+          append_args = { '--indent=spaces=2', '--indent-switches' },
         },
-      }
-    end,
+      },
+    },
   },
 
   {
@@ -159,60 +225,69 @@ return {
     config = function() require('tsc').setup() end
   },
 
-  {
-    'gpanders/nvim-parinfer',
-    ft = { 'lisp', 'commonlisp' },
-  },
-  {
-    'Olical/conjure',
-    ft = { 'lisp', 'commonlisp' },
-    config = function()
-      require("conjure.main").main()
-      require("conjure.mapping")["on-filetype"]()
-      vim.g['conjure#extract#tree_sitter#enabled'] = true
-    end,
-    init = function()
-      -- Set configuration options here
-      vim.g["conjure#debug"] = true
-    end,
-  },
+  -- {
+  --   'gpanders/nvim-parinfer',
+  --   ft = { 'lisp', 'commonlisp' },
+  -- },
+  -- {
+  --   'Olical/conjure',
+  --   ft = { 'lisp', 'commonlisp' },
+  --   config = function()
+  --     require("conjure.main").main()
+  --     require("conjure.mapping")["on-filetype"]()
+  --     vim.g['conjure#extract#tree_sitter#enabled'] = true
+  --   end,
+  --   init = function()
+  --     -- Set configuration options here
+  --     vim.g["conjure#debug"] = true
+  --   end,
+  -- },
 
-  {
-    'akinsho/flutter-tools.nvim',
-    -- ft = 'dart',
-    lazy = false,
-    dependencies = 'nvim-lua/plenary.nvim',
-    config = function()
-      require('flutter-tools').setup {
-        lsp = {
-          color = {
-            enabled = true,
-            background = true,
-            virtual_text = false,
-          },
-          on_attach = function(_, bufnr)
-            require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr)
-            vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', {noremap=true, silent=true})
-          end,
-          capabilities = require'cmp_nvim_lsp'.default_capabilities()
-        },
-        dev_log = { enabled = true, notify_errors = true },
-        closing_tags = { prefix = ' → ' },
-        fvm = true,
-      }
-      require('telescope').load_extension('flutter')
-    end,
-  },
-  {
-    'akinsho/pubspec-assist.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
-    config = function() require('pubspec-assist').setup({}) end,
-  },
+  -- {
+  --   'akinsho/flutter-tools.nvim',
+  --   -- ft = 'dart',
+  --   lazy = false,
+  --   dependencies = 'nvim-lua/plenary.nvim',
+  --   config = function()
+  --     require('flutter-tools').setup {
+  --       lsp = {
+  --         color = {
+  --           enabled = true,
+  --           background = true,
+  --           virtual_text = false,
+  --         },
+  --         on_attach = function(_, bufnr)
+  --           require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr)
+  --           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', {noremap=true, silent=true})
+  --         end,
+  --         capabilities = require'cmp_nvim_lsp'.default_capabilities()
+  --       },
+  --       dev_log = { enabled = true, notify_errors = true },
+  --       closing_tags = { prefix = ' → ' },
+  --       fvm = true,
+  --     }
+  --     require('telescope').load_extension('flutter')
+  --   end,
+  -- },
+  -- {
+  --   'akinsho/pubspec-assist.nvim',
+  --   dependencies = 'nvim-lua/plenary.nvim',
+  --   config = function() require('pubspec-assist').setup({}) end,
+  -- },
 
   {
     'ray-x/go.nvim',
     config = function() require'configs/go-nvim' end,
     ft = {'go', 'gomod'},
+  },
+
+  {
+    'lervag/vimtex',
+    lazy = false,
+    init = function()
+      vim.g.vimtex_view_method = 'skim'
+      vim.g.vimtex_view_general_viewer = 'skim'
+    end
   },
 
   {
@@ -255,14 +330,14 @@ return {
     end
   },
 
-  {
-    'altermo/ultimate-autopair.nvim',
-    event = {'InsertEnter', 'CmdlineEnter'},
-    -- TODO(xxkkbb)
-    -- event = { 'User EnableAutoPair' },
-    branch = 'v0.6',
-    opts = {},
-  },
+  -- {
+  --   'altermo/ultimate-autopair.nvim',
+  --   event = {'InsertEnter', 'CmdlineEnter'},
+  --   -- TODO(xxkkbb)
+  --   -- event = { 'User EnableAutoPair' },
+  --   branch = 'v0.6',
+  --   opts = {},
+  -- },
 
   {
     'kevinhwang91/nvim-hlslens',
@@ -313,31 +388,6 @@ return {
       require('scrollbar.handlers.search').setup()
       require('scrollbar.handlers.gitsigns').setup()
     end,
-  },
-
-  {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = 'nvim-lua/plenary.nvim',
-    config = function()
-      local harpoon = require('harpoon')
-
-      vim.keymap.set("n", "<C-h><C-a>", function() harpoon:list():add() end)
-      vim.keymap.set("n", "<C-h>a",     function() harpoon:list():add() end)
-      vim.keymap.set("n", "<C-h><C-h>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-      vim.keymap.set("n", "<C-h>h",     function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-
-      -- noremap '<C-h><C-h>' '<CMD>lua require("harpoon.ui").toggle_quick_menu()<CR>'
-      -- noremap '<C-h>h'     '<CMD>lua require("harpoon.ui").toggle_quick_menu()<CR>'
-      -- noremap '<C-h><C-a>' '<CMD>lua require("harpoon.mark").add_file()<CR>'
-      -- noremap '<C-h>a'     '<CMD>lua require("harpoon.mark").add_file()<CR>'
-      --
-      -- require('harpoon').setup({
-      --   menu = {
-      --     width = vim.api.nvim_win_get_width(0) - 4,
-      --   }
-      -- })
-    end
   },
 
   {
@@ -430,9 +480,16 @@ return {
   },
 
   {
+    'm4xshen/autoclose.nvim',
+    config = function()
+      require("autoclose").setup()
+    end
+  },
+
+  {
     'kylechui/nvim-surround',
     config = function()
-      require('nvim-surround').setup({})
-    end,
+      require('nvim-surround').setup()
+    end
   },
 }

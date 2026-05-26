@@ -7,7 +7,6 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "agent_ui_font_size": 16.0,
   "cli_default_open_behavior": "new_window",
   "git": {
     "inline_blame": {
@@ -21,8 +20,8 @@
   },
   "diff_view_style": "split",
   "title_bar": {
-    "show_branch_status_icon": true,
-    "show_menus": false
+    "show_menus": false,
+    "show_branch_icon": true
   },
   "theme": "VSCode Dark Modern",
 

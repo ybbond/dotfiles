@@ -36,7 +36,12 @@ require('go').setup({
 -- local cfg = require'go.lsp'.config()
 -- require('lspconfig').gopls.setup(cfg)
 
-require('lspconfig').gopls.setup{
+vim.lsp.config('gopls', {
   capabilities = require'cmp_nvim_lsp'.default_capabilities(),
   on_attach = ybbond_go_lsp_on_attach,
-}
+})
+vim.lsp.enable('gopls')
+-- require('lspconfig').gopls.setup{
+--   capabilities = require'cmp_nvim_lsp'.default_capabilities(),
+--   on_attach = ybbond_go_lsp_on_attach,
+-- }

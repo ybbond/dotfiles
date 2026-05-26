@@ -6,6 +6,7 @@ vim.g.maplocalleader = [[\]]
 
 vim.opt.termguicolors = true
 
+vim.cmd('syntax enable')
 vim.cmd('filetype plugin on')
 vim.cmd('filetype plugin indent on')
 
@@ -94,10 +95,14 @@ noremap '<LEADER>w' ':set wrap!<CR>'
 noremap '<LEADER>s' ':set spell! spelllang=en_us<CR>'
 
 -- resize window
-noremap '<A-S-h>' '<C-w><' -- Alt Shift h
-noremap '<A-S-k>' '<C-w>-' -- Alt Shift k
-noremap '<A-S-j>' '<C-w>+' -- Alt Shift j
-noremap '<A-S-l>' '<C-w>>' -- Alt Shift l
+-- noremap '<A-S-h>' '<C-w><' -- Alt Shift h
+-- noremap '<A-S-k>' '<C-w>-' -- Alt Shift k
+-- noremap '<A-S-j>' '<C-w>+' -- Alt Shift j
+-- noremap '<A-S-l>' '<C-w>>' -- Alt Shift l
+noremap 'Ó' '<C-w><' -- Alt Shift h
+noremap '' '<C-w>-' -- Alt Shift k
+noremap 'Ô' '<C-w>+' -- Alt Shift j
+noremap 'Ò' '<C-w>>' -- Alt Shift l
 
 -- keep asterisk and pound to be case sensitive
 nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
