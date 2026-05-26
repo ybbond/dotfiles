@@ -1,0 +1,27 @@
+theme = Dark Modern
+
+macos-titlebar-style = tabs
+quit-after-last-window-closed = true
+copy-on-select = false
+
+# disable ligatures
+font-feature = -calt
+
+keybind = cmd+shift+v=new_split:right
+keybind = cmd+shift+s=new_split:down
+
+keybind = cmd+shift+h=goto_split:left
+keybind = cmd+shift+j=goto_split:down
+keybind = cmd+shift+k=goto_split:up
+keybind = cmd+shift+l=goto_split:right
+
+keybind = cmd+shift+ctrl+h=resize_split:left,5
+keybind = cmd+shift+ctrl+j=resize_split:down,5
+keybind = cmd+shift+ctrl+k=resize_split:up,5
+keybind = cmd+shift+ctrl+l=resize_split:right,5
+keybind = cmd+shift+ctrl+r=equalize_splits
+
+keybind = cmd+shift+r=reload_config
+
+# custom-shader = ./shaders/cursor_blaze.glsl
+custom-shader = ./shaders/cursor_tail.glsl
