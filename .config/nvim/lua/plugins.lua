@@ -105,7 +105,7 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-vsnip',
-      'PaterJason/cmp-conjure',
+      -- 'PaterJason/cmp-conjure',
     },
     config = function() require'configs/nvim-cmp' end,
   },

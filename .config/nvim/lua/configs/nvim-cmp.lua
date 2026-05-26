@@ -12,7 +12,7 @@ cmp.setup{
   min_length = 1,
   sources = {
     {name = 'cmp_css_vars'},
-    {name = 'conjure'},
+    -- {name = 'conjure'},
     {name = 'nvim_lsp'},
     {name = 'nvim_lua'},
     {name = 'vsnip'},
@@ -24,7 +24,7 @@ cmp.setup{
     format = function(entry, vim_item)
       vim_item.menu = ({
         cmp_css_vars = '[CSS]',
-        conjure = "[Conjure]",
+        -- conjure = "[Conjure]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         vsnip = "[vsnip]",
