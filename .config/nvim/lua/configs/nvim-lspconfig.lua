@@ -56,25 +56,31 @@ vim.lsp.config('lua_ls', {
 })
 vim.lsp.enable('lua_ls')
 
-vim.lsp.config('gopls', {
-  capabilities = M.ybbond_lsp_capabilities,
-  on_attach = M.ybbond_lsp_on_attach,
-})
-vim.lsp.enable('gopls')
+-- vim.lsp.config('gopls', {
+--   capabilities = M.ybbond_lsp_capabilities,
+--   on_attach = M.ybbond_lsp_on_attach,
+-- })
+-- vim.lsp.enable('gopls')
 
-vim.lsp.config('denols', {
-  capabilities = M.ybbond_lsp_capabilities,
-  on_attach = M.ybbond_lsp_on_attach,
-  single_file_support = true,
-});
-vim.lsp.enable('denols')
+-- vim.lsp.config('denols', {
+--   capabilities = M.ybbond_lsp_capabilities,
+--   on_attach = M.ybbond_lsp_on_attach,
+--   single_file_support = true,
+-- });
+-- vim.lsp.enable('denols')
 
-vim.lsp.config('ts_ls', {
+-- vim.lsp.config('ts_ls', {
+--   capabilities = M.ybbond_lsp_capabilities,
+--   on_attach = M.ybbond_lsp_on_attach,
+--   single_file_support = false,
+-- })
+-- vim.lsp.enable('ts_ls')
+vim.lsp.config('tsc', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
   single_file_support = false,
 })
-vim.lsp.enable('ts_ls')
+vim.lsp.enable('tsc')
 
 vim.lsp.config('jsonls', {
   capabilities = M.ybbond_lsp_capabilities,
@@ -89,11 +95,26 @@ vim.lsp.config('jsonls', {
 vim.lsp.enable('jsonls')
 
 vim.lsp.config('astro', {
+  -- after TypeScript 7
+  -- before_init = function(_, config)
+  --   local util = require('lspconfig.util')
+  --   local tsdk = util.get_typescript_server_path(config.root_dir)
+  --   if tsdk == '' then
+  --     local npm_root = vim.fn.systemlist('npm root -g')
+  --     if vim.v.shell_error == 0 and npm_root[1] then
+  --       tsdk = npm_root[1] .. '/typescript/lib'
+  --     end
+  --   end
+  --   config.init_options = config.init_options or {}
+  --   config.init_options.typescript = config.init_options.typescript or {}
+  --   config.init_options.typescript.tsdk = tsdk
+  -- end,
+  -- latest before TypeScript 7
   init_options = {
     typescript = {
       -- tsdk = vim.fs.normalize('~/.config/yarn/global/node_modules/typescript/lib'),
-      -- tsdk = vim.fs.normalize('~/n/lib/node_modules/typescript/lib'),
-      tsdk = vim.fs.normalize('~/Library/pnpm/global/5/node_modules/typescript/lib'),
+      tsdk = vim.fs.normalize('~/n/lib/node_modules/typescript/lib'),
+      -- tsdk = vim.fs.normalize('~/Library/pnpm/global/5/node_modules/typescript/lib'),
       -- tsdk = "${pkgs.typescript}/lib/node_modules/typescript/lib",
     },
   },
@@ -130,20 +151,20 @@ vim.lsp.enable('eslint')
 -- })
 -- vim.lsp.enable('rust_analyzer')
 
-vim.lsp.config('hls', {
-  capabilities = M.ybbond_lsp_capabilities,
-  on_attach = M.ybbond_lsp_on_attach,
-})
-vim.lsp.enable('hls')
+-- vim.lsp.config('hls', {
+--   capabilities = M.ybbond_lsp_capabilities,
+--   on_attach = M.ybbond_lsp_on_attach,
+-- })
+-- vim.lsp.enable('hls')
 
-vim.lsp.config('dartls', {
-  capabilities = M.ybbond_lsp_capabilities,
-  on_attach = M.ybbond_lsp_on_attach,
-  init_options = {
-    onlyAnalyzeProjectsWithOpenFiles = false,
-  },
-})
-vim.lsp.enable('dartls')
+-- vim.lsp.config('dartls', {
+--   capabilities = M.ybbond_lsp_capabilities,
+--   on_attach = M.ybbond_lsp_on_attach,
+--   init_options = {
+--     onlyAnalyzeProjectsWithOpenFiles = false,
+--   },
+-- })
+-- vim.lsp.enable('dartls')
 
 vim.lsp.config('sourcekit', {
   capabilities = M.ybbond_lsp_capabilities,
@@ -157,22 +178,34 @@ vim.lsp.config('texlab', {
 })
 vim.lsp.enable('texlab')
 
-vim.lsp.config('zls', {
-  capabilities = M.ybbond_lsp_capabilities,
-  on_attach = M.ybbond_lsp_on_attach,
-})
-vim.lsp.enable('zls')
+-- vim.lsp.config('zls', {
+--   capabilities = M.ybbond_lsp_capabilities,
+--   on_attach = M.ybbond_lsp_on_attach,
+-- })
+-- vim.lsp.enable('zls')
 
-vim.lsp.config('jdtls', {
-  capabilities = M.ybbond_lsp_capabilities,
-  on_attach = M.ybbond_lsp_on_attach,
-})
-vim.lsp.enable('jdtls')
+-- vim.lsp.config('jdtls', {
+--   capabilities = M.ybbond_lsp_capabilities,
+--   on_attach = M.ybbond_lsp_on_attach,
+-- })
+-- vim.lsp.enable('jdtls')
 
 vim.lsp.config('css_variables', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
 })
 vim.lsp.enable('css_variables')
+
+vim.lsp.config('basedpyright', {
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+})
+vim.lsp.enable('basedpyright')
+
+vim.lsp.config('yamlls', {
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+})
+vim.lsp.enable('yamlls')
 
 return M

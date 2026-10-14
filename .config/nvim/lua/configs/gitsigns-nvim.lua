@@ -31,13 +31,13 @@ require('gitsigns').setup {
     -- map('n', '[g', [[&diff ? '[g' : '<cmd>Gitsigns prev_hunk<CR>']], ({expr = true}))
     map('n', ']c', function()
       if vim.wo.diff then return ']c' end
-      vim.schedule(function() gs.next_hunk() end)
+      vim.schedule(function() gs.nav_hunk('next') end)
       return '<Ignore>'
     end, {expr=true})
 
     map('n', '[c', function()
       if vim.wo.diff then return '[c' end
-      vim.schedule(function() gs.prev_hunk() end)
+      vim.schedule(function() gs.nav_hunk('prev') end)
       return '<Ignore>'
     end, {expr=true})
 

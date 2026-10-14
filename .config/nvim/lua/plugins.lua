@@ -152,29 +152,32 @@ return {
   {
     'carlos-algms/agentic.nvim',
     opts = {
-      provider = 'gemini-acp'
+      -- provider = 'gemini-acp'
+      -- provider = 'cursor-acp',
+      provider = 'claude-agent-acp',
+      -- provider = 'codex-acp',
     },
     keys = {
       {
-        'î',
+        '<A-i>i',
         function() require('agentic').toggle() end,
         mode = { 'n', 'v', 'i' },
         desc = 'Toggle Agentic Chat',
       },
       {
-        'û',
+        '<A-i>u',
         function() require('agentic').add_selection_or_file_to_context() end,
         mode = { 'n', 'v' },
         desc = 'Add file or selection to Agentic to Context',
       },
       {
-        'ê',
+        '<A-i>e',
         function() require('agentic').add_current_line_diagnostics() end,
         mode = { 'n' },
         desc = 'Add current line diagnostic to Agentic',
       },
       {
-        'Ê',
+        '<A-i>E',
         function() require('agentic').add_buffer_diagnostics() end,
         mode = { 'n' },
         desc = 'Add all buffer diagnostics to Agentic',
@@ -287,6 +290,7 @@ return {
     init = function()
       vim.g.vimtex_view_method = 'skim'
       vim.g.vimtex_view_general_viewer = 'skim'
+      vim.g.vimtex_view_skim_sync = 1
     end
   },
 

@@ -95,14 +95,14 @@ noremap '<LEADER>w' ':set wrap!<CR>'
 noremap '<LEADER>s' ':set spell! spelllang=en_us<CR>'
 
 -- resize window
--- noremap '<A-S-h>' '<C-w><' -- Alt Shift h
--- noremap '<A-S-k>' '<C-w>-' -- Alt Shift k
--- noremap '<A-S-j>' '<C-w>+' -- Alt Shift j
--- noremap '<A-S-l>' '<C-w>>' -- Alt Shift l
-noremap 'Ó' '<C-w><' -- Alt Shift h
-noremap '' '<C-w>-' -- Alt Shift k
-noremap 'Ô' '<C-w>+' -- Alt Shift j
-noremap 'Ò' '<C-w>>' -- Alt Shift l
+noremap '<A-S-h>' '<C-w><' -- Alt Shift h
+noremap '<A-S-k>' '<C-w>-' -- Alt Shift k
+noremap '<A-S-j>' '<C-w>+' -- Alt Shift j
+noremap '<A-S-l>' '<C-w>>' -- Alt Shift l
+-- noremap 'Ó' '<C-w><' -- Alt Shift h
+-- noremap '' '<C-w>-' -- Alt Shift k
+-- noremap 'Ô' '<C-w>+' -- Alt Shift j
+-- noremap 'Ò' '<C-w>>' -- Alt Shift l
 
 -- keep asterisk and pound to be case sensitive
 nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
@@ -121,8 +121,10 @@ nnoremap '<LEADER>a' 'ga'
 
 inoremap '<C-d>' '<DEL>'
 
-inoremap 'jk'    '<ESC>'
+inoremap 'jj'    '<ESC>'
 inoremap '<C-c>' '<ESC>'
+
+nnoremap '<D-;>' ':RelativeNumberToggle<CR>'
 
 -- https://www.reddit.com/r/neovim/comments/tsol2n/why_macros_are_so_slow_compared_to_emacs/i2ugipm/
 nnoremap '@' [[<cmd>execute "noautocmd norm! " . v:count1 . "@" . getcharstr()<cr>]]
