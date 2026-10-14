@@ -167,6 +167,13 @@ return {
         mode = { 'n' },
         desc = 'Add all buffer diagnostics to Agentic',
       },
+      {
+        '<A-i>r',
+        function() require('agentic').restore_session() end,
+        mode = { 'n', 'v', 'i' },
+        silent = true,
+        desc = 'Agentic restore session',
+      },
     },
   },
 

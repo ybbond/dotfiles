@@ -157,14 +157,14 @@ vim.lsp.enable('eslint')
 -- })
 -- vim.lsp.enable('hls')
 
--- vim.lsp.config('dartls', {
---   capabilities = M.ybbond_lsp_capabilities,
---   on_attach = M.ybbond_lsp_on_attach,
---   init_options = {
---     onlyAnalyzeProjectsWithOpenFiles = false,
---   },
--- })
--- vim.lsp.enable('dartls')
+vim.lsp.config('dartls', {
+  capabilities = M.ybbond_lsp_capabilities,
+  on_attach = M.ybbond_lsp_on_attach,
+  init_options = {
+    onlyAnalyzeProjectsWithOpenFiles = false,
+  },
+})
+vim.lsp.enable('dartls')
 
 vim.lsp.config('sourcekit', {
   capabilities = M.ybbond_lsp_capabilities,
