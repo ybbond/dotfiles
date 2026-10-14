@@ -1,56 +1,41 @@
 return {
-  -- {
-  --   'Mofiqul/vscode.nvim',
-  --   config = function()
-  --     -- local c = require('vscode.colors').get_colors()
-  --     -- require'vscode'.setup({
-  --     --   -- color_overrides = {
-  --     --   --   vscCursorDarkDark = c.vscLeftDark,
-  --     --   -- },
-  --     --   group_overrides = {
-  --     --     CursorLine = { bg = c.vscLeftDark },
-  --     --   },
-  --     -- })
-  --     require'vscode'.load()
-  --   end,
-  -- },
-  -- {
-  --   'cormacrelf/dark-notify',
-  --   config = function()
-  --     require('dark_notify').run({
-  --       schemes = {
-  --         dark = {
-  --           background = 'dark',
-  --         },
-  --         light = {
-  --           background = 'light',
-  --         },
-  --       },
-  --       onchange = function(mode)
-  --         local c = require('vscode.colors').get_colors()
-  --         if mode == 'light' then
-  --           vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg=c.vscBlueGreen })
-  --           vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg=c.vscRed })
-  --
-  --           vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg=c.vscDiffGreenLight, fg=c.vscCursorLight })
-  --           vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg=c.vscDarkYellow, fg=c.vscCursorLight })
-  --           vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg=c.vscDarkYellow, fg=c.vscCursorLight })
-  --           vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg=c.vscDiffRedLight, fg=c.vscCursorLight })
-  --           vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg=c.vscDiffRedLight, fg=c.vscCursorLight })
-  --         elseif mode == 'dark' then
-  --           vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg=c.vscLightGreen })
-  --           vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg=c.vscLightRed })
-  --
-  --           vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg=c.vscDiffGreenDark, fg=c.vscCursorDarkDark })
-  --           vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg=c.vscYellow, fg=c.vscCursorDarkDark })
-  --           vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg=c.vscYellow, fg=c.vscCursorDarkDark })
-  --           vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg=c.vscDiffRedDark, fg=c.vscCursorDarkDark })
-  --           vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg=c.vscDiffRedDark, fg=c.vscCursorDarkDark })
-  --         end
-  --       end
-  --     })
-  --   end
-  -- },
+  {
+    'cormacrelf/dark-notify',
+    config = function()
+      require('dark_notify').run({
+        schemes = {
+          dark = {
+            background = 'dark',
+          },
+          light = {
+            background = 'light',
+          },
+        },
+        onchange = function(mode)
+          -- same palette as the built-in colorscheme: Nvim* names for truecolor, ANSI numbers for cterm
+          if mode == 'light' then
+            vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg='NvimDarkGreen', ctermfg=2 })
+            vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg='NvimDarkRed', ctermfg=1 })
+
+            vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg='NvimDarkGreen', fg='NvimLightGrey1', ctermbg=2, ctermfg=15 })
+            vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg='NvimDarkYellow', fg='NvimLightGrey1', ctermbg=3, ctermfg=15 })
+            vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg='NvimDarkYellow', fg='NvimLightGrey1', ctermbg=3, ctermfg=15 })
+            vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg='NvimDarkRed', fg='NvimLightGrey1', ctermbg=1, ctermfg=15 })
+            vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg='NvimDarkRed', fg='NvimLightGrey1', ctermbg=1, ctermfg=15 })
+          elseif mode == 'dark' then
+            vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg='NvimLightGreen', ctermfg=10 })
+            vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg='NvimLightRed', ctermfg=9 })
+
+            vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg='NvimLightGreen', fg='NvimDarkGrey1', ctermbg=10, ctermfg=0 })
+            vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg='NvimLightYellow', fg='NvimDarkGrey1', ctermbg=11, ctermfg=0 })
+            vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg='NvimLightYellow', fg='NvimDarkGrey1', ctermbg=11, ctermfg=0 })
+            vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg='NvimLightRed', fg='NvimDarkGrey1', ctermbg=9, ctermfg=0 })
+            vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg='NvimLightRed', fg='NvimDarkGrey1', ctermbg=9, ctermfg=0 })
+          end
+        end
+      })
+    end
+  },
 
   {
     'folke/which-key.nvim',
@@ -366,11 +351,11 @@ return {
   {
     'petertriho/nvim-scrollbar',
     config = function()
-      -- local c = require('vscode.colors').get_colors()
       require('scrollbar').setup({
-        -- handle = { color = c.vscGray },
+        -- gui color is read from the highlight group; color_nr is the cterm color
+        handle = { highlight = 'Visual', color_nr = 8 },
         marks = {
-          -- Search = { color = c.vscSearchCurrent },
+          Search = { highlight = 'WarningMsg', color_nr = 3 },
           GitAdd = {
             text = '█',
             -- text = '▂',
@@ -422,12 +407,10 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
-      -- 'Mofiqul/vscode.nvim'
     },
     config = function()
       require('lualine').setup({
         options = {
-          -- theme = 'vscode',
           component_separators = { left = '|', right = '|'},
           section_separators = { left = '', right = ''},
         },

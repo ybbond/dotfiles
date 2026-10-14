@@ -168,3 +168,35 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
+
+vim.api.nvim_create_autocmd(
+  'ColorScheme',
+  {
+    callback = function()
+      -- let the terminal paint the background in truecolor too, like cterm mode does
+      local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
+      normal.bg = nil
+      vim.api.nvim_set_hl(0, 'Normal', normal)
+
+      -- diagnostics as a tinted background instead of an underline, same palette as built-in DiffAdd/DiffText;
+      -- truecolor keeps the syntax fg, cterm forces fg because its backgrounds are saturated
+      local dark = vim.o.background == 'dark'
+      for severity, c in pairs({
+        Error = { 'Red', 9, 1 },
+        Warn = { 'Yellow', 11, 3 },
+        Info = { 'Cyan', 14, 6 },
+        Hint = { 'Blue', 12, 4 },
+        Ok = { 'Green', 10, 2 },
+      }) do
+        vim.api.nvim_set_hl(0, 'DiagnosticUnderline' .. severity, {
+          bg = (dark and 'NvimDark' or 'NvimLight') .. c[1],
+          ctermbg = dark and c[2] or c[3],
+          ctermfg = dark and 0 or 15,
+        })
+      end
+    end,
+  }
+)
+-- after the autocmd above so it applies on first load; also sets g:colors_name
+-- so a 'background' change re-fires ColorScheme (lualine/scrollbar refresh)
+vim.cmd.colorscheme('default')
