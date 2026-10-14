@@ -9,12 +9,12 @@ require('gitsigns').setup {
   signcolumn = false,
   numhl = true,
   on_attach = function(bufnr)
-    local c = require('vscode.colors').get_colors()
-    vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg=c.vscLightGreen, fg=c.vscCursorDarkDark })
-    vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg=c.vscYellow, fg=c.vscCursorDarkDark })
-    vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg=c.vscYellow, fg=c.vscCursorDarkDark })
-    vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg=c.vscLightRed, fg=c.vscCursorDarkDark })
-    vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg=c.vscLightRed, fg=c.vscCursorDarkDark })
+    -- local c = require('vscode.colors').get_colors()
+    -- vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg=c.vscLightGreen, fg=c.vscCursorDarkDark })
+    -- vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg=c.vscYellow, fg=c.vscCursorDarkDark })
+    -- vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg=c.vscYellow, fg=c.vscCursorDarkDark })
+    -- vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg=c.vscLightRed, fg=c.vscCursorDarkDark })
+    -- vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg=c.vscLightRed, fg=c.vscCursorDarkDark })
 
     local gs = package.loaded.gitsigns
     local wk = require('which-key')
