@@ -1,9 +1,3 @@
-vim.api.nvim_create_autocmd({ "VimLeave" }, {
-  callback = function()
-    vim.fn.jobstart('notify-send "hello"', {detach=true})
-  end,
-})
-
 -- https://github.com/nvim-telescope/telescope.nvim/issues/2027#issuecomment-1561836585
 vim.api.nvim_create_autocmd("WinLeave", {
   callback = function()
@@ -17,7 +11,7 @@ vim.api.nvim_create_autocmd(
   'TextYankPost',
   {
     callback = function()
-      vim.highlight.on_yank({ timeout = 400 })
+      vim.hl.on_yank({ timeout = 400 })
     end,
   }
 )

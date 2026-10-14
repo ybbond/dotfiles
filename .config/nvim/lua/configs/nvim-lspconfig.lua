@@ -14,8 +14,6 @@ M.ybbond_lsp_on_attach = function(client, bufnr)
   buf_set_keymap('n', 'ga', '<CMD>lua vim.lsp.buf.code_action()<CR>')
   -- buf_set_keymap('n', 'ga', '<CMD>Telescope lsp_code_actions theme=cursor layout_config={height=15}<CR>')
   buf_set_keymap('n', 'gr', '<CMD>lua vim.lsp.buf.references()<CR>')
-  buf_set_keymap('n', '[d', '<CMD>lua vim.diagnostic.goto_prev()<CR>')
-  buf_set_keymap('n', ']d', '<CMD>lua vim.diagnostic.goto_next()<CR>')
   -- buf_set_keymap('n', '<LEADER>f', '<CMD>lua vim.lsp.buf.formatting()<CR>')
   -- buf_set_keymap('n', '<LEADER>f', [[<CMD>lua require('format-on-save').format()<CR><CMD>lua require('format-on-save').restore_cursors()<CR>]])
   -- buf_set_keymap('n', '<LEADER>f', '<CMD>Format<CR>')
@@ -62,23 +60,9 @@ vim.lsp.enable('lua_ls')
 -- })
 -- vim.lsp.enable('gopls')
 
--- vim.lsp.config('denols', {
---   capabilities = M.ybbond_lsp_capabilities,
---   on_attach = M.ybbond_lsp_on_attach,
---   single_file_support = true,
--- });
--- vim.lsp.enable('denols')
-
--- vim.lsp.config('ts_ls', {
---   capabilities = M.ybbond_lsp_capabilities,
---   on_attach = M.ybbond_lsp_on_attach,
---   single_file_support = false,
--- })
--- vim.lsp.enable('ts_ls')
 vim.lsp.config('tsc', {
   capabilities = M.ybbond_lsp_capabilities,
   on_attach = M.ybbond_lsp_on_attach,
-  single_file_support = false,
 })
 vim.lsp.enable('tsc')
 

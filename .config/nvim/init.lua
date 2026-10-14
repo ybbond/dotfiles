@@ -1,18 +1,7 @@
-vim.o.compatible = false
-vim.o.encoding = 'UTF-8'
-
 vim.g.mapleader = [[\]]
 vim.g.maplocalleader = [[\]]
 
 vim.opt.termguicolors = true
-
-vim.cmd('syntax enable')
-vim.cmd('filetype plugin on')
-vim.cmd('filetype plugin indent on')
-
--- deprecated https://github.com/neovim/neovim/pull/22647
--- vim.o.paste = false
--- vim.o.pastetoggle = '<F2>'
 
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
@@ -84,9 +73,6 @@ nmap 'j' [[v:lua.smart_wrap_nav_bindings("gj","j")]] ({expr = true, noremap = tr
 nmap 'k' [[v:lua.smart_wrap_nav_bindings("gk","k")]] ({expr = true, noremap = true})
 nmap '0' [[v:lua.smart_wrap_nav_bindings("g0","0")]] ({expr = true, noremap = true})
 nmap '$' [[v:lua.smart_wrap_nav_bindings("g$","$")]] ({expr = true, noremap = true})
-
--- resource the neovim configurations
-noremap '<LEADER>%' ':luafile ~/.config/nvim/init.lua<CR>'
 
 -- unhighlight search
 nnoremap '<LEADER><SPACE>' ':nohlsearch<CR>'

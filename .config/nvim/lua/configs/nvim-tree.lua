@@ -32,9 +32,6 @@ require'nvim-tree'.setup {
     enable = false,
     update_cwd = false,
   },
-  system_open = {
-    cmd = 'open',
-  },
   renderer = {
     root_folder_label = false,
   },
