@@ -76,15 +76,13 @@ vim.api.nvim_create_autocmd(
   }
 )
 
+-- go's ftplugin sets noexpandtab/shiftwidth=0 (python's sets 4 spaces itself), so only the tab width is ours
 vim.api.nvim_create_autocmd(
-  {'BufNewFile', 'BufRead'},
+  'FileType',
   {
-    -- pattern = '*.c,*.cpp,*.cc,*.h,*.py,*.go',
-    pattern = '*.py,*.go',
+    pattern = 'go',
     callback = function()
       vim.bo.tabstop = 4
-      vim.bo.shiftwidth = 4
-      vim.bo.expandtab = true
     end,
   }
 )

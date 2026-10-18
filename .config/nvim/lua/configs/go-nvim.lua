@@ -1,6 +1,6 @@
+-- shared LSP keymaps come from the LspAttach autocmd in configs/nvim-lspconfig, which runs before this;
+-- passed as lsp_on_attach it also replaces go.nvim's own on_attach, so its lsp_keymaps don't override gd/gD/gi
 local ybbond_go_lsp_on_attach = function(_, bufnr)
-  require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr);
-
   local function buf_set_keymap(l, r, c)
     vim.api.nvim_buf_set_keymap(bufnr, l, r, c, { noremap=true, silent=true })
   end
@@ -27,7 +27,7 @@ require('go').setup({
   -- lsp_cfg = {
   --   capabilities = ybbond_lsp_capabilities,
   -- },
-  -- lsp_on_attach = ybbond_go_lsp_on_attach,
+  lsp_on_attach = ybbond_go_lsp_on_attach,
   lsp_cfg = true,
   tag_options = 'json=',
   tag_transform = 'camelcase',
@@ -36,11 +36,6 @@ require('go').setup({
 -- local cfg = require'go.lsp'.config()
 -- require('lspconfig').gopls.setup(cfg)
 
-vim.lsp.config('gopls', {
-  capabilities = require'cmp_nvim_lsp'.default_capabilities(),
-  on_attach = ybbond_go_lsp_on_attach,
-})
-vim.lsp.enable('gopls')
 -- require('lspconfig').gopls.setup{
 --   capabilities = require'cmp_nvim_lsp'.default_capabilities(),
 --   on_attach = ybbond_go_lsp_on_attach,
