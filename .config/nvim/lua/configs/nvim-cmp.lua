@@ -9,7 +9,6 @@ cmp.setup{
   sources = {
     {name = 'nvim_lsp'},
     {name = 'nvim_lua'},
-    {name = 'vsnip'},
     {name = 'path'},
     {name = 'buffer'},
   },
@@ -19,7 +18,6 @@ cmp.setup{
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
-        vsnip = "[vsnip]",
         path = "[Path]",
         buffer = "[Buffer]",
       })[entry.source.name]
@@ -28,8 +26,9 @@ cmp.setup{
   },
 
   snippet = {
+    -- native snippets; <Tab>/<S-Tab> jump via nvim's default mappings (cmp falls back to them when its menu is closed)
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
+      vim.snippet.expand(args.body)
     end,
   },
   completion = {

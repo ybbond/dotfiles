@@ -90,10 +90,6 @@ noremap '<A-S-l>' '<C-w>>' -- Alt Shift l
 -- noremap 'Ô' '<C-w>+' -- Alt Shift j
 -- noremap 'Ò' '<C-w>>' -- Alt Shift l
 
--- keep asterisk and pound to be case sensitive
-nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR>n]]
-nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR>n]]
-
 -- copy, paste and copy whole file to clipboard
 map '<LEADER>cs'   '"+y' ({})
 map '<LEADER>v'    '"+p' ({})

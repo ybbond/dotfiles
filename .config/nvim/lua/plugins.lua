@@ -78,10 +78,15 @@ return {
   },
 
   {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {},
+  },
+
+  {
     'b0o/schemastore.nvim',
   },
 
-  'hrsh7th/vim-vsnip',
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -89,7 +94,6 @@ return {
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-vsnip',
       -- 'PaterJason/cmp-conjure',
     },
     config = function() require'configs/nvim-cmp' end,
@@ -192,18 +196,21 @@ return {
       },
     },
     opts = {
+      default_format_opts = { lsp_format = 'fallback' },
       formatters_by_ft = {
-        astro = { 'prettierd', 'prettier', 'eslint_d', 'eslint', stop_after_first = true },
+        astro = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
         cpp = { 'astyle' },
         go = { 'gofmt' },
         java = { 'spotless_gradle' },
-        typescript = { 'prettierd', 'prettier', 'eslint_d', 'eslint', stop_after_first = true },
-        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-        -- typescript = { 'eslint_d' },
-        -- typescriptreact = { 'eslint_d' },
+        javascript = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
         zig = { 'zigfmt' },
       },
       formatters = {
+        -- only in projects with a biome.json, so prettier projects skip it
+        biome = { require_cwd = true },
         astyle = {
           append_args = { '--indent=spaces=2', '--indent-switches' },
         },
@@ -347,6 +354,7 @@ return {
 
       nnoremap '<Leader>l' ':noh<CR>'
 
+      -- keep asterisk and pound to be case sensitive
       nnoremap '<LEADER>*' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=1<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
       nnoremap '<LEADER>#' [[:let @/='\C\<' . expand('<cword>') . '\>'<CR>:let v:searchforward=0<CR><Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
 
