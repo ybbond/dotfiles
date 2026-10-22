@@ -35,13 +35,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- local lspconfig = require('lspconfig')
 
--- vim globals and plugin libraries come from lazydev.nvim, which adds only the modules a file requires
+-- Neovim runtime and luv types only; plugin modules stay untyped to keep indexing fast
 vim.lsp.config('lua_ls', {
   filetypes = { 'lua' },
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT' },
-      workspace = { checkThirdParty = false },
+      workspace = {
+        checkThirdParty = false,
+        library = { vim.env.VIMRUNTIME, '${3rd}/luv/library' },
+      },
       telemetry = { enable = false },
     },
   },

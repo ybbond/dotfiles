@@ -58,29 +58,21 @@ return {
     config = function() require'configs/telescope-nvim' end
   },
 
-  -- {
-  --   'nvim-treesitter/nvim-treesitter',
-  --   lazy = false,
-  --   build = ':TSUpdate',
-  --   branch = 'master',
-  --   config = function()
-  --     require('nvim-treesitter.configs').setup({
-  --       highlight = {
-  --         enable = true,
-  --       },
-  --     })
-  --   end,
-  -- },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+      -- main branch dropped configs.setup, highlighting is Neovim's own; pcall skips filetypes without a parser
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+      })
+    end,
+  },
 
   {
     'neovim/nvim-lspconfig',
     config = function() require'configs/nvim-lspconfig' end,
-  },
-
-  {
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    opts = {},
   },
 
   {
@@ -98,45 +90,6 @@ return {
     },
     config = function() require'configs/nvim-cmp' end,
   },
-
-  -- {
-  --   'mhartington/formatter.nvim',
-  --   config = function()
-  --     require('formatter').setup {
-  --       filetype = {
-  --         dart = {
-  --           -- require('formatter.filetypes.dart').dartformat,
-  --           function(t)
-  --             t = t or {}
-  --
-  --             local args = { "--output show" }
-  --             if t.line_length ~= nil then
-  --               table.insert(args, "--line-length " .. t.line_length)
-  --             end
-  --
-  --             return {
-  --               exe = "fvm dart format",
-  --               args = args,
-  --               stdin = true,
-  --             }
-  --           end
-  --         },
-  --         go = {
-  --           require('formatter.filetypes.go').gofmt,
-  --         },
-  --         astro = {
-  --           require('formatter.filetypes.typescript').prettierd,
-  --         },
-  --         typescript = {
-  --           require('formatter.filetypes.typescript').eslint_d,
-  --         },
-  --         typescriptreact = {
-  --           require('formatter.filetypes.typescript').eslint_d,
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
 
   {
     'carlos-algms/agentic.nvim',
@@ -227,56 +180,6 @@ return {
     config = function() require('tsc').setup() end
   },
 
-  -- {
-  --   'gpanders/nvim-parinfer',
-  --   ft = { 'lisp', 'commonlisp' },
-  -- },
-  -- {
-  --   'Olical/conjure',
-  --   ft = { 'lisp', 'commonlisp' },
-  --   config = function()
-  --     require("conjure.main").main()
-  --     require("conjure.mapping")["on-filetype"]()
-  --     vim.g['conjure#extract#tree_sitter#enabled'] = true
-  --   end,
-  --   init = function()
-  --     -- Set configuration options here
-  --     vim.g["conjure#debug"] = true
-  --   end,
-  -- },
-
-  -- {
-  --   'akinsho/flutter-tools.nvim',
-  --   -- ft = 'dart',
-  --   lazy = false,
-  --   dependencies = 'nvim-lua/plenary.nvim',
-  --   config = function()
-  --     require('flutter-tools').setup {
-  --       lsp = {
-  --         color = {
-  --           enabled = true,
-  --           background = true,
-  --           virtual_text = false,
-  --         },
-  --         on_attach = function(_, bufnr)
-  --           require'configs/nvim-lspconfig'.ybbond_lsp_on_attach(_, bufnr)
-  --           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gA', '<CMD>lua require("telescope").extensions.flutter.commands()<CR>', {noremap=true, silent=true})
-  --         end,
-  --         capabilities = require'cmp_nvim_lsp'.default_capabilities()
-  --       },
-  --       dev_log = { enabled = true, notify_errors = true },
-  --       closing_tags = { prefix = ' → ' },
-  --       fvm = true,
-  --     }
-  --     require('telescope').load_extension('flutter')
-  --   end,
-  -- },
-  -- {
-  --   'akinsho/pubspec-assist.nvim',
-  --   dependencies = 'nvim-lua/plenary.nvim',
-  --   config = function() require('pubspec-assist').setup({}) end,
-  -- },
-
   {
     'ray-x/go.nvim',
     config = function() require'configs/go-nvim' end,
@@ -333,18 +236,11 @@ return {
     end
   },
 
-  -- {
-  --   'altermo/ultimate-autopair.nvim',
-  --   event = {'InsertEnter', 'CmdlineEnter'},
-  --   -- TODO(xxkkbb)
-  --   -- event = { 'User EnableAutoPair' },
-  --   branch = 'v0.6',
-  --   opts = {},
-  -- },
-
   {
     'kevinhwang91/nvim-hlslens',
     config = function()
+      require('hlslens').setup()
+
       nnoremap 'n' [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]]
       nnoremap 'N' [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]]
       nnoremap '*' [[*<Cmd>lua require('hlslens').start()<CR>]]
@@ -450,42 +346,18 @@ return {
     dependencies = 'nvim-lua/plenary.nvim',
     config = function() require'configs/gitsigns-nvim' end,
   },
-  {
-    'dinhhuy258/git.nvim',
-    config = function() require('git').setup({
-      winbar = true,
-    }) end
-  },
-
-  {
-    'johmsalas/text-case.nvim',
-    dependencies = { 'nvim-telescope/telescope.nvim' },
-    config = function()
-      require('textcase').setup({})
-      require('telescope').load_extension('textcase')
-    end,
-    keys = {
-      "<leader>c", -- Default invocation prefix
-      { "<leader>c.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
-    },
-    cmd = {
-      -- NOTE: The Subs command name can be customized via the option "substitude_command_name"
-      'Subs',
-      'TextCaseOpenTelescope',
-      'TextCaseOpenTelescopeQuickChange',
-      'TextCaseOpenTelescopeLSPChange',
-      'TextCaseStartReplacingCommand',
-    },
-    -- If you want to use the interactive feature of the `Subs` command right away, text-case.nvim
-    -- has to be loaded on startup. Otherwise, the interactive feature of the `Subs` will only be
-    -- available after the first executing of it or after a keymap of text-case.nvim has been used.
-    lazy = false,
-  },
 
   {
     'm4xshen/autoclose.nvim',
     config = function()
-      require("autoclose").setup()
+      require("autoclose").setup({
+        options = {
+          disable_command_mode = true,
+          disabled_filetypes = {
+            'TelescopePrompt'
+          }
+        }
+      })
     end
   },
 
