@@ -27,8 +27,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
       buf_set_keymap('n', '<LEADER>f', '<CMD>lua vim.lsp.buf.format({ async = true })<CR>')
     end
 
-    if vim.lsp.get_client_by_id(args.data.client_id).name == 'eslint' then
+    local client_name = vim.lsp.get_client_by_id(args.data.client_id).name
+    if client_name == 'eslint' then
       buf_set_keymap('n', '<LEADER>F', '<CMD>LspEslintFixAll<CR>')
+    elseif client_name == 'oxlint' then
+      buf_set_keymap('n', '<LEADER>F', '<CMD>LspOxlintFixAll<CR>')
     end
   end,
 })
@@ -53,7 +56,7 @@ vim.lsp.enable('lua_ls')
 
 -- vim.lsp.enable('gopls')
 
-vim.lsp.enable('tsc')
+-- vim.lsp.enable('tsc')
 
 vim.lsp.config('jsonls', {
   settings = {
@@ -65,36 +68,38 @@ vim.lsp.config('jsonls', {
 })
 vim.lsp.enable('jsonls')
 
-vim.lsp.config('astro', {
-  -- after TypeScript 7
-  -- before_init = function(_, config)
-  --   local util = require('lspconfig.util')
-  --   local tsdk = util.get_typescript_server_path(config.root_dir)
-  --   if tsdk == '' then
-  --     local npm_root = vim.fn.systemlist('npm root -g')
-  --     if vim.v.shell_error == 0 and npm_root[1] then
-  --       tsdk = npm_root[1] .. '/typescript/lib'
-  --     end
-  --   end
-  --   config.init_options = config.init_options or {}
-  --   config.init_options.typescript = config.init_options.typescript or {}
-  --   config.init_options.typescript.tsdk = tsdk
-  -- end,
-  -- latest before TypeScript 7
-  init_options = {
-    typescript = {
-      -- tsdk = vim.fs.normalize('~/.config/yarn/global/node_modules/typescript/lib'),
-      tsdk = vim.fs.normalize('~/n/lib/node_modules/typescript/lib'),
-      -- tsdk = vim.fs.normalize('~/Library/pnpm/global/5/node_modules/typescript/lib'),
-      -- tsdk = "${pkgs.typescript}/lib/node_modules/typescript/lib",
-    },
-  },
-})
+-- -- after TypeScript 7
+-- vim.lsp.config('astro', {
+--   before_init = function(_, config)
+--     local util = require('lspconfig.util')
+--     local tsdk = util.get_typescript_server_path(config.root_dir)
+--     if tsdk == '' then
+--       local npm_root = vim.fn.systemlist('npm root -g')
+--       if vim.v.shell_error == 0 and npm_root[1] then
+--         tsdk = npm_root[1] .. '/typescript/lib'
+--       end
+--     end
+--     config.init_options = config.init_options or {}
+--     config.init_options.typescript = config.init_options.typescript or {}
+--     config.init_options.typescript.tsdk = tsdk
+--   end,
+-- })
 vim.lsp.enable('astro')
 
 vim.lsp.enable('cssls')
 
 vim.lsp.enable('eslint')
+
+local oxlint_root_dir = vim.lsp.config.oxlint.root_dir
+vim.lsp.config('oxlint', {
+  -- upstream calls on_dir(nil) when no .oxlintrc.json is found, which spawns a rootless `oxlint --lsp` in every JS project
+  root_dir = function(bufnr, on_dir)
+    oxlint_root_dir(bufnr, function(dir)
+      if dir then on_dir(dir) end
+    end)
+  end,
+})
+vim.lsp.enable('oxlint')
 
 -- vim.lsp.enable('rust_analyzer')
 

@@ -167,8 +167,20 @@ return {
 
   {
     'Bekaboo/dropbar.nvim',
+    dir = '~/poss/dropbar.nvim',
     config = function()
       local dropbar_api = require('dropbar.api')
+      -- vim.keymap.set('n', '<C-t><C-o>', function()
+      --   -- dropbar doesn't catch <C-c> in its getchar(), leaving pick labels up and the bar frozen; undo that
+      --   local bar = require('dropbar.utils').bar.get_current()
+      --   local ok, err = pcall(dropbar_api.pick)
+      --   if not ok and bar then
+      --     for _, component in ipairs(bar.components) do component:restore() end
+      --     bar.in_pick_mode = false
+      --     bar:redraw()
+      --   end
+      --   if not ok and not tostring(err):find('Keyboard interrupt') then error(err, 0) end
+      -- end, { desc = 'Pick symbol' })
       vim.keymap.set('n', '<C-t><C-o>', dropbar_api.pick, { desc = 'Pick symbol' })
 
       local default_enable = require('dropbar.configs').opts.bar.enable
@@ -349,7 +361,35 @@ return {
         },
         sections = {
           lualine_a = {'mode'},
-          lualine_b = {},
+          lualine_b = {
+            {
+              function ()
+                local modifier = ''
+                local status = vim.bo.modified and '[+]' or '[ ]'
+
+                -- new file
+                local filename = vim.fn.expand('%')
+                if filename ~= ''
+                  and filename:match('^%a+://') == nil
+                  and vim.bo.buftype == ''
+                  and vim.fn.filereadable(filename) == 0 then
+                  modifier = modifier .. '[@]'
+                end
+
+                -- unnamed
+                if vim.fn.expand('%:t') == '' then
+                  modifier = modifier .. '[?]'
+                end
+
+
+                if vim.bo.readonly == true or vim.bo.modifiable == false then
+                  modifier = modifier .. '[x]'
+                end
+
+                return modifier .. status
+              end
+            }
+          },
           lualine_c = {
             'filetype',
             {'diagnostics', sources = {'nvim_diagnostic'}},
