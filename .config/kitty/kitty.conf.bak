@@ -1,0 +1,29 @@
+font_size 12.0
+cursor_trail 1
+
+modify_font cell_height 92%
+modify_font baseline 1
+
+macos_titlebar_color #000000
+macos_option_as_alt yes
+macos_quit_when_last_window_closed yes
+
+clear_all_shortcuts yes
+
+map --allow-fallback=shifted,ascii cmd+c copy_or_noop
+map --allow-fallback=shifted,ascii cmd+v paste_from_clipboard
+
+map alt+backspace send_text all \x17
+map super+backspace send_text all \x15
+
+map --allow-fallback=shifted,ascii super+shift+e open_url_with_hints
+
+map cmd+q quit
+
+
+# BEGIN_KITTY_FONTS
+font_family      family="MesloLGLDZ Nerd Font Mono"
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS

@@ -1,0 +1,48 @@
+onboarding = false
+
+[theme]
+auto_switch = true
+dark_name = "one-dark"
+light_name = "one-light"
+
+[ui]
+copy_on_select = false
+
+status_indicators = "symbols"
+[ui.toast]
+delivery = "system"
+
+[keys]
+prefix = "super+b"
+
+goto = ["prefix+g", "super+g"]
+
+new_tab = ["prefix+c", "super+t"]
+rename_tab = ["prefix+shift+t", "super+r"]
+next_tab = ["prefix+n", "ctrl+tab", "super+alt+right"]
+previous_tab = ["prefix+p", "ctrl+shift+tab", "super+alt+left"]
+switch_tab = ["prefix+1..9", "super+1..9"]
+
+new_workspace = ["prefix+shift+n", "super+shift+t"]
+rename_workspace = ["prefix+shift+w", "super+shift+r"]
+next_workspace = ["super+alt+down", "super+shift+]"]
+previous_workspace = ["super+alt+up", "super+shift+["]
+
+split_horizontal = ["prefix+minus", "super+shift+s"]
+split_vertical = ["prefix+v", "super+shift+v"]
+focus_pane_left = ["prefix+h", "super+shift+h"]
+focus_pane_right = ["prefix+l", "super+shift+l"]
+focus_pane_up = ["prefix+k", "super+shift+k"]
+focus_pane_down = ["prefix+j", "super+shift+j"]
+
+next_agent = ["super+shift+."]
+previous_agent = ["super+shift+,"]
+
+toggle_sidebar = ["prefix+b", "super+shift+ctrl+alt+s"]
+
+[[keys.command]]
+key = "super+p"
+type = "shell"
+command = "herdr plugin pane open --plugin palette --entrypoint palette"
+description = "Command palette"
+

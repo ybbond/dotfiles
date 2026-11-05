@@ -1,0 +1,57 @@
+[settings]
+
+  minimum_release_age_excludes = [
+    "antigravity-cli",
+    "claude-code",
+    "pi"
+  ]
+
+[tools]
+
+  flutter = "3.44.0"
+
+  ruby = "4.0.7"
+  cocoapods = "1.16.2"
+
+  # Run npm install -g npm@latest yourself, or reinstall with mise install -f node@22
+  node = { version = "22", postinstall = "npm install -g npm@latest" }
+    "npm:typescript" = "6.0.3"
+  # "latest" isn’t re-checked automatically
+  # do `mise outdated` to check and `mise upgrade` to execute
+    "npm:@fsouza/prettierd" = "latest"
+    "npm:eslint_d" = "latest"
+    "npm:@astrojs/language-server" = "latest"
+    "npm:css-variables-language-server" = "latest"
+    "npm:vscode-langservers-extracted" = "latest"
+    "npm:yaml-language-server" = "latest"
+    "npm:@agentclientprotocol/claude-agent-acp" = "latest"
+
+  pnpm = "latest"
+
+  # Mise sets GOROOT for you
+  # GOPATH falls back to Go’s default of ~/go,
+  #   which is fine since only the module cache will collect there now
+  go = "1.27"
+  # Don’t put ~/go/bin back on your PATH;
+  #   anything you’d go install belongs in the config instead
+    "go:golang.org/x/tools/gopls" = "latest"
+
+  uv = "latest"
+  # # use the `pyproject.toml` and `uv.lock` instead
+  # # but if keeping this, add in `~/.config/uv/uv.toml`:
+  # #   `python-preference = "only-system"`
+  # # but if other project uses different version, it will
+  # #   fail up until global mise install it
+  # python = "3.13"
+    "pipx:basedpyright" = "latest"
+    "pipx:pre-commit" = "latest"
+    "pipx:yamllint" = "latest"
+
+  aws-cli = "latest"
+  supabase = "latest"
+
+  bun = "latest"
+
+  claude-code = "latest"
+  antigravity-cli = "latest"
+  pi = "latest"

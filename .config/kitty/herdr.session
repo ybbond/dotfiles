@@ -1,0 +1,2 @@
+# Runs only when kitty.app starts. When herdr exits, fall back to a plain shell instead of relaunching.
+launch zsh -lc "herdr; exec zsh -l"
