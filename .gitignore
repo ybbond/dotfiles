@@ -1,2 +1,5 @@
 copy-in.sh
 copy-out.sh
+
+.config/herdr/
+!.config/herdr/config.toml
