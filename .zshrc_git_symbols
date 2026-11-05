@@ -11,7 +11,8 @@ function _git_symbols() {
   local modified='!'
   local moved='>'
   local deleted='x'
-  local stashed='$'
+  local stashed='ß'
+  # local stashed='£'
 
   local output_symbols=''
 
