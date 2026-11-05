@@ -17,6 +17,7 @@ nnoremap '<C-t><C-\\><C-n>'  [[<CMD>lua require("telescope.builtin").live_grep({
 nnoremap '<C-t><C-s>'        [[<CMD>Telescope grep_string<CR>]]
 nnoremap '<C-t><C-r>'        [[<CMD>Telescope registers<CR>]]
 nnoremap '<C-t><C-b>'        [[<CMD>Telescope buffers<CR>]]
+nnoremap '<C-t><C-\\><C-b>'  [[<CMD>Telescope oldfiles<CR>]]
 nnoremap '<C-t><C-h>'        [[<CMD>Telescope help_tags<CR>]]
 nnoremap '<C-t><C-m>'        [[<CMD>Telescope marks<CR>]]
 nnoremap '<C-t><C-a>'        [[<CMD>Telescope commands<CR>]]

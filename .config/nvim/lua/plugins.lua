@@ -1,40 +1,34 @@
 return {
   {
-    'cormacrelf/dark-notify',
-    config = function()
-      require('dark_notify').run({
-        schemes = {
-          dark = {
-            background = 'dark',
-          },
-          light = {
-            background = 'light',
-          },
-        },
-        onchange = function(mode)
-          -- same palette as the built-in colorscheme: Nvim* names for truecolor, ANSI numbers for cterm
-          if mode == 'light' then
-            vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg='NvimDarkGreen', ctermfg=2 })
-            vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg='NvimDarkRed', ctermfg=1 })
+    'f-person/auto-dark-mode.nvim',
+    opts = {
+      set_dark_mode = function()
+        vim.api.nvim_set_option_value('background', 'dark', {})
 
-            vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg='NvimDarkGreen', fg='NvimLightGrey1', ctermbg=2, ctermfg=15 })
-            vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg='NvimDarkYellow', fg='NvimLightGrey1', ctermbg=3, ctermfg=15 })
-            vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg='NvimDarkYellow', fg='NvimLightGrey1', ctermbg=3, ctermfg=15 })
-            vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg='NvimDarkRed', fg='NvimLightGrey1', ctermbg=1, ctermfg=15 })
-            vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg='NvimDarkRed', fg='NvimLightGrey1', ctermbg=1, ctermfg=15 })
-          elseif mode == 'dark' then
-            vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg='NvimLightGreen', ctermfg=10 })
-            vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg='NvimLightRed', ctermfg=9 })
+        vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg='NvimLightGreen', ctermfg=10 })
+        vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg='NvimLightRed', ctermfg=9 })
 
-            vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg='NvimLightGreen', fg='NvimDarkGrey1', ctermbg=10, ctermfg=0 })
-            vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg='NvimLightYellow', fg='NvimDarkGrey1', ctermbg=11, ctermfg=0 })
-            vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg='NvimLightYellow', fg='NvimDarkGrey1', ctermbg=11, ctermfg=0 })
-            vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg='NvimLightRed', fg='NvimDarkGrey1', ctermbg=9, ctermfg=0 })
-            vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg='NvimLightRed', fg='NvimDarkGrey1', ctermbg=9, ctermfg=0 })
-          end
-        end
-      })
-    end
+        vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg='NvimLightGreen', fg='NvimDarkGrey1', ctermbg=10, ctermfg=0 })
+        vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg='NvimLightYellow', fg='NvimDarkGrey1', ctermbg=11, ctermfg=0 })
+        vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg='NvimLightYellow', fg='NvimDarkGrey1', ctermbg=11, ctermfg=0 })
+        vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg='NvimLightRed', fg='NvimDarkGrey1', ctermbg=9, ctermfg=0 })
+        vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg='NvimLightRed', fg='NvimDarkGrey1', ctermbg=9, ctermfg=0 })
+      end,
+      set_light_mode = function()
+        vim.api.nvim_set_option_value("background", "light", {})
+
+        vim.api.nvim_set_hl(0, 'YbbondCoverageCovered', { fg='NvimDarkGreen', ctermfg=2 })
+        vim.api.nvim_set_hl(0, 'YbbondCoverageUncovered', { fg='NvimDarkRed', ctermfg=1 })
+
+        vim.api.nvim_set_hl(0, 'GitSignsAddNr', { bg='NvimDarkGreen', fg='NvimLightGrey1', ctermbg=2, ctermfg=15 })
+        vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { bg='NvimDarkYellow', fg='NvimLightGrey1', ctermbg=3, ctermfg=15 })
+        vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { bg='NvimDarkYellow', fg='NvimLightGrey1', ctermbg=3, ctermfg=15 })
+        vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { bg='NvimDarkRed', fg='NvimLightGrey1', ctermbg=1, ctermfg=15 })
+        vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { bg='NvimDarkRed', fg='NvimLightGrey1', ctermbg=1, ctermfg=15 })
+      end,
+      update_interval = 3000,
+      fallback = 'dark'
+    }
   },
 
   {
@@ -173,6 +167,24 @@ return {
 
   {
     'Bekaboo/dropbar.nvim',
+    config = function()
+      local dropbar_api = require('dropbar.api')
+      vim.keymap.set('n', '<C-t><C-o>', dropbar_api.pick, { desc = 'Pick symbol' })
+
+      local default_enable = require('dropbar.configs').opts.bar.enable
+      require('dropbar').setup({
+        bar = {
+          -- default only attaches with LSP/treesitter; also attach to plain files so the path still shows
+          enable = function(buf, win, info)
+            return default_enable(buf, win, info)
+              or (vim.bo[buf].buftype == ''
+                and vim.api.nvim_buf_get_name(buf) ~= ''
+                and vim.fn.win_gettype(win) == ''
+                and vim.wo[win].winbar == '')
+          end,
+        },
+      })
+    end,
   },
 
   {
@@ -261,58 +273,68 @@ return {
 
   {
     'petertriho/nvim-scrollbar',
-    config = function()
-      require('scrollbar').setup({
-        -- gui color is read from the highlight group; color_nr is the cterm color
-        handle = { highlight = 'Visual', color_nr = 8 },
-        marks = {
-          Search = { highlight = 'WarningMsg', color_nr = 3 },
-          GitAdd = {
-            text = '█',
-            -- text = '▂',
-          },
-          GitChange = {
-            text = '█',
-            -- text = '▂',
-          },
-        },
+    branch = 'refactor/v2',
+    opts = {
+      scrollbar = {
         hide_if_all_visible = true,
-        handlers = {
-          cursor = false,
-          gitsigns = true,
-          search = true,
-        },
-      })
-      require('scrollbar.handlers.search').setup()
-      require('scrollbar.handlers.gitsigns').setup()
-    end,
+      },
+      providers = {
+        cursor = false,
+        gitsigns = true,
+      },
+    },
+    -- config = function()
+    --   require('scrollbar').setup({
+    --     -- gui color is read from the highlight group; color_nr is the cterm color
+    --     handle = { highlight = 'Visual', color_nr = 8 },
+    --     marks = {
+    --       Search = { highlight = 'WarningMsg', color_nr = 3 },
+    --       GitAdd = {
+    --         text = '█',
+    --         -- text = '▂',
+    --       },
+    --       GitChange = {
+    --         text = '█',
+    --         -- text = '▂',
+    --       },
+    --     },
+    --     hide_if_all_visible = true,
+    --     handlers = {
+    --       cursor = false,
+    --       gitsigns = true,
+    --       search = true,
+    --     },
+    --   })
+    --   require('scrollbar.handlers.search').setup()
+    --   require('scrollbar.handlers.gitsigns').setup()
+    -- end,
   },
 
-  {
-    'romgrk/barbar.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      nmap 'gb' '<Cmd>BufferNext<CR>' ({})
-      nmap 'gB' '<Cmd>BufferPrevious<CR>' ({})
-      nmap 'g>' '<Cmd>BufferMoveNext<CR>' ({})
-      nmap 'g<' '<Cmd>BufferMovePrevious<CR>' ({})
-      nmap 'gx' '<Cmd>BufferClose<CR>' ({})
-      nmap 'gp' '<Cmd>BufferPin<CR>' ({})
-      require('barbar').setup({
-        exclude_ft = { '' },
-        icons = {
-          pinned = { button = '' },
-          diagnostics = {
-            [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ''},
-            [vim.diagnostic.severity.WARN] = {enabled = true, icon = ''},
-            [vim.diagnostic.severity.INFO] = {enabled = true, icon = ''},
-            [vim.diagnostic.severity.HINT] = {enabled = true, icon = ''},
-          },
-        },
-        maximum_length = 80,
-      })
-    end,
-  },
+  -- {
+  --   'romgrk/barbar.nvim',
+  --   dependencies = 'nvim-tree/nvim-web-devicons',
+  --   config = function()
+  --     nmap 'gb' '<Cmd>BufferNext<CR>' ({})
+  --     nmap 'gB' '<Cmd>BufferPrevious<CR>' ({})
+  --     nmap 'g>' '<Cmd>BufferMoveNext<CR>' ({})
+  --     nmap 'g<' '<Cmd>BufferMovePrevious<CR>' ({})
+  --     nmap 'gx' '<Cmd>BufferClose<CR>' ({})
+  --     nmap 'gp' '<Cmd>BufferPin<CR>' ({})
+  --     require('barbar').setup({
+  --       exclude_ft = { '' },
+  --       icons = {
+  --         pinned = { button = '' },
+  --         diagnostics = {
+  --           [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ''},
+  --           [vim.diagnostic.severity.WARN] = {enabled = true, icon = ''},
+  --           [vim.diagnostic.severity.INFO] = {enabled = true, icon = ''},
+  --           [vim.diagnostic.severity.HINT] = {enabled = true, icon = ''},
+  --         },
+  --       },
+  --       maximum_length = 80,
+  --     })
+  --   end,
+  -- },
 
   {
     'nvim-lualine/lualine.nvim',

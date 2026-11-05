@@ -189,6 +189,26 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
+
+-- hide the startup [No Name] / `nvim .` directory buffer from buffer lists (Telescope buffers, :ls)
+vim.api.nvim_create_autocmd(
+  'VimEnter',
+  {
+    callback = function(data)
+      local name = vim.api.nvim_buf_get_name(data.buf)
+      local is_dir = vim.fn.isdirectory(name) == 1
+      if is_dir or (name == '' and not vim.bo[data.buf].modified) then
+        vim.bo[data.buf].buflisted = false
+      end
+      -- wipe the directory buffer once left, which also drops it from the jumplist
+      -- ([No Name] needs no wipe: the first opened file reuses it)
+      if is_dir then
+        vim.bo[data.buf].bufhidden = 'wipe'
+      end
+    end,
+  }
+)
+
 -- after the autocmd above so it applies on first load; also sets g:colors_name
 -- so a 'background' change re-fires ColorScheme (lualine/scrollbar refresh)
 vim.cmd.colorscheme('default')
