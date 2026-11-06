@@ -33,10 +33,15 @@ function zvm_config() {
   ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 }
 
+# word = letters, digits, _ ; so option+backspace stops at / . - = etc.
+WORDCHARS='_'
+
 function zvm_after_init() {
   bindkey -M viins '^F' autosuggest-accept
   bindkey -M viins '^P' history-substring-search-up
   bindkey -M viins '^N' history-substring-search-down
+  # option+backspace (ghostty sends ESC DEL)
+  bindkey -M viins '^[^?' backward-kill-word
 }
 
 ## PLUGINS
